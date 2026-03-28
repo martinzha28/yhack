@@ -1,6 +1,15 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { Node, Link, GraphData, DEFAULT_MIN_WEIGHT, TEAM_COLORS, PROJECT_PALETTE, nodeId, linkId } from "./types";
+import {
+  Node,
+  Link,
+  GraphData,
+  DEFAULT_MIN_WEIGHT,
+  TEAM_COLORS,
+  PROJECT_PALETTE,
+  nodeId,
+  linkId,
+} from "./types";
 
 const hullLine = d3.line().curve(d3.curveCatmullRomClosed.alpha(0.5));
 
@@ -40,7 +49,12 @@ export function useGraphSimulation({
 }: UseGraphSimulationOptions) {
   const simRef = useRef<d3.Simulation<Node, Link> | null>(null);
   const nodesRef = useRef<Node[]>([]);
-  const gRef = useRef<d3.Selection<SVGGElement, unknown, null, undefined> | null>(null);
+  const gRef = useRef<d3.Selection<
+    SVGGElement,
+    unknown,
+    null,
+    undefined
+  > | null>(null);
 
   useEffect(() => {
     if (!data || !svgRef.current) return;
@@ -60,31 +74,31 @@ export function useGraphSimulation({
     nodesRef.current = nodes;
     const allLinks: Link[] = data.links.map((d) => ({ ...d }));
 
-    // ── Project clustering (conditional) ────────────────────────────────
-    const projectGroups = new Map<string, Node[]>();
+    // ── Leiden community clustering (conditional) ────────────────────────
+    const communityGroups = new Map<number, Node[]>();
     nodes.forEach((n) => {
-      const proj = n.projects?.[0];
-      if (!proj) return;
-      if (!projectGroups.has(proj)) projectGroups.set(proj, []);
-      projectGroups.get(proj)!.push(n);
+      if (n.community == null) return;
+      if (!communityGroups.has(n.community))
+        communityGroups.set(n.community, []);
+      communityGroups.get(n.community)!.push(n);
     });
 
     const validGroups = clustering
-      ? [...projectGroups.entries()].filter(([, ns]) => ns.length >= 2)
+      ? [...communityGroups.entries()].filter(([, ns]) => ns.length >= 2)
       : [];
-    const projectNames = validGroups.map(([p]) => p);
+    const communityIds = validGroups.map(([c]) => String(c));
 
-    const projectColor = d3
+    const communityColor = d3
       .scaleOrdinal<string>()
-      .domain(projectNames)
+      .domain(communityIds)
       .range(PROJECT_PALETTE);
 
     const clusterRing = Math.min(width, height) * 0.38;
-    const projectAnchors = new Map<string, { x: number; y: number }>();
+    const communityAnchors = new Map<number, { x: number; y: number }>();
     if (clustering) {
-      projectNames.forEach((proj, i) => {
-        const angle = (i / projectNames.length) * 2 * Math.PI - Math.PI / 2;
-        projectAnchors.set(proj, {
+      validGroups.forEach(([comm], i) => {
+        const angle = (i / validGroups.length) * 2 * Math.PI - Math.PI / 2;
+        communityAnchors.set(comm, {
           x: width / 2 + clusterRing * Math.cos(angle),
           y: height / 2 + clusterRing * Math.sin(angle),
         });
@@ -100,8 +114,8 @@ export function useGraphSimulation({
           .id((d) => d.id)
           .distance((d) => 200 * (1 - d.weight) + 30)
           .strength((d) =>
-            d.weight >= DEFAULT_MIN_WEIGHT ? 0.3 + d.weight * 0.7 : 0
-          )
+            d.weight >= DEFAULT_MIN_WEIGHT ? 0.3 + d.weight * 0.7 : 0,
+          ),
       )
       .force("charge", d3.forceManyBody().strength(-400))
       .force("center", d3.forceCenter(width / 2, height / 2))
@@ -121,9 +135,8 @@ export function useGraphSimulation({
           "clusterX",
           d3
             .forceX<Node>((d) => {
-              const proj = d.projects?.[0];
-              return proj
-                ? (projectAnchors.get(proj)?.x ?? width / 2)
+              return d.community != null
+                ? (communityAnchors.get(d.community)?.x ?? width / 2)
                 : width / 2;
             })
             .strength(0.2),
@@ -132,9 +145,8 @@ export function useGraphSimulation({
           "clusterY",
           d3
             .forceY<Node>((d) => {
-              const proj = d.projects?.[0];
-              return proj
-                ? (projectAnchors.get(proj)?.y ?? height / 2)
+              return d.community != null
+                ? (communityAnchors.get(d.community)?.y ?? height / 2)
                 : height / 2;
             })
             .strength(0.2),
@@ -143,9 +155,9 @@ export function useGraphSimulation({
       simulation.force("clusterRepulsion", ((alpha: number) => {
         nodes.forEach((n) => {
           if (n.x == null || n.y == null) return;
-          const myProj = n.projects?.[0];
-          projectAnchors.forEach((anchor, proj) => {
-            if (proj === myProj) return;
+          const myComm = n.community;
+          communityAnchors.forEach((anchor, comm) => {
+            if (comm === myComm) return;
             const dx = n.x! - anchor.x;
             const dy = n.y! - anchor.y;
             const dist = Math.hypot(dx, dy) || 1;
@@ -183,19 +195,19 @@ export function useGraphSimulation({
           [-margin, -margin],
           [width + margin, height + margin],
         ])
-        .on("zoom", (event) => g.attr("transform", event.transform))
+        .on("zoom", (event) => g.attr("transform", event.transform)),
     );
 
     // Hull group — rendered behind links and nodes
     const hullGroup = g.append("g").attr("class", "hulls");
 
     const hullPaths = hullGroup
-      .selectAll<SVGPathElement, [string, Node[]]>("path")
+      .selectAll<SVGPathElement, [number, Node[]]>("path")
       .data(validGroups)
       .join("path")
-      .attr("fill", ([proj]) => projectColor(proj))
+      .attr("fill", ([comm]) => communityColor(String(comm)))
       .attr("fill-opacity", 0.08)
-      .attr("stroke", ([proj]) => projectColor(proj))
+      .attr("stroke", ([comm]) => communityColor(String(comm)))
       .attr("stroke-opacity", 0.55)
       .attr("stroke-width", 2)
       .attr("stroke-dasharray", "6 3")
@@ -208,9 +220,7 @@ export function useGraphSimulation({
       .data(allLinks, (d) => `${nodeId(d.source)}-${nodeId(d.target)}`)
       .join("line")
       .attr("stroke", "#999")
-      .attr("stroke-opacity", (d) =>
-        d.weight >= DEFAULT_MIN_WEIGHT ? 0.4 : 0
-      )
+      .attr("stroke-opacity", (d) => (d.weight >= DEFAULT_MIN_WEIGHT ? 0.4 : 0))
       .attr("stroke-width", (d) => Math.max(1, d.weight * 4));
 
     const degree = new Map<string, number>();
@@ -246,7 +256,7 @@ export function useGraphSimulation({
             if (!event.active) simulation.alphaTarget(0);
             d.fx = null;
             d.fy = null;
-          })
+          }),
       );
 
     node
@@ -275,13 +285,13 @@ export function useGraphSimulation({
     const hullLabels = g
       .append("g")
       .attr("class", "hull-labels")
-      .selectAll<SVGTextElement, [string, Node[]]>("text")
+      .selectAll<SVGTextElement, [number, Node[]]>("text")
       .data(validGroups)
       .join("text")
       .attr("class", "hull-label")
-      .text(([proj]) => proj.replace(/_/g, " "))
+      .text(([comm]) => `Cluster ${comm + 1}`)
       .attr("text-anchor", "middle")
-      .attr("fill", ([proj]) => projectColor(proj))
+      .attr("fill", ([comm]) => communityColor(String(comm)))
       .attr("stroke", "#18181b")
       .attr("stroke-width", 4)
       .attr("paint-order", "stroke fill")
@@ -329,7 +339,7 @@ export function useGraphSimulation({
         tooltipName.text(d.name);
         tooltipRole.text(d.role);
         tooltipTeam.text(
-          d.team.charAt(0).toUpperCase() + d.team.slice(1) + " team"
+          d.team.charAt(0).toUpperCase() + d.team.slice(1) + " team",
         );
 
         const padX = 12;
@@ -338,7 +348,7 @@ export function useGraphSimulation({
         const textW = Math.max(
           d.name.length * 7.2,
           d.role.length * 6.6,
-          (d.team.length + 5) * 6
+          (d.team.length + 5) * 6,
         );
         const w = textW + padX * 2;
         const h = lineH * 3 + padY * 2;

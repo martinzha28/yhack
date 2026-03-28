@@ -7,6 +7,7 @@ export interface Node extends d3.SimulationNodeDatum {
   team: string;
   expertise: string[];
   projects: string[];
+  community?: number;
 }
 
 export interface Link extends d3.SimulationLinkDatum<Node> {

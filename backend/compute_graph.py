@@ -4,6 +4,8 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
+from leiden_communities import compute_leiden_communities
+
 ROOT = Path(__file__).resolve().parent.parent
 SLACK_DATA_PATH = ROOT / "data" / "slack_data.json"
 OUTPUT_PATH = ROOT / "frontend" / "public" / "graph.json"
@@ -85,6 +87,11 @@ def compute_graph(input_path=None, output_path=None):
     scaled_weights = {k: math.sqrt(v) for k, v in raw_weights.items()}
     max_weight = max(scaled_weights.values()) if scaled_weights else 1.0
 
+    # ── Leiden community detection on the weighted graph ────────────────
+    node_ids = list(people_by_id.keys())
+    names = {pid: p["name"] for pid, p in people_by_id.items()}
+    community_map = compute_leiden_communities(node_ids, scaled_weights, names=names)
+
     nodes = []
     for pid, person in people_by_id.items():
         nodes.append(
@@ -95,6 +102,7 @@ def compute_graph(input_path=None, output_path=None):
                 "team": person.get("team", ""),
                 "expertise": person.get("expertise", []),
                 "projects": person.get("projects", []),
+                "community": community_map.get(pid),
             }
         )
 
@@ -116,7 +124,7 @@ def compute_graph(input_path=None, output_path=None):
     with open(output_path, "w") as f:
         json.dump(graph, f, indent=2)
 
-    print(f"Graph computed: {len(nodes)} nodes, {len(links)} links")
+    print(f"\nGraph computed: {len(nodes)} nodes, {len(links)} links")
     print(f"Weight range: {links[-1]['weight']:.4f} — {links[0]['weight']:.4f}")
 
     top5 = links[:5]
