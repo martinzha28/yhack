@@ -104,6 +104,11 @@ export function useGraphEffects({
         .duration(200)
         .attr("opacity", 1);
 
+      g.selectAll(".hull-label")
+        .transition()
+        .duration(200)
+        .attr("opacity", 0.9);
+
       return;
     }
 

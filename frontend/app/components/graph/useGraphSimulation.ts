@@ -1,6 +1,21 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { Node, Link, GraphData, DEFAULT_MIN_WEIGHT, TEAM_COLORS, nodeId, linkId } from "./types";
+import { Node, Link, GraphData, DEFAULT_MIN_WEIGHT, TEAM_COLORS, PROJECT_PALETTE, nodeId, linkId } from "./types";
+
+const hullLine = d3.line().curve(d3.curveCatmullRomClosed.alpha(0.5));
+
+function getHullPath(groupNodes: Node[], pad: number): string {
+  const pts: [number, number][] = [];
+  groupNodes.forEach((n) => {
+    if (n.x == null || n.y == null) return;
+    for (let i = 0; i < 50; i++) {
+      const a = (i / 50) * 2 * Math.PI;
+      pts.push([n.x + Math.cos(a) * pad, n.y + Math.sin(a) * pad]);
+    }
+  });
+  const hull = d3.polygonHull(pts);
+  return hull ? (hullLine(hull) ?? "") : "";
+}
 
 interface UseGraphSimulationOptions {
   data: GraphData | null;
@@ -43,6 +58,35 @@ export function useGraphSimulation({
     nodesRef.current = nodes;
     const allLinks: Link[] = data.links.map((d) => ({ ...d }));
 
+    // ── Project clustering ──────────────────────────────────────────────
+    const projectGroups = new Map<string, Node[]>();
+    nodes.forEach((n) => {
+      const proj = n.projects?.[0];
+      if (!proj) return;
+      if (!projectGroups.has(proj)) projectGroups.set(proj, []);
+      projectGroups.get(proj)!.push(n);
+    });
+
+    const validGroups = [...projectGroups.entries()].filter(
+      ([, ns]) => ns.length >= 2,
+    );
+    const projectNames = validGroups.map(([p]) => p);
+
+    const projectColor = d3
+      .scaleOrdinal<string>()
+      .domain(projectNames)
+      .range(PROJECT_PALETTE);
+
+    const clusterRing = Math.min(width, height) * 0.38;
+    const projectAnchors = new Map<string, { x: number; y: number }>();
+    projectNames.forEach((proj, i) => {
+      const angle = (i / projectNames.length) * 2 * Math.PI - Math.PI / 2;
+      projectAnchors.set(proj, {
+        x: width / 2 + clusterRing * Math.cos(angle),
+        y: height / 2 + clusterRing * Math.sin(angle),
+      });
+    });
+
     const simulation = d3
       .forceSimulation<Node>(nodes)
       .force(
@@ -58,6 +102,28 @@ export function useGraphSimulation({
       .force("charge", d3.forceManyBody().strength(-400))
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("collision", d3.forceCollide().radius(30))
+      .force(
+        "clusterX",
+        d3
+          .forceX<Node>((d) => {
+            const proj = d.projects?.[0];
+            return proj
+              ? (projectAnchors.get(proj)?.x ?? width / 2)
+              : width / 2;
+          })
+          .strength(0.2),
+      )
+      .force(
+        "clusterY",
+        d3
+          .forceY<Node>((d) => {
+            const proj = d.projects?.[0];
+            return proj
+              ? (projectAnchors.get(proj)?.y ?? height / 2)
+              : height / 2;
+          })
+          .strength(0.2),
+      )
       .force("bounds", () => {
         for (const d of nodes) {
           if (d.x! < pad) d.vx! += (pad - d.x!) * 0.1;
@@ -66,6 +132,25 @@ export function useGraphSimulation({
           if (d.y! > height - pad) d.vy! -= (d.y! - (height - pad)) * 0.1;
         }
       });
+
+    simulation.force("clusterRepulsion", ((alpha: number) => {
+      nodes.forEach((n) => {
+        if (n.x == null || n.y == null) return;
+        const myProj = n.projects?.[0];
+        projectAnchors.forEach((anchor, proj) => {
+          if (proj === myProj) return;
+          const dx = n.x! - anchor.x;
+          const dy = n.y! - anchor.y;
+          const dist = Math.hypot(dx, dy) || 1;
+          const minDist = 220;
+          if (dist < minDist) {
+            const f = alpha * (1 - dist / minDist) * 1.8;
+            n.vx! += (dx / dist) * f;
+            n.vy! += (dy / dist) * f;
+          }
+        });
+      });
+    }) as unknown as d3.Force<Node, Link>);
 
     simRef.current = simulation;
 
@@ -92,6 +177,21 @@ export function useGraphSimulation({
         ])
         .on("zoom", (event) => g.attr("transform", event.transform))
     );
+
+    // Hull group — rendered behind links and nodes
+    const hullGroup = g.append("g").attr("class", "hulls");
+
+    const hullPaths = hullGroup
+      .selectAll<SVGPathElement, [string, Node[]]>("path")
+      .data(validGroups)
+      .join("path")
+      .attr("fill", ([proj]) => projectColor(proj))
+      .attr("fill-opacity", 0.08)
+      .attr("stroke", ([proj]) => projectColor(proj))
+      .attr("stroke-opacity", 0.55)
+      .attr("stroke-width", 2)
+      .attr("stroke-dasharray", "6 3")
+      .attr("stroke-linejoin", "round");
 
     const link = g
       .append("g")
@@ -162,6 +262,26 @@ export function useGraphSimulation({
       .attr("fill", "#e5e7eb")
       .attr("font-size", "11px")
       .attr("pointer-events", "none");
+
+    // Hull labels — appended after nodes so they render on top
+    const hullLabels = g
+      .append("g")
+      .attr("class", "hull-labels")
+      .selectAll<SVGTextElement, [string, Node[]]>("text")
+      .data(validGroups)
+      .join("text")
+      .attr("class", "hull-label")
+      .text(([proj]) => proj.replace(/_/g, " "))
+      .attr("text-anchor", "middle")
+      .attr("fill", ([proj]) => projectColor(proj))
+      .attr("stroke", "#18181b")
+      .attr("stroke-width", 4)
+      .attr("paint-order", "stroke fill")
+      .attr("font-size", "11px")
+      .attr("font-weight", "600")
+      .attr("letter-spacing", "0.05em")
+      .attr("pointer-events", "none")
+      .attr("opacity", 0.9);
 
     // Hover tooltip
     const tooltip = svg
@@ -238,6 +358,15 @@ export function useGraphSimulation({
       });
 
     simulation.on("tick", () => {
+      hullPaths.attr("d", ([, groupNodes]) => getHullPath(groupNodes, 50));
+
+      hullLabels.attr("transform", ([, groupNodes]) => {
+        const valid = groupNodes.filter((n) => n.x != null && n.y != null);
+        const cx = d3.mean(valid, (n) => n.x!) ?? 0;
+        const topY = Math.min(...valid.map((n) => n.y!));
+        return `translate(${cx},${topY - 46})`;
+      });
+
       link
         .attr("x1", (d) => (d.source as Node).x!)
         .attr("y1", (d) => (d.source as Node).y!)

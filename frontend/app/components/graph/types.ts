@@ -34,6 +34,17 @@ export const TEAM_COLORS: Record<string, string> = {
   product: "#ef4444",
 };
 
+export const PROJECT_PALETTE = [
+  "#818cf8",
+  "#34d399",
+  "#fb923c",
+  "#e879f9",
+  "#38bdf8",
+  "#f87171",
+  "#a3e635",
+  "#fbbf24",
+];
+
 export const DEFAULT_MIN_WEIGHT = 0.35;
 export const TRANSITION_MS = 400;
 
