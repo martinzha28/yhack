@@ -1,7 +1,7 @@
 import json
 import math
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,6 +28,15 @@ def recency_decay(days: float) -> float:
     return math.exp(-LAMBDA * days)
 
 
+def recipient_multiplier(n_recipients: int, max_recipients: int) -> float:
+    """Interpolate linearly between 1.0 (DM, n=1) and 0.3 (broadcast to all, n=max_recipients)."""
+    if max_recipients <= 1:
+        return DM_MULTIPLIER
+    t = (n_recipients - 1) / (max_recipients - 1)
+    t = max(0.0, min(1.0, t))  # clamp to [0, 1]
+    return DM_MULTIPLIER + (GROUP_MULTIPLIER - DM_MULTIPLIER) * t
+
+
 def compute_graph(input_path=None, output_path=None):
     input_path = input_path or SLACK_DATA_PATH
     output_path = output_path or OUTPUT_PATH
@@ -39,6 +48,9 @@ def compute_graph(input_path=None, output_path=None):
     all_people_ids = set(people_by_id.keys())
 
     raw_weights: dict[tuple[str, str], float] = defaultdict(float)
+    max_recipients = (
+        len(all_people_ids) - 1
+    )  # maximum possible recipients (everyone except the sender)
 
     for msg in data["messages"]:
         sender = msg["from"]
@@ -50,13 +62,11 @@ def compute_graph(input_path=None, output_path=None):
 
         if "all" in recipients:
             resolved = all_people_ids - {sender}
-            multiplier = GROUP_MULTIPLIER
-        elif len(recipients) > 1:
-            resolved = set(recipients) - {sender}
-            multiplier = GROUP_MULTIPLIER
         else:
-            resolved = set(recipients)
-            multiplier = DM_MULTIPLIER
+            resolved = set(recipients) - {sender}
+
+        # Scale weight by recipient count: 1.0 for a 1-to-1 DM, down to 0.3 for a broadcast to all
+        multiplier = recipient_multiplier(len(resolved), max_recipients)
 
         for recipient in resolved:
             if recipient == sender or recipient not in all_people_ids:
@@ -77,23 +87,27 @@ def compute_graph(input_path=None, output_path=None):
 
     nodes = []
     for pid, person in people_by_id.items():
-        nodes.append({
-            "id": pid,
-            "name": person["name"],
-            "role": person.get("role", ""),
-            "team": person.get("team", ""),
-            "expertise": person.get("expertise", []),
-            "projects": person.get("projects", []),
-        })
+        nodes.append(
+            {
+                "id": pid,
+                "name": person["name"],
+                "role": person.get("role", ""),
+                "team": person.get("team", ""),
+                "expertise": person.get("expertise", []),
+                "projects": person.get("projects", []),
+            }
+        )
 
     links = []
     for (a, b), raw_w in raw_weights.items():
         normalized = scaled_weights[(a, b)] / max_weight
-        links.append({
-            "source": a,
-            "target": b,
-            "weight": round(normalized, 4),
-        })
+        links.append(
+            {
+                "source": a,
+                "target": b,
+                "weight": round(normalized, 4),
+            }
+        )
 
     links.sort(key=lambda l: l["weight"], reverse=True)
 
