@@ -3,7 +3,12 @@ import * as d3 from "d3";
 import { Node, Link, GraphData, TRANSITION_MS, linkId } from "./types";
 
 interface UseGraphEffectsOptions {
-  gRef: React.RefObject<d3.Selection<SVGGElement, unknown, null, undefined> | null>;
+  gRef: React.RefObject<d3.Selection<
+    SVGGElement,
+    unknown,
+    null,
+    undefined
+  > | null>;
   simRef: React.RefObject<d3.Simulation<Node, Link> | null>;
   data: GraphData | null;
   minWeight: number;
@@ -31,7 +36,7 @@ export function useGraphEffects({
     const linkForce = simulation.force("link") as d3.ForceLink<Node, Link>;
     if (linkForce) {
       linkForce.strength((d) =>
-        d.weight >= minWeight ? 0.3 + d.weight * 0.7 : 0
+        d.weight >= minWeight ? 0.3 + d.weight * 0.7 : 0,
       );
     }
     simulation.alpha(0.15).restart();
@@ -104,11 +109,6 @@ export function useGraphEffects({
         .duration(200)
         .attr("opacity", 1);
 
-      g.selectAll(".hull-label")
-        .transition()
-        .duration(200)
-        .attr("opacity", 0.9);
-
       return;
     }
 
@@ -148,10 +148,10 @@ export function useGraphEffects({
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12))
       .attr("stroke", (d: Node) =>
-        searchMatch && searchMatch.has(d.id) ? "#facc15" : "#fff"
+        searchMatch && searchMatch.has(d.id) ? "#facc15" : "#fff",
       )
       .attr("stroke-width", (d: Node) =>
-        searchMatch && searchMatch.has(d.id) ? 3 : 1.5
+        searchMatch && searchMatch.has(d.id) ? 3 : 1.5,
       );
 
     g.select(".nodes")

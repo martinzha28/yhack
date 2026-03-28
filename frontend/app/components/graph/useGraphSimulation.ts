@@ -281,26 +281,6 @@ export function useGraphSimulation({
       .attr("font-size", "11px")
       .attr("pointer-events", "none");
 
-    // Hull labels — appended after nodes so they render on top
-    const hullLabels = g
-      .append("g")
-      .attr("class", "hull-labels")
-      .selectAll<SVGTextElement, [number, Node[]]>("text")
-      .data(validGroups)
-      .join("text")
-      .attr("class", "hull-label")
-      .text(([comm]) => `Cluster ${comm + 1}`)
-      .attr("text-anchor", "middle")
-      .attr("fill", ([comm]) => communityColor(String(comm)))
-      .attr("stroke", "#18181b")
-      .attr("stroke-width", 4)
-      .attr("paint-order", "stroke fill")
-      .attr("font-size", "11px")
-      .attr("font-weight", "600")
-      .attr("letter-spacing", "0.05em")
-      .attr("pointer-events", "none")
-      .attr("opacity", 0.9);
-
     // Hover tooltip
     const tooltip = svg
       .append("g")
@@ -378,13 +358,6 @@ export function useGraphSimulation({
     simulation.on("tick", () => {
       if (clustering) {
         hullPaths.attr("d", ([, groupNodes]) => getHullPath(groupNodes, 50));
-
-        hullLabels.attr("transform", ([, groupNodes]) => {
-          const valid = groupNodes.filter((n) => n.x != null && n.y != null);
-          const cx = d3.mean(valid, (n) => n.x!) ?? 0;
-          const topY = Math.min(...valid.map((n) => n.y!));
-          return `translate(${cx},${topY - 46})`;
-        });
       }
 
       link
