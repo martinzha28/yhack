@@ -1,0 +1,1252 @@
+{
+  "nodes": [
+    {
+      "id": "alice_chen",
+      "name": "Alice Chen",
+      "role": "Senior Engineer",
+      "team": "backend",
+      "expertise": [
+        "authentication",
+        "security",
+        "oauth",
+        "middleware"
+      ],
+      "projects": [
+        "auth-refactor"
+      ]
+    },
+    {
+      "id": "bob_kim",
+      "name": "Bob Kim",
+      "role": "Engineer",
+      "team": "backend",
+      "expertise": [
+        "databases",
+        "sql",
+        "migrations",
+        "indexing"
+      ],
+      "projects": [
+        "auth-refactor",
+        "infra-migration"
+      ]
+    },
+    {
+      "id": "charlie_ross",
+      "name": "Charlie Ross",
+      "role": "Engineer",
+      "team": "backend",
+      "expertise": [
+        "APIs",
+        "REST",
+        "GraphQL"
+      ],
+      "projects": [
+        "auth-refactor",
+        "infra-migration"
+      ]
+    },
+    {
+      "id": "dave_patel",
+      "name": "Dave Patel",
+      "role": "Engineer",
+      "team": "backend",
+      "expertise": [
+        "infrastructure",
+        "kubernetes",
+        "terraform",
+        "AWS"
+      ],
+      "projects": [
+        "infra-migration"
+      ]
+    },
+    {
+      "id": "karen_wu",
+      "name": "Karen Wu",
+      "role": "Staff Engineer",
+      "team": "backend",
+      "expertise": [
+        "security",
+        "cryptography",
+        "oauth",
+        "identity"
+      ],
+      "projects": [
+        "auth-refactor"
+      ]
+    },
+    {
+      "id": "mike_torres",
+      "name": "Mike Torres",
+      "role": "Tech Lead",
+      "team": "backend",
+      "expertise": [
+        "architecture",
+        "auth",
+        "design systems",
+        "APIs"
+      ],
+      "projects": [
+        "auth-refactor",
+        "design-system-v2"
+      ]
+    },
+    {
+      "id": "eve_johnson",
+      "name": "Eve Johnson",
+      "role": "Senior Engineer",
+      "team": "frontend",
+      "expertise": [
+        "design systems",
+        "components",
+        "accessibility",
+        "storybook"
+      ],
+      "projects": [
+        "auth-refactor",
+        "design-system-v2"
+      ]
+    },
+    {
+      "id": "frank_li",
+      "name": "Frank Li",
+      "role": "Engineer",
+      "team": "frontend",
+      "expertise": [
+        "performance",
+        "bundle optimization",
+        "profiling"
+      ],
+      "projects": [
+        "mobile-app"
+      ]
+    },
+    {
+      "id": "grace_park",
+      "name": "Grace Park",
+      "role": "Engineer",
+      "team": "frontend",
+      "expertise": [
+        "components",
+        "React",
+        "animations"
+      ],
+      "projects": [
+        "design-system-v2",
+        "onboarding-redesign"
+      ]
+    },
+    {
+      "id": "henry_zhao",
+      "name": "Henry Zhao",
+      "role": "Engineer",
+      "team": "frontend",
+      "expertise": [
+        "React Native",
+        "iOS",
+        "Android",
+        "mobile"
+      ],
+      "projects": [
+        "mobile-app"
+      ]
+    },
+    {
+      "id": "nina_scott",
+      "name": "Nina Scott",
+      "role": "Design Engineer",
+      "team": "frontend",
+      "expertise": [
+        "design systems",
+        "Figma",
+        "components",
+        "tokens"
+      ],
+      "projects": [
+        "design-system-v2"
+      ]
+    },
+    {
+      "id": "iris_wang",
+      "name": "Iris Wang",
+      "role": "Senior Designer",
+      "team": "design",
+      "expertise": [
+        "brand",
+        "visual design",
+        "Figma",
+        "design systems"
+      ],
+      "projects": [
+        "design-system-v2"
+      ]
+    },
+    {
+      "id": "jack_brown",
+      "name": "Jack Brown",
+      "role": "Designer",
+      "team": "design",
+      "expertise": [
+        "UX",
+        "user research",
+        "wireframes",
+        "onboarding flows"
+      ],
+      "projects": [
+        "design-system-v2",
+        "onboarding-redesign"
+      ]
+    },
+    {
+      "id": "lisa_chen",
+      "name": "Lisa Chen",
+      "role": "Designer",
+      "team": "design",
+      "expertise": [
+        "motion design",
+        "animations",
+        "Lottie",
+        "After Effects"
+      ],
+      "projects": [
+        "design-system-v2"
+      ]
+    },
+    {
+      "id": "oscar_lee",
+      "name": "Oscar Lee",
+      "role": "Design Lead",
+      "team": "design",
+      "expertise": [
+        "design leadership",
+        "design systems",
+        "brand strategy"
+      ],
+      "projects": [
+        "design-system-v2"
+      ]
+    },
+    {
+      "id": "priya_mehta",
+      "name": "Priya Mehta",
+      "role": "Product Manager",
+      "team": "product",
+      "expertise": [
+        "growth",
+        "activation metrics",
+        "user funnels",
+        "mobile"
+      ],
+      "projects": [
+        "mobile-app",
+        "onboarding-redesign"
+      ]
+    },
+    {
+      "id": "quinn_davis",
+      "name": "Quinn Davis",
+      "role": "Product Manager",
+      "team": "product",
+      "expertise": [
+        "platform",
+        "developer experience",
+        "onboarding"
+      ],
+      "projects": [
+        "onboarding-redesign"
+      ]
+    },
+    {
+      "id": "ryan_nguyen",
+      "name": "Ryan Nguyen",
+      "role": "Product Analyst",
+      "team": "product",
+      "expertise": [
+        "analytics",
+        "SQL",
+        "dashboards",
+        "metrics"
+      ],
+      "projects": [
+        "mobile-app"
+      ]
+    },
+    {
+      "id": "sofia_martinez",
+      "name": "Sofia Martinez",
+      "role": "Head of Product",
+      "team": "product",
+      "expertise": [
+        "product strategy",
+        "roadmap",
+        "stakeholder management"
+      ],
+      "projects": [
+        "onboarding-redesign"
+      ]
+    },
+    {
+      "id": "jordan_kim",
+      "name": "Jordan Kim",
+      "role": "Engineer (New)",
+      "team": "frontend",
+      "expertise": [],
+      "projects": [
+        "onboarding-redesign"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "frank_li",
+      "target": "henry_zhao",
+      "weight": 1.0
+    },
+    {
+      "source": "eve_johnson",
+      "target": "grace_park",
+      "weight": 0.8644
+    },
+    {
+      "source": "charlie_ross",
+      "target": "dave_patel",
+      "weight": 0.8324
+    },
+    {
+      "source": "grace_park",
+      "target": "quinn_davis",
+      "weight": 0.8122
+    },
+    {
+      "source": "grace_park",
+      "target": "jack_brown",
+      "weight": 0.7987
+    },
+    {
+      "source": "alice_chen",
+      "target": "charlie_ross",
+      "weight": 0.74
+    },
+    {
+      "source": "jack_brown",
+      "target": "quinn_davis",
+      "weight": 0.7328
+    },
+    {
+      "source": "alice_chen",
+      "target": "bob_kim",
+      "weight": 0.6923
+    },
+    {
+      "source": "bob_kim",
+      "target": "dave_patel",
+      "weight": 0.6917
+    },
+    {
+      "source": "grace_park",
+      "target": "henry_zhao",
+      "weight": 0.6848
+    },
+    {
+      "source": "henry_zhao",
+      "target": "priya_mehta",
+      "weight": 0.6628
+    },
+    {
+      "source": "grace_park",
+      "target": "jordan_kim",
+      "weight": 0.6477
+    },
+    {
+      "source": "eve_johnson",
+      "target": "mike_torres",
+      "weight": 0.6083
+    },
+    {
+      "source": "grace_park",
+      "target": "nina_scott",
+      "weight": 0.5789
+    },
+    {
+      "source": "eve_johnson",
+      "target": "nina_scott",
+      "weight": 0.5424
+    },
+    {
+      "source": "priya_mehta",
+      "target": "ryan_nguyen",
+      "weight": 0.5334
+    },
+    {
+      "source": "iris_wang",
+      "target": "nina_scott",
+      "weight": 0.4733
+    },
+    {
+      "source": "alice_chen",
+      "target": "mike_torres",
+      "weight": 0.4504
+    },
+    {
+      "source": "quinn_davis",
+      "target": "sofia_martinez",
+      "weight": 0.4298
+    },
+    {
+      "source": "bob_kim",
+      "target": "charlie_ross",
+      "weight": 0.3798
+    },
+    {
+      "source": "jordan_kim",
+      "target": "mike_torres",
+      "weight": 0.3721
+    },
+    {
+      "source": "charlie_ross",
+      "target": "eve_johnson",
+      "weight": 0.3481
+    },
+    {
+      "source": "dave_patel",
+      "target": "mike_torres",
+      "weight": 0.345
+    },
+    {
+      "source": "jack_brown",
+      "target": "oscar_lee",
+      "weight": 0.3368
+    },
+    {
+      "source": "grace_park",
+      "target": "mike_torres",
+      "weight": 0.3245
+    },
+    {
+      "source": "quinn_davis",
+      "target": "ryan_nguyen",
+      "weight": 0.3232
+    },
+    {
+      "source": "alice_chen",
+      "target": "grace_park",
+      "weight": 0.3209
+    },
+    {
+      "source": "grace_park",
+      "target": "lisa_chen",
+      "weight": 0.3163
+    },
+    {
+      "source": "grace_park",
+      "target": "sofia_martinez",
+      "weight": 0.3111
+    },
+    {
+      "source": "henry_zhao",
+      "target": "ryan_nguyen",
+      "weight": 0.3031
+    },
+    {
+      "source": "frank_li",
+      "target": "grace_park",
+      "weight": 0.3025
+    },
+    {
+      "source": "dave_patel",
+      "target": "grace_park",
+      "weight": 0.2979
+    },
+    {
+      "source": "grace_park",
+      "target": "oscar_lee",
+      "weight": 0.2975
+    },
+    {
+      "source": "grace_park",
+      "target": "iris_wang",
+      "weight": 0.2902
+    },
+    {
+      "source": "dave_patel",
+      "target": "sofia_martinez",
+      "weight": 0.2858
+    },
+    {
+      "source": "henry_zhao",
+      "target": "quinn_davis",
+      "weight": 0.2809
+    },
+    {
+      "source": "mike_torres",
+      "target": "quinn_davis",
+      "weight": 0.2699
+    },
+    {
+      "source": "alice_chen",
+      "target": "dave_patel",
+      "weight": 0.2692
+    },
+    {
+      "source": "grace_park",
+      "target": "priya_mehta",
+      "weight": 0.2691
+    },
+    {
+      "source": "alice_chen",
+      "target": "quinn_davis",
+      "weight": 0.2663
+    },
+    {
+      "source": "charlie_ross",
+      "target": "grace_park",
+      "weight": 0.2651
+    },
+    {
+      "source": "bob_kim",
+      "target": "grace_park",
+      "weight": 0.265
+    },
+    {
+      "source": "henry_zhao",
+      "target": "mike_torres",
+      "weight": 0.2625
+    },
+    {
+      "source": "priya_mehta",
+      "target": "quinn_davis",
+      "weight": 0.2606
+    },
+    {
+      "source": "alice_chen",
+      "target": "henry_zhao",
+      "weight": 0.2589
+    },
+    {
+      "source": "iris_wang",
+      "target": "jack_brown",
+      "weight": 0.2563
+    },
+    {
+      "source": "lisa_chen",
+      "target": "oscar_lee",
+      "weight": 0.2538
+    },
+    {
+      "source": "henry_zhao",
+      "target": "sofia_martinez",
+      "weight": 0.2491
+    },
+    {
+      "source": "frank_li",
+      "target": "quinn_davis",
+      "weight": 0.2479
+    },
+    {
+      "source": "dave_patel",
+      "target": "quinn_davis",
+      "weight": 0.2433
+    },
+    {
+      "source": "oscar_lee",
+      "target": "quinn_davis",
+      "weight": 0.2429
+    },
+    {
+      "source": "iris_wang",
+      "target": "lisa_chen",
+      "weight": 0.2387
+    },
+    {
+      "source": "mike_torres",
+      "target": "sofia_martinez",
+      "weight": 0.2381
+    },
+    {
+      "source": "dave_patel",
+      "target": "henry_zhao",
+      "weight": 0.2359
+    },
+    {
+      "source": "iris_wang",
+      "target": "quinn_davis",
+      "weight": 0.2356
+    },
+    {
+      "source": "henry_zhao",
+      "target": "oscar_lee",
+      "weight": 0.2355
+    },
+    {
+      "source": "alice_chen",
+      "target": "sofia_martinez",
+      "weight": 0.2344
+    },
+    {
+      "source": "eve_johnson",
+      "target": "quinn_davis",
+      "weight": 0.2332
+    },
+    {
+      "source": "grace_park",
+      "target": "ryan_nguyen",
+      "weight": 0.2321
+    },
+    {
+      "source": "nina_scott",
+      "target": "quinn_davis",
+      "weight": 0.2314
+    },
+    {
+      "source": "frank_li",
+      "target": "mike_torres",
+      "weight": 0.2295
+    },
+    {
+      "source": "henry_zhao",
+      "target": "jack_brown",
+      "weight": 0.2289
+    },
+    {
+      "source": "henry_zhao",
+      "target": "iris_wang",
+      "weight": 0.2282
+    },
+    {
+      "source": "alice_chen",
+      "target": "frank_li",
+      "weight": 0.2259
+    },
+    {
+      "source": "eve_johnson",
+      "target": "henry_zhao",
+      "weight": 0.2259
+    },
+    {
+      "source": "mike_torres",
+      "target": "oscar_lee",
+      "weight": 0.2245
+    },
+    {
+      "source": "henry_zhao",
+      "target": "nina_scott",
+      "weight": 0.224
+    },
+    {
+      "source": "alice_chen",
+      "target": "oscar_lee",
+      "weight": 0.2208
+    },
+    {
+      "source": "jack_brown",
+      "target": "mike_torres",
+      "weight": 0.2178
+    },
+    {
+      "source": "iris_wang",
+      "target": "mike_torres",
+      "weight": 0.2172
+    },
+    {
+      "source": "frank_li",
+      "target": "sofia_martinez",
+      "weight": 0.2161
+    },
+    {
+      "source": "alice_chen",
+      "target": "jack_brown",
+      "weight": 0.2142
+    },
+    {
+      "source": "alice_chen",
+      "target": "iris_wang",
+      "weight": 0.2135
+    },
+    {
+      "source": "mike_torres",
+      "target": "nina_scott",
+      "weight": 0.213
+    },
+    {
+      "source": "henry_zhao",
+      "target": "jordan_kim",
+      "weight": 0.2117
+    },
+    {
+      "source": "alice_chen",
+      "target": "eve_johnson",
+      "weight": 0.2112
+    },
+    {
+      "source": "oscar_lee",
+      "target": "sofia_martinez",
+      "weight": 0.211
+    },
+    {
+      "source": "charlie_ross",
+      "target": "quinn_davis",
+      "weight": 0.2105
+    },
+    {
+      "source": "bob_kim",
+      "target": "quinn_davis",
+      "weight": 0.2104
+    },
+    {
+      "source": "alice_chen",
+      "target": "nina_scott",
+      "weight": 0.2094
+    },
+    {
+      "source": "grace_park",
+      "target": "karen_wu",
+      "weight": 0.2092
+    },
+    {
+      "source": "karen_wu",
+      "target": "mike_torres",
+      "weight": 0.2054
+    },
+    {
+      "source": "jack_brown",
+      "target": "sofia_martinez",
+      "weight": 0.2044
+    },
+    {
+      "source": "iris_wang",
+      "target": "sofia_martinez",
+      "weight": 0.2037
+    },
+    {
+      "source": "charlie_ross",
+      "target": "henry_zhao",
+      "weight": 0.2031
+    },
+    {
+      "source": "bob_kim",
+      "target": "henry_zhao",
+      "weight": 0.203
+    },
+    {
+      "source": "dave_patel",
+      "target": "frank_li",
+      "weight": 0.2029
+    },
+    {
+      "source": "frank_li",
+      "target": "oscar_lee",
+      "weight": 0.2025
+    },
+    {
+      "source": "eve_johnson",
+      "target": "sofia_martinez",
+      "weight": 0.2014
+    },
+    {
+      "source": "nina_scott",
+      "target": "sofia_martinez",
+      "weight": 0.1996
+    },
+    {
+      "source": "dave_patel",
+      "target": "oscar_lee",
+      "weight": 0.1978
+    },
+    {
+      "source": "mike_torres",
+      "target": "priya_mehta",
+      "weight": 0.1961
+    },
+    {
+      "source": "frank_li",
+      "target": "jack_brown",
+      "weight": 0.1958
+    },
+    {
+      "source": "ryan_nguyen",
+      "target": "sofia_martinez",
+      "weight": 0.1952
+    },
+    {
+      "source": "frank_li",
+      "target": "iris_wang",
+      "weight": 0.1952
+    },
+    {
+      "source": "lisa_chen",
+      "target": "quinn_davis",
+      "weight": 0.1936
+    },
+    {
+      "source": "eve_johnson",
+      "target": "frank_li",
+      "weight": 0.1928
+    },
+    {
+      "source": "alice_chen",
+      "target": "priya_mehta",
+      "weight": 0.1924
+    },
+    {
+      "source": "charlie_ross",
+      "target": "mike_torres",
+      "weight": 0.1921
+    },
+    {
+      "source": "bob_kim",
+      "target": "mike_torres",
+      "weight": 0.1919
+    },
+    {
+      "source": "dave_patel",
+      "target": "jack_brown",
+      "weight": 0.1912
+    },
+    {
+      "source": "frank_li",
+      "target": "nina_scott",
+      "weight": 0.191
+    },
+    {
+      "source": "dave_patel",
+      "target": "iris_wang",
+      "weight": 0.1905
+    },
+    {
+      "source": "iris_wang",
+      "target": "oscar_lee",
+      "weight": 0.1902
+    },
+    {
+      "source": "dave_patel",
+      "target": "eve_johnson",
+      "weight": 0.1882
+    },
+    {
+      "source": "eve_johnson",
+      "target": "oscar_lee",
+      "weight": 0.1878
+    },
+    {
+      "source": "dave_patel",
+      "target": "nina_scott",
+      "weight": 0.1864
+    },
+    {
+      "source": "henry_zhao",
+      "target": "lisa_chen",
+      "weight": 0.1862
+    },
+    {
+      "source": "nina_scott",
+      "target": "oscar_lee",
+      "weight": 0.186
+    },
+    {
+      "source": "priya_mehta",
+      "target": "sofia_martinez",
+      "weight": 0.1826
+    },
+    {
+      "source": "eve_johnson",
+      "target": "jack_brown",
+      "weight": 0.1812
+    },
+    {
+      "source": "eve_johnson",
+      "target": "iris_wang",
+      "weight": 0.1805
+    },
+    {
+      "source": "jack_brown",
+      "target": "nina_scott",
+      "weight": 0.1794
+    },
+    {
+      "source": "charlie_ross",
+      "target": "sofia_martinez",
+      "weight": 0.1787
+    },
+    {
+      "source": "bob_kim",
+      "target": "sofia_martinez",
+      "weight": 0.1785
+    },
+    {
+      "source": "lisa_chen",
+      "target": "mike_torres",
+      "weight": 0.1752
+    },
+    {
+      "source": "frank_li",
+      "target": "priya_mehta",
+      "weight": 0.1741
+    },
+    {
+      "source": "alice_chen",
+      "target": "lisa_chen",
+      "weight": 0.1715
+    },
+    {
+      "source": "jordan_kim",
+      "target": "quinn_davis",
+      "weight": 0.1709
+    },
+    {
+      "source": "charlie_ross",
+      "target": "frank_li",
+      "weight": 0.1701
+    },
+    {
+      "source": "bob_kim",
+      "target": "frank_li",
+      "weight": 0.17
+    },
+    {
+      "source": "dave_patel",
+      "target": "priya_mehta",
+      "weight": 0.1694
+    },
+    {
+      "source": "oscar_lee",
+      "target": "priya_mehta",
+      "weight": 0.169
+    },
+    {
+      "source": "dave_patel",
+      "target": "karen_wu",
+      "weight": 0.1658
+    },
+    {
+      "source": "charlie_ross",
+      "target": "oscar_lee",
+      "weight": 0.1651
+    },
+    {
+      "source": "lisa_chen",
+      "target": "nina_scott",
+      "weight": 0.1651
+    },
+    {
+      "source": "bob_kim",
+      "target": "oscar_lee",
+      "weight": 0.1649
+    },
+    {
+      "source": "jack_brown",
+      "target": "priya_mehta",
+      "weight": 0.1624
+    },
+    {
+      "source": "alice_chen",
+      "target": "karen_wu",
+      "weight": 0.1621
+    },
+    {
+      "source": "lisa_chen",
+      "target": "sofia_martinez",
+      "weight": 0.1618
+    },
+    {
+      "source": "iris_wang",
+      "target": "priya_mehta",
+      "weight": 0.1618
+    },
+    {
+      "source": "eve_johnson",
+      "target": "priya_mehta",
+      "weight": 0.1594
+    },
+    {
+      "source": "mike_torres",
+      "target": "ryan_nguyen",
+      "weight": 0.1591
+    },
+    {
+      "source": "charlie_ross",
+      "target": "jack_brown",
+      "weight": 0.1585
+    },
+    {
+      "source": "bob_kim",
+      "target": "jack_brown",
+      "weight": 0.1583
+    },
+    {
+      "source": "charlie_ross",
+      "target": "iris_wang",
+      "weight": 0.1578
+    },
+    {
+      "source": "bob_kim",
+      "target": "iris_wang",
+      "weight": 0.1576
+    },
+    {
+      "source": "nina_scott",
+      "target": "priya_mehta",
+      "weight": 0.1576
+    },
+    {
+      "source": "alice_chen",
+      "target": "ryan_nguyen",
+      "weight": 0.1555
+    },
+    {
+      "source": "bob_kim",
+      "target": "eve_johnson",
+      "weight": 0.1553
+    },
+    {
+      "source": "karen_wu",
+      "target": "quinn_davis",
+      "weight": 0.1546
+    },
+    {
+      "source": "charlie_ross",
+      "target": "nina_scott",
+      "weight": 0.1536
+    },
+    {
+      "source": "bob_kim",
+      "target": "nina_scott",
+      "weight": 0.1535
+    },
+    {
+      "source": "frank_li",
+      "target": "lisa_chen",
+      "weight": 0.1532
+    },
+    {
+      "source": "charlie_ross",
+      "target": "karen_wu",
+      "weight": 0.1509
+    },
+    {
+      "source": "alice_chen",
+      "target": "jordan_kim",
+      "weight": 0.1489
+    },
+    {
+      "source": "dave_patel",
+      "target": "lisa_chen",
+      "weight": 0.1486
+    },
+    {
+      "source": "henry_zhao",
+      "target": "karen_wu",
+      "weight": 0.1472
+    },
+    {
+      "source": "jack_brown",
+      "target": "lisa_chen",
+      "weight": 0.1415
+    },
+    {
+      "source": "jordan_kim",
+      "target": "sofia_martinez",
+      "weight": 0.1391
+    },
+    {
+      "source": "eve_johnson",
+      "target": "lisa_chen",
+      "weight": 0.1385
+    },
+    {
+      "source": "frank_li",
+      "target": "ryan_nguyen",
+      "weight": 0.1371
+    },
+    {
+      "source": "charlie_ross",
+      "target": "priya_mehta",
+      "weight": 0.1367
+    },
+    {
+      "source": "bob_kim",
+      "target": "priya_mehta",
+      "weight": 0.1365
+    },
+    {
+      "source": "dave_patel",
+      "target": "ryan_nguyen",
+      "weight": 0.1325
+    },
+    {
+      "source": "oscar_lee",
+      "target": "ryan_nguyen",
+      "weight": 0.1321
+    },
+    {
+      "source": "frank_li",
+      "target": "jordan_kim",
+      "weight": 0.1305
+    },
+    {
+      "source": "bob_kim",
+      "target": "karen_wu",
+      "weight": 0.1296
+    },
+    {
+      "source": "dave_patel",
+      "target": "jordan_kim",
+      "weight": 0.1259
+    },
+    {
+      "source": "jordan_kim",
+      "target": "oscar_lee",
+      "weight": 0.1255
+    },
+    {
+      "source": "jack_brown",
+      "target": "ryan_nguyen",
+      "weight": 0.1255
+    },
+    {
+      "source": "iris_wang",
+      "target": "ryan_nguyen",
+      "weight": 0.1248
+    },
+    {
+      "source": "karen_wu",
+      "target": "sofia_martinez",
+      "weight": 0.1227
+    },
+    {
+      "source": "eve_johnson",
+      "target": "ryan_nguyen",
+      "weight": 0.1224
+    },
+    {
+      "source": "nina_scott",
+      "target": "ryan_nguyen",
+      "weight": 0.1206
+    },
+    {
+      "source": "lisa_chen",
+      "target": "priya_mehta",
+      "weight": 0.1198
+    },
+    {
+      "source": "jack_brown",
+      "target": "jordan_kim",
+      "weight": 0.1189
+    },
+    {
+      "source": "iris_wang",
+      "target": "jordan_kim",
+      "weight": 0.1182
+    },
+    {
+      "source": "charlie_ross",
+      "target": "lisa_chen",
+      "weight": 0.1158
+    },
+    {
+      "source": "eve_johnson",
+      "target": "jordan_kim",
+      "weight": 0.1158
+    },
+    {
+      "source": "bob_kim",
+      "target": "lisa_chen",
+      "weight": 0.1157
+    },
+    {
+      "source": "frank_li",
+      "target": "karen_wu",
+      "weight": 0.1142
+    },
+    {
+      "source": "jordan_kim",
+      "target": "nina_scott",
+      "weight": 0.114
+    },
+    {
+      "source": "karen_wu",
+      "target": "oscar_lee",
+      "weight": 0.1092
+    },
+    {
+      "source": "jack_brown",
+      "target": "karen_wu",
+      "weight": 0.1025
+    },
+    {
+      "source": "iris_wang",
+      "target": "karen_wu",
+      "weight": 0.1019
+    },
+    {
+      "source": "charlie_ross",
+      "target": "ryan_nguyen",
+      "weight": 0.0997
+    },
+    {
+      "source": "bob_kim",
+      "target": "ryan_nguyen",
+      "weight": 0.0996
+    },
+    {
+      "source": "eve_johnson",
+      "target": "karen_wu",
+      "weight": 0.0995
+    },
+    {
+      "source": "karen_wu",
+      "target": "nina_scott",
+      "weight": 0.0977
+    },
+    {
+      "source": "jordan_kim",
+      "target": "priya_mehta",
+      "weight": 0.0971
+    },
+    {
+      "source": "charlie_ross",
+      "target": "jordan_kim",
+      "weight": 0.0931
+    },
+    {
+      "source": "bob_kim",
+      "target": "jordan_kim",
+      "weight": 0.093
+    },
+    {
+      "source": "lisa_chen",
+      "target": "ryan_nguyen",
+      "weight": 0.0828
+    },
+    {
+      "source": "karen_wu",
+      "target": "priya_mehta",
+      "weight": 0.0807
+    },
+    {
+      "source": "jordan_kim",
+      "target": "lisa_chen",
+      "weight": 0.0762
+    },
+    {
+      "source": "jordan_kim",
+      "target": "ryan_nguyen",
+      "weight": 0.0601
+    },
+    {
+      "source": "karen_wu",
+      "target": "lisa_chen",
+      "weight": 0.0599
+    },
+    {
+      "source": "karen_wu",
+      "target": "ryan_nguyen",
+      "weight": 0.0438
+    },
+    {
+      "source": "jordan_kim",
+      "target": "karen_wu",
+      "weight": 0.0372
+    }
+  ]
+}
