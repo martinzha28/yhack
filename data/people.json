@@ -1,0 +1,165 @@
+[
+  {
+    "id": "alice_chen",
+    "name": "Alice Chen",
+    "role": "Senior Engineer",
+    "team": "backend",
+    "expertise": ["authentication", "security", "oauth", "middleware"],
+    "projects": ["auth-refactor"]
+  },
+  {
+    "id": "bob_kim",
+    "name": "Bob Kim",
+    "role": "Engineer",
+    "team": "backend",
+    "expertise": ["databases", "sql", "migrations", "indexing"],
+    "projects": ["auth-refactor", "infra-migration"]
+  },
+  {
+    "id": "charlie_ross",
+    "name": "Charlie Ross",
+    "role": "Engineer",
+    "team": "backend",
+    "expertise": ["APIs", "REST", "GraphQL"],
+    "projects": ["auth-refactor", "infra-migration"]
+  },
+  {
+    "id": "dave_patel",
+    "name": "Dave Patel",
+    "role": "Engineer",
+    "team": "backend",
+    "expertise": ["infrastructure", "kubernetes", "terraform", "AWS"],
+    "projects": ["infra-migration"]
+  },
+  {
+    "id": "karen_wu",
+    "name": "Karen Wu",
+    "role": "Staff Engineer",
+    "team": "backend",
+    "expertise": ["security", "cryptography", "oauth", "identity"],
+    "projects": ["auth-refactor"]
+  },
+  {
+    "id": "mike_torres",
+    "name": "Mike Torres",
+    "role": "Tech Lead",
+    "team": "backend",
+    "expertise": ["architecture", "auth", "design systems", "APIs"],
+    "projects": ["auth-refactor", "design-system-v2"],
+    "is_bridge": true
+  },
+  {
+    "id": "eve_johnson",
+    "name": "Eve Johnson",
+    "role": "Senior Engineer",
+    "team": "frontend",
+    "expertise": ["design systems", "components", "accessibility", "storybook"],
+    "projects": ["auth-refactor", "design-system-v2"]
+  },
+  {
+    "id": "frank_li",
+    "name": "Frank Li",
+    "role": "Engineer",
+    "team": "frontend",
+    "expertise": ["performance", "bundle optimization", "profiling"],
+    "projects": ["mobile-app"]
+  },
+  {
+    "id": "grace_park",
+    "name": "Grace Park",
+    "role": "Engineer",
+    "team": "frontend",
+    "expertise": ["components", "React", "animations"],
+    "projects": ["design-system-v2", "onboarding-redesign"]
+  },
+  {
+    "id": "henry_zhao",
+    "name": "Henry Zhao",
+    "role": "Engineer",
+    "team": "frontend",
+    "expertise": ["React Native", "iOS", "Android", "mobile"],
+    "projects": ["mobile-app"]
+  },
+  {
+    "id": "nina_scott",
+    "name": "Nina Scott",
+    "role": "Design Engineer",
+    "team": "frontend",
+    "expertise": ["design systems", "Figma", "components", "tokens"],
+    "projects": ["design-system-v2"],
+    "is_bridge": true
+  },
+  {
+    "id": "iris_wang",
+    "name": "Iris Wang",
+    "role": "Senior Designer",
+    "team": "design",
+    "expertise": ["brand", "visual design", "Figma", "design systems"],
+    "projects": ["design-system-v2"]
+  },
+  {
+    "id": "jack_brown",
+    "name": "Jack Brown",
+    "role": "Designer",
+    "team": "design",
+    "expertise": ["UX", "user research", "wireframes", "onboarding flows"],
+    "projects": ["design-system-v2", "onboarding-redesign"]
+  },
+  {
+    "id": "lisa_chen",
+    "name": "Lisa Chen",
+    "role": "Designer",
+    "team": "design",
+    "expertise": ["motion design", "animations", "Lottie", "After Effects"],
+    "projects": ["design-system-v2"]
+  },
+  {
+    "id": "oscar_lee",
+    "name": "Oscar Lee",
+    "role": "Design Lead",
+    "team": "design",
+    "expertise": ["design leadership", "design systems", "brand strategy"],
+    "projects": ["design-system-v2"]
+  },
+  {
+    "id": "priya_mehta",
+    "name": "Priya Mehta",
+    "role": "Product Manager",
+    "team": "product",
+    "expertise": ["growth", "activation metrics", "user funnels", "mobile"],
+    "projects": ["mobile-app", "onboarding-redesign"]
+  },
+  {
+    "id": "quinn_davis",
+    "name": "Quinn Davis",
+    "role": "Product Manager",
+    "team": "product",
+    "expertise": ["platform", "developer experience", "onboarding"],
+    "projects": ["onboarding-redesign"]
+  },
+  {
+    "id": "ryan_nguyen",
+    "name": "Ryan Nguyen",
+    "role": "Product Analyst",
+    "team": "product",
+    "expertise": ["analytics", "SQL", "dashboards", "metrics"],
+    "projects": ["mobile-app"]
+  },
+  {
+    "id": "sofia_martinez",
+    "name": "Sofia Martinez",
+    "role": "Head of Product",
+    "team": "product",
+    "expertise": ["product strategy", "roadmap", "stakeholder management"],
+    "projects": ["onboarding-redesign"]
+  },
+  {
+    "id": "jordan_kim",
+    "name": "Jordan Kim",
+    "role": "Engineer (New)",
+    "team": "frontend",
+    "expertise": [],
+    "projects": ["onboarding-redesign"],
+    "is_new_employee": true
+  }
+]

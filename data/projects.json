@@ -1,0 +1,32 @@
+[
+  {
+    "id": "auth-refactor",
+    "name": "Auth Refactor",
+    "members": ["alice_chen", "bob_kim", "charlie_ross", "karen_wu", "eve_johnson", "mike_torres"],
+    "keywords": ["OAuth2", "JWT", "refresh tokens", "access tokens", "session management", "token expiry", "middleware", "login flow", "auth-service", "PKCE", "scopes", "identity provider", "session_tokens"]
+  },
+  {
+    "id": "design-system-v2",
+    "name": "Design System v2",
+    "members": ["eve_johnson", "grace_park", "nina_scott", "iris_wang", "jack_brown", "oscar_lee", "lisa_chen"],
+    "keywords": ["component library", "design tokens", "Figma", "accessibility", "WCAG", "storybook", "semantic colors", "spacing scale", "button variants", "typography", "dark mode", "tokens.json", "color palette"]
+  },
+  {
+    "id": "mobile-app",
+    "name": "Mobile App",
+    "members": ["henry_zhao", "frank_li", "priya_mehta", "ryan_nguyen", "grace_park"],
+    "keywords": ["React Native", "iOS", "Android", "push notifications", "deep links", "bundle size", "TestFlight", "App Store", "performance profiling", "Hermes", "metro bundler", "activation metrics"]
+  },
+  {
+    "id": "onboarding-redesign",
+    "name": "Onboarding Flow Redesign",
+    "members": ["quinn_davis", "sofia_martinez", "jack_brown", "grace_park", "jordan_kim"],
+    "keywords": ["user activation", "first-time experience", "empty states", "onboarding checklist", "progressive disclosure", "user research", "funnel", "drop-off rate", "wizard", "tooltips", "activation funnel", "onboarding spec"]
+  },
+  {
+    "id": "infra-migration",
+    "name": "Infrastructure Migration",
+    "members": ["dave_patel", "charlie_ross", "bob_kim"],
+    "keywords": ["Kubernetes", "Docker", "Terraform", "AWS EKS", "load balancer", "CI/CD", "GitHub Actions", "staging environment", "rollback", "zero-downtime deployment", "secrets management", "Datadog", "k8s", "terraform plan"]
+  }
+]
