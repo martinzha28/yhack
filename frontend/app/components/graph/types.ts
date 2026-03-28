@@ -34,7 +34,7 @@ export const TEAM_COLORS: Record<string, string> = {
   product: "#ef4444",
 };
 
-export const DEFAULT_MIN_WEIGHT = 0.3;
+export const DEFAULT_MIN_WEIGHT = 0.35;
 export const TRANSITION_MS = 400;
 
 export function nodeId(d: string | Node): string {

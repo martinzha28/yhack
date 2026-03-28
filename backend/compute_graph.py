@@ -6,11 +6,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SLACK_DATA_PATH = ROOT / "data" / "slack_data.json"
-OUTPUT_PATH = ROOT / "data" / "graph.json"
+OUTPUT_PATH = ROOT / "frontend" / "public" / "graph.json"
 
 LAMBDA = 0.01
 DM_MULTIPLIER = 1.0
 GROUP_MULTIPLIER = 0.3
+MENTION_MULTIPLIER = 0.5
 
 REFERENCE_DATE = datetime(2025, 3, 15)
 
@@ -43,6 +44,7 @@ def compute_graph(input_path=None, output_path=None):
         sender = msg["from"]
         recipients = msg["to"]
         ts = msg["timestamp"]
+        mentions = set(msg.get("mentions", []))
 
         decay = recency_decay(days_since(ts))
 
@@ -62,7 +64,16 @@ def compute_graph(input_path=None, output_path=None):
             a, b = tuple(sorted([sender, recipient]))
             raw_weights[(a, b)] += multiplier * decay
 
-    max_weight = max(raw_weights.values()) if raw_weights else 1.0
+        # @mentions get an additional weight boost on top of the to[] edge
+        for mentioned in mentions:
+            if mentioned == sender or mentioned not in all_people_ids:
+                continue
+            a, b = tuple(sorted([sender, mentioned]))
+            raw_weights[(a, b)] += MENTION_MULTIPLIER * decay
+
+    # Sqrt-scale to spread weights without over-compressing the range
+    scaled_weights = {k: math.sqrt(v) for k, v in raw_weights.items()}
+    max_weight = max(scaled_weights.values()) if scaled_weights else 1.0
 
     nodes = []
     for pid, person in people_by_id.items():
@@ -77,7 +88,7 @@ def compute_graph(input_path=None, output_path=None):
 
     links = []
     for (a, b), raw_w in raw_weights.items():
-        normalized = raw_w / max_weight
+        normalized = scaled_weights[(a, b)] / max_weight
         links.append({
             "source": a,
             "target": b,
