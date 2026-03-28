@@ -18,6 +18,7 @@ export default function OrgGraph() {
   const [minWeight, setMinWeight] = useState(DEFAULT_MIN_WEIGHT);
   const [search, setSearch] = useState("");
   const [showEdges, setShowEdges] = useState(true);
+  const [clustering, setClustering] = useState(true);
 
   useEffect(() => {
     fetch("/graph.json")
@@ -30,6 +31,7 @@ export default function OrgGraph() {
     svgRef,
     setSelected,
     setHovered,
+    clustering,
   });
 
   const nodeMap = useMemo(() => {
@@ -83,7 +85,7 @@ export default function OrgGraph() {
         setSearch={setSearch}
         matchCount={searchMatch ? searchMatch.size : null}
       />
-      <SettingsPanel minWeight={minWeight} setMinWeight={setMinWeight} showEdges={showEdges} setShowEdges={setShowEdges} />
+      <SettingsPanel minWeight={minWeight} setMinWeight={setMinWeight} showEdges={showEdges} setShowEdges={setShowEdges} clustering={clustering} setClustering={setClustering} />
       {selectedNode && (
         <InfoPanel
           node={selectedNode}

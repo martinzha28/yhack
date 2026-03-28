@@ -5,9 +5,11 @@ interface SettingsPanelProps {
   setMinWeight: (value: number) => void;
   showEdges: boolean;
   setShowEdges: (value: boolean) => void;
+  clustering: boolean;
+  setClustering: (value: boolean) => void;
 }
 
-export default function SettingsPanel({ minWeight, setMinWeight, showEdges, setShowEdges }: SettingsPanelProps) {
+export default function SettingsPanel({ minWeight, setMinWeight, showEdges, setShowEdges, clustering, setClustering }: SettingsPanelProps) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -55,6 +57,23 @@ export default function SettingsPanel({ minWeight, setMinWeight, showEdges, setS
               <span
                 className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
                   showEdges ? "translate-x-4" : ""
+                }`}
+              />
+            </button>
+          </div>
+          <div className="flex items-center justify-between">
+            <label className="text-xs text-zinc-400">
+              Project clusters
+            </label>
+            <button
+              onClick={() => setClustering(!clustering)}
+              className={`relative w-9 h-5 rounded-full transition-colors cursor-pointer ${
+                clustering ? "bg-indigo-500" : "bg-zinc-600"
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
+                  clustering ? "translate-x-4" : ""
                 }`}
               />
             </button>

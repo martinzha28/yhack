@@ -22,6 +22,7 @@ interface UseGraphSimulationOptions {
   svgRef: React.RefObject<SVGSVGElement | null>;
   setSelected: React.Dispatch<React.SetStateAction<string | null>>;
   setHovered: React.Dispatch<React.SetStateAction<string | null>>;
+  clustering: boolean;
 }
 
 function seedPosition(id: string, max: number, offset: number): number {
@@ -35,6 +36,7 @@ export function useGraphSimulation({
   svgRef,
   setSelected,
   setHovered,
+  clustering,
 }: UseGraphSimulationOptions) {
   const simRef = useRef<d3.Simulation<Node, Link> | null>(null);
   const nodesRef = useRef<Node[]>([]);
@@ -58,7 +60,7 @@ export function useGraphSimulation({
     nodesRef.current = nodes;
     const allLinks: Link[] = data.links.map((d) => ({ ...d }));
 
-    // ── Project clustering ──────────────────────────────────────────────
+    // ── Project clustering (conditional) ────────────────────────────────
     const projectGroups = new Map<string, Node[]>();
     nodes.forEach((n) => {
       const proj = n.projects?.[0];
@@ -67,9 +69,9 @@ export function useGraphSimulation({
       projectGroups.get(proj)!.push(n);
     });
 
-    const validGroups = [...projectGroups.entries()].filter(
-      ([, ns]) => ns.length >= 2,
-    );
+    const validGroups = clustering
+      ? [...projectGroups.entries()].filter(([, ns]) => ns.length >= 2)
+      : [];
     const projectNames = validGroups.map(([p]) => p);
 
     const projectColor = d3
@@ -79,13 +81,15 @@ export function useGraphSimulation({
 
     const clusterRing = Math.min(width, height) * 0.38;
     const projectAnchors = new Map<string, { x: number; y: number }>();
-    projectNames.forEach((proj, i) => {
-      const angle = (i / projectNames.length) * 2 * Math.PI - Math.PI / 2;
-      projectAnchors.set(proj, {
-        x: width / 2 + clusterRing * Math.cos(angle),
-        y: height / 2 + clusterRing * Math.sin(angle),
+    if (clustering) {
+      projectNames.forEach((proj, i) => {
+        const angle = (i / projectNames.length) * 2 * Math.PI - Math.PI / 2;
+        projectAnchors.set(proj, {
+          x: width / 2 + clusterRing * Math.cos(angle),
+          y: height / 2 + clusterRing * Math.sin(angle),
+        });
       });
-    });
+    }
 
     const simulation = d3
       .forceSimulation<Node>(nodes)
@@ -102,28 +106,6 @@ export function useGraphSimulation({
       .force("charge", d3.forceManyBody().strength(-400))
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("collision", d3.forceCollide().radius(30))
-      .force(
-        "clusterX",
-        d3
-          .forceX<Node>((d) => {
-            const proj = d.projects?.[0];
-            return proj
-              ? (projectAnchors.get(proj)?.x ?? width / 2)
-              : width / 2;
-          })
-          .strength(0.2),
-      )
-      .force(
-        "clusterY",
-        d3
-          .forceY<Node>((d) => {
-            const proj = d.projects?.[0];
-            return proj
-              ? (projectAnchors.get(proj)?.y ?? height / 2)
-              : height / 2;
-          })
-          .strength(0.2),
-      )
       .force("bounds", () => {
         for (const d of nodes) {
           if (d.x! < pad) d.vx! += (pad - d.x!) * 0.1;
@@ -133,24 +115,50 @@ export function useGraphSimulation({
         }
       });
 
-    simulation.force("clusterRepulsion", ((alpha: number) => {
-      nodes.forEach((n) => {
-        if (n.x == null || n.y == null) return;
-        const myProj = n.projects?.[0];
-        projectAnchors.forEach((anchor, proj) => {
-          if (proj === myProj) return;
-          const dx = n.x! - anchor.x;
-          const dy = n.y! - anchor.y;
-          const dist = Math.hypot(dx, dy) || 1;
-          const minDist = 220;
-          if (dist < minDist) {
-            const f = alpha * (1 - dist / minDist) * 1.8;
-            n.vx! += (dx / dist) * f;
-            n.vy! += (dy / dist) * f;
-          }
+    if (clustering) {
+      simulation
+        .force(
+          "clusterX",
+          d3
+            .forceX<Node>((d) => {
+              const proj = d.projects?.[0];
+              return proj
+                ? (projectAnchors.get(proj)?.x ?? width / 2)
+                : width / 2;
+            })
+            .strength(0.2),
+        )
+        .force(
+          "clusterY",
+          d3
+            .forceY<Node>((d) => {
+              const proj = d.projects?.[0];
+              return proj
+                ? (projectAnchors.get(proj)?.y ?? height / 2)
+                : height / 2;
+            })
+            .strength(0.2),
+        );
+
+      simulation.force("clusterRepulsion", ((alpha: number) => {
+        nodes.forEach((n) => {
+          if (n.x == null || n.y == null) return;
+          const myProj = n.projects?.[0];
+          projectAnchors.forEach((anchor, proj) => {
+            if (proj === myProj) return;
+            const dx = n.x! - anchor.x;
+            const dy = n.y! - anchor.y;
+            const dist = Math.hypot(dx, dy) || 1;
+            const minDist = 220;
+            if (dist < minDist) {
+              const f = alpha * (1 - dist / minDist) * 1.8;
+              n.vx! += (dx / dist) * f;
+              n.vy! += (dy / dist) * f;
+            }
+          });
         });
-      });
-    }) as unknown as d3.Force<Node, Link>);
+      }) as unknown as d3.Force<Node, Link>);
+    }
 
     simRef.current = simulation;
 
@@ -358,14 +366,16 @@ export function useGraphSimulation({
       });
 
     simulation.on("tick", () => {
-      hullPaths.attr("d", ([, groupNodes]) => getHullPath(groupNodes, 50));
+      if (clustering) {
+        hullPaths.attr("d", ([, groupNodes]) => getHullPath(groupNodes, 50));
 
-      hullLabels.attr("transform", ([, groupNodes]) => {
-        const valid = groupNodes.filter((n) => n.x != null && n.y != null);
-        const cx = d3.mean(valid, (n) => n.x!) ?? 0;
-        const topY = Math.min(...valid.map((n) => n.y!));
-        return `translate(${cx},${topY - 46})`;
-      });
+        hullLabels.attr("transform", ([, groupNodes]) => {
+          const valid = groupNodes.filter((n) => n.x != null && n.y != null);
+          const cx = d3.mean(valid, (n) => n.x!) ?? 0;
+          const topY = Math.min(...valid.map((n) => n.y!));
+          return `translate(${cx},${topY - 46})`;
+        });
+      }
 
       link
         .attr("x1", (d) => (d.source as Node).x!)
@@ -380,8 +390,7 @@ export function useGraphSimulation({
       simulation.stop();
       simRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, clustering, svgRef, setSelected, setHovered]);
 
   return { gRef, simRef, nodesRef };
 }
