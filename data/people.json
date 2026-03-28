@@ -5,7 +5,7 @@
     "role": "Senior Engineer",
     "team": "backend",
     "expertise": ["authentication", "security", "oauth", "middleware"],
-    "projects": ["auth-refactor"]
+    "projects": ["auth-refactor", "billing-v2"]
   },
   {
     "id": "bob_kim",
@@ -13,7 +13,7 @@
     "role": "Engineer",
     "team": "backend",
     "expertise": ["databases", "sql", "migrations", "indexing"],
-    "projects": ["auth-refactor", "infra-migration"]
+    "projects": ["auth-refactor", "infra-migration", "platform-api"]
   },
   {
     "id": "charlie_ross",
@@ -21,7 +21,7 @@
     "role": "Engineer",
     "team": "backend",
     "expertise": ["APIs", "REST", "GraphQL"],
-    "projects": ["auth-refactor", "infra-migration"]
+    "projects": ["auth-refactor", "infra-migration", "billing-v2"]
   },
   {
     "id": "dave_patel",
@@ -29,7 +29,7 @@
     "role": "Engineer",
     "team": "backend",
     "expertise": ["infrastructure", "kubernetes", "terraform", "AWS"],
-    "projects": ["infra-migration"]
+    "projects": ["infra-migration", "billing-v2"]
   },
   {
     "id": "karen_wu",
@@ -37,7 +37,7 @@
     "role": "Staff Engineer",
     "team": "backend",
     "expertise": ["security", "cryptography", "oauth", "identity"],
-    "projects": ["auth-refactor"]
+    "projects": ["auth-refactor", "platform-api"]
   },
   {
     "id": "mike_torres",
@@ -45,7 +45,7 @@
     "role": "Tech Lead",
     "team": "backend",
     "expertise": ["architecture", "auth", "design systems", "APIs"],
-    "projects": ["auth-refactor", "design-system-v2"],
+    "projects": ["auth-refactor", "design-system-v2", "platform-api"],
     "is_bridge": true
   },
   {
@@ -54,7 +54,7 @@
     "role": "Senior Engineer",
     "team": "frontend",
     "expertise": ["design systems", "components", "accessibility", "storybook"],
-    "projects": ["auth-refactor", "design-system-v2"]
+    "projects": ["auth-refactor", "design-system-v2", "platform-api"]
   },
   {
     "id": "frank_li",
@@ -62,7 +62,7 @@
     "role": "Engineer",
     "team": "frontend",
     "expertise": ["performance", "bundle optimization", "profiling"],
-    "projects": ["mobile-app"]
+    "projects": ["mobile-app", "brand-refresh"]
   },
   {
     "id": "grace_park",
@@ -78,7 +78,7 @@
     "role": "Engineer",
     "team": "frontend",
     "expertise": ["React Native", "iOS", "Android", "mobile"],
-    "projects": ["mobile-app"]
+    "projects": ["mobile-app", "platform-api"]
   },
   {
     "id": "nina_scott",
@@ -86,7 +86,7 @@
     "role": "Design Engineer",
     "team": "frontend",
     "expertise": ["design systems", "Figma", "components", "tokens"],
-    "projects": ["design-system-v2"],
+    "projects": ["design-system-v2", "brand-refresh"],
     "is_bridge": true
   },
   {
@@ -95,7 +95,7 @@
     "role": "Senior Designer",
     "team": "design",
     "expertise": ["brand", "visual design", "Figma", "design systems"],
-    "projects": ["design-system-v2"]
+    "projects": ["design-system-v2", "brand-refresh"]
   },
   {
     "id": "jack_brown",
@@ -111,7 +111,7 @@
     "role": "Designer",
     "team": "design",
     "expertise": ["motion design", "animations", "Lottie", "After Effects"],
-    "projects": ["design-system-v2"]
+    "projects": ["design-system-v2", "brand-refresh"]
   },
   {
     "id": "oscar_lee",
@@ -119,7 +119,7 @@
     "role": "Design Lead",
     "team": "design",
     "expertise": ["design leadership", "design systems", "brand strategy"],
-    "projects": ["design-system-v2"]
+    "projects": ["design-system-v2", "brand-refresh"]
   },
   {
     "id": "priya_mehta",
@@ -127,7 +127,7 @@
     "role": "Product Manager",
     "team": "product",
     "expertise": ["growth", "activation metrics", "user funnels", "mobile"],
-    "projects": ["mobile-app", "onboarding-redesign"]
+    "projects": ["mobile-app", "onboarding-redesign", "brand-refresh"]
   },
   {
     "id": "quinn_davis",
@@ -135,7 +135,7 @@
     "role": "Product Manager",
     "team": "product",
     "expertise": ["platform", "developer experience", "onboarding"],
-    "projects": ["onboarding-redesign"]
+    "projects": ["onboarding-redesign", "billing-v2"]
   },
   {
     "id": "ryan_nguyen",
@@ -143,7 +143,7 @@
     "role": "Product Analyst",
     "team": "product",
     "expertise": ["analytics", "SQL", "dashboards", "metrics"],
-    "projects": ["mobile-app"]
+    "projects": ["mobile-app", "billing-v2"]
   },
   {
     "id": "sofia_martinez",
