@@ -1,0 +1,458 @@
+"use client";
+
+import { useEffect, useRef, useState, useMemo } from "react";
+import * as d3 from "d3";
+
+interface ProjectNode extends d3.SimulationNodeDatum {
+  id: string;
+  name: string;
+  status: string;
+  time_range: string;
+  keywords: string[];
+  member_count: number;
+  members: { id: string; weight: number; role: string }[];
+}
+
+interface ProjectLink extends d3.SimulationLinkDatum<ProjectNode> {
+  source: string | ProjectNode;
+  target: string | ProjectNode;
+  weight: number;
+  shared_count: number;
+  shared_people: {
+    id: string;
+    weight_a: number;
+    role_a: string;
+    weight_b: number;
+    role_b: string;
+  }[];
+}
+
+interface ProjectGraphData {
+  nodes: ProjectNode[];
+  links: ProjectLink[];
+}
+
+const STATUS_COLORS: Record<string, string> = {
+  active: "#22d3ee",
+  completed: "#a78bfa",
+};
+
+const DEFAULT_MIN_WEIGHT = 0.1;
+
+function nodeId(d: string | ProjectNode): string {
+  return typeof d === "string" ? d : d.id;
+}
+
+function linkId(l: ProjectLink): { s: string; t: string } {
+  return { s: nodeId(l.source), t: nodeId(l.target) };
+}
+
+export default function ProjectGraph() {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [data, setData] = useState<ProjectGraphData | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [minWeight, setMinWeight] = useState(DEFAULT_MIN_WEIGHT);
+
+  useEffect(() => {
+    fetch("/project_graph.json")
+      .then((r) => r.json())
+      .then(setData);
+  }, []);
+
+  useEffect(() => {
+    if (!data || !svgRef.current) return;
+
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
+
+    const width = svgRef.current.clientWidth;
+    const height = svgRef.current.clientHeight;
+
+    const filteredLinks = data.links.filter((l) => l.weight >= minWeight);
+
+    const maxMembers = Math.max(...data.nodes.map((n) => n.member_count), 1);
+
+    const nodes: ProjectNode[] = data.nodes.map((d) => ({ ...d }));
+    const links: ProjectLink[] = filteredLinks.map((d) => ({ ...d }));
+
+    const nodeRadius = (d: ProjectNode) => 14 + (d.member_count / maxMembers) * 26;
+
+    const simulation = d3
+      .forceSimulation<ProjectNode>(nodes)
+      .force(
+        "link",
+        d3
+          .forceLink<ProjectNode, ProjectLink>(links)
+          .id((d) => d.id)
+          .distance((d) => 220 * (1 - d.weight) + 100)
+          .strength((d) => 0.15 + d.weight * 0.5)
+      )
+      .force("charge", d3.forceManyBody().strength(-1200))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collision", d3.forceCollide().radius((d) => {
+        return nodeRadius(d as ProjectNode) + 40;
+      }));
+
+    const g = svg.append("g");
+
+    g.append("rect")
+      .attr("width", width * 3)
+      .attr("height", height * 3)
+      .attr("x", -width)
+      .attr("y", -height)
+      .attr("fill", "transparent")
+      .on("click", () => setSelected(null));
+
+    const margin = 150;
+    svg.call(
+      d3
+        .zoom<SVGSVGElement, unknown>()
+        .scaleExtent([0.5, 3])
+        .translateExtent([
+          [-margin, -margin],
+          [width + margin, height + margin],
+        ])
+        .on("zoom", (event) => g.attr("transform", event.transform))
+    );
+
+    const link = g
+      .append("g")
+      .selectAll<SVGLineElement, ProjectLink>("line")
+      .data(links)
+      .join("line")
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.4)
+      .attr("stroke-width", (d) => Math.max(1.5, d.weight * 8));
+
+    // Shared-count labels on edges (pill background for readability)
+    const linkLabelGroup = g
+      .append("g")
+      .attr("class", "link-labels")
+      .selectAll<SVGGElement, ProjectLink>("g")
+      .data(links.filter((l) => l.shared_count > 0))
+      .join("g")
+      .attr("pointer-events", "none");
+
+    linkLabelGroup
+      .append("rect")
+      .attr("rx", 6)
+      .attr("ry", 6)
+      .attr("width", 20)
+      .attr("height", 16)
+      .attr("x", -10)
+      .attr("y", -10)
+      .attr("fill", "rgba(24,24,27,0.85)");
+
+    linkLabelGroup
+      .append("text")
+      .text((d) => d.shared_count.toString())
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.3em")
+      .attr("fill", "#a1a1aa")
+      .attr("font-size", "10px")
+      .attr("font-weight", "500");
+
+    const node = g
+      .append("g")
+      .selectAll<SVGGElement, ProjectNode>("g")
+      .data(nodes)
+      .join("g")
+      .attr("cursor", "pointer")
+      .call(
+        d3
+          .drag<SVGGElement, ProjectNode>()
+          .on("start", (event, d) => {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+          })
+          .on("drag", (event, d) => {
+            d.fx = event.x;
+            d.fy = event.y;
+          })
+          .on("end", (event, d) => {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+          })
+      );
+
+    node
+      .append("circle")
+      .attr("r", (d) => nodeRadius(d))
+      .attr("fill", (d) => STATUS_COLORS[d.status] || "#6b7280")
+      .attr("fill-opacity", 0.15)
+      .attr("stroke", (d) => STATUS_COLORS[d.status] || "#6b7280")
+      .attr("stroke-width", 2);
+
+    node
+      .append("text")
+      .text((d) => d.name.replace(/\s*\(.*\)/, ""))
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.35em")
+      .attr("fill", "#e5e7eb")
+      .attr("font-size", "11px")
+      .attr("font-weight", "500")
+      .attr("pointer-events", "none");
+
+    // Member count below name
+    node
+      .append("text")
+      .text((d) => `${d.member_count} people`)
+      .attr("text-anchor", "middle")
+      .attr("dy", "1.8em")
+      .attr("fill", "#71717a")
+      .attr("font-size", "9px")
+      .attr("pointer-events", "none");
+
+    node.on("click", (_event, d) => {
+      setSelected((prev) => (prev === d.id ? null : d.id));
+    });
+
+    simulation.on("tick", () => {
+      link
+        .attr("x1", (d) => (d.source as ProjectNode).x!)
+        .attr("y1", (d) => (d.source as ProjectNode).y!)
+        .attr("x2", (d) => (d.target as ProjectNode).x!)
+        .attr("y2", (d) => (d.target as ProjectNode).y!);
+
+      linkLabelGroup.attr("transform", (d) => {
+        const s = d.source as ProjectNode;
+        const t = d.target as ProjectNode;
+        return `translate(${(s.x! + t.x!) / 2},${(s.y! + t.y!) / 2})`;
+      });
+
+      node.attr("transform", (d) => `translate(${d.x},${d.y})`);
+    });
+
+    return () => {
+      simulation.stop();
+    };
+  }, [data, minWeight]);
+
+  // Selection highlighting
+  useEffect(() => {
+    if (!svgRef.current || !data) return;
+    const svg = d3.select(svgRef.current);
+
+    if (!selected) {
+      svg.selectAll("line").attr("stroke-opacity", 0.4);
+      svg.selectAll<SVGGElement, ProjectNode>("g > circle").attr("opacity", 1);
+      svg
+        .selectAll<SVGGElement, ProjectNode>("g > text")
+        .attr("opacity", 1);
+      return;
+    }
+
+    const connected = new Set<string>();
+    connected.add(selected);
+    data.links.forEach((l) => {
+      const { s, t } = linkId(l);
+      if (l.weight >= minWeight) {
+        if (s === selected) connected.add(t);
+        if (t === selected) connected.add(s);
+      }
+    });
+
+    svg
+      .selectAll<SVGLineElement, ProjectLink>("line")
+      .attr("stroke-opacity", (d) => {
+        const { s, t } = linkId(d);
+        return s === selected || t === selected ? 0.8 : 0.05;
+      });
+
+    svg
+      .selectAll<SVGGElement, ProjectNode>("g")
+      .selectAll<SVGCircleElement, ProjectNode>("circle")
+      .attr("opacity", function () {
+        const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
+        return d ? (connected.has(d.id) ? 1 : 0.15) : 1;
+      });
+
+    svg
+      .selectAll<SVGGElement, ProjectNode>("g")
+      .selectAll<SVGTextElement, ProjectNode>("text")
+      .attr("opacity", function () {
+        const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
+        return d ? (connected.has(d.id) ? 1 : 0.1) : 1;
+      });
+  }, [selected, data, minWeight]);
+
+  const selectedProject = data?.nodes.find((n) => n.id === selected);
+
+  const connectedProjects = useMemo(() => {
+    if (!data || !selected) return [];
+    return data.links
+      .filter((l) => {
+        const { s, t } = linkId(l);
+        return (s === selected || t === selected) && l.weight >= minWeight;
+      })
+      .map((l) => {
+        const { s, t } = linkId(l);
+        const otherId = s === selected ? t : s;
+        const other = data.nodes.find((n) => n.id === otherId);
+        return {
+          id: otherId,
+          name: other?.name.replace(/\s*\(.*\)/, "") || otherId,
+          weight: l.weight,
+          shared_count: l.shared_count,
+          shared_people: l.shared_people,
+        };
+      })
+      .sort((a, b) => b.weight - a.weight);
+  }, [data, selected, minWeight]);
+
+  return (
+    <div className="relative w-full h-full">
+      <svg ref={svgRef} className="w-full h-full bg-zinc-900" />
+
+      {/* Status legend */}
+      <div className="absolute top-14 left-4 bg-zinc-800/80 rounded-lg px-4 py-3 text-sm text-zinc-300 space-y-1">
+        {Object.entries(STATUS_COLORS).map(([status, color]) => (
+          <div key={status} className="flex items-center gap-2">
+            <span
+              className="inline-block w-3 h-3 rounded-full border-2"
+              style={{ borderColor: color, backgroundColor: color + "26" }}
+            />
+            <span className="capitalize">{status}</span>
+          </div>
+        ))}
+        <div className="text-[10px] text-zinc-500 pt-1">
+          Node size = team size
+        </div>
+        <div className="text-[10px] text-zinc-500">
+          Edge thickness = shared people
+        </div>
+      </div>
+
+      {/* Threshold slider */}
+      <div className="absolute bottom-4 left-4 bg-zinc-800/90 rounded-lg px-4 py-3 text-sm text-zinc-300 w-64">
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-xs text-zinc-400">Overlap threshold</label>
+          <span className="text-xs text-zinc-500 tabular-nums">
+            {minWeight.toFixed(2)}
+          </span>
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={0.8}
+          step={0.01}
+          value={minWeight}
+          onChange={(e) => setMinWeight(parseFloat(e.target.value))}
+          className="w-full accent-zinc-400 h-1.5 cursor-pointer"
+        />
+        <div className="flex justify-between text-[10px] text-zinc-600 mt-0.5">
+          <span>More connections</span>
+          <span>Fewer</span>
+        </div>
+      </div>
+
+      {/* Info panel */}
+      {selectedProject && (
+        <div className="absolute top-4 right-4 bg-zinc-800/90 rounded-lg px-5 py-4 text-sm text-zinc-200 w-80 max-h-[80vh] overflow-y-auto space-y-3">
+          <div>
+            <div className="font-semibold text-base">
+              {selectedProject.name.replace(/\s*\(.*\)/, "")}
+            </div>
+            <div className="flex items-center gap-2 mt-1">
+              <span
+                className="inline-block w-2.5 h-2.5 rounded-full border-2"
+                style={{
+                  borderColor:
+                    STATUS_COLORS[selectedProject.status] || "#6b7280",
+                  backgroundColor:
+                    (STATUS_COLORS[selectedProject.status] || "#6b7280") + "26",
+                }}
+              />
+              <span className="capitalize text-zinc-400">
+                {selectedProject.status}
+              </span>
+              {selectedProject.time_range && (
+                <span className="text-zinc-500 text-xs">
+                  ({selectedProject.time_range})
+                </span>
+              )}
+            </div>
+          </div>
+
+          {selectedProject.keywords.length > 0 && (
+            <div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide mb-1">
+                Topics
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {selectedProject.keywords.slice(0, 8).map((k) => (
+                  <span
+                    key={k}
+                    className="px-2 py-0.5 bg-zinc-700 rounded text-xs text-zinc-300"
+                  >
+                    {k}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {selectedProject.members.length > 0 && (
+            <div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide mb-1">
+                Team ({selectedProject.member_count})
+              </div>
+              <div className="space-y-1">
+                {selectedProject.members.map((m) => (
+                  <div key={m.id} className="flex items-center gap-2">
+                    <span className="flex-1 truncate">{m.id.replace(/_/g, " ")}</span>
+                    <span className="text-[10px] text-zinc-500 capitalize">
+                      {m.role}
+                    </span>
+                    <span className="text-xs text-zinc-500 tabular-nums w-8 text-right">
+                      {(m.weight * 100).toFixed(0)}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {connectedProjects.length > 0 && (
+            <div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wide mb-1">
+                Connected projects
+              </div>
+              <div className="space-y-2">
+                {connectedProjects.slice(0, 6).map((cp) => (
+                  <div key={cp.id}>
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-xs">{cp.name}</span>
+                      <span className="text-xs text-zinc-500 tabular-nums">
+                        {cp.shared_count} shared
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-0.5">
+                      {cp.shared_people.slice(0, 4).map((sp) => (
+                        <span
+                          key={sp.id}
+                          className="text-[10px] text-zinc-400 bg-zinc-700/50 px-1.5 py-0.5 rounded"
+                        >
+                          {sp.id.replace(/_/g, " ")}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <button
+            onClick={() => setSelected(null)}
+            className="text-xs text-zinc-500 hover:text-zinc-300 cursor-pointer"
+          >
+            Click to deselect
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
