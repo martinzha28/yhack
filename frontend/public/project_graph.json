@@ -1,0 +1,423 @@
+{
+  "nodes": [
+    {
+      "id": "auth-refactor",
+      "name": "Auth Refactor",
+      "members": [
+        "alice_chen",
+        "bob_kim",
+        "charlie_ross",
+        "karen_wu",
+        "eve_johnson",
+        "mike_torres"
+      ],
+      "member_count": 6,
+      "status": "active",
+      "time_range": "",
+      "keywords": [
+        "OAuth2",
+        "JWT",
+        "refresh tokens",
+        "access tokens",
+        "session management",
+        "token expiry",
+        "middleware",
+        "login flow",
+        "auth-service",
+        "PKCE",
+        "scopes",
+        "identity provider",
+        "session_tokens"
+      ],
+      "team_distribution": [
+        {
+          "team": "backend",
+          "count": 5,
+          "proportion": 0.8333
+        },
+        {
+          "team": "frontend",
+          "count": 1,
+          "proportion": 0.1667
+        }
+      ]
+    },
+    {
+      "id": "design-system-v2",
+      "name": "Design System v2",
+      "members": [
+        "eve_johnson",
+        "grace_park",
+        "nina_scott",
+        "iris_wang",
+        "jack_brown",
+        "oscar_lee",
+        "lisa_chen"
+      ],
+      "member_count": 7,
+      "status": "active",
+      "time_range": "",
+      "keywords": [
+        "component library",
+        "design tokens",
+        "Figma",
+        "accessibility",
+        "WCAG",
+        "storybook",
+        "semantic colors",
+        "spacing scale",
+        "button variants",
+        "typography",
+        "dark mode",
+        "tokens.json",
+        "color palette"
+      ],
+      "team_distribution": [
+        {
+          "team": "design",
+          "count": 4,
+          "proportion": 0.5714
+        },
+        {
+          "team": "frontend",
+          "count": 3,
+          "proportion": 0.4286
+        }
+      ]
+    },
+    {
+      "id": "mobile-app",
+      "name": "Mobile App",
+      "members": [
+        "henry_zhao",
+        "frank_li",
+        "priya_mehta",
+        "ryan_nguyen",
+        "grace_park"
+      ],
+      "member_count": 5,
+      "status": "active",
+      "time_range": "",
+      "keywords": [
+        "React Native",
+        "iOS",
+        "Android",
+        "push notifications",
+        "deep links",
+        "bundle size",
+        "TestFlight",
+        "App Store",
+        "performance profiling",
+        "Hermes",
+        "metro bundler",
+        "activation metrics"
+      ],
+      "team_distribution": [
+        {
+          "team": "frontend",
+          "count": 3,
+          "proportion": 0.6
+        },
+        {
+          "team": "product",
+          "count": 2,
+          "proportion": 0.4
+        }
+      ]
+    },
+    {
+      "id": "onboarding-redesign",
+      "name": "Onboarding Flow Redesign",
+      "members": [
+        "quinn_davis",
+        "sofia_martinez",
+        "jack_brown",
+        "grace_park",
+        "jordan_kim"
+      ],
+      "member_count": 5,
+      "status": "active",
+      "time_range": "",
+      "keywords": [
+        "user activation",
+        "first-time experience",
+        "empty states",
+        "onboarding checklist",
+        "progressive disclosure",
+        "user research",
+        "funnel",
+        "drop-off rate",
+        "wizard",
+        "tooltips",
+        "activation funnel",
+        "onboarding spec"
+      ],
+      "team_distribution": [
+        {
+          "team": "product",
+          "count": 2,
+          "proportion": 0.4
+        },
+        {
+          "team": "frontend",
+          "count": 2,
+          "proportion": 0.4
+        },
+        {
+          "team": "design",
+          "count": 1,
+          "proportion": 0.2
+        }
+      ]
+    },
+    {
+      "id": "infra-migration",
+      "name": "Infrastructure Migration",
+      "members": [
+        "dave_patel",
+        "charlie_ross",
+        "bob_kim"
+      ],
+      "member_count": 3,
+      "status": "active",
+      "time_range": "",
+      "keywords": [
+        "Kubernetes",
+        "Docker",
+        "Terraform",
+        "AWS EKS",
+        "load balancer",
+        "CI/CD",
+        "GitHub Actions",
+        "staging environment",
+        "rollback",
+        "zero-downtime deployment",
+        "secrets management",
+        "Datadog",
+        "k8s",
+        "terraform plan"
+      ],
+      "team_distribution": [
+        {
+          "team": "backend",
+          "count": 3,
+          "proportion": 1.0
+        }
+      ]
+    },
+    {
+      "id": "billing-v2",
+      "name": "Billing v2",
+      "members": [
+        "alice_chen",
+        "dave_patel",
+        "charlie_ross",
+        "quinn_davis",
+        "ryan_nguyen"
+      ],
+      "member_count": 5,
+      "status": "completed",
+      "time_range": "Sep-Oct 2024",
+      "keywords": [
+        "Stripe",
+        "invoicing",
+        "usage-based pricing",
+        "billing cycles",
+        "proration",
+        "subscription tiers",
+        "payment webhook",
+        "billing-service",
+        "invoice_items",
+        "MRR",
+        "churn rate",
+        "pricing model"
+      ],
+      "team_distribution": [
+        {
+          "team": "backend",
+          "count": 3,
+          "proportion": 0.6
+        },
+        {
+          "team": "product",
+          "count": 2,
+          "proportion": 0.4
+        }
+      ]
+    },
+    {
+      "id": "brand-refresh",
+      "name": "Brand Refresh",
+      "members": [
+        "iris_wang",
+        "oscar_lee",
+        "lisa_chen",
+        "nina_scott",
+        "frank_li",
+        "priya_mehta"
+      ],
+      "member_count": 6,
+      "status": "completed",
+      "time_range": "Oct-Nov 2024",
+      "keywords": [
+        "brand guidelines",
+        "logo redesign",
+        "color palette",
+        "typography system",
+        "marketing site",
+        "brand book",
+        "motion graphics",
+        "hero animation",
+        "visual identity",
+        "lighthouse score"
+      ],
+      "team_distribution": [
+        {
+          "team": "design",
+          "count": 3,
+          "proportion": 0.5
+        },
+        {
+          "team": "frontend",
+          "count": 2,
+          "proportion": 0.3333
+        },
+        {
+          "team": "product",
+          "count": 1,
+          "proportion": 0.1667
+        }
+      ]
+    },
+    {
+      "id": "platform-api",
+      "name": "Platform API",
+      "members": [
+        "bob_kim",
+        "mike_torres",
+        "eve_johnson",
+        "henry_zhao",
+        "karen_wu"
+      ],
+      "member_count": 5,
+      "status": "completed",
+      "time_range": "Nov-Dec 2024",
+      "keywords": [
+        "REST API",
+        "API versioning",
+        "rate limiting",
+        "API keys",
+        "developer portal",
+        "OpenAPI spec",
+        "SDK",
+        "webhook subscriptions",
+        "API authentication",
+        "cursor-based pagination"
+      ],
+      "team_distribution": [
+        {
+          "team": "backend",
+          "count": 3,
+          "proportion": 0.6
+        },
+        {
+          "team": "frontend",
+          "count": 2,
+          "proportion": 0.4
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "auth-refactor",
+      "target": "platform-api",
+      "shared_members": 4,
+      "weight": 1.0
+    },
+    {
+      "source": "design-system-v2",
+      "target": "brand-refresh",
+      "shared_members": 4,
+      "weight": 1.0
+    },
+    {
+      "source": "auth-refactor",
+      "target": "infra-migration",
+      "shared_members": 2,
+      "weight": 0.5
+    },
+    {
+      "source": "auth-refactor",
+      "target": "billing-v2",
+      "shared_members": 2,
+      "weight": 0.5
+    },
+    {
+      "source": "design-system-v2",
+      "target": "onboarding-redesign",
+      "shared_members": 2,
+      "weight": 0.5
+    },
+    {
+      "source": "mobile-app",
+      "target": "brand-refresh",
+      "shared_members": 2,
+      "weight": 0.5
+    },
+    {
+      "source": "infra-migration",
+      "target": "billing-v2",
+      "shared_members": 2,
+      "weight": 0.5
+    },
+    {
+      "source": "auth-refactor",
+      "target": "design-system-v2",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "design-system-v2",
+      "target": "mobile-app",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "design-system-v2",
+      "target": "platform-api",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "mobile-app",
+      "target": "onboarding-redesign",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "mobile-app",
+      "target": "billing-v2",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "mobile-app",
+      "target": "platform-api",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "onboarding-redesign",
+      "target": "billing-v2",
+      "shared_members": 1,
+      "weight": 0.25
+    },
+    {
+      "source": "infra-migration",
+      "target": "platform-api",
+      "shared_members": 1,
+      "weight": 0.25
+    }
+  ]
+}
