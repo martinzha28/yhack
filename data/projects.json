@@ -28,5 +28,29 @@
     "name": "Infrastructure Migration",
     "members": ["dave_patel", "charlie_ross", "bob_kim"],
     "keywords": ["Kubernetes", "Docker", "Terraform", "AWS EKS", "load balancer", "CI/CD", "GitHub Actions", "staging environment", "rollback", "zero-downtime deployment", "secrets management", "Datadog", "k8s", "terraform plan"]
+  },
+  {
+    "id": "billing-v2",
+    "name": "Billing v2",
+    "status": "completed",
+    "time_range": "Sep-Oct 2024",
+    "members": ["alice_chen", "dave_patel", "charlie_ross", "quinn_davis", "ryan_nguyen"],
+    "keywords": ["Stripe", "invoicing", "usage-based pricing", "billing cycles", "proration", "subscription tiers", "payment webhook", "billing-service", "invoice_items", "MRR", "churn rate", "pricing model"]
+  },
+  {
+    "id": "brand-refresh",
+    "name": "Brand Refresh",
+    "status": "completed",
+    "time_range": "Oct-Nov 2024",
+    "members": ["iris_wang", "oscar_lee", "lisa_chen", "nina_scott", "frank_li", "priya_mehta"],
+    "keywords": ["brand guidelines", "logo redesign", "color palette", "typography system", "marketing site", "brand book", "motion graphics", "hero animation", "visual identity", "lighthouse score"]
+  },
+  {
+    "id": "platform-api",
+    "name": "Platform API",
+    "status": "completed",
+    "time_range": "Nov-Dec 2024",
+    "members": ["bob_kim", "mike_torres", "eve_johnson", "henry_zhao", "karen_wu"],
+    "keywords": ["REST API", "API versioning", "rate limiting", "API keys", "developer portal", "OpenAPI spec", "SDK", "webhook subscriptions", "API authentication", "cursor-based pagination"]
   }
 ]
