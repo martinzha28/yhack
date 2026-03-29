@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OrgGraph",
+  title: "Hop Onboard",
   description: "AI-powered org chart from communication patterns",
+  icons: {
+    icon: "/hoponboard.png",
+  },
 };
 
 export default function RootLayout({
