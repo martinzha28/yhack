@@ -193,7 +193,7 @@ export default function ProjectGraph({
       .text((d) => d.shared_count.toString())
       .attr("text-anchor", "middle")
       .attr("dy", "0.3em")
-      .attr("fill", "#475569")
+      .attr("fill", "#acb3bd")
       .attr("font-size", "10px")
       .attr("font-weight", "600");
 
