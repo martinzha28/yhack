@@ -10,7 +10,6 @@ import {
 import { useGraphSimulation } from "./graph/useGraphSimulation";
 import { useGraphEffects } from "./graph/useGraphEffects";
 import Legend from "./graph/Legend";
-import SearchBar from "./graph/SearchBar";
 import SettingsPanel from "./graph/SettingsPanel";
 import InfoPanel from "./graph/InfoPanel";
 import { useTheme } from "./ThemeContext";
@@ -19,12 +18,18 @@ interface OrgGraphProps {
   chatHighlight?: Set<string> | null;
   onRegisterSelect?: (fn: (id: string) => void) => void;
   onClearHighlight?: () => void;
+  search: string;
+  setSearch: (v: string) => void;
+  onMatchCountChange?: (n: number | null) => void;
 }
 
 export default function OrgGraph({
   chatHighlight,
   onRegisterSelect,
   onClearHighlight,
+  search,
+  setSearch,
+  onMatchCountChange,
 }: OrgGraphProps) {
   const { theme } = useTheme();
   const svgRef = useRef<SVGSVGElement>(null);
@@ -43,7 +48,6 @@ export default function OrgGraph({
       onClearHighlight?.();
     }
   }, [selected, onClearHighlight]);
-  const [search, setSearch] = useState("");
   const [showEdges, setShowEdges] = useState(true);
   const [clustering, setClustering] = useState(true);
 
@@ -84,6 +88,10 @@ export default function OrgGraph({
     return new Set(matches);
   }, [search, data]);
 
+  useEffect(() => {
+    onMatchCountChange?.(searchMatch ? searchMatch.size : null);
+  }, [searchMatch, onMatchCountChange]);
+
   const rankedConnections = useMemo<RankedConnection[]>(() => {
     if (!data || !selected) return [];
     return data.links
@@ -120,20 +128,10 @@ export default function OrgGraph({
   const selectedNode = data?.nodes.find((n) => n.id === selected);
 
   return (
-    <div className={`relative w-full h-full ${theme === "dark" ? "bg-zinc-900" : "bg-slate-50"}`}>
-      <svg
-        ref={svgRef}
-        className="w-full h-full"
-      />
-
-      {/* Search — top-right */}
-      <div className="absolute top-4 right-4 z-10">
-        <SearchBar
-          search={search}
-          setSearch={setSearch}
-          matchCount={searchMatch ? searchMatch.size : null}
-        />
-      </div>
+    <div
+      className={`relative w-full h-full ${theme === "dark" ? "bg-zinc-900" : "bg-slate-50"}`}
+    >
+      <svg ref={svgRef} className="w-full h-full" />
 
       {/* Legend — bottom-left */}
       <div className="absolute bottom-4 left-4 z-10">
