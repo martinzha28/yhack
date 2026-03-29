@@ -14,6 +14,7 @@ interface UseGraphEffectsOptions {
   minWeight: number;
   selected: string | null;
   searchMatch: Set<string> | null;
+  chatHighlight: Set<string> | null;
   showEdges: boolean;
 }
 
@@ -24,6 +25,7 @@ export function useGraphEffects({
   minWeight,
   selected,
   searchMatch,
+  chatHighlight,
   showEdges,
 }: UseGraphEffectsOptions) {
   // Smooth threshold transitions
@@ -83,7 +85,10 @@ export function useGraphEffects({
     if (!gRef.current || !data) return;
     const g = gRef.current;
 
-    const activeHighlight = selected || (searchMatch && searchMatch.size > 0);
+    const activeHighlight =
+      selected ||
+      (searchMatch && searchMatch.size > 0) ||
+      (chatHighlight && chatHighlight.size > 0);
 
     if (!activeHighlight) {
       g.select(".links")
@@ -129,6 +134,10 @@ export function useGraphEffects({
       searchMatch.forEach((id) => highlightedIds.add(id));
     }
 
+    if (chatHighlight) {
+      chatHighlight.forEach((id) => highlightedIds.add(id));
+    }
+
     g.select(".links")
       .selectAll<SVGLineElement, Link>("line")
       .transition()
@@ -138,6 +147,8 @@ export function useGraphEffects({
         const { s, t } = linkId(d);
         if (selected && (s === selected || t === selected)) return 0.8;
         if (searchMatch && searchMatch.has(s) && searchMatch.has(t)) return 0.6;
+        if (chatHighlight && chatHighlight.has(s) && chatHighlight.has(t))
+          return 0.7;
         return 0.05;
       });
 
@@ -147,12 +158,16 @@ export function useGraphEffects({
       .transition()
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12))
-      .attr("stroke", (d: Node) =>
-        searchMatch && searchMatch.has(d.id) ? "#facc15" : "#fff",
-      )
-      .attr("stroke-width", (d: Node) =>
-        searchMatch && searchMatch.has(d.id) ? 3 : 1.5,
-      );
+      .attr("stroke", (d: Node) => {
+        if (chatHighlight && chatHighlight.has(d.id)) return "#818cf8";
+        if (searchMatch && searchMatch.has(d.id)) return "#facc15";
+        return "#fff";
+      })
+      .attr("stroke-width", (d: Node) => {
+        if (chatHighlight && chatHighlight.has(d.id)) return 3;
+        if (searchMatch && searchMatch.has(d.id)) return 3;
+        return 1.5;
+      });
 
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
@@ -160,5 +175,5 @@ export function useGraphEffects({
       .transition()
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.08));
-  }, [selected, searchMatch, data, minWeight, showEdges, gRef]);
+  }, [selected, searchMatch, chatHighlight, data, minWeight, showEdges, gRef]);
 }

@@ -32,6 +32,7 @@ interface UseGraphSimulationOptions {
   setSelected: React.Dispatch<React.SetStateAction<string | null>>;
   setHovered: React.Dispatch<React.SetStateAction<string | null>>;
   clustering: boolean;
+  onBackgroundClick?: () => void;
 }
 
 function seedPosition(id: string, max: number, offset: number): number {
@@ -46,6 +47,7 @@ export function useGraphSimulation({
   setSelected,
   setHovered,
   clustering,
+  onBackgroundClick,
 }: UseGraphSimulationOptions) {
   const simRef = useRef<d3.Simulation<Node, Link> | null>(null);
   const nodesRef = useRef<Node[]>([]);
@@ -184,7 +186,7 @@ export function useGraphSimulation({
       .attr("x", -width)
       .attr("y", -height)
       .attr("fill", "transparent")
-      .on("click", () => setSelected(null));
+      .on("click", () => { setSelected(null); onBackgroundClick?.(); });
 
     const margin = 150;
     svg.call(
