@@ -2,321 +2,323 @@
   "projects": [
     {
       "id": "billing-v2",
-      "name": "Billing v2",
+      "name": "Billing System Revamp (Billing v2)",
       "keywords": [
-        "billing",
-        "billing-service",
+        "billing-v2",
         "invoice_items",
-        "Stripe",
         "proration",
-        "usage-tracking",
-        "subscription-tiers",
-        "custom-discounts",
-        "billing-api",
-        "revenue-dashboard"
+        "Stripe",
+        "metered billing",
+        "usage tracking",
+        "subscription tiers",
+        "webhook",
+        "revenue metrics",
+        "billing-service"
       ],
       "status": "completed",
-      "time_range": "Oct 2025"
-    },
-    {
-      "id": "revenue-dashboard",
-      "name": "Revenue Dashboard",
-      "keywords": [
-        "revenue",
-        "dashboard",
-        "MRR",
-        "churn",
-        "expansion-revenue",
-        "usage-revenue",
-        "metrics",
-        "board",
-        "analytics",
-        "funnel"
-      ],
-      "status": "completed",
-      "time_range": "Oct 2025"
+      "time_range": "Oct-Nov 2024"
     },
     {
       "id": "brand-refresh",
-      "name": "Brand Refresh",
+      "name": "Company Brand Refresh",
       "keywords": [
-        "brand",
-        "brand-identity",
+        "brand-refresh",
         "logo",
-        "visual-identity",
-        "marketing-site",
-        "nextjs",
-        "hero-animation",
-        "brand-book",
-        "design-exploration",
-        "launch"
+        "visual identity",
+        "color palette",
+        "typography",
+        "motion graphics",
+        "brand book",
+        "marketing site",
+        "brand launch",
+        "design exploration"
       ],
       "status": "completed",
-      "time_range": "Nov 2025"
-    },
-    {
-      "id": "platform-api",
-      "name": "Platform API (OpenAPI & Developer Portal)",
-      "keywords": [
-        "openapi",
-        "api-spec",
-        "developer-portal",
-        "api-key",
-        "rate-limiting",
-        "webhook",
-        "subdomain",
-        "interactive-docs",
-        "documentation",
-        "endpoints"
-      ],
-      "status": "completed",
-      "time_range": "Nov-Dec 2025"
-    },
-    {
-      "id": "auth-refactor",
-      "name": "Auth Refactor (OAuth2, PKCE, Token Rotation)",
-      "keywords": [
-        "auth",
-        "OAuth2",
-        "PKCE",
-        "token-rotation",
-        "refresh-token",
-        "session-management",
-        "identity-provider",
-        "security-audit",
-        "client-credentials",
-        "scope-authorization"
-      ],
-      "status": "active",
-      "time_range": "Jan-Mar 2025"
+      "time_range": "Oct-Nov 2024"
     },
     {
       "id": "design-system-v2",
-      "name": "Design System v2",
+      "name": "Design System Revamp (v2)",
       "keywords": [
-        "design-system",
-        "tokens",
-        "color-palette",
-        "spacing",
-        "typography",
-        "button",
-        "textinput",
-        "select",
-        "checkbox",
-        "dark-mode"
+        "design-system-v2",
+        "design tokens",
+        "color palette",
+        "spacing tokens",
+        "Button",
+        "TextInput",
+        "Select",
+        "Checkbox",
+        "dark mode",
+        "Storybook"
       ],
       "status": "active",
-      "time_range": "Jan-Mar 2025"
+      "time_range": "Nov 2024 - Mar 2025"
+    },
+    {
+      "id": "auth-refactor",
+      "name": "Auth Service Refactor (OAuth2 PKCE)",
+      "keywords": [
+        "auth-refactor",
+        "OAuth2",
+        "PKCE",
+        "token rotation",
+        "refresh token",
+        "session revocation",
+        "JWT",
+        "identity providers",
+        "IdP adapters",
+        "session management UI"
+      ],
+      "status": "completed",
+      "time_range": "Oct 2024 - Feb 2025"
+    },
+    {
+      "id": "platform-api",
+      "name": "Platform API & Developer Portal",
+      "keywords": [
+        "platform-api",
+        "OpenAPI",
+        "API key management",
+        "rate limiting",
+        "developer portal",
+        "interactive docs",
+        "usage analytics",
+        "authentication model",
+        "subdomain",
+        "docs.api.bsus.com"
+      ],
+      "status": "active",
+      "time_range": "Oct 2024 - Mar 2025"
     },
     {
       "id": "infra-migration",
-      "name": "Infrastructure Migration (EC2 \u2192 EKS)",
+      "name": "Infrastructure Migration to AWS EKS",
       "keywords": [
         "infra-migration",
         "EKS",
-        "kubernetes",
-        "terraform",
-        "helm",
-        "ci-cd",
-        "github-actions",
-        "connection-pool",
-        "node-groups",
-        "rollback"
+        "helm charts",
+        "CI/CD migration",
+        "GitHub Actions",
+        "Terraform",
+        "Kubernetes",
+        "RDS",
+        "KMS",
+        "EC2 decommission"
       ],
       "status": "active",
       "time_range": "Jan-Mar 2025"
     },
     {
       "id": "mobile-app",
-      "name": "Mobile App (iOS & Android)",
+      "name": "Bsus Mobile Application",
       "keywords": [
-        "mobile",
-        "react-native",
-        "bundle-size",
+        "mobile-app",
+        "React Native",
+        "TestFlight",
+        "deep links",
+        "push notifications",
+        "offline mode",
+        "dark theme",
+        "bundle size",
         "performance",
-        "deep-links",
-        "testflight",
-        "push-notifications",
-        "offline-mode",
-        "dark-theme",
-        "app-store"
+        "Lottie animation"
       ],
       "status": "active",
-      "time_range": "Feb-Mar 2025"
+      "time_range": "Nov 2024 - Mar 2025"
+    },
+    {
+      "id": "mobile-ui",
+      "name": "Mobile UI Component Library (React Native)",
+      "keywords": [
+        "mobile-ui",
+        "React Native",
+        "Button",
+        "TextInput",
+        "Card",
+        "platform-specific",
+        "component library",
+        "shared components",
+        "Lottie animations",
+        "bundle size"
+      ],
+      "status": "active",
+      "time_range": "Jan-Mar 2025"
     },
     {
       "id": "onboarding-redesign",
-      "name": "Onboarding Redesign",
+      "name": "User Onboarding Redesign",
       "keywords": [
-        "onboarding",
+        "onboarding-redesign",
         "checklist",
         "wizard",
-        "progress-indicator",
-        "analytics",
-        "drop-off",
-        "progressive-disclosure",
-        "tooltip",
-        "empty-states",
-        "sidebar"
+        "progressive disclosure",
+        "product tour",
+        "tooltips",
+        "empty states",
+        "feature flags",
+        "A/B testing",
+        "analytics"
       ],
       "status": "active",
-      "time_range": "Mar 2025"
+      "time_range": "Nov 2024 - Mar 2025"
+    },
+    {
+      "id": "revenue-dashboard",
+      "name": "Revenue & Subscription Metrics Dashboard",
+      "keywords": [
+        "revenue-dashboard",
+        "MRR",
+        "churn",
+        "expansion revenue",
+        "usage revenue",
+        "dashboard",
+        "analytics",
+        "live metrics",
+        "net revenue retention",
+        "Stripe"
+      ],
+      "status": "completed",
+      "time_range": "Oct-Nov 2024"
     },
     {
       "id": "notifications-service",
-      "name": "Notifications Service (Push Notifications)",
+      "name": "Push Notification Service",
       "keywords": [
-        "notifications",
-        "push-notifications",
-        "device-token",
-        "registration",
-        "backend",
-        "mobile",
-        "service",
-        "notifications-service"
+        "notifications-service",
+        "push notifications",
+        "goes to production",
+        "EKS",
+        "production cutover"
       ],
       "status": "active",
-      "time_range": "Mar 2025"
+      "time_range": "Jan-Mar 2025"
     }
   ],
   "person_weights": {
     "alice_chen": {
       "billing-v2": 1.0,
-      "revenue-dashboard": 0.6,
-      "auth-refactor": 0.3
+      "auth-refactor": 0.65,
+      "revenue-dashboard": 0.25
     },
     "bob_kim": {
-      "platform-api": 0.9,
-      "auth-refactor": 0.4,
-      "infra-migration": 0.4,
-      "billing-v2": 0.15
+      "platform-api": 1.0,
+      "auth-refactor": 0.85,
+      "infra-migration": 0.5,
+      "billing-v2": 0.2
     },
     "charlie_ross": {
-      "billing-v2": 0.95,
-      "auth-refactor": 0.95,
-      "infra-migration": 0.4,
-      "notifications-service": 0.3
+      "billing-v2": 0.9,
+      "auth-refactor": 0.8,
+      "infra-migration": 0.7,
+      "notifications-service": 0.35
     },
     "dave_patel": {
-      "billing-v2": 0.9,
-      "infra-migration": 0.9,
-      "auth-refactor": 0.35,
-      "notifications-service": 0.3
+      "billing-v2": 1.0,
+      "infra-migration": 1.0
     },
     "karen_wu": {
-      "platform-api": 0.85,
-      "auth-refactor": 0.85,
-      "infra-migration": 0.15,
-      "design-system-v2": 0.15
+      "platform-api": 0.75,
+      "auth-refactor": 0.6
     },
     "mike_torres": {
-      "platform-api": 1.0,
-      "auth-refactor": 1.0
+      "platform-api": 0.95,
+      "auth-refactor": 0.55
     },
     "eve_johnson": {
-      "design-system-v2": 1.0,
-      "platform-api": 0.85,
-      "auth-refactor": 0.75,
-      "onboarding-redesign": 0.45,
-      "mobile-app": 0.4
+      "platform-api": 0.9,
+      "design-system-v2": 0.75,
+      "auth-refactor": 0.6
     },
     "frank_li": {
-      "mobile-app": 0.95,
-      "brand-refresh": 0.85
+      "mobile-app": 0.9,
+      "brand-refresh": 0.7
     },
     "grace_park": {
-      "onboarding-redesign": 1.0,
-      "design-system-v2": 0.9
+      "design-system-v2": 0.9,
+      "mobile-ui": 0.85,
+      "onboarding-redesign": 0.5
     },
     "henry_zhao": {
-      "platform-api": 0.85,
-      "mobile-app": 0.75,
-      "notifications-service": 0.6
+      "platform-api": 0.9,
+      "mobile-app": 0.85
     },
     "nina_scott": {
-      "design-system-v2": 0.92,
-      "brand-refresh": 0.68,
-      "onboarding-redesign": 0.2
+      "design-system-v2": 0.85,
+      "brand-refresh": 0.7
     },
     "iris_wang": {
-      "brand-refresh": 0.9,
-      "design-system-v2": 0.84,
+      "brand-refresh": 1.0,
+      "design-system-v2": 0.8,
       "revenue-dashboard": 0.25
     },
     "jack_brown": {
-      "onboarding-redesign": 0.92,
-      "design-system-v2": 0.65,
+      "onboarding-redesign": 0.95,
+      "design-system-v2": 0.75,
       "brand-refresh": 0.15
     },
     "lisa_chen": {
-      "brand-refresh": 0.88,
-      "design-system-v2": 0.7
+      "design-system-v2": 0.85,
+      "brand-refresh": 0.6
     },
     "oscar_lee": {
-      "brand-refresh": 0.95,
-      "design-system-v2": 0.9
+      "brand-refresh": 1.0,
+      "design-system-v2": 0.95
     },
     "priya_mehta": {
-      "mobile-app": 1.0,
-      "brand-refresh": 0.85
+      "brand-refresh": 0.98,
+      "mobile-app": 0.75
     },
     "quinn_davis": {
-      "onboarding-redesign": 1.0,
-      "billing-v2": 0.85
+      "onboarding-redesign": 0.95,
+      "billing-v2": 0.85,
+      "revenue-dashboard": 0.7
     },
     "ryan_nguyen": {
-      "revenue-dashboard": 1.0,
-      "mobile-app": 0.6
+      "revenue-dashboard": 0.9,
+      "mobile-app": 0.75
     },
     "sofia_martinez": {
-      "onboarding-redesign": 1.0,
-      "design-system-v2": 0.5,
-      "infra-migration": 0.5
+      "onboarding-redesign": 0.95,
+      "design-system-v2": 0.25
     },
     "jordan_kim": {
-      "onboarding-redesign": 0.8
+      "onboarding-redesign": 0.9
     }
   },
   "person_roles": {
     "alice_chen": {
       "billing-v2": "lead",
-      "revenue-dashboard": "core",
-      "auth-refactor": "contributor"
+      "auth-refactor": "core",
+      "revenue-dashboard": "contributor"
     },
     "bob_kim": {
-      "platform-api": "core",
-      "auth-refactor": "contributor",
+      "platform-api": "lead",
+      "auth-refactor": "core",
       "infra-migration": "contributor",
-      "billing-v2": "peripheral"
+      "billing-v2": "contributor"
     },
     "charlie_ross": {
       "billing-v2": "core",
       "auth-refactor": "core",
-      "infra-migration": "contributor",
+      "infra-migration": "core",
       "notifications-service": "contributor"
     },
     "dave_patel": {
-      "billing-v2": "core",
-      "infra-migration": "core",
-      "auth-refactor": "contributor",
-      "notifications-service": "contributor"
+      "billing-v2": "lead",
+      "infra-migration": "lead"
     },
     "karen_wu": {
       "platform-api": "core",
-      "auth-refactor": "core",
-      "infra-migration": "peripheral",
-      "design-system-v2": "peripheral"
+      "auth-refactor": "core"
     },
     "mike_torres": {
       "platform-api": "lead",
-      "auth-refactor": "lead"
+      "auth-refactor": "core"
     },
     "eve_johnson": {
       "platform-api": "core",
-      "auth-refactor": "core",
-      "design-system-v2": "lead",
-      "onboarding-redesign": "contributor",
-      "mobile-app": "contributor"
+      "design-system-v2": "core",
+      "auth-refactor": "core"
     },
     "frank_li": {
       "brand-refresh": "core",
@@ -324,30 +326,29 @@
     },
     "grace_park": {
       "design-system-v2": "core",
-      "onboarding-redesign": "lead"
+      "mobile-ui": "core",
+      "onboarding-redesign": "contributor"
     },
     "henry_zhao": {
       "platform-api": "core",
-      "mobile-app": "core",
-      "notifications-service": "core"
+      "mobile-app": "core"
     },
     "nina_scott": {
       "brand-refresh": "core",
-      "design-system-v2": "core",
-      "onboarding-redesign": "contributor"
+      "design-system-v2": "core"
     },
     "iris_wang": {
       "brand-refresh": "lead",
       "design-system-v2": "core",
-      "revenue-dashboard": "contributor"
+      "revenue-dashboard": "peripheral"
     },
     "jack_brown": {
-      "onboarding-redesign": "lead",
       "design-system-v2": "core",
+      "onboarding-redesign": "lead",
       "brand-refresh": "peripheral"
     },
     "lisa_chen": {
-      "brand-refresh": "lead",
+      "brand-refresh": "core",
       "design-system-v2": "core"
     },
     "oscar_lee": {
@@ -360,19 +361,19 @@
     },
     "quinn_davis": {
       "billing-v2": "lead",
+      "revenue-dashboard": "core",
       "onboarding-redesign": "lead"
     },
     "ryan_nguyen": {
       "revenue-dashboard": "core",
-      "mobile-app": "contributor"
+      "mobile-app": "core"
     },
     "sofia_martinez": {
       "onboarding-redesign": "lead",
-      "design-system-v2": "contributor",
-      "infra-migration": "contributor"
+      "design-system-v2": "peripheral"
     },
     "jordan_kim": {
-      "onboarding-redesign": "contributor"
+      "onboarding-redesign": "core"
     }
   },
   "project_members": {
@@ -382,11 +383,11 @@
         "weight": 1.0
       },
       {
-        "id": "charlie_ross",
-        "weight": 0.95
+        "id": "dave_patel",
+        "weight": 1.0
       },
       {
-        "id": "dave_patel",
+        "id": "charlie_ross",
         "weight": 0.9
       },
       {
@@ -395,229 +396,203 @@
       },
       {
         "id": "bob_kim",
-        "weight": 0.15
+        "weight": 0.2
+      }
+    ],
+    "auth-refactor": [
+      {
+        "id": "bob_kim",
+        "weight": 0.85
+      },
+      {
+        "id": "charlie_ross",
+        "weight": 0.8
+      },
+      {
+        "id": "alice_chen",
+        "weight": 0.65
+      },
+      {
+        "id": "karen_wu",
+        "weight": 0.6
+      },
+      {
+        "id": "eve_johnson",
+        "weight": 0.6
+      },
+      {
+        "id": "mike_torres",
+        "weight": 0.55
       }
     ],
     "revenue-dashboard": [
       {
         "id": "ryan_nguyen",
-        "weight": 1.0
+        "weight": 0.9
+      },
+      {
+        "id": "quinn_davis",
+        "weight": 0.7
       },
       {
         "id": "alice_chen",
-        "weight": 0.6
+        "weight": 0.25
       },
       {
         "id": "iris_wang",
         "weight": 0.25
       }
     ],
-    "auth-refactor": [
+    "platform-api": [
       {
-        "id": "mike_torres",
+        "id": "bob_kim",
         "weight": 1.0
       },
       {
-        "id": "charlie_ross",
+        "id": "mike_torres",
         "weight": 0.95
       },
       {
-        "id": "karen_wu",
-        "weight": 0.85
-      },
-      {
         "id": "eve_johnson",
-        "weight": 0.75
+        "weight": 0.9
       },
       {
-        "id": "bob_kim",
-        "weight": 0.4
-      },
-      {
-        "id": "dave_patel",
-        "weight": 0.35
-      },
-      {
-        "id": "alice_chen",
-        "weight": 0.3
-      }
-    ],
-    "platform-api": [
-      {
-        "id": "mike_torres",
-        "weight": 1.0
-      },
-      {
-        "id": "bob_kim",
+        "id": "henry_zhao",
         "weight": 0.9
       },
       {
         "id": "karen_wu",
-        "weight": 0.85
-      },
-      {
-        "id": "eve_johnson",
-        "weight": 0.85
-      },
-      {
-        "id": "henry_zhao",
-        "weight": 0.85
+        "weight": 0.75
       }
     ],
     "infra-migration": [
       {
         "id": "dave_patel",
-        "weight": 0.9
-      },
-      {
-        "id": "sofia_martinez",
-        "weight": 0.5
-      },
-      {
-        "id": "bob_kim",
-        "weight": 0.4
+        "weight": 1.0
       },
       {
         "id": "charlie_ross",
-        "weight": 0.4
+        "weight": 0.7
       },
       {
-        "id": "karen_wu",
-        "weight": 0.15
+        "id": "bob_kim",
+        "weight": 0.5
       }
     ],
     "notifications-service": [
       {
-        "id": "henry_zhao",
-        "weight": 0.6
-      },
-      {
         "id": "charlie_ross",
-        "weight": 0.3
-      },
-      {
-        "id": "dave_patel",
-        "weight": 0.3
+        "weight": 0.35
       }
     ],
     "design-system-v2": [
       {
-        "id": "eve_johnson",
-        "weight": 1.0
+        "id": "oscar_lee",
+        "weight": 0.95
+      },
+      {
+        "id": "grace_park",
+        "weight": 0.9
       },
       {
         "id": "nina_scott",
-        "weight": 0.92
-      },
-      {
-        "id": "grace_park",
-        "weight": 0.9
-      },
-      {
-        "id": "oscar_lee",
-        "weight": 0.9
-      },
-      {
-        "id": "iris_wang",
-        "weight": 0.84
+        "weight": 0.85
       },
       {
         "id": "lisa_chen",
-        "weight": 0.7
+        "weight": 0.85
       },
       {
-        "id": "jack_brown",
-        "weight": 0.65
-      },
-      {
-        "id": "sofia_martinez",
-        "weight": 0.5
-      },
-      {
-        "id": "karen_wu",
-        "weight": 0.15
-      }
-    ],
-    "onboarding-redesign": [
-      {
-        "id": "grace_park",
-        "weight": 1.0
-      },
-      {
-        "id": "quinn_davis",
-        "weight": 1.0
-      },
-      {
-        "id": "sofia_martinez",
-        "weight": 1.0
-      },
-      {
-        "id": "jack_brown",
-        "weight": 0.92
-      },
-      {
-        "id": "jordan_kim",
+        "id": "iris_wang",
         "weight": 0.8
       },
       {
         "id": "eve_johnson",
-        "weight": 0.45
+        "weight": 0.75
       },
       {
-        "id": "nina_scott",
-        "weight": 0.2
+        "id": "jack_brown",
+        "weight": 0.75
+      },
+      {
+        "id": "sofia_martinez",
+        "weight": 0.25
       }
     ],
     "mobile-app": [
       {
-        "id": "priya_mehta",
-        "weight": 1.0
-      },
-      {
         "id": "frank_li",
-        "weight": 0.95
+        "weight": 0.9
       },
       {
         "id": "henry_zhao",
+        "weight": 0.85
+      },
+      {
+        "id": "priya_mehta",
         "weight": 0.75
       },
       {
         "id": "ryan_nguyen",
-        "weight": 0.6
-      },
-      {
-        "id": "eve_johnson",
-        "weight": 0.4
+        "weight": 0.75
       }
     ],
     "brand-refresh": [
       {
-        "id": "oscar_lee",
-        "weight": 0.95
-      },
-      {
         "id": "iris_wang",
-        "weight": 0.9
+        "weight": 1.0
       },
       {
-        "id": "lisa_chen",
-        "weight": 0.88
-      },
-      {
-        "id": "frank_li",
-        "weight": 0.85
+        "id": "oscar_lee",
+        "weight": 1.0
       },
       {
         "id": "priya_mehta",
-        "weight": 0.85
+        "weight": 0.98
+      },
+      {
+        "id": "frank_li",
+        "weight": 0.7
       },
       {
         "id": "nina_scott",
-        "weight": 0.68
+        "weight": 0.7
+      },
+      {
+        "id": "lisa_chen",
+        "weight": 0.6
       },
       {
         "id": "jack_brown",
         "weight": 0.15
+      }
+    ],
+    "mobile-ui": [
+      {
+        "id": "grace_park",
+        "weight": 0.85
+      }
+    ],
+    "onboarding-redesign": [
+      {
+        "id": "jack_brown",
+        "weight": 0.95
+      },
+      {
+        "id": "quinn_davis",
+        "weight": 0.95
+      },
+      {
+        "id": "sofia_martinez",
+        "weight": 0.95
+      },
+      {
+        "id": "jordan_kim",
+        "weight": 0.9
+      },
+      {
+        "id": "grace_park",
+        "weight": 0.5
       }
     ]
   },
@@ -824,16 +799,16 @@
     "msg_0200": "auth-refactor",
     "msg_0201": "auth-refactor",
     "msg_0202": "auth-refactor",
-    "msg_0203": "platform-api",
+    "msg_0203": "infra-migration",
     "msg_0204": "design-system-v2",
     "msg_0205": "auth-refactor",
     "msg_0206": "design-system-v2",
-    "msg_0207": "platform-api",
+    "msg_0207": "infra-migration",
     "msg_0208": "auth-refactor",
     "msg_0209": null,
     "msg_0210": "auth-refactor",
-    "msg_0211": "platform-api",
-    "msg_0212": "platform-api",
+    "msg_0211": "infra-migration",
+    "msg_0212": "infra-migration",
     "msg_0213": "auth-refactor",
     "msg_0214": "auth-refactor",
     "msg_0215": "design-system-v2",
@@ -863,18 +838,18 @@
     "msg_0239": "auth-refactor",
     "msg_0240": "infra-migration",
     "msg_0241": "design-system-v2",
-    "msg_0242": "platform-api",
+    "msg_0242": "infra-migration",
     "msg_0243": "auth-refactor",
     "msg_0244": "design-system-v2",
     "msg_0245": "auth-refactor",
-    "msg_0246": "platform-api",
+    "msg_0246": "infra-migration",
     "msg_0247": "design-system-v2",
     "msg_0248": "infra-migration",
     "msg_0249": "infra-migration",
-    "msg_0250": "platform-api",
+    "msg_0250": "infra-migration",
     "msg_0251": "auth-refactor",
     "msg_0252": "design-system-v2",
-    "msg_0253": "design-system-v2",
+    "msg_0253": "auth-refactor",
     "msg_0254": "auth-refactor",
     "msg_0255": "auth-refactor",
     "msg_0256": "auth-refactor",
@@ -915,7 +890,7 @@
     "msg_0291": "design-system-v2",
     "msg_0292": "design-system-v2",
     "msg_0293": "auth-refactor",
-    "msg_0294": "platform-api",
+    "msg_0294": "infra-migration",
     "msg_0295": "design-system-v2",
     "msg_0296": null,
     "msg_0297": "auth-refactor",
@@ -963,7 +938,7 @@
     "msg_0339": "auth-refactor",
     "msg_0340": "auth-refactor",
     "msg_0341": "mobile-app",
-    "msg_0342": "auth-refactor",
+    "msg_0342": "mobile-app",
     "msg_0343": "design-system-v2",
     "msg_0344": "design-system-v2",
     "msg_0345": "auth-refactor",
@@ -1000,9 +975,9 @@
     "msg_0376": "design-system-v2",
     "msg_0377": "design-system-v2",
     "msg_0378": "design-system-v2",
-    "msg_0379": "auth-refactor",
-    "msg_0380": "design-system-v2",
-    "msg_0381": "design-system-v2",
+    "msg_0379": null,
+    "msg_0380": null,
+    "msg_0381": null,
     "msg_0382": "design-system-v2",
     "msg_0383": "design-system-v2",
     "msg_0384": "design-system-v2",
@@ -1085,16 +1060,16 @@
     "msg_0461": "mobile-app",
     "msg_0462": "design-system-v2",
     "msg_0463": "design-system-v2",
-    "msg_0464": "mobile-app",
-    "msg_0465": "mobile-app",
-    "msg_0466": "mobile-app",
+    "msg_0464": "mobile-ui",
+    "msg_0465": "mobile-ui",
+    "msg_0466": "mobile-ui",
     "msg_0467": "design-system-v2",
     "msg_0468": null,
     "msg_0469": null,
     "msg_0470": "design-system-v2",
     "msg_0471": "mobile-app",
     "msg_0472": "design-system-v2",
-    "msg_0473": "mobile-app",
+    "msg_0473": "onboarding-redesign",
     "msg_0474": null,
     "msg_0475": "design-system-v2",
     "msg_0476": "mobile-app",
@@ -1117,10 +1092,10 @@
     "msg_0493": "design-system-v2",
     "msg_0494": "infra-migration",
     "msg_0495": "infra-migration",
-    "msg_0496": "mobile-app",
-    "msg_0497": "mobile-app",
+    "msg_0496": "mobile-ui",
+    "msg_0497": "mobile-ui",
     "msg_0498": "design-system-v2",
-    "msg_0499": "design-system-v2",
+    "msg_0499": "onboarding-redesign",
     "msg_0500": "onboarding-redesign",
     "msg_0501": null,
     "msg_0502": null,
@@ -1152,8 +1127,8 @@
     "msg_0528": "auth-refactor",
     "msg_0529": "mobile-app",
     "msg_0530": null,
-    "msg_0531": "mobile-app",
-    "msg_0532": "mobile-app",
+    "msg_0531": "onboarding-redesign",
+    "msg_0532": "onboarding-redesign",
     "msg_0533": "design-system-v2",
     "msg_0534": null,
     "msg_0535": null,
@@ -1166,18 +1141,18 @@
     "msg_0542": "mobile-app",
     "msg_0543": "infra-migration",
     "msg_0544": "infra-migration",
-    "msg_0545": "mobile-app",
-    "msg_0546": "mobile-app",
+    "msg_0545": "onboarding-redesign",
+    "msg_0546": "onboarding-redesign",
     "msg_0547": "design-system-v2",
     "msg_0548": "design-system-v2",
     "msg_0549": "design-system-v2",
     "msg_0550": "design-system-v2",
     "msg_0551": "infra-migration",
-    "msg_0552": "design-system-v2",
+    "msg_0552": "mobile-ui",
     "msg_0553": null,
     "msg_0554": null,
-    "msg_0555": "design-system-v2",
-    "msg_0556": "onboarding-redesign",
+    "msg_0555": "mobile-ui",
+    "msg_0556": null,
     "msg_0557": "onboarding-redesign",
     "msg_0558": "onboarding-redesign",
     "msg_0559": "design-system-v2",
@@ -1188,10 +1163,10 @@
     "msg_0564": "infra-migration",
     "msg_0565": "infra-migration",
     "msg_0566": "mobile-app",
-    "msg_0567": "mobile-app",
-    "msg_0568": "mobile-app",
+    "msg_0567": "onboarding-redesign",
+    "msg_0568": "onboarding-redesign",
     "msg_0569": "onboarding-redesign",
-    "msg_0570": "mobile-app",
+    "msg_0570": "onboarding-redesign",
     "msg_0571": "onboarding-redesign",
     "msg_0572": null,
     "msg_0573": null,
@@ -1199,7 +1174,7 @@
     "msg_0575": "mobile-app",
     "msg_0576": "mobile-app",
     "msg_0577": "auth-refactor",
-    "msg_0578": "auth-refactor",
+    "msg_0578": "infra-migration",
     "msg_0579": "mobile-app",
     "msg_0580": "mobile-app",
     "msg_0581": "design-system-v2",
@@ -1214,7 +1189,7 @@
     "msg_0590": null,
     "msg_0591": null,
     "msg_0592": "mobile-app",
-    "msg_0593": "mobile-app",
+    "msg_0593": "onboarding-redesign",
     "msg_0594": "mobile-app",
     "msg_0595": null,
     "msg_0596": null,
@@ -1223,13 +1198,13 @@
     "msg_0599": "mobile-app",
     "msg_0600": null,
     "msg_0601": null,
-    "msg_0602": "mobile-app",
+    "msg_0602": "mobile-ui",
     "msg_0603": "auth-refactor",
-    "msg_0604": "mobile-app",
+    "msg_0604": "mobile-ui",
     "msg_0605": "onboarding-redesign",
-    "msg_0606": "infra-migration",
+    "msg_0606": "billing-v2",
     "msg_0607": "onboarding-redesign",
-    "msg_0608": "infra-migration",
+    "msg_0608": "billing-v2",
     "msg_0609": "mobile-app",
     "msg_0610": "design-system-v2",
     "msg_0611": "onboarding-redesign",
@@ -1261,7 +1236,7 @@
     "msg_0637": "onboarding-redesign",
     "msg_0638": "onboarding-redesign",
     "msg_0639": "mobile-app",
-    "msg_0640": "design-system-v2",
+    "msg_0640": "mobile-app",
     "msg_0641": "onboarding-redesign",
     "msg_0642": "design-system-v2",
     "msg_0643": "onboarding-redesign",
@@ -1273,9 +1248,9 @@
     "msg_0649": "onboarding-redesign",
     "msg_0650": "mobile-app",
     "msg_0651": "mobile-app",
-    "msg_0652": "design-system-v2",
+    "msg_0652": "mobile-ui",
     "msg_0653": "onboarding-redesign",
-    "msg_0654": "design-system-v2",
+    "msg_0654": "mobile-ui",
     "msg_0655": "onboarding-redesign",
     "msg_0656": "onboarding-redesign",
     "msg_0657": "onboarding-redesign",
@@ -1287,7 +1262,7 @@
     "msg_0663": "mobile-app",
     "msg_0664": "onboarding-redesign",
     "msg_0665": "onboarding-redesign",
-    "msg_0666": "onboarding-redesign",
+    "msg_0666": "design-system-v2",
     "msg_0667": "onboarding-redesign",
     "msg_0668": "onboarding-redesign",
     "msg_0669": "onboarding-redesign",
@@ -1316,11 +1291,11 @@
     "msg_0692": "onboarding-redesign",
     "msg_0693": "onboarding-redesign",
     "msg_0694": "mobile-app",
-    "msg_0695": "onboarding-redesign",
+    "msg_0695": "mobile-app",
     "msg_0696": "onboarding-redesign",
     "msg_0697": "onboarding-redesign",
     "msg_0698": "onboarding-redesign",
-    "msg_0699": "mobile-app",
+    "msg_0699": "onboarding-redesign",
     "msg_0700": "onboarding-redesign",
     "msg_0701": "mobile-app",
     "msg_0702": "onboarding-redesign",
@@ -1357,5 +1332,629 @@
     "msg_0733": "onboarding-redesign",
     "msg_0734": "infra-migration",
     "msg_0735": null
+  },
+  "top_collaborators": {
+    "alice_chen": [
+      {
+        "id": "charlie_ross",
+        "name": "Charlie Ross",
+        "score": 99.0
+      },
+      {
+        "id": "bob_kim",
+        "name": "Bob Kim",
+        "score": 74.0
+      },
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 73.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 61.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 40.0
+      }
+    ],
+    "bob_kim": [
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 81.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 74.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 63.0
+      },
+      {
+        "id": "charlie_ross",
+        "name": "Charlie Ross",
+        "score": 57.0
+      },
+      {
+        "id": "eve_johnson",
+        "name": "Eve Johnson",
+        "score": 30.0
+      }
+    ],
+    "charlie_ross": [
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 99.0
+      },
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 90.0
+      },
+      {
+        "id": "bob_kim",
+        "name": "Bob Kim",
+        "score": 57.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 36.0
+      },
+      {
+        "id": "eve_johnson",
+        "name": "Eve Johnson",
+        "score": 34.0
+      }
+    ],
+    "dave_patel": [
+      {
+        "id": "charlie_ross",
+        "name": "Charlie Ross",
+        "score": 90.0
+      },
+      {
+        "id": "bob_kim",
+        "name": "Bob Kim",
+        "score": 81.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 73.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 40.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 27.0
+      }
+    ],
+    "karen_wu": [
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 37.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 36.0
+      },
+      {
+        "id": "bob_kim",
+        "name": "Bob Kim",
+        "score": 21.0
+      },
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 20.0
+      },
+      {
+        "id": "charlie_ross",
+        "name": "Charlie Ross",
+        "score": 18.0
+      }
+    ],
+    "mike_torres": [
+      {
+        "id": "eve_johnson",
+        "name": "Eve Johnson",
+        "score": 82.0
+      },
+      {
+        "id": "bob_kim",
+        "name": "Bob Kim",
+        "score": 63.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 61.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 51.0
+      },
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 40.0
+      }
+    ],
+    "eve_johnson": [
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 82.0
+      },
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 68.0
+      },
+      {
+        "id": "nina_scott",
+        "name": "Nina Scott",
+        "score": 57.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 35.0
+      },
+      {
+        "id": "charlie_ross",
+        "name": "Charlie Ross",
+        "score": 34.0
+      }
+    ],
+    "frank_li": [
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 78.0
+      },
+      {
+        "id": "nina_scott",
+        "name": "Nina Scott",
+        "score": 32.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 31.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 28.0
+      },
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 27.0
+      }
+    ],
+    "grace_park": [
+      {
+        "id": "eve_johnson",
+        "name": "Eve Johnson",
+        "score": 68.0
+      },
+      {
+        "id": "nina_scott",
+        "name": "Nina Scott",
+        "score": 51.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 51.0
+      },
+      {
+        "id": "quinn_davis",
+        "name": "Quinn Davis",
+        "score": 42.0
+      },
+      {
+        "id": "jordan_kim",
+        "name": "Jordan Kim",
+        "score": 42.0
+      }
+    ],
+    "henry_zhao": [
+      {
+        "id": "frank_li",
+        "name": "Frank Li",
+        "score": 78.0
+      },
+      {
+        "id": "priya_mehta",
+        "name": "Priya Mehta",
+        "score": 56.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 51.0
+      },
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 51.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 40.0
+      }
+    ],
+    "nina_scott": [
+      {
+        "id": "eve_johnson",
+        "name": "Eve Johnson",
+        "score": 57.0
+      },
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 51.0
+      },
+      {
+        "id": "iris_wang",
+        "name": "Iris Wang",
+        "score": 47.0
+      },
+      {
+        "id": "frank_li",
+        "name": "Frank Li",
+        "score": 32.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 24.0
+      }
+    ],
+    "iris_wang": [
+      {
+        "id": "nina_scott",
+        "name": "Nina Scott",
+        "score": 47.0
+      },
+      {
+        "id": "oscar_lee",
+        "name": "Oscar Lee",
+        "score": 41.0
+      },
+      {
+        "id": "lisa_chen",
+        "name": "Lisa Chen",
+        "score": 28.0
+      },
+      {
+        "id": "jack_brown",
+        "name": "Jack Brown",
+        "score": 26.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 20.0
+      }
+    ],
+    "jack_brown": [
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 39.0
+      },
+      {
+        "id": "quinn_davis",
+        "name": "Quinn Davis",
+        "score": 36.0
+      },
+      {
+        "id": "oscar_lee",
+        "name": "Oscar Lee",
+        "score": 31.0
+      },
+      {
+        "id": "iris_wang",
+        "name": "Iris Wang",
+        "score": 26.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 19.0
+      }
+    ],
+    "lisa_chen": [
+      {
+        "id": "oscar_lee",
+        "name": "Oscar Lee",
+        "score": 31.0
+      },
+      {
+        "id": "iris_wang",
+        "name": "Iris Wang",
+        "score": 28.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 20.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 19.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 15.0
+      }
+    ],
+    "oscar_lee": [
+      {
+        "id": "iris_wang",
+        "name": "Iris Wang",
+        "score": 41.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 33.0
+      },
+      {
+        "id": "jack_brown",
+        "name": "Jack Brown",
+        "score": 31.0
+      },
+      {
+        "id": "lisa_chen",
+        "name": "Lisa Chen",
+        "score": 31.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 20.0
+      }
+    ],
+    "priya_mehta": [
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 56.0
+      },
+      {
+        "id": "ryan_nguyen",
+        "name": "Ryan Nguyen",
+        "score": 36.0
+      },
+      {
+        "id": "quinn_davis",
+        "name": "Quinn Davis",
+        "score": 29.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 27.0
+      },
+      {
+        "id": "frank_li",
+        "name": "Frank Li",
+        "score": 26.0
+      }
+    ],
+    "quinn_davis": [
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 42.0
+      },
+      {
+        "id": "ryan_nguyen",
+        "name": "Ryan Nguyen",
+        "score": 40.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 39.0
+      },
+      {
+        "id": "jack_brown",
+        "name": "Jack Brown",
+        "score": 36.0
+      },
+      {
+        "id": "priya_mehta",
+        "name": "Priya Mehta",
+        "score": 29.0
+      }
+    ],
+    "ryan_nguyen": [
+      {
+        "id": "quinn_davis",
+        "name": "Quinn Davis",
+        "score": 40.0
+      },
+      {
+        "id": "priya_mehta",
+        "name": "Priya Mehta",
+        "score": 36.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 29.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 28.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 22.0
+      }
+    ],
+    "sofia_martinez": [
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 31.0
+      },
+      {
+        "id": "quinn_davis",
+        "name": "Quinn Davis",
+        "score": 28.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 21.0
+      },
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 20.0
+      },
+      {
+        "id": "ryan_nguyen",
+        "name": "Ryan Nguyen",
+        "score": 16.0
+      }
+    ],
+    "jordan_kim": [
+      {
+        "id": "grace_park",
+        "name": "Grace Park",
+        "score": 42.0
+      },
+      {
+        "id": "mike_torres",
+        "name": "Mike Torres",
+        "score": 31.0
+      },
+      {
+        "id": "alice_chen",
+        "name": "Alice Chen",
+        "score": 19.0
+      },
+      {
+        "id": "henry_zhao",
+        "name": "Henry Zhao",
+        "score": 16.0
+      },
+      {
+        "id": "dave_patel",
+        "name": "Dave Patel",
+        "score": 14.0
+      }
+    ]
+  },
+  "person_summaries": {
+    "alice_chen": {
+      "skills_summary": "Alice is a senior backend engineer specializing in authentication and security, with deep experience implementing OAuth2 and PKCE flows, designing robust JWT validation middleware, and handling session revocation. She also excels at building Go-based micro-services, integrating Stripe for usage-based billing, engineering Kafka pipelines for real-time usage aggregation, and crafting safe PostgreSQL migrations and indexing strategies.",
+      "work_summary": "Alice led the Billing System Revamp (Billing v2), closely collaborating with Charlie Ross on API design, Dave Patel on the Go service and Kafka usage pipeline, and Bob Kim on database schema and indexing. She was a core contributor to the Auth Service Refactor (OAuth2 PKCE), working with Charlie Ross and Mike Torres to implement PKCE verification, refresh-token rotation, and middleware that checks session revocation. Additionally, she added usage-driven features to the Revenue & Subscription Metrics Dashboard."
+    },
+    "bob_kim": {
+      "skills_summary": "Bob is a backend engineer with strong relational database skills, designing schemas, writing performant SQL queries, and creating composite indexes to support high-throughput billing and API-key operations. He has extensive experience with data migration pipelines, using Kubernetes Jobs and Helm pre-upgrade hooks to apply schema changes safely across environments. He also builds rate-limiting infrastructure, weighing Redis sorted sets against PostgreSQL token-bucket patterns, and implements reliable webhook delivery queues with graphile-worker for durability.",
+      "work_summary": "Bob leads the Platform API & Developer Portal, working with Charlie Ross, Dave Patel, and Eve Johnson to define api_keys, api_requests_log tables, implement rate-limit middleware, and expose usage and rate-limit endpoints via OpenAPI. He contributed core work to the Auth Service Refactor (OAuth2 PKCE), partnering with Mike Torres on token-exchange flows and with Charlie Ross on session-token indexing. He also supports the Infrastructure Migration to AWS EKS by helping Dave Patel coordinate DB migration jobs, set up Terraform node-group configurations, and integrate secrets management using the External Secrets Operator."
+    },
+    "charlie_ross": {
+      "skills_summary": "Charlie is an engineer who builds clean, high-performance REST and GraphQL APIs, with a strong focus on data modeling, pagination, and request/response contract design. He has deep knowledge of OAuth2 PKCE, token lifecycle management, and security-aware middleware that validates JWTs and checks revocation. He is also proficient in Kubernetes orchestration, Helm chart templating, and configuring ALB ingress resources for service reliability.",
+      "work_summary": "Charlie was a core engineer on the Billing System Revamp (Billing v2), partnering with Alice Chen to define the billing API, implement invoice endpoints, handle proration logic, and coordinate with Dave Patel on the Kafka usage aggregation pipeline. He played a pivotal role in the Auth Service Refactor (OAuth2 PKCE), collaborating with Alice Chen and Mike Torres to implement PKCE verification, refresh-token rotation, and secure auth middleware. In the Infrastructure Migration to AWS EKS he leads the creation of per-service Helm charts, works with Dave Patel on ALB-compatible ingress annotations, fine-tunes HPA scaling policies, and contributes to the Push Notification Service with API integration support."
+    },
+    "dave_patel": {
+      "skills_summary": "Dave is an infrastructure-focused backend engineer who designs and deploys end-to-end Kubernetes environments using Terraform, especially skilled with AWS EKS, node-group autoscaling, and secure secret injection via AWS Secrets Manager and the External Secrets Operator. He builds production-grade micro-service pipelines, leveraging Go, Kafka consumers, SQS dead-letter queues, and idempotent webhook handlers to process high-volume Stripe billing events. His expertise includes CI/CD orchestration with GitHub Actions, Helm pre-upgrade hook patterns for safe DB migrations, and configuring autoscaling and monitoring (Datadog, PagerDuty) for reliable operations.",
+      "work_summary": "Dave led the Billing System Revamp (Billing v2), coordinating with Alice Chen on service architecture, working with Charlie Ross on the Kafka usage aggregation pipeline, and delivering health checks, autoscaling policies, and PagerDuty alerts for Stripe webhooks. He also spearheads the Infrastructure Migration to AWS EKS, collaborating closely with Charlie Ross on Helm chart creation and ALB ingress setup, with Bob Kim on Terraform node-group definitions and security-group rules, and with Alice Chen on secrets synchronization. Together they have established a full CI/CD pipeline that provisions the EKS cluster, runs pre-upgrade DB migration jobs, and deploys the billing service at scale."
+    },
+    "karen_wu": {
+      "skills_summary": "Karen is a staff engineer and security architect who drives robust authentication and authorization solutions, with deep expertise in OAuth2, PKCE implementation, token rotation, and JWT handling. She specializes in cryptographic best practices such as HMAC-SHA256 webhook signing, storing secrets encrypted with KMS, and enforcing secure token families and refresh-token revocation flows. Her work spans identity infrastructure design, secure middleware, and compliance-focused audit logging across backend services.",
+      "work_summary": "Karen is a core contributor to the Platform API & Developer Portal, collaborating with Bob Kim on API-key schema and key-versioning, working with Mike Torres on secure token exchange, CORS restrictions, and rate-limit middleware, and partnering with Alice Chen on session-token revocation and PKCE verification. She also played a central role in the Auth Service Refactor (OAuth2 PKCE), reviewing PKCE logic, enforcing refresh-token hashing, defining token families, and advising on key rotation and KMS best practices. Karen frequently consults with Dave Patel on infra-migration secrets management and coordinates security reviews with Charlie Ross for all auth-related services."
+    },
+    "mike_torres": {
+      "skills_summary": "Mike is a backend tech lead specialized in designing scalable service architectures and secure authentication solutions, including OAuth2 PKCE and client\u2011credentials flows. He applies design\u2011system thinking to API contracts, leveraging OpenAPI, Redis\u2011based rate limiting, and RFC 7807 error handling to ensure a cohesive developer experience.",
+      "work_summary": "He leads the active Platform API & Developer Portal project, partnering with Eve Johnson on the frontend portal, Bob Kim on backend implementation, Henry Zhao on OpenAPI and SDK work, and Karen Wu on security requirements. Additionally, Mike was a core contributor to the completed Auth Service Refactor, collaborating with Eve Johnson and Bob Kim to implement PKCE authorization and token management."
+    },
+    "eve_johnson": {
+      "skills_summary": "Eve is a senior frontend engineer focused on building robust design systems, reusable components and accessible UI patterns, using Storybook, atomic design, and semantic design tokens. She has deep expertise integrating OpenAPI specifications into developer portals, implementing interactive docs, and modernizing authentication flows with OAuth2 PKCE to support public and confidential clients.",
+      "work_summary": "Eve is a core engineer on the active Platform API & Developer Portal project, collaborating with Mike Torres (backend) and Bob Kim on the OpenAPI spec, interactive docs, API key management UI, and rate\u2011limit instrumentation. She leads the Design System Revamp (v2) with Grace Park and Nina Scott, delivering accessible, token\u2011driven components via Storybook and dark\u2011mode support. Additionally, she contributed core work to the completed Auth Service Refactor, aligning the frontend login flow with Mike's OAuth2 PKCE implementation and building the auth context provider."
+    },
+    "frank_li": {
+      "skills_summary": "Frank is a performance\u2011oriented frontend engineer who specializes in Web and React Native optimization, conducting Lighthouse audits, bundle\u2011size analysis, and runtime profiling with Flipper and React DevTools. He excels at implementing image pipelines, lazy loading, Hermes engine tuning, and selective native module loading to meet strict mobile\u2011app size and speed targets.",
+      "work_summary": "He is a core engineer on the Bsus Mobile Application, partnering with Henry Zhao to profile and shrink the Android and iOS bundles via FlashList, Hermes GC tuning, and inline\u2011require optimizations, while also fixing OOM and ANR issues. Frank also contributed to the completed Company Brand Refresh, working with Nina Scott to deliver a high\u2011performance marketing site that leverages Next.js image optimization, WebP/AVIF conversion, and Lighthouse\u2011guided performance improvements."
+    },
+    "grace_park": {
+      "skills_summary": "Grace is a component\u2011focused frontend engineer with deep expertise in React and React Native UI primitives, applying atomic design, compound component patterns, and animation\u2011driven motion design. She drives the Design System Revamp (v2) and the Mobile UI Component Library, ensuring every component consumes semantic tokens, supports dark mode, and meets WCAG accessibility standards.",
+      "work_summary": "As a core member of the active Design System Revamp (v2), she builds and merges Button, TextInput, Select, and Checkbox components in partnership with Eve Johnson, Nina Scott, and Henry Zhao, providing Storybook stories and accessibility validation. She also leads the Mobile UI Component Library in collaboration with Henry Zhao, delivering platform\u2011specific variants, Android ripple handling, and motion\u2011token integration, and contributes to the User Onboarding Redesign wizard together with Quinn Davis and Jack Brown."
+    },
+    "henry_zhao": {
+      "skills_summary": "Henry is a mobile\u2011focused frontend engineer expert in React Native, native iOS and Android integration, and performance optimization using Hermes, Flipper, and bundle\u2011size analysis tools. He also engineers developer SDKs and documentation pipelines, generating TypeScript client libraries from OpenAPI specs and implementing OAuth2 PKCE authentication flows for native clients.",
+      "work_summary": "On the active Platform API & Developer Portal, Henry collaborates with Mike Torres and Eve Johnson to produce the TypeScript SDK, author Redocly\u2011driven docs, and enforce RFC 7807 problem\u2011details for all API errors. He leads the Bsus Mobile Application effort with Frank Li, Priya Mehta, and Grace Park, delivering push\u2011notification support, deep\u2011link routing, UI component tuning, and CI\u2011enforced bundle\u2011size limits across iOS and Android builds."
+    },
+    "nina_scott": {
+      "skills_summary": "Nina bridges design and engineering by authoring token\u2011driven React components and maintaining the Figma to code pipeline. She builds high\u2011performance Next.js applications, integrates Lottie assets, and ensures WCAG AA compliance across interactive UI.",
+      "work_summary": "She is a core contributor to the Design System Revamp (v2), partnering with Eve Johnson on typographic tokens, Grace Park on spacing hierarchies, and Iris Wang on semantic color definitions. Nina also drove the frontend implementation of the Company Brand Refresh marketing site, collaborating with Frank Li on performance tuning and with Lisa Chen on Lottie\u2011based hero animation integration."
+    },
+    "iris_wang": {
+      "skills_summary": "Iris leads brand and visual design work, crafting logos, color systems, and typographic scales that meet rigorous accessibility benchmarks. She builds and governs design systems in Figma, aligning semantic tokens, motion guidelines, and dark\u2011mode variants across product teams.",
+      "work_summary": "She headlined the Company Brand Refresh, guiding the logo direction with Oscar Lee and delivering the final visual assets that Nina Scott integrated into the marketing site. In the ongoing Design System Revamp (v2), Iris collaborates daily with Nina, Lisa, Jack, and the front\u2011end squad to define color, focus\u2011ring, and motion tokens, and validates WCAG compliance for button and input states."
+    },
+    "jack_brown": {
+      "skills_summary": "Jack specializes in UX for onboarding journeys, conducting user research, prototyping wireframes, and iterating interaction patterns such as progressive disclosure and checklist wizardry. He also contributes to the Design System Revamp by authoring component specs and aligning token definitions with engineering constraints.",
+      "work_summary": "As lead of the User Onboarding Redesign, Jack works with Quinn Davis to build research\u2011driven wireframes and with Grace Park to refine state tokens for checkboxes and tooltips. Within the Design System Revamp (v2), he partners with Oscar Lee and Iris Wang on button focus indicators and token consistency, ensuring WCAG AA accessibility across the component library."
+    },
+    "lisa_chen": {
+      "skills_summary": "Lisa creates motion\u2011first brand experiences, producing Lottie animations and After Effects assets that convey assembly metaphors and micro\u2011interactions. She codifies these animations into design\u2011system motion tokens (duration, easing, fallback) and guides engineers on performance\u2011aware implementation.",
+      "work_summary": "She was a core contributor to the Company Brand Refresh, delivering the hero Lottie animation, a looping variant, and motion guidelines that guided the marketing site's visual language. In the Design System Revamp (v2), Lisa partners with Oscar Lee on token documentation, with Grace Park on applying motion to Button and Input components, and with Nina Scott on Lottie\u2011based Spinner and Skeleton components, ensuring accessibility and reduced\u2011motion compliance."
+    },
+    "oscar_lee": {
+      "skills_summary": "Oscar leads brand strategy and design\u2011system initiatives, defining visual direction, color palettes, typography, and motion principles for both public and internal products. He drives token pipeline governance, sets WCAG and accessibility standards, and mentors designers to scale their work across teams.",
+      "work_summary": "As Design Lead of the Company Brand Refresh, Oscar directed the logo redesign, finalized the color system, and oversaw the brand book, working closely with Iris Wang on the abstract mark and with the marketing team on asset delivery. He also heads the Design System Revamp (v2), coordinating with Iris, Lisa, Jack, and front\u2011end engineers to lock down design tokens, implement dark mode, and ensure the component library meets AA accessibility requirements."
+    },
+    "priya_mehta": {
+      "skills_summary": "Priya is a product manager focused on mobile growth, excelling at defining activation metrics and optimizing user funnels. She leverages data from mobile analytics, cohort analysis, and A/B experiments to shape product strategies and drive user acquisition.",
+      "work_summary": "She leads the Company Brand Refresh, working closely with Oscar Lee and Iris Wang on visual identity and the brand book, and drives the Bsus Mobile Application project together with Henry Zhao, Ryan Nguyen and Quinn Davis. Priya also partners with Alice Chen and Frank Li on the marketing site rollout and synchronizes activation-tracking requirements across engineering and design teams."
+    },
+    "quinn_davis": {
+      "skills_summary": "Quinn specializes in platform product management and developer experience, focusing on building intuitive onboarding experiences and telemetry infrastructure. He applies progressive-disclosure UI patterns, metrics instrumentation, and best-in-class A/B testing to improve activation rates.",
+      "work_summary": "He leads the User Onboarding Redesign, collaborating with Grace Park on UI components, Ryan Nguyen on analytics scaffolding, and Jack Brown on wireframes, while also overseeing the completed Billing System Revamp with Alice Chen. Quinn coordinates cross-functional reviews with Priya Mehta and other stakeholders to align onboarding goals with growth objectives."
+    },
+    "ryan_nguyen": {
+      "skills_summary": "Ryan is a product analyst skilled in SQL, event taxonomy design, and building real-time dashboards for revenue and activation metrics. He defines key metrics like MRR, churn, net revenue retention, and deep-link performance, and translates data insights into actionable product recommendations.",
+      "work_summary": "He contributed core analytics to the Revenue & Subscription Metrics Dashboard, partnering with Quinn Davis and Alice Chen to surface MRR, churn, expansion, and NRR visualizations. Ryan also instruments the Bsus Mobile Application, working with Priya Mehta, Henry Zhao, and Quinn on activation event tracking, platform-split reporting, and deep-link attribution."
+    },
+    "sofia_martinez": {
+      "skills_summary": "Sofia heads product strategy, crafting roadmaps that balance long-term vision with short-term OKRs and ensuring stakeholder alignment across engineering, design, and go-to-market teams. She excels at prioritization, resource orchestration, and translating market insights into platform and user experience initiatives.",
+      "work_summary": "She leads the User Onboarding Redesign, orchestrating work between Quinn Davis, Grace Park, Jack Brown, and the design system team led by Mike Torres and Oscar Lee. Sofia also supports the Design System Revamp (v2) as a peripheral contributor, coordinating dependency mapping with Dave Patel and Alice Chen to enable consistent onboarding components."
+    },
+    "jordan_kim": {
+      "skills_summary": "Jordan is a front-end engineer quickly mastering React, component libraries, and UI patterns for onboarding flows. He implements design-system v2 components, builds tooltip and empty-state features, and integrates analytics hooks to instrument user activation events.",
+      "work_summary": "He is a core contributor to the User Onboarding Redesign, developing tooltip and empty-state UI under Grace Park's guidance and collaborating with Mike Torres on design-system integration. Jordan also syncs with Alice Chen, Henry Zhao, and Dave Patel to ensure the new onboarding wizard aligns with cross-platform analytics and product roadmap priorities."
+    }
   }
 }

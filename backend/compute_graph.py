@@ -8,6 +8,7 @@ from leiden_communities import compute_leiden_communities
 
 ROOT = Path(__file__).resolve().parent.parent
 SLACK_DATA_PATH = ROOT / "data" / "slack_data.json"
+EXTRACTED_PATH = ROOT / "data" / "extracted_projects.json"
 OUTPUT_PATH = ROOT / "frontend" / "public" / "graph.json"
 
 LAMBDA = 0.01
@@ -45,6 +46,17 @@ def compute_graph(input_path=None, output_path=None):
 
     with open(input_path) as f:
         data = json.load(f)
+
+    # Load enrichment data from the extraction pipeline (optional — graceful fallback)
+    enrichment: dict = {}
+    extracted_path = EXTRACTED_PATH if input_path == SLACK_DATA_PATH else None
+    if extracted_path and extracted_path.exists():
+        with open(extracted_path) as f:
+            enrichment = json.load(f)
+
+    person_summaries: dict = enrichment.get("person_summaries", {})
+    person_weights: dict = enrichment.get("person_weights", {})
+    person_roles: dict = enrichment.get("person_roles", {})
 
     people_by_id = {p["id"]: p for p in data["people"]}
     all_people_ids = set(people_by_id.keys())
@@ -94,6 +106,17 @@ def compute_graph(input_path=None, output_path=None):
 
     nodes = []
     for pid, person in people_by_id.items():
+        summary = person_summaries.get(pid, {})
+
+        # Build project_roles: {project_id -> {weight, role}} from extracted data,
+        # falling back to an empty dict so the frontend can always rely on the key.
+        proj_roles: dict = {}
+        for proj_id, w in person_weights.get(pid, {}).items():
+            proj_roles[proj_id] = {
+                "weight": round(w, 3),
+                "role": person_roles.get(pid, {}).get(proj_id, "contributor"),
+            }
+
         nodes.append(
             {
                 "id": pid,
@@ -101,7 +124,11 @@ def compute_graph(input_path=None, output_path=None):
                 "role": person.get("role", ""),
                 "team": person.get("team", ""),
                 "expertise": person.get("expertise", []),
+                # Keep static project list for backward-compat; project_roles is richer
                 "projects": person.get("projects", []),
+                "project_roles": proj_roles,
+                "skills_summary": summary.get("skills_summary", ""),
+                "work_summary": summary.get("work_summary", ""),
                 "community": community_map.get(pid),
             }
         )
