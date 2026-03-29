@@ -5,7 +5,7 @@ import OrgGraph from "./components/OrgGraph";
 import ProjectGraph from "./components/ProjectGraph";
 import ViewSwitcher, { ViewMode } from "./components/graph/ViewSwitcher";
 import ChatPanel from "./components/graph/ChatPanel";
-import ThemeToggle from "./components/graph/ThemeToggle";
+
 import { ThemeProvider } from "./components/ThemeContext";
 
 export default function Home() {
@@ -49,7 +49,6 @@ export default function Home() {
             />
           )}
           <ViewSwitcher active={view} onChange={setView} />
-          <ThemeToggle />
         </div>
       </div>
     </ThemeProvider>
