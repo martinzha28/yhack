@@ -70,6 +70,8 @@ export interface ProjectInfo {
   keywords: string[];
   member_count: number;
   members: ProjectMember[];
+  /** LLM-generated 2-3 sentence description of the project */
+  summary?: string;
 }
 
 export interface ConnectedProject {

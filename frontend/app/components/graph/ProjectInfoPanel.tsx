@@ -109,6 +109,17 @@ export default function ProjectInfoPanel({
         </button>
       </div>
 
+      {/* ── Summary ────────────────────────────────────────────────── */}
+      {project.summary && (
+        <p
+          className={`text-xs leading-relaxed ${
+            isDark ? "text-zinc-300" : "text-slate-600"
+          }`}
+        >
+          {project.summary}
+        </p>
+      )}
+
       {/* ── Topics ─────────────────────────────────────────────────── */}
       {project.keywords.length > 0 && (
         <div>

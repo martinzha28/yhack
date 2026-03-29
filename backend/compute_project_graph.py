@@ -27,11 +27,17 @@ MIN_PERSON_WEIGHT = 0.2
 
 
 def _display_name(full_name: str) -> str:
-    """Strip LLM-added parentheticals, e.g.
-    'Auth Service Refactor (OAuth2 PKCE)' → 'Auth Service Refactor'
-    'Billing System Revamp (Billing v2)' → 'Billing System Revamp'
+    """Return a concise display label from the LLM-generated project name.
+
+    Strips two patterns the LLM commonly appends:
+      • Em/en-dash subtitles: 'Billing V2 – Usage-Based ...' → 'Billing V2'
+      • Parentheticals:       'Auth Refactor (OAuth2 PKCE)' → 'Auth Refactor'
     """
-    return re.sub(r"\s*\(.*?\)", "", full_name).strip()
+    # Cut everything from the first em-dash, en-dash, or spaced hyphen onwards
+    name = re.split(r"\s+[–—]\s+|\s+-\s+", full_name)[0]
+    # Remove any remaining parenthetical suffix
+    name = re.sub(r"\s*\(.*?\)", "", name)
+    return name.strip()
 
 
 def compute_project_graph() -> None:
@@ -47,6 +53,7 @@ def compute_project_graph() -> None:
         p["id"]: {"name": p["name"], "team": p.get("team", "")} for p in slack["people"]
     }
 
+    project_summaries: dict = data.get("project_summaries", {})
     projects: list[dict] = data["projects"]
     person_weights: dict[str, dict[str, float]] = data["person_weights"]
     person_roles: dict[str, dict[str, str]] = data.get("person_roles", {})
@@ -110,9 +117,14 @@ def compute_project_graph() -> None:
     max_score = max((e["score"] for e in raw_edges.values()), default=1.0)
 
     # ── Build nodes ───────────────────────────────────────────────────────────
+    # Skip projects with no members — these are LLM hallucinations from Pass 1
+    # that never received any message assignments or person-weight associations.
     nodes: list[dict] = []
     for p in projects:
         members = project_people.get(p["id"], [])
+        if not members:
+            print(f"  Skipping '{p['id']}' — no members (likely hallucinated)")
+            continue
         members.sort(key=lambda x: -x[1])  # descending weight
 
         nodes.append(
@@ -122,6 +134,7 @@ def compute_project_graph() -> None:
                 "name": p["name"],
                 # Clean label used in UI (parentheticals stripped)
                 "display_name": _display_name(p["name"]),
+                "summary": project_summaries.get(p["id"], {}).get("summary", ""),
                 "status": p.get("status", "active"),
                 "time_range": p.get("time_range", ""),
                 "keywords": p.get("keywords", []),
