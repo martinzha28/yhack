@@ -100,6 +100,13 @@ export const ROLE_STYLES: Record<string, { bg: string; text: string }> = {
   peripheral: { bg: "bg-zinc-700/50", text: "text-zinc-500" },
 };
 
+export const TEAM_LIGHT_FILL: Record<string, string> = {
+  backend: "#eff6ff",
+  frontend: "#ecfdf5",
+  design: "#fffbeb",
+  product: "#fef2f2",
+};
+
 export const PROJECT_PALETTE = [
   "#818cf8",
   "#34d399",

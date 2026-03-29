@@ -13,6 +13,7 @@ import Legend from "./graph/Legend";
 import SearchBar from "./graph/SearchBar";
 import SettingsPanel from "./graph/SettingsPanel";
 import InfoPanel from "./graph/InfoPanel";
+import { useTheme } from "./ThemeContext";
 
 interface OrgGraphProps {
   chatHighlight?: Set<string> | null;
@@ -25,6 +26,7 @@ export default function OrgGraph({
   onRegisterSelect,
   onClearHighlight,
 }: OrgGraphProps) {
+  const { theme } = useTheme();
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [data, setData] = useState<GraphData | null>(null);
@@ -61,6 +63,7 @@ export default function OrgGraph({
     setSelected,
     setHovered,
     clustering,
+    theme,
     onBackgroundClick: onClearHighlight,
   });
 
@@ -111,13 +114,17 @@ export default function OrgGraph({
     searchMatch,
     chatHighlight: chatHighlight ?? null,
     showEdges,
+    theme,
   });
 
   const selectedNode = data?.nodes.find((n) => n.id === selected);
 
   return (
     <div className="relative w-full h-full">
-      <svg ref={svgRef} className="w-full h-full bg-slate-50" />
+      <svg
+        ref={svgRef}
+        className={`w-full h-full ${theme === "dark" ? "bg-zinc-900" : "bg-slate-50"}`}
+      />
       <Legend />
       <SearchBar
         search={search}

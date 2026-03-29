@@ -9,6 +9,7 @@ import {
   STATUS_COLORS,
 } from "./graph/types";
 import ProjectInfoPanel from "./graph/ProjectInfoPanel";
+import { useTheme } from "./ThemeContext";
 
 // ── Local simulation types ────────────────────────────────────────────────────
 // ProjectInfo holds the plain data shape; ProjectNode adds d3 simulation fields.
@@ -57,11 +58,15 @@ export default function ProjectGraph({
   chatHighlight,
   onClearHighlight,
 }: ProjectGraphProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const svgRef = useRef<SVGSVGElement>(null);
   const [data, setData] = useState<ProjectGraphData | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [minShared, setMinShared] = useState(DEFAULT_MIN_SHARED);
   const hadSelection = useRef(false);
+  const nodesRef = useRef<ProjectNode[]>([]);
 
   useEffect(() => {
     if (selected !== null) {
@@ -94,11 +99,19 @@ export default function ProjectGraph({
     const filteredLinks = data.links.filter((l) => l.shared_count >= minShared);
     const maxMembers = Math.max(...data.nodes.map((n) => n.member_count), 1);
 
-    const nodes: ProjectNode[] = data.nodes.map((d) => ({
-      ...d,
-      x: seedPosition(d.id, width * 0.6, width * 0.2),
-      y: seedPosition(d.id + "_y", height * 0.6, height * 0.2),
-    }));
+    // Preserve positions across rebuilds (e.g. theme toggle)
+    const prevPositions = new Map(
+      nodesRef.current.map((n) => [n.id, { x: n.x, y: n.y }]),
+    );
+    const nodes: ProjectNode[] = data.nodes.map((d) => {
+      const prev = prevPositions.get(d.id);
+      return {
+        ...d,
+        x: prev?.x ?? seedPosition(d.id, width * 0.6, width * 0.2),
+        y: prev?.y ?? seedPosition(d.id + "_y", height * 0.6, height * 0.2),
+      };
+    });
+    nodesRef.current = nodes;
     const links: ProjectLink[] = filteredLinks.map((d) => ({ ...d }));
 
     const nodeRadius = (d: ProjectNode) =>
@@ -162,7 +175,7 @@ export default function ProjectGraph({
       .selectAll<SVGLineElement, ProjectLink>("line")
       .data(links)
       .join("line")
-      .attr("stroke", "#cbd5e1")
+      .attr("stroke", isDark ? "#52525b" : "#cbd5e1")
       .attr("stroke-opacity", showEdges ? 0.5 : 0)
       .attr("stroke-width", (d) => Math.max(1.5, d.weight * 8));
 
@@ -184,8 +197,8 @@ export default function ProjectGraph({
       .attr("height", 16)
       .attr("x", -10)
       .attr("y", -10)
-      .attr("fill", "rgba(255,255,255,0.95)")
-      .attr("stroke", "rgba(203,213,225,0.8)")
+      .attr("fill", isDark ? "rgba(24,24,27,0.92)" : "rgba(255,255,255,0.95)")
+      .attr("stroke", isDark ? "rgba(63,63,70,0.5)" : "rgba(203,213,225,0.8)")
       .attr("stroke-width", 1);
 
     linkLabelGroup
@@ -193,7 +206,7 @@ export default function ProjectGraph({
       .text((d) => d.shared_count.toString())
       .attr("text-anchor", "middle")
       .attr("dy", "0.3em")
-      .attr("fill", "#acb3bd")
+      .attr("fill", isDark ? "#a1a1aa" : "#475569")
       .attr("font-size", "10px")
       .attr("font-weight", "600");
 
@@ -237,7 +250,7 @@ export default function ProjectGraph({
       .text((d) => d.display_name)
       .attr("text-anchor", "middle")
       .attr("dy", "0.35em")
-      .attr("fill", "#0f172a")
+      .attr("fill", isDark ? "#e5e7eb" : "#0f172a")
       .attr("font-size", "11px")
       .attr("font-weight", "600")
       .attr("pointer-events", "none");
@@ -251,7 +264,7 @@ export default function ProjectGraph({
       )
       .attr("text-anchor", "middle")
       .attr("dy", (d) => nodeRadius(d) + 15)
-      .attr("fill", "#64748b")
+      .attr("fill", isDark ? "#71717a" : "#64748b")
       .attr("font-size", "9px")
       .attr("pointer-events", "none");
 
@@ -279,7 +292,7 @@ export default function ProjectGraph({
     return () => {
       simulation.stop();
     };
-  }, [data, minShared]);
+  }, [data, minShared, isDark]);
 
   // Selection + chat highlighting
   useEffect(() => {
@@ -390,10 +403,19 @@ export default function ProjectGraph({
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="relative w-full h-full">
-      <svg ref={svgRef} className="w-full h-full bg-slate-50" />
+      <svg
+        ref={svgRef}
+        className={`w-full h-full ${isDark ? "bg-zinc-900" : "bg-slate-50"}`}
+      />
 
       {/* Status legend */}
-      <div className="absolute top-14 left-4 bg-white/90 border border-slate-200 shadow-sm rounded-lg px-4 py-3 text-sm text-slate-700 space-y-1.5">
+      <div
+        className={`absolute top-14 left-4 rounded-lg px-4 py-3 text-sm space-y-1.5 ${
+          isDark
+            ? "bg-zinc-800/80 text-zinc-300"
+            : "bg-white/90 border border-slate-200 shadow-sm text-slate-700"
+        }`}
+      >
         {Object.entries(STATUS_COLORS).map(([status, color]) => (
           <div key={status} className="flex items-center gap-2">
             <span
@@ -403,21 +425,39 @@ export default function ProjectGraph({
             <span className="capitalize">{status}</span>
           </div>
         ))}
-        <div className="text-[10px] text-slate-400 pt-1">
+        <div
+          className={`text-[10px] pt-1 ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+        >
           Node size = team size
         </div>
-        <div className="text-[10px] text-slate-400">
+        <div
+          className={`text-[10px] ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+        >
           Edge label = shared people
         </div>
       </div>
 
       {/* Threshold slider */}
-      <div className="absolute bottom-4 right-4 bg-white border border-slate-200 shadow-md rounded-xl px-4 py-3 text-sm text-slate-700 w-64">
+      <div
+        className={`absolute bottom-4 right-4 rounded-xl px-4 py-3 text-sm w-64 ${
+          isDark
+            ? "bg-zinc-800/90 text-zinc-300"
+            : "bg-white border border-slate-200 shadow-md text-slate-700"
+        }`}
+      >
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-medium text-slate-500">
+          <label
+            className={`text-xs font-medium ${isDark ? "text-zinc-400" : "text-slate-500"}`}
+          >
             Min shared people
           </label>
-          <span className="text-xs font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded tabular-nums">
+          <span
+            className={`text-xs font-mono tabular-nums px-1.5 py-0.5 rounded ${
+              isDark
+                ? "text-zinc-400 bg-zinc-700/60"
+                : "text-slate-400 bg-slate-100"
+            }`}
+          >
             {minShared}
           </span>
         </div>
@@ -428,20 +468,36 @@ export default function ProjectGraph({
           step={1}
           value={minShared}
           onChange={(e) => setMinShared(parseInt(e.target.value))}
-          className="w-full accent-blue-600 h-1.5 cursor-pointer rounded-full"
+          className={`w-full h-1.5 cursor-pointer rounded-full ${
+            isDark ? "accent-zinc-400" : "accent-blue-600"
+          }`}
         />
-        <div className="flex justify-between text-[10px] text-slate-300 mt-1">
+        <div
+          className={`flex justify-between text-[10px] mt-1 ${
+            isDark ? "text-zinc-600" : "text-slate-300"
+          }`}
+        >
           <span>All connections</span>
           <span>Strong only</span>
         </div>
-        <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-          <label className="text-xs font-medium text-slate-500">
+        <div
+          className={`flex items-center justify-between mt-4 pt-3 border-t ${
+            isDark ? "border-zinc-700/50" : "border-slate-100"
+          }`}
+        >
+          <label
+            className={`text-xs font-medium ${isDark ? "text-zinc-400" : "text-slate-500"}`}
+          >
             Show edges
           </label>
           <button
             onClick={() => setShowEdges((v) => !v)}
             className={`relative w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none ${
-              showEdges ? "bg-blue-600" : "bg-slate-200"
+              showEdges
+                ? "bg-blue-600"
+                : isDark
+                  ? "bg-zinc-600"
+                  : "bg-slate-200"
             }`}
             role="switch"
             aria-checked={showEdges}

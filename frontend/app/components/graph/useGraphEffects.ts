@@ -23,6 +23,7 @@ interface UseGraphEffectsOptions {
   searchMatch: Set<string> | null;
   chatHighlight: Set<string> | null;
   showEdges: boolean;
+  theme: "light" | "dark";
 }
 
 export function useGraphEffects({
@@ -34,11 +35,13 @@ export function useGraphEffects({
   searchMatch,
   chatHighlight,
   showEdges,
+  theme,
 }: UseGraphEffectsOptions) {
-  // Smooth threshold transitions
+  // ── Min-weight threshold transitions ────────────────────────────────────
   useEffect(() => {
     if (!gRef.current || !data || !simRef.current) return;
 
+    const isDark = theme === "dark";
     const g = gRef.current;
     const simulation = simRef.current;
 
@@ -78,7 +81,7 @@ export function useGraphEffects({
         return 6 + (deg / maxDegree) * 14;
       });
 
-    // Resize initials font to match new circle radius
+    // Resize initials font to match new circle radius (light mode only)
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("text.node-initials")
@@ -100,24 +103,37 @@ export function useGraphEffects({
         const deg = degree.get(d.id) || 1;
         return -(8 + (deg / maxDegree) * 14);
       });
-  }, [minWeight, data, gRef, simRef]);
 
-  // Selection + search highlighting
+    // Unused variable suppression
+    void isDark;
+  }, [minWeight, data, theme, gRef, simRef, showEdges]);
+
+  // ── Selection + search highlighting ─────────────────────────────────────
   useEffect(() => {
     if (!gRef.current || !data) return;
+
+    const isDark = theme === "dark";
     const g = gRef.current;
+
+    // Dark mode defaults
+    const defaultStroke = isDark
+      ? (d: Node) => TEAM_COLORS[d.team] || "#6b7280" // kept as solid team fill stroke
+      : (d: Node) => TEAM_COLORS[d.team] || "#94a3b8";
+    const defaultStrokeWidth = isDark ? 1.5 : 2.5;
+    const resetLinkStroke = isDark ? "#999" : "#cbd5e1";
 
     const activeHighlight =
       selected ||
       (searchMatch && searchMatch.size > 0) ||
       (chatHighlight && chatHighlight.size > 0);
 
+    // ── Reset: no highlight active ─────────────────────────────────────────
     if (!activeHighlight) {
       g.select(".links")
         .selectAll<SVGLineElement, Link>("line")
         .transition()
         .duration(200)
-        .attr("stroke", "#cbd5e1")
+        .attr("stroke", resetLinkStroke)
         .attr("stroke-opacity", (d) =>
           d.weight >= minWeight && showEdges ? 0.4 : 0,
         );
@@ -128,8 +144,8 @@ export function useGraphEffects({
         .transition()
         .duration(200)
         .attr("opacity", 1)
-        .attr("stroke", (d: Node) => TEAM_COLORS[d.team] || "#94a3b8")
-        .attr("stroke-width", 2.5);
+        .attr("stroke", defaultStroke)
+        .attr("stroke-width", defaultStrokeWidth);
 
       g.select(".nodes")
         .selectAll<SVGGElement, Node>("g")
@@ -148,6 +164,7 @@ export function useGraphEffects({
       return;
     }
 
+    // ── Build highlighted ID set ───────────────────────────────────────────
     const highlightedIds = new Set<string>();
 
     if (selected) {
@@ -161,14 +178,10 @@ export function useGraphEffects({
       });
     }
 
-    if (searchMatch) {
-      searchMatch.forEach((id) => highlightedIds.add(id));
-    }
+    if (searchMatch) searchMatch.forEach((id) => highlightedIds.add(id));
+    if (chatHighlight) chatHighlight.forEach((id) => highlightedIds.add(id));
 
-    if (chatHighlight) {
-      chatHighlight.forEach((id) => highlightedIds.add(id));
-    }
-
+    // ── Links ──────────────────────────────────────────────────────────────
     g.select(".links")
       .selectAll<SVGLineElement, Link>("line")
       .transition()
@@ -183,6 +196,7 @@ export function useGraphEffects({
         return 0.05;
       });
 
+    // ── Circles ────────────────────────────────────────────────────────────
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("circle")
@@ -191,15 +205,19 @@ export function useGraphEffects({
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12))
       .attr("stroke", (d: Node) => {
         if (chatHighlight && chatHighlight.has(d.id)) return "#818cf8";
-        if (searchMatch && searchMatch.has(d.id)) return "#f59e0b";
-        return TEAM_COLORS[d.team] || "#94a3b8";
+        if (searchMatch && searchMatch.has(d.id))
+          return isDark ? "#facc15" : "#f59e0b";
+        return isDark
+          ? TEAM_COLORS[d.team] || "#6b7280"
+          : TEAM_COLORS[d.team] || "#94a3b8";
       })
       .attr("stroke-width", (d: Node) => {
-        if (chatHighlight && chatHighlight.has(d.id)) return 4;
-        if (searchMatch && searchMatch.has(d.id)) return 4;
-        return 2.5;
+        if (chatHighlight && chatHighlight.has(d.id)) return isDark ? 3 : 4;
+        if (searchMatch && searchMatch.has(d.id)) return isDark ? 3 : 4;
+        return defaultStrokeWidth;
       });
 
+    // ── Initials (light mode only — empty selection in dark mode is a no-op)
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("text.node-initials")
@@ -207,11 +225,21 @@ export function useGraphEffects({
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12));
 
+    // ── Name label ─────────────────────────────────────────────────────────
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("text.node-label")
       .transition()
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.08));
-  }, [selected, searchMatch, chatHighlight, data, minWeight, showEdges, gRef]);
+  }, [
+    selected,
+    searchMatch,
+    chatHighlight,
+    data,
+    minWeight,
+    showEdges,
+    theme,
+    gRef,
+  ]);
 }
