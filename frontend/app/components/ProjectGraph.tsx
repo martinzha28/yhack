@@ -430,49 +430,52 @@ export default function ProjectGraph({
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="relative w-full h-full">
+    <div className={`relative w-full h-full ${isDark ? "bg-zinc-900" : "bg-slate-50"}`}>
       <svg
         ref={svgRef}
-        className={`w-full h-full ${isDark ? "bg-zinc-900" : "bg-slate-50"}`}
+        className="w-full h-full"
       />
 
-      {/* Status legend */}
-      <div
-        className={`absolute top-14 left-4 rounded-lg px-4 py-3 text-sm space-y-1.5 ${
-          isDark
-            ? "bg-zinc-800/80 text-zinc-300"
-            : "bg-white/90 border border-slate-200 shadow-sm text-slate-700"
-        }`}
-      >
-        {Object.entries(STATUS_COLORS).map(([status, color]) => (
-          <div key={status} className="flex items-center gap-2">
-            <span
-              className="inline-block w-3 h-3 rounded-full border-2"
-              style={{ borderColor: color, backgroundColor: color + "20" }}
-            />
-            <span className="capitalize">{status}</span>
+      {/* Status legend — bottom-left */}
+      <div className="absolute bottom-4 left-4 z-10">
+        <div
+          className={`rounded-lg px-4 py-3 text-sm space-y-1.5 ${
+            isDark
+              ? "bg-zinc-800/80 text-zinc-300"
+              : "bg-white/90 border border-slate-200 shadow-sm text-slate-700"
+          }`}
+        >
+          {Object.entries(STATUS_COLORS).map(([status, color]) => (
+            <div key={status} className="flex items-center gap-2">
+              <span
+                className="inline-block w-3 h-3 rounded-full border-2"
+                style={{ borderColor: color, backgroundColor: color + "20" }}
+              />
+              <span className="capitalize">{status}</span>
+            </div>
+          ))}
+          <div
+            className={`text-[10px] pt-1 ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+          >
+            Node size = team size
           </div>
-        ))}
-        <div
-          className={`text-[10px] pt-1 ${isDark ? "text-zinc-500" : "text-slate-400"}`}
-        >
-          Node size = team size
-        </div>
-        <div
-          className={`text-[10px] ${isDark ? "text-zinc-500" : "text-slate-400"}`}
-        >
-          Edge label = shared people
+          <div
+            className={`text-[10px] ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+          >
+            Edge label = shared people
+          </div>
         </div>
       </div>
 
-      {/* Threshold slider */}
-      <div
-        className={`absolute bottom-4 right-4 rounded-xl px-4 py-3 text-sm w-64 ${
-          isDark
-            ? "bg-zinc-800/90 text-zinc-300"
-            : "bg-white border border-slate-200 shadow-md text-slate-700"
-        }`}
-      >
+      {/* Settings — bottom-right */}
+      <div className="absolute bottom-4 right-4 z-10">
+        <div
+          className={`rounded-xl px-4 py-3 text-sm w-64 ${
+            isDark
+              ? "bg-zinc-800/90 text-zinc-300"
+              : "bg-white border border-slate-200 shadow-md text-slate-700"
+          }`}
+        >
         <div className="flex items-center justify-between mb-2">
           <label
             className={`text-xs font-medium ${isDark ? "text-zinc-400" : "text-slate-500"}`}
@@ -598,6 +601,7 @@ export default function ProjectGraph({
             />
           </button>
         </div>
+      </div>
       </div>
 
       {/* Info panel */}

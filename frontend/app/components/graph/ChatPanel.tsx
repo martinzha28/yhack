@@ -86,8 +86,8 @@ export default function ChatPanel({
     <div
       className={
         isDark
-          ? "h-full w-80 flex flex-col flex-shrink-0 border-r border-zinc-700/60"
-          : "h-full w-80 flex flex-col flex-shrink-0 border-r border-slate-200 bg-slate-50"
+          ? "h-full w-80 flex flex-col flex-shrink-0 border-l border-zinc-700/60"
+          : "h-full w-80 flex flex-col flex-shrink-0 border-l border-slate-200 bg-slate-50"
       }
       style={isDark ? { backgroundColor: "#1a1a1f" } : undefined}
     >

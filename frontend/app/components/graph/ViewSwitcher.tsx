@@ -20,19 +20,21 @@ export default function ViewSwitcher({ active, onChange }: ViewSwitcherProps) {
 
   return (
     <div
-      className={`absolute top-4 left-4 rounded-lg p-1 flex gap-1 ${
-        isDark ? "bg-zinc-800/90" : "bg-white border border-slate-200 shadow-sm"
+      className={`rounded-xl p-1 flex gap-1 shadow-lg ${
+        isDark
+          ? "bg-zinc-800/95 ring-1 ring-white/10"
+          : "bg-white border border-slate-200 shadow-lg"
       }`}
     >
       {VIEWS.map((v) => (
         <button
           key={v.id}
           onClick={() => onChange(v.id)}
-          className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
+          className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
             active === v.id
               ? isDark
-                ? "bg-zinc-600 text-zinc-100"
-                : "bg-slate-100 text-slate-900 shadow-sm"
+                ? "bg-indigo-600 text-white shadow-md"
+                : "bg-blue-600 text-white shadow-md"
               : isDark
                 ? "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50"
                 : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"

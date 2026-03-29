@@ -17,7 +17,7 @@ export default function SearchBar({
   const isDark = theme === "dark";
 
   return (
-    <div className="absolute top-4 left-1/2 -translate-x-1/2">
+    <div>
       <div className="relative">
         <input
           type="text"

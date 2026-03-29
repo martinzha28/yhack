@@ -67,7 +67,7 @@ export default function InfoPanel({
 
   return (
     <div
-      className={`absolute top-4 right-4 rounded-xl px-5 py-4 text-sm w-76 max-h-[85vh] overflow-y-auto shadow-xl ${
+      className={`absolute top-18 left-4 z-20 rounded-xl px-5 py-4 text-sm w-76 max-h-[80vh] overflow-y-auto shadow-xl ${
         isDark
           ? "bg-zinc-800/90 backdrop-blur-sm ring-1 ring-white/5 text-zinc-200"
           : "bg-white border border-slate-200 text-slate-800"

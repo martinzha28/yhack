@@ -120,25 +120,38 @@ export default function OrgGraph({
   const selectedNode = data?.nodes.find((n) => n.id === selected);
 
   return (
-    <div className="relative w-full h-full">
+    <div className={`relative w-full h-full ${theme === "dark" ? "bg-zinc-900" : "bg-slate-50"}`}>
       <svg
         ref={svgRef}
-        className={`w-full h-full ${theme === "dark" ? "bg-zinc-900" : "bg-slate-50"}`}
+        className="w-full h-full"
       />
-      <Legend />
-      <SearchBar
-        search={search}
-        setSearch={setSearch}
-        matchCount={searchMatch ? searchMatch.size : null}
-      />
-      <SettingsPanel
-        minWeight={minWeight}
-        setMinWeight={setMinWeight}
-        showEdges={showEdges}
-        setShowEdges={setShowEdges}
-        clustering={clustering}
-        setClustering={setClustering}
-      />
+
+      {/* Search — top-right */}
+      <div className="absolute top-4 right-4 z-10">
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
+          matchCount={searchMatch ? searchMatch.size : null}
+        />
+      </div>
+
+      {/* Legend — bottom-left */}
+      <div className="absolute bottom-4 left-4 z-10">
+        <Legend />
+      </div>
+
+      {/* Settings — bottom-right */}
+      <div className="absolute bottom-4 right-4 z-10">
+        <SettingsPanel
+          minWeight={minWeight}
+          setMinWeight={setMinWeight}
+          showEdges={showEdges}
+          setShowEdges={setShowEdges}
+          clustering={clustering}
+          setClustering={setClustering}
+        />
+      </div>
+
       {selectedNode && (
         <InfoPanel
           node={selectedNode}

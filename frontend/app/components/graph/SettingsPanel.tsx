@@ -88,7 +88,7 @@ export default function SettingsPanel({
 
   return (
     <div
-      className={`absolute bottom-4 right-4 rounded-xl text-sm w-64 ${
+      className={`rounded-xl text-sm w-64 ${
         isDark
           ? "bg-zinc-800/90 text-zinc-300"
           : "bg-white border border-slate-200 shadow-md text-slate-700"

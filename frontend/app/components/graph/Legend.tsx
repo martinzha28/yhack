@@ -7,7 +7,7 @@ export default function Legend() {
 
   return (
     <div
-      className={`absolute top-14 left-4 rounded-lg px-4 py-3 text-sm space-y-1.5 ${
+      className={`rounded-lg px-4 py-3 text-sm space-y-1.5 ${
         isDark
           ? "bg-zinc-800/80 text-zinc-300"
           : "bg-white/90 border border-slate-200 shadow-sm text-slate-700"
