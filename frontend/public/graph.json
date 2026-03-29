@@ -3,57 +3,76 @@
     {
       "id": "alice_chen",
       "name": "Alice Chen",
-      "avatar": "/avatars/alice_chen.png",
       "role": "Senior Engineer",
       "team": "backend",
-      "expertise": ["authentication", "security", "oauth", "middleware"],
-      "projects": ["auth-refactor", "billing-v2"],
+      "expertise": [
+        "authentication",
+        "security",
+        "oauth",
+        "middleware"
+      ],
+      "projects": [
+        "auth-refactor",
+        "billing-v2"
+      ],
       "project_roles": {
         "billing-v2": {
-          "weight": 1.0,
+          "weight": 0.96,
           "role": "lead"
         },
-        "auth-refactor": {
-          "weight": 0.65,
+        "revenue-dashboard": {
+          "weight": 0.6,
           "role": "core"
         },
-        "revenue-dashboard": {
-          "weight": 0.25,
-          "role": "contributor"
+        "auth-refactor": {
+          "weight": 0.55,
+          "role": "core"
+        },
+        "infra-migration": {
+          "weight": 0.15,
+          "role": "peripheral"
         }
       },
-      "skills_summary": "Alice is a senior backend engineer specializing in authentication and security, with deep experience implementing OAuth2 and PKCE flows, designing robust JWT validation middleware, and handling session revocation. She also excels at building Go-based micro-services, integrating Stripe for usage-based billing, engineering Kafka pipelines for real-time usage aggregation, and crafting safe PostgreSQL migrations and indexing strategies.",
-      "work_summary": "Alice led the Billing System Revamp (Billing v2), closely collaborating with Charlie Ross on API design, Dave Patel on the Go service and Kafka usage pipeline, and Bob Kim on database schema and indexing. She was a core contributor to the Auth Service Refactor (OAuth2 PKCE), working with Charlie Ross and Mike Torres to implement PKCE verification, refresh-token rotation, and middleware that checks session revocation. Additionally, she added usage-driven features to the Revenue & Subscription Metrics Dashboard.",
+      "skills_summary": "Alice excels at designing secure authentication flows, having led the OAuth2 and PKCE refactor with JWT handling, session token revocation, and comprehensive security audits. She built a high\u2011throughput Go micro\u2011service for Billing V2, integrating Stripe webhook processing, Kafka\u2011based usage aggregation, a dead\u2011letter queue, and autoscaling. Her expertise also covers database schema design, indexing strategies, and cloud\u2011native middleware.",
+      "work_summary": "Alice led the Billing V2 revamp, partnering with Charlie Ross on schema design and with Dave Patel on usage pipelines and Stripe webhook handling. She also serves as a core contributor on the Revenue Dashboard and the Auth Refactor, collaborating closely with Bob Kim, Mike Torres, and the broader backend team.",
       "community": 0
     },
     {
       "id": "bob_kim",
       "name": "Bob Kim",
-      "avatar": "/avatars/bob_kim.png",
       "role": "Engineer",
       "team": "backend",
-      "expertise": ["databases", "sql", "migrations", "indexing"],
-      "projects": ["auth-refactor", "infra-migration", "platform-api"],
+      "expertise": [
+        "databases",
+        "sql",
+        "migrations",
+        "indexing"
+      ],
+      "projects": [
+        "auth-refactor",
+        "infra-migration",
+        "platform-api"
+      ],
       "project_roles": {
         "platform-api": {
-          "weight": 1.0,
+          "weight": 0.88,
           "role": "lead"
         },
         "auth-refactor": {
-          "weight": 0.85,
+          "weight": 0.75,
           "role": "core"
         },
         "infra-migration": {
-          "weight": 0.5,
-          "role": "contributor"
+          "weight": 0.6,
+          "role": "core"
         },
         "billing-v2": {
-          "weight": 0.2,
+          "weight": 0.25,
           "role": "contributor"
         }
       },
-      "skills_summary": "Bob is a backend engineer with strong relational database skills, designing schemas, writing performant SQL queries, and creating composite indexes to support high-throughput billing and API-key operations. He has extensive experience with data migration pipelines, using Kubernetes Jobs and Helm pre-upgrade hooks to apply schema changes safely across environments. He also builds rate-limiting infrastructure, weighing Redis sorted sets against PostgreSQL token-bucket patterns, and implements reliable webhook delivery queues with graphile-worker for durability.",
-      "work_summary": "Bob leads the Platform API & Developer Portal, working with Charlie Ross, Dave Patel, and Eve Johnson to define api_keys, api_requests_log tables, implement rate-limit middleware, and expose usage and rate-limit endpoints via OpenAPI. He contributed core work to the Auth Service Refactor (OAuth2 PKCE), partnering with Mike Torres on token-exchange flows and with Charlie Ross on session-token indexing. He also supports the Infrastructure Migration to AWS EKS by helping Dave Patel coordinate DB migration jobs, set up Terraform node-group configurations, and integrate secrets management using the External Secrets Operator.",
+      "skills_summary": "Bob specializes in building robust relational data models, creating migrations and composite indexes to support high\u2011query workloads for the Platform API and Auth Refactor services. He applies performance\u2011tuning techniques, such as Redis\u2011based sliding window counters and PostgreSQL token buckets, to enforce rate limiting and secure OAuth flows. His expertise extends to JSONB\u2011backed scopes, HMAC\u2011verified webhook delivery, and managing token hashing at the database level.",
+      "work_summary": "Bob led the Platform API\u2019s OpenAPI spec and rate\u2011limiting implementation, working with Mike Torres on Redis counters and with Eve Johnson on the developer portal data model. As a core contributor to the Auth Refactor, he partners with Dave Patel on migration jobs and with Charlie Ross on PKCE and token\u2011family designs. He also supports the Infrastructure Migration by drafting Terraform\u2011backed DB migration hooks and reviewing CI/CD pipelines with Alice Chen and Dave Patel.",
       "community": 0
     },
     {
@@ -61,28 +80,32 @@
       "name": "Charlie Ross",
       "role": "Engineer",
       "team": "backend",
-      "expertise": ["APIs", "REST", "GraphQL"],
-      "projects": ["auth-refactor", "infra-migration", "billing-v2"],
+      "expertise": [
+        "APIs",
+        "REST",
+        "GraphQL"
+      ],
+      "projects": [
+        "auth-refactor",
+        "infra-migration",
+        "billing-v2"
+      ],
       "project_roles": {
-        "billing-v2": {
-          "weight": 0.9,
-          "role": "core"
-        },
         "auth-refactor": {
-          "weight": 0.8,
+          "weight": 0.88,
+          "role": "lead"
+        },
+        "billing-v2": {
+          "weight": 0.78,
           "role": "core"
         },
         "infra-migration": {
           "weight": 0.7,
           "role": "core"
-        },
-        "notifications-service": {
-          "weight": 0.35,
-          "role": "contributor"
         }
       },
-      "skills_summary": "Charlie is an engineer who builds clean, high-performance REST and GraphQL APIs, with a strong focus on data modeling, pagination, and request/response contract design. He has deep knowledge of OAuth2 PKCE, token lifecycle management, and security-aware middleware that validates JWTs and checks revocation. He is also proficient in Kubernetes orchestration, Helm chart templating, and configuring ALB ingress resources for service reliability.",
-      "work_summary": "Charlie was a core engineer on the Billing System Revamp (Billing v2), partnering with Alice Chen to define the billing API, implement invoice endpoints, handle proration logic, and coordinate with Dave Patel on the Kafka usage aggregation pipeline. He played a pivotal role in the Auth Service Refactor (OAuth2 PKCE), collaborating with Alice Chen and Mike Torres to implement PKCE verification, refresh-token rotation, and secure auth middleware. In the Infrastructure Migration to AWS EKS he leads the creation of per-service Helm charts, works with Dave Patel on ALB-compatible ingress annotations, fine-tunes HPA scaling policies, and contributes to the Push Notification Service with API integration support.",
+      "skills_summary": "Charlie is a seasoned API architect, designing clean RESTful endpoints and GraphQL services for critical backend flows. He leads the Auth Refactor, implementing OAuth2 Authorization Code with PKCE, token families, refresh\u2011token rotation, and HMAC verification for webhooks. His work on Billing V2 showcases deep expertise in metered billing pipelines, Stripe integration, and usage\u2011aggregation design.",
+      "work_summary": "As the lead of the Auth Refactor, Charlie partners with Alice Chen on token\u2011family and PKCE details and with Dave Patel on Helm\u2011based deployment and pre\u2011upgrade migration jobs. He was a core member of Billing V2, co\u2011authoring the invoice_items schema and API endpoints alongside Alice and Dave. In the Infrastructure Migration, he collaborates with Dave and Bob Kim to create per\u2011service Helm charts, configure ALB ingress, and set up autoscaling and monitoring.",
       "community": 0
     },
     {
@@ -90,20 +113,32 @@
       "name": "Dave Patel",
       "role": "Engineer",
       "team": "backend",
-      "expertise": ["infrastructure", "kubernetes", "terraform", "AWS"],
-      "projects": ["infra-migration", "billing-v2"],
+      "expertise": [
+        "infrastructure",
+        "kubernetes",
+        "terraform",
+        "AWS"
+      ],
+      "projects": [
+        "infra-migration",
+        "billing-v2"
+      ],
       "project_roles": {
-        "billing-v2": {
-          "weight": 1.0,
+        "infra-migration": {
+          "weight": 0.95,
           "role": "lead"
         },
-        "infra-migration": {
-          "weight": 1.0,
+        "billing-v2": {
+          "weight": 0.94,
           "role": "lead"
+        },
+        "auth-refactor": {
+          "weight": 0.15,
+          "role": "peripheral"
         }
       },
-      "skills_summary": "Dave is an infrastructure-focused backend engineer who designs and deploys end-to-end Kubernetes environments using Terraform, especially skilled with AWS EKS, node-group autoscaling, and secure secret injection via AWS Secrets Manager and the External Secrets Operator. He builds production-grade micro-service pipelines, leveraging Go, Kafka consumers, SQS dead-letter queues, and idempotent webhook handlers to process high-volume Stripe billing events. His expertise includes CI/CD orchestration with GitHub Actions, Helm pre-upgrade hook patterns for safe DB migrations, and configuring autoscaling and monitoring (Datadog, PagerDuty) for reliable operations.",
-      "work_summary": "Dave led the Billing System Revamp (Billing v2), coordinating with Alice Chen on service architecture, working with Charlie Ross on the Kafka usage aggregation pipeline, and delivering health checks, autoscaling policies, and PagerDuty alerts for Stripe webhooks. He also spearheads the Infrastructure Migration to AWS EKS, collaborating closely with Charlie Ross on Helm chart creation and ALB ingress setup, with Bob Kim on Terraform node-group definitions and security-group rules, and with Alice Chen on secrets synchronization. Together they have established a full CI/CD pipeline that provisions the EKS cluster, runs pre-upgrade DB migration jobs, and deploys the billing service at scale.",
+      "skills_summary": "Dave is a cloud\u2011infrastructure specialist who builds and migrates entire backend environments using Terraform, EKS clusters, and Helm\u2011based CI/CD pipelines. He designed a Go\u2011based Stripe webhook service for Billing V2, handling high\u2011volume usage events, Kafka aggregation, dead\u2011letter queues, and autoscaling. His work also covers external secret management, secure deployment configurations, and migration automation.",
+      "work_summary": "Dave drove the Billing V2 rollout as lead, partnering with Alice Chen on schema and Stripe integration and with Charlie Ross and Bob Kim on performance scaling and monitoring. As the Infrastructure Migration lead, he collaborates with Charlie on per\u2011service Helm charts, with Bob on Terraform node\u2011group and security\u2011group definitions, and with Alice on secret provisioning via the External Secrets Operator. He also provides peripheral support to the Auth Refactor effort.",
       "community": 0
     },
     {
@@ -111,20 +146,32 @@
       "name": "Karen Wu",
       "role": "Staff Engineer",
       "team": "backend",
-      "expertise": ["security", "cryptography", "oauth", "identity"],
-      "projects": ["auth-refactor", "platform-api"],
+      "expertise": [
+        "security",
+        "cryptography",
+        "oauth",
+        "identity"
+      ],
+      "projects": [
+        "auth-refactor",
+        "platform-api"
+      ],
       "project_roles": {
+        "auth-refactor": {
+          "weight": 0.8,
+          "role": "core"
+        },
         "platform-api": {
           "weight": 0.75,
           "role": "core"
         },
-        "auth-refactor": {
-          "weight": 0.6,
-          "role": "core"
+        "infra-migration": {
+          "weight": 0.3,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Karen is a staff engineer and security architect who drives robust authentication and authorization solutions, with deep expertise in OAuth2, PKCE implementation, token rotation, and JWT handling. She specializes in cryptographic best practices such as HMAC-SHA256 webhook signing, storing secrets encrypted with KMS, and enforcing secure token families and refresh-token revocation flows. Her work spans identity infrastructure design, secure middleware, and compliance-focused audit logging across backend services.",
-      "work_summary": "Karen is a core contributor to the Platform API & Developer Portal, collaborating with Bob Kim on API-key schema and key-versioning, working with Mike Torres on secure token exchange, CORS restrictions, and rate-limit middleware, and partnering with Alice Chen on session-token revocation and PKCE verification. She also played a central role in the Auth Service Refactor (OAuth2 PKCE), reviewing PKCE logic, enforcing refresh-token hashing, defining token families, and advising on key rotation and KMS best practices. Karen frequently consults with Dave Patel on infra-migration secrets management and coordinates security reviews with Charlie Ross for all auth-related services.",
+      "skills_summary": "Karen is a staff\u2011level security architect focusing on authentication, encryption, and secure API practices. She defines and enforces OAuth2 client\u2011credential flows, PKCE token challenges, and refresh\u2011token rotation using hash\u2011based token families and theft detection. Her expertise also covers HMAC\u2011signed webhooks, KMS\u2011backed secret encryption, and rate\u2011limiting designs that protect the Platform API from abuse.",
+      "work_summary": "Karen serves as a core reviewer on the Auth Refactor, working with Charlie Ross and Dave Patel to ensure PKCE verification, token\u2011family management, and hashed refresh\u2011token storage meet security standards. She was a key contributor to the Platform API, collaborating with Bob Kim, Mike Torres, and Eve Johnson on OpenAPI specification, rate\u2011limiting implementation, and CORS restrictions. In the Infrastructure Migration, she assists Alice Chen and Dave Patel with secret encryption at rest and audit logging for etcd.",
       "community": 0
     },
     {
@@ -132,26 +179,38 @@
       "name": "Mike Torres",
       "role": "Tech Lead",
       "team": "backend",
-      "expertise": ["architecture", "auth", "design systems", "APIs"],
-      "projects": ["auth-refactor", "design-system-v2", "platform-api"],
+      "expertise": [
+        "architecture",
+        "auth",
+        "design systems",
+        "APIs"
+      ],
+      "projects": [
+        "auth-refactor",
+        "design-system-v2",
+        "platform-api"
+      ],
       "project_roles": {
         "platform-api": {
-          "weight": 0.95,
+          "weight": 0.96,
           "role": "lead"
         },
         "auth-refactor": {
-          "weight": 0.55,
+          "weight": 0.78,
           "role": "core"
+        },
+        "design-system-v2": {
+          "weight": 0.38,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Mike is a backend tech lead specialized in designing scalable service architectures and secure authentication solutions, including OAuth2 PKCE and client\u2011credentials flows. He applies design\u2011system thinking to API contracts, leveraging OpenAPI, Redis\u2011based rate limiting, and RFC 7807 error handling to ensure a cohesive developer experience.",
-      "work_summary": "He leads the active Platform API & Developer Portal project, partnering with Eve Johnson on the frontend portal, Bob Kim on backend implementation, Henry Zhao on OpenAPI and SDK work, and Karen Wu on security requirements. Additionally, Mike was a core contributor to the completed Auth Service Refactor, collaborating with Eve Johnson and Bob Kim to implement PKCE authorization and token management.",
+      "skills_summary": "Mike is a backend tech lead with deep expertise in API architecture, having designed a public REST API and developer portal using OpenAPI, an API gateway, and Redis\u2011based rate limiting. He also leads security\u2011focused auth work, implementing OAuth2 with PKCE, session management, and RFC\u20117807 problem\u2011details handling. Additionally, he contributes design\u2011system V2 components, including tokens and dark\u2011mode support.",
+      "work_summary": "Mike recently completed the Platform API project, leading the effort with Bob Kim, Eve Johnson, and Henry Zhao on the OpenAPI spec, rate limiting, and portal UI. He remains a core member of the Auth Refactor initiative, collaborating closely with Eve and Bob to revamp OAuth2 flows and security audits. He also provides architectural guidance for Design System V2, working with Henry and occasional input from Alice Chen and Dave Patel.",
       "community": 0
     },
     {
       "id": "eve_johnson",
       "name": "Eve Johnson",
-      "avatar": "/avatars/eve_johnson.png",
       "role": "Senior Engineer",
       "team": "frontend",
       "expertise": [
@@ -160,23 +219,27 @@
         "accessibility",
         "storybook"
       ],
-      "projects": ["auth-refactor", "design-system-v2", "platform-api"],
+      "projects": [
+        "auth-refactor",
+        "design-system-v2",
+        "platform-api"
+      ],
       "project_roles": {
+        "auth-refactor": {
+          "weight": 0.92,
+          "role": "core"
+        },
         "platform-api": {
-          "weight": 0.9,
+          "weight": 0.88,
           "role": "core"
         },
         "design-system-v2": {
-          "weight": 0.75,
-          "role": "core"
-        },
-        "auth-refactor": {
-          "weight": 0.6,
-          "role": "core"
+          "weight": 0.36,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Eve is a senior frontend engineer focused on building robust design systems, reusable components and accessible UI patterns, using Storybook, atomic design, and semantic design tokens. She has deep expertise integrating OpenAPI specifications into developer portals, implementing interactive docs, and modernizing authentication flows with OAuth2 PKCE to support public and confidential clients.",
-      "work_summary": "Eve is a core engineer on the active Platform API & Developer Portal project, collaborating with Mike Torres (backend) and Bob Kim on the OpenAPI spec, interactive docs, API key management UI, and rate\u2011limit instrumentation. She leads the Design System Revamp (v2) with Grace Park and Nina Scott, delivering accessible, token\u2011driven components via Storybook and dark\u2011mode support. Additionally, she contributed core work to the completed Auth Service Refactor, aligning the frontend login flow with Mike's OAuth2 PKCE implementation and building the auth context provider.",
+      "skills_summary": "Eve excels at building design\u2011system components with strong accessibility, using Storybook for documentation and visual testing. She also bridges frontend and backend by implementing OAuth2/PKCE auth flows in React, creating auth context providers, and integrating OpenAPI specs into interactive developer portals. She is fluent in React, Next.js, TypeScript, and modern web accessibility patterns.",
+      "work_summary": "Eve was a core contributor to the Platform API developer portal, working alongside Mike Torres on OpenAPI spec integration and Henry Zhao on SDK documentation. She is now leading the Auth Refactor frontend changes, pairing with Mike and Charlie Ross to implement the PKCE authorize \u2192 token exchange flow and to build an accessible auth context provider. Additionally, she drives Design System V2 adoption, collaborating with Grace Park on Button component accessibility and with Nina Scott on token mapping and Storybook organization.",
       "community": 1
     },
     {
@@ -184,20 +247,27 @@
       "name": "Frank Li",
       "role": "Engineer",
       "team": "frontend",
-      "expertise": ["performance", "bundle optimization", "profiling"],
-      "projects": ["mobile-app", "brand-refresh"],
+      "expertise": [
+        "performance",
+        "bundle optimization",
+        "profiling"
+      ],
+      "projects": [
+        "mobile-app",
+        "brand-refresh"
+      ],
       "project_roles": {
         "mobile-app": {
-          "weight": 0.9,
+          "weight": 0.89,
           "role": "core"
         },
         "brand-refresh": {
-          "weight": 0.7,
-          "role": "core"
+          "weight": 0.46,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Frank is a performance\u2011oriented frontend engineer who specializes in Web and React Native optimization, conducting Lighthouse audits, bundle\u2011size analysis, and runtime profiling with Flipper and React DevTools. He excels at implementing image pipelines, lazy loading, Hermes engine tuning, and selective native module loading to meet strict mobile\u2011app size and speed targets.",
-      "work_summary": "He is a core engineer on the Bsus Mobile Application, partnering with Henry Zhao to profile and shrink the Android and iOS bundles via FlashList, Hermes GC tuning, and inline\u2011require optimizations, while also fixing OOM and ANR issues. Frank also contributed to the completed Company Brand Refresh, working with Nina Scott to deliver a high\u2011performance marketing site that leverages Next.js image optimization, WebP/AVIF conversion, and Lighthouse\u2011guided performance improvements.",
+      "skills_summary": "Frank specializes in front\u2011end performance, bundling, and profiling, applying techniques such as WebP/AVIF image pipelines, Metro tree\u2011shaking, and Hermes engine optimizations. He leverages React Native profiling tools (Flipper, React DevTools) to eliminate jank, reduce bundle size, and prevent memory\u2011related crashes on iOS/Android. He also implements CI\u2011based bundle\u2011size checks and lazy\u2011loading strategies to keep app size lean.",
+      "work_summary": "Frank leads performance work on the BSus Mobile App, partnering with Henry Zhao on React Native optimization, deep\u2011link crashes, and push\u2011notification module size. Together they introduced baseline bundle\u2011size reports, moved FlatList to FlashList, and implemented OOM fixes for older iPhones. He also contributed to the Brand Refresh marketing site, collaborating with Nina Scott on Next/image pipelines, Sharp image processing, and Lighthouse improvements.",
       "community": 1
     },
     {
@@ -205,46 +275,56 @@
       "name": "Grace Park",
       "role": "Engineer",
       "team": "frontend",
-      "expertise": ["components", "React", "animations"],
-      "projects": ["design-system-v2", "onboarding-redesign"],
+      "expertise": [
+        "components",
+        "React",
+        "animations"
+      ],
+      "projects": [
+        "design-system-v2",
+        "onboarding-redesign"
+      ],
       "project_roles": {
         "design-system-v2": {
-          "weight": 0.9,
-          "role": "core"
-        },
-        "mobile-ui": {
-          "weight": 0.85,
+          "weight": 0.95,
           "role": "core"
         },
         "onboarding-redesign": {
-          "weight": 0.5,
-          "role": "contributor"
+          "weight": 0.74,
+          "role": "core"
         }
       },
-      "skills_summary": "Grace is a component\u2011focused frontend engineer with deep expertise in React and React Native UI primitives, applying atomic design, compound component patterns, and animation\u2011driven motion design. She drives the Design System Revamp (v2) and the Mobile UI Component Library, ensuring every component consumes semantic tokens, supports dark mode, and meets WCAG accessibility standards.",
-      "work_summary": "As a core member of the active Design System Revamp (v2), she builds and merges Button, TextInput, Select, and Checkbox components in partnership with Eve Johnson, Nina Scott, and Henry Zhao, providing Storybook stories and accessibility validation. She also leads the Mobile UI Component Library in collaboration with Henry Zhao, delivering platform\u2011specific variants, Android ripple handling, and motion\u2011token integration, and contributes to the User Onboarding Redesign wizard together with Quinn Davis and Jack Brown.",
+      "skills_summary": "Grace builds high\u2011quality React components, leveraging design tokens for styling, compound component patterns, and accessible markup, while integrating platform\u2011specific animations and motion tokens. She is a core author of Design System V2, delivering Button, TextInput, Select, and Checkbox components with full Storybook and dark\u2011mode support. She also leads the Onboarding Redesign, implementing wizard flows, checklists, and analytics\u2011driven tooltips.",
+      "work_summary": "Grace has taken the lead on Design System V2, collaborating with Eve Johnson on the Button component accessibility, with Nina Scott on spacing and token alignment, and with Henry Zhao on React Native variants. She is also spearheading the Onboarding Redesign wizard, pairing with Quinn Davis on flow structure and Jordan Kim on analytics integration. Both initiatives involve frequent sync with the broader front\u2011end team to ensure consistent token usage and smooth motion across platforms.",
       "community": 1
     },
     {
       "id": "henry_zhao",
       "name": "Henry Zhao",
-      "avatar": "/avatars/henry_zhao.png",
       "role": "Engineer",
       "team": "frontend",
-      "expertise": ["React Native", "iOS", "Android", "mobile"],
-      "projects": ["mobile-app", "platform-api"],
+      "expertise": [
+        "React Native",
+        "iOS",
+        "Android",
+        "mobile"
+      ],
+      "projects": [
+        "mobile-app",
+        "platform-api"
+      ],
       "project_roles": {
         "platform-api": {
-          "weight": 0.9,
+          "weight": 0.93,
           "role": "core"
         },
         "mobile-app": {
-          "weight": 0.85,
+          "weight": 0.86,
           "role": "core"
         }
       },
-      "skills_summary": "Henry is a mobile\u2011focused frontend engineer expert in React Native, native iOS and Android integration, and performance optimization using Hermes, Flipper, and bundle\u2011size analysis tools. He also engineers developer SDKs and documentation pipelines, generating TypeScript client libraries from OpenAPI specs and implementing OAuth2 PKCE authentication flows for native clients.",
-      "work_summary": "On the active Platform API & Developer Portal, Henry collaborates with Mike Torres and Eve Johnson to produce the TypeScript SDK, author Redocly\u2011driven docs, and enforce RFC 7807 problem\u2011details for all API errors. He leads the Bsus Mobile Application effort with Frank Li, Priya Mehta, and Grace Park, delivering push\u2011notification support, deep\u2011link routing, UI component tuning, and CI\u2011enforced bundle\u2011size limits across iOS and Android builds.",
+      "skills_summary": "Henry excels at turning OpenAPI specifications into typed client SDKs, implementing RFC\u20117807 error handling, and publishing JavaScript and Python packages for internal and external developers. He brings deep mobile expertise with React Native, Hermes, and platform\u2011specific push\u2011notification implementations, as well as performance profiling and bundle\u2011size optimization for iOS and Android. He also integrates backend endpoints for mobile features and collaborates on cross\u2011platform component adaptations.",
+      "work_summary": "Henry co\u2011led the Platform API effort, working with Mike Torres on the OpenAPI spec, example payloads, and the Redocly\u2011powered developer portal, and with Eve Johnson on SDK scaffolding and documentation. He is now a core engineer on the BSus Mobile App, partnering with Frank Li on deep\u2011link handling, push\u2011notification setup, and bundle\u2011size optimizations across iOS and Android. He also assists Grace Park with React Native component adaptations and collaborates with Priya Mehta and Alice Chen on auth\u2011refactor mobile login integration.",
       "community": 1
     },
     {
@@ -252,11 +332,19 @@
       "name": "Nina Scott",
       "role": "Design Engineer",
       "team": "frontend",
-      "expertise": ["design systems", "Figma", "components", "tokens"],
-      "projects": ["design-system-v2", "brand-refresh"],
+      "expertise": [
+        "design systems",
+        "Figma",
+        "components",
+        "tokens"
+      ],
+      "projects": [
+        "design-system-v2",
+        "brand-refresh"
+      ],
       "project_roles": {
         "design-system-v2": {
-          "weight": 0.85,
+          "weight": 0.95,
           "role": "core"
         },
         "brand-refresh": {
@@ -264,34 +352,41 @@
           "role": "core"
         }
       },
-      "skills_summary": "Nina bridges design and engineering by authoring token\u2011driven React components and maintaining the Figma to code pipeline. She builds high\u2011performance Next.js applications, integrates Lottie assets, and ensures WCAG AA compliance across interactive UI.",
-      "work_summary": "She is a core contributor to the Design System Revamp (v2), partnering with Eve Johnson on typographic tokens, Grace Park on spacing hierarchies, and Iris Wang on semantic color definitions. Nina also drove the frontend implementation of the Company Brand Refresh marketing site, collaborating with Frank Li on performance tuning and with Lisa Chen on Lottie\u2011based hero animation integration.",
+      "skills_summary": "Nina translates design tokens into production code, building React components and CSS custom properties via a Figma-to-code pipeline, and is experienced with Next.js front-end development. She implements Lottie animations and applies performance optimizations such as lazy loading and WCAG-AA contrast enforcement.",
+      "work_summary": "Nina collaborates closely with Eve Johnson, Grace Park, and Iris Wang on Design System V2 to define token structures, component specs, and spacing baselines, while partnering with Frank Li on the Brand Refresh marketing site to scaffold a Next.js app, integrate Lottie hero animations, and tune front-end performance. She also works with the frontend channel on token releases and ensures all implementations meet accessibility and performance best practices.",
       "community": 1
     },
     {
       "id": "iris_wang",
       "name": "Iris Wang",
-      "avatar": "/avatars/iris_wang.png",
       "role": "Senior Designer",
       "team": "design",
-      "expertise": ["brand", "visual design", "Figma", "design systems"],
-      "projects": ["design-system-v2", "brand-refresh"],
+      "expertise": [
+        "brand",
+        "visual design",
+        "Figma",
+        "design systems"
+      ],
+      "projects": [
+        "design-system-v2",
+        "brand-refresh"
+      ],
       "project_roles": {
         "brand-refresh": {
-          "weight": 1.0,
+          "weight": 0.95,
           "role": "lead"
         },
         "design-system-v2": {
-          "weight": 0.8,
+          "weight": 0.85,
           "role": "core"
         },
         "revenue-dashboard": {
-          "weight": 0.25,
-          "role": "peripheral"
+          "weight": 0.3,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Iris leads brand and visual design work, crafting logos, color systems, and typographic scales that meet rigorous accessibility benchmarks. She builds and governs design systems in Figma, aligning semantic tokens, motion guidelines, and dark\u2011mode variants across product teams.",
-      "work_summary": "She headlined the Company Brand Refresh, guiding the logo direction with Oscar Lee and delivering the final visual assets that Nina Scott integrated into the marketing site. In the ongoing Design System Revamp (v2), Iris collaborates daily with Nina, Lisa, Jack, and the front\u2011end squad to define color, focus\u2011ring, and motion tokens, and validates WCAG compliance for button and input states.",
+      "skills_summary": "Iris specializes in brand and visual design, delivering logos, color systems, typography scales, and motion guidelines that satisfy WCAG accessibility. As a core member of Design System V2, she authors semantic token definitions, dark-mode palettes, and form-input UI patterns using Figma variable modes and syncs them with engineering.",
+      "work_summary": "As lead of the Brand Refresh, Iris partnered with Oscar Lee, Nina Scott, and Lisa Chen to produce a refreshed visual identity, including a new logo, a navy-teal palette, Satoshi/Inter typography, and Lottie-based motion assets for the marketing site. In Design System V2 she continuously works with Nina, Oscar, and Jack Brown on token alignment, dark-mode color definitions, and accessibility reviews for form components, while also providing visual updates for the Revenue Dashboard.",
       "community": 3
     },
     {
@@ -299,24 +394,28 @@
       "name": "Jack Brown",
       "role": "Designer",
       "team": "design",
-      "expertise": ["UX", "user research", "wireframes", "onboarding flows"],
-      "projects": ["design-system-v2", "onboarding-redesign"],
+      "expertise": [
+        "UX",
+        "user research",
+        "wireframes",
+        "onboarding flows"
+      ],
+      "projects": [
+        "design-system-v2",
+        "onboarding-redesign"
+      ],
       "project_roles": {
         "onboarding-redesign": {
-          "weight": 0.95,
+          "weight": 0.93,
           "role": "lead"
         },
         "design-system-v2": {
-          "weight": 0.75,
+          "weight": 0.7,
           "role": "core"
-        },
-        "brand-refresh": {
-          "weight": 0.15,
-          "role": "peripheral"
         }
       },
-      "skills_summary": "Jack specializes in UX for onboarding journeys, conducting user research, prototyping wireframes, and iterating interaction patterns such as progressive disclosure and checklist wizardry. He also contributes to the Design System Revamp by authoring component specs and aligning token definitions with engineering constraints.",
-      "work_summary": "As lead of the User Onboarding Redesign, Jack works with Quinn Davis to build research\u2011driven wireframes and with Grace Park to refine state tokens for checkboxes and tooltips. Within the Design System Revamp (v2), he partners with Oscar Lee and Iris Wang on button focus indicators and token consistency, ensuring WCAG AA accessibility across the component library.",
+      "skills_summary": "Jack is a UX designer focused on onboarding flows, turning user research into progressive-disclosure wizard patterns, checklists, and tooltips while ensuring WCAG accessibility for all component states. He also documents comprehensive component specifications for Design System V2, covering button variants, form inputs, and activation UI patterns.",
+      "work_summary": "Jack leads the Onboarding Redesign \u2013 Wizard, Checklist, Tooltips and Analytics, collaborating with Grace Park and Quinn Davis to produce wireframes, wizard flows, and an activation funnel based on research data, and consulting with Oscar Lee and Iris Wang on accessibility standards and typographic tokens. He also contributes to Design System V2 by authoring detailed specs for button, checkbox, and text-input components, partnering with Grace, Quinn, and the broader design team to enforce consistent patterns.",
       "community": 3
     },
     {
@@ -324,20 +423,28 @@
       "name": "Lisa Chen",
       "role": "Designer",
       "team": "design",
-      "expertise": ["motion design", "animations", "Lottie", "After Effects"],
-      "projects": ["design-system-v2", "brand-refresh"],
+      "expertise": [
+        "motion design",
+        "animations",
+        "Lottie",
+        "After Effects"
+      ],
+      "projects": [
+        "design-system-v2",
+        "brand-refresh"
+      ],
       "project_roles": {
         "design-system-v2": {
           "weight": 0.85,
           "role": "core"
         },
         "brand-refresh": {
-          "weight": 0.6,
+          "weight": 0.7,
           "role": "core"
         }
       },
-      "skills_summary": "Lisa creates motion\u2011first brand experiences, producing Lottie animations and After Effects assets that convey assembly metaphors and micro\u2011interactions. She codifies these animations into design\u2011system motion tokens (duration, easing, fallback) and guides engineers on performance\u2011aware implementation.",
-      "work_summary": "She was a core contributor to the Company Brand Refresh, delivering the hero Lottie animation, a looping variant, and motion guidelines that guided the marketing site's visual language. In the Design System Revamp (v2), Lisa partners with Oscar Lee on token documentation, with Grace Park on applying motion to Button and Input components, and with Nina Scott on Lottie\u2011based Spinner and Skeleton components, ensuring accessibility and reduced\u2011motion compliance.",
+      "skills_summary": "Lisa is a motion design expert who creates micro-interactions and Lottie animations for both brand assets and design-system components using After Effects and Bodymovin. She defines motion tokens\u2014standard durations, easing curves, and accessibility fallbacks\u2014to integrate animation into React components such as Spinner, Skeleton, and UI hover/focus transitions.",
+      "work_summary": "On the Brand Refresh Lisa collaborated with Nina Scott, Iris Wang, and Oscar Lee to produce a Lottie hero animation and motion-design guidelines that power the new marketing site. For Design System V2 she works with Grace Park, Nina, and the frontend team to implement motion tokens, release Lottie loaders and skeleton components, and ensure all interactions respect prefers-reduced-motion.",
       "community": 3
     },
     {
@@ -345,20 +452,27 @@
       "name": "Oscar Lee",
       "role": "Design Lead",
       "team": "design",
-      "expertise": ["design leadership", "design systems", "brand strategy"],
-      "projects": ["design-system-v2", "brand-refresh"],
+      "expertise": [
+        "design leadership",
+        "design systems",
+        "brand strategy"
+      ],
+      "projects": [
+        "design-system-v2",
+        "brand-refresh"
+      ],
       "project_roles": {
         "brand-refresh": {
-          "weight": 1.0,
+          "weight": 0.95,
           "role": "lead"
         },
         "design-system-v2": {
-          "weight": 0.95,
+          "weight": 0.9,
           "role": "lead"
         }
       },
-      "skills_summary": "Oscar leads brand strategy and design\u2011system initiatives, defining visual direction, color palettes, typography, and motion principles for both public and internal products. He drives token pipeline governance, sets WCAG and accessibility standards, and mentors designers to scale their work across teams.",
-      "work_summary": "As Design Lead of the Company Brand Refresh, Oscar directed the logo redesign, finalized the color system, and oversaw the brand book, working closely with Iris Wang on the abstract mark and with the marketing team on asset delivery. He also heads the Design System Revamp (v2), coordinating with Iris, Lisa, Jack, and front\u2011end engineers to lock down design tokens, implement dark mode, and ensure the component library meets AA accessibility requirements.",
+      "skills_summary": "Oscar drives design strategy and leadership, overseeing brand-level redesigns and stewarding a unified design system. He has deep expertise in design-system governance\u2014authoring color, spacing, typography, and motion tokens, and guaranteeing cross-product consistency and WCAG accessibility.",
+      "work_summary": "Oscar spearheaded the Brand Refresh, partnering with Iris Wang, Lisa Chen, and Mike Torres to define a new logo, a navy-teal color palette, typography system, and motion principles that underpinned the marketing site reboot. As Design Lead for Design System V2 he coordinates with Iris, Jack Brown, Grace Park, and the broader design and engineering teams to lock tokens, ship core components like Button, Typography, and Form inputs, and roll out dark-mode support across the product suite.",
       "community": 3
     },
     {
@@ -366,46 +480,65 @@
       "name": "Priya Mehta",
       "role": "Product Manager",
       "team": "product",
-      "expertise": ["growth", "activation metrics", "user funnels", "mobile"],
-      "projects": ["mobile-app", "onboarding-redesign", "brand-refresh"],
+      "expertise": [
+        "growth",
+        "activation metrics",
+        "user funnels",
+        "mobile"
+      ],
+      "projects": [
+        "mobile-app",
+        "onboarding-redesign",
+        "brand-refresh"
+      ],
       "project_roles": {
         "brand-refresh": {
-          "weight": 0.98,
+          "weight": 1.0,
           "role": "lead"
         },
         "mobile-app": {
-          "weight": 0.75,
+          "weight": 0.9,
           "role": "lead"
+        },
+        "onboarding-redesign": {
+          "weight": 0.25,
+          "role": "peripheral"
         }
       },
-      "skills_summary": "Priya is a product manager focused on mobile growth, excelling at defining activation metrics and optimizing user funnels. She leverages data from mobile analytics, cohort analysis, and A/B experiments to shape product strategies and drive user acquisition.",
-      "work_summary": "She leads the Company Brand Refresh, working closely with Oscar Lee and Iris Wang on visual identity and the brand book, and drives the Bsus Mobile Application project together with Henry Zhao, Ryan Nguyen and Quinn Davis. Priya also partners with Alice Chen and Frank Li on the marketing site rollout and synchronizes activation-tracking requirements across engineering and design teams.",
+      "skills_summary": "Priya drives growth through data\u2011centric activation funnels and mobile\u2011first user acquisition, having built robust metrics for first\u2011action conversion, push\u2011notification opt\u2011in, and deep\u2011link attribution. She is adept at translating mobile\u2011product requirements into launch timelines and visual brand strategies, and frequently performs A/B testing on user funnels to optimize conversion.",
+      "work_summary": "She leads the Brand Refresh effort, coordinating visual identity work with Oscar Lee, Nina Scott, and Frank Li to deliver a new marketing site and updated brand book. As the lead for the BSus Mobile App, she partners with Henry Zhao on engineering and Ryan Nguyen on analytics to ship a React Native client with deep links, push notifications, and activation metrics. She also contributes to the Onboarding Redesign project, collaborating with Quinn Davis and Alice Chen on peripheral enhancements.",
       "community": 2
     },
     {
       "id": "quinn_davis",
       "name": "Quinn Davis",
-      "avatar": "/avatars/quinn_davis.png",
       "role": "Product Manager",
       "team": "product",
-      "expertise": ["platform", "developer experience", "onboarding"],
-      "projects": ["onboarding-redesign", "billing-v2"],
+      "expertise": [
+        "platform",
+        "developer experience",
+        "onboarding"
+      ],
+      "projects": [
+        "onboarding-redesign",
+        "billing-v2"
+      ],
       "project_roles": {
+        "billing-v2": {
+          "weight": 1.0,
+          "role": "lead"
+        },
         "onboarding-redesign": {
           "weight": 0.95,
           "role": "lead"
         },
-        "billing-v2": {
-          "weight": 0.85,
-          "role": "lead"
-        },
         "revenue-dashboard": {
-          "weight": 0.7,
+          "weight": 0.85,
           "role": "core"
         }
       },
-      "skills_summary": "Quinn specializes in platform product management and developer experience, focusing on building intuitive onboarding experiences and telemetry infrastructure. He applies progressive-disclosure UI patterns, metrics instrumentation, and best-in-class A/B testing to improve activation rates.",
-      "work_summary": "He leads the User Onboarding Redesign, collaborating with Grace Park on UI components, Ryan Nguyen on analytics scaffolding, and Jack Brown on wireframes, while also overseeing the completed Billing System Revamp with Alice Chen. Quinn coordinates cross-functional reviews with Priya Mehta and other stakeholders to align onboarding goals with growth objectives.",
+      "skills_summary": "Quinn specializes in platform strategy and developer experience, having designed a usage\u2011based pricing model and built end\u2011to\u2011end onboarding flows for both web and mobile. He is comfortable implementing deep\u2011link routing, integrating analytics SDKs, and translating product concepts into technical roadmaps that align engineering feasibility with growth targets.",
+      "work_summary": "He leads the Billing V2 initiative, working with Alice Chen and Charlie Ross to rewrite the billing system for usage\u2011based pricing, real\u2011time invoicing, and revenue dashboard integration. For the Onboarding Redesign, Quinn partners with Jack Brown, Grace Park, and Henry Zhao to create a wizard\u2011based welcome screen, persistent checklist, and tooltip system, ensuring each step is instrumented with Ryan Nguyen\u2019s analytics. He also contributed core metrics to the Revenue Dashboard alongside Ryan Nguyen and coordinates with Priya Mehta on mobile activation requirements.",
       "community": 2
     },
     {
@@ -413,20 +546,32 @@
       "name": "Ryan Nguyen",
       "role": "Product Analyst",
       "team": "product",
-      "expertise": ["analytics", "SQL", "dashboards", "metrics"],
-      "projects": ["mobile-app", "billing-v2"],
+      "expertise": [
+        "analytics",
+        "SQL",
+        "dashboards",
+        "metrics"
+      ],
+      "projects": [
+        "mobile-app",
+        "billing-v2"
+      ],
       "project_roles": {
-        "revenue-dashboard": {
-          "weight": 0.9,
+        "mobile-app": {
+          "weight": 1.0,
           "role": "core"
         },
-        "mobile-app": {
-          "weight": 0.75,
+        "revenue-dashboard": {
+          "weight": 0.8,
           "role": "core"
+        },
+        "billing-v2": {
+          "weight": 0.35,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Ryan is a product analyst skilled in SQL, event taxonomy design, and building real-time dashboards for revenue and activation metrics. He defines key metrics like MRR, churn, net revenue retention, and deep-link performance, and translates data insights into actionable product recommendations.",
-      "work_summary": "He contributed core analytics to the Revenue & Subscription Metrics Dashboard, partnering with Quinn Davis and Alice Chen to surface MRR, churn, expansion, and NRR visualizations. Ryan also instruments the Bsus Mobile Application, working with Priya Mehta, Henry Zhao, and Quinn on activation event tracking, platform-split reporting, and deep-link attribution.",
+      "skills_summary": "Ryan is a product\u2011focused analyst who writes advanced SQL queries to extract MRR, usage, churn, and activation metrics and builds live dashboards that power data\u2011driven decisions. He specializes in designing event taxonomies, deep\u2011link attribution pipelines, and tracking push\u2011notification opt\u2011in rates across iOS and Android.",
+      "work_summary": "He serves as the primary analytics partner for the BSus Mobile App, collaborating with Priya Mehta and Henry Zhao to define the activation funnel, instrument core events, and deliver platform\u2011split dashboards for push opt\u2011in, first\u2011action completion, and deep\u2011link conversions. In addition, Ryan partnered with Quinn Davis to author the Revenue Dashboard (MRR, churn, NRR) and contributed billing\u2011usage tracking for Billing V2 with Alice Chen.",
       "community": 2
     },
     {
@@ -434,20 +579,30 @@
       "name": "Sofia Martinez",
       "role": "Head of Product",
       "team": "product",
-      "expertise": ["product strategy", "roadmap", "stakeholder management"],
-      "projects": ["onboarding-redesign"],
+      "expertise": [
+        "product strategy",
+        "roadmap",
+        "stakeholder management"
+      ],
+      "projects": [
+        "onboarding-redesign"
+      ],
       "project_roles": {
         "onboarding-redesign": {
-          "weight": 0.95,
+          "weight": 1.0,
           "role": "lead"
         },
         "design-system-v2": {
-          "weight": 0.25,
-          "role": "peripheral"
+          "weight": 0.6,
+          "role": "core"
+        },
+        "infra-migration": {
+          "weight": 0.35,
+          "role": "contributor"
         }
       },
-      "skills_summary": "Sofia heads product strategy, crafting roadmaps that balance long-term vision with short-term OKRs and ensuring stakeholder alignment across engineering, design, and go-to-market teams. She excels at prioritization, resource orchestration, and translating market insights into platform and user experience initiatives.",
-      "work_summary": "She leads the User Onboarding Redesign, orchestrating work between Quinn Davis, Grace Park, Jack Brown, and the design system team led by Mike Torres and Oscar Lee. Sofia also supports the Design System Revamp (v2) as a peripheral contributor, coordinating dependency mapping with Dave Patel and Alice Chen to enable consistent onboarding components.",
+      "skills_summary": "Sofia drives product strategy by aligning multi\u2011team roadmaps with executive OKRs and managing stakeholder expectations from engineering to design and data. She is adept at leading large\u2011scale initiatives\u2014such as onboarding redesign, design\u2011system evolution, and infrastructure migration\u2014while ensuring cross\u2011functional buy\u2011in and clear communication of priorities.",
+      "work_summary": "She heads the Onboarding Redesign project, working with Quinn Davis, Grace Park, Jack Brown, and Jordan Kim to overhaul the welcome wizard, persistent checklist, and tooltip analytics. As a core contributor to Design System V2, Sofia collaborates with Mike Torres and Oscar Lee on token and component updates, and she also assists with the EC2\u2011to\u2011EKS migration effort alongside Dave Patel and Ryan Nguyen.",
       "community": 2
     },
     {
@@ -456,15 +611,17 @@
       "role": "Engineer (New)",
       "team": "frontend",
       "expertise": [],
-      "projects": ["onboarding-redesign"],
+      "projects": [
+        "onboarding-redesign"
+      ],
       "project_roles": {
         "onboarding-redesign": {
-          "weight": 0.9,
+          "weight": 1.0,
           "role": "core"
         }
       },
-      "skills_summary": "Jordan is a front-end engineer quickly mastering React, component libraries, and UI patterns for onboarding flows. He implements design-system v2 components, builds tooltip and empty-state features, and integrates analytics hooks to instrument user activation events.",
-      "work_summary": "He is a core contributor to the User Onboarding Redesign, developing tooltip and empty-state UI under Grace Park's guidance and collaborating with Mike Torres on design-system integration. Jordan also syncs with Alice Chen, Henry Zhao, and Dave Patel to ensure the new onboarding wizard aligns with cross-platform analytics and product roadmap priorities.",
+      "skills_summary": "Jordan is a frontend engineer quickly mastering React/TypeScript and the company\u2019s Design System to build reusable UI components. He has delivered a tooltip component and empty\u2011state screens for the Onboarding Redesign, following design specifications and integrating with existing state management patterns.",
+      "work_summary": "He is a core contributor to the Onboarding Redesign, implementing tooltips with Grace Park, creating empty\u2011state UI from Jack Brown\u2019s wireframes, and syncing with Mike Torres on design\u2011system usage. Jordan also coordinates with Quinn Davis and Priya Mehta to align web onboarding flows with the mobile activation funnel, ensuring consistent metrics across platforms.",
       "community": 1
     }
   ],
@@ -1305,12 +1462,12 @@
       "weight": 0.1988
     },
     {
-      "source": "oscar_lee",
+      "source": "lisa_chen",
       "target": "ryan_nguyen",
       "weight": 0.1919
     },
     {
-      "source": "lisa_chen",
+      "source": "oscar_lee",
       "target": "ryan_nguyen",
       "weight": 0.1919
     },
@@ -1330,12 +1487,12 @@
       "weight": 0.1763
     },
     {
-      "source": "jordan_kim",
+      "source": "nina_scott",
       "target": "ryan_nguyen",
       "weight": 0.1738
     },
     {
-      "source": "nina_scott",
+      "source": "jordan_kim",
       "target": "ryan_nguyen",
       "weight": 0.1738
     },
@@ -1375,12 +1532,12 @@
       "weight": 0.1493
     },
     {
-      "source": "oscar_lee",
+      "source": "lisa_chen",
       "target": "quinn_davis",
       "weight": 0.1471
     },
     {
-      "source": "lisa_chen",
+      "source": "oscar_lee",
       "target": "quinn_davis",
       "weight": 0.1471
     },

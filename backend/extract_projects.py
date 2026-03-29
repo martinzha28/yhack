@@ -4,8 +4,9 @@ Discover projects and per-person association weights from Slack messages.
 Multi-pass approach with caching:
   Pass 1: Identify projects from a sample of messages
   Pass 2: Assign each message to a project in batches
-  Pass 3: Semantic per-person project associations (LLM)
+  Pass 3: Semantic per-person project associations (LLM) (ignores chats in large groups)
   Pass 4: Per-person skills & work summaries (LLM, batched)
+  Pass 5: LLM project summarization (uses 15 longest messages)
 
 Collaborator pre-computation is done programmatically from message
 interaction counts — no extra LLM calls needed for that step.
@@ -165,7 +166,7 @@ Return ONLY a JSON array of projects. No explanation, no markdown fences, just t
 [
   {{
     "id": "kebab-case-id",
-    "name": "Human Readable Name",
+    "name": "Short Title",
     "keywords": ["term1", "term2", "term3"],
     "status": "active",
     "time_range": "Jan-Mar 2025"
@@ -173,6 +174,8 @@ Return ONLY a JSON array of projects. No explanation, no markdown fences, just t
 ]
 
 Rules:
+- "name" must be 2-4 words maximum — a short title only, NO subtitles, NO dashes, NO descriptions after the title (good: "Billing v2", "Auth Refactor", "Design System v2"; bad: "Billing v2 – Usage-Based Pricing Redesign")
+- "id" should be a concise kebab-case slug matching the name (e.g. "billing-v2", "auth-refactor")
 - status is "active" or "completed"
 - Include both current AND historical/completed projects
 - Each project should have 5-10 keywords that identify it in messages
@@ -573,6 +576,136 @@ IDs to include: {json.dumps(batch_ids)}"""
     return all_results
 
 
+def pass5_project_summaries(
+    client: OpenAI,
+    projects: list[dict],
+    person_weights: dict[str, dict[str, float]],
+    person_roles: dict[str, dict[str, str]],
+    messages: list[dict],
+    message_assignments: dict[str, str | None],
+    batch_size: int = 4,
+) -> dict[str, dict]:
+    """Generate a concise natural-language summary for each project.
+
+    Efficiency:
+      - Index messages by ID once (O(n)), then group by project in one
+        pass over message_assignments (O(n)) — no repeated scans.
+      - Sample the 15 most substantive messages per project (longest text).
+      - Batch `batch_size` projects per LLM call to minimise API round-trips.
+    """
+    # ── Build lookup structures in two O(n) passes ────────────────────────────
+    msg_by_id: dict[str, dict] = {m["id"]: m for m in messages}
+
+    project_msgs: dict[str, list[dict]] = defaultdict(list)
+    for msg_id, proj_id in message_assignments.items():
+        if proj_id is not None:
+            m = msg_by_id.get(msg_id)
+            if m and len(m["text"]) > 30:
+                project_msgs[proj_id].append(m)
+
+    # ── Pre-compute member lines (used in every prompt) ───────────────────────
+    proj_member_lines: dict[str, str] = {}
+    for p in projects:
+        pid = p["id"]
+        members = sorted(
+            (
+                (person_id, w, person_roles.get(person_id, {}).get(pid, "contributor"))
+                for person_id, weights in person_weights.items()
+                for proj, w in weights.items()
+                if proj == pid
+            ),
+            key=lambda x: -x[1],
+        )
+        proj_member_lines[pid] = (
+            ", ".join(
+                f"{person_id.replace('_', ' ').title()} ({role})"
+                for person_id, _, role in members[:6]
+            )
+            or "unknown"
+        )
+
+    all_results: dict[str, dict] = {}
+    batches = [
+        projects[i : i + batch_size] for i in range(0, len(projects), batch_size)
+    ]
+    total = len(batches)
+
+    print(f"\n  Pass 5: Summarizing {len(projects)} projects in {total} batches...")
+
+    for batch_num, batch in enumerate(batches, 1):
+        cache_path = CACHE_DIR / f"llm_pass5_batch{batch_num}_raw.txt"
+
+        if cache_path.exists():
+            raw = cache_path.read_text()
+            if len(raw) > 100:
+                result = extract_json_dict(raw)
+                if result and len(result) >= len(batch) * 0.8:
+                    print(
+                        f"  Pass 5: Batch {batch_num}/{total} — cached ({len(result)} projects)"
+                    )
+                    all_results.update(result)
+                    continue
+                print(f"  Pass 5: Batch {batch_num} cache invalid, re-calling")
+
+        project_sections: list[str] = []
+        for p in batch:
+            proj_id = p["id"]
+
+            # Top-15 messages by text length (most substantive first)
+            msgs = sorted(project_msgs.get(proj_id, []), key=lambda m: -len(m["text"]))[
+                :15
+            ]
+            msg_lines: list[str] = []
+            for m in msgs:
+                dest = m.get("channel") or ", ".join(m["to"][:2])
+                msg_lines.append(
+                    f"  [{m['timestamp'][:10]}] {m['from']}→{dest}: {m['text'][:220]}"
+                )
+            msgs_text = "\n".join(msg_lines) if msg_lines else "  (no messages)"
+
+            project_sections.append(
+                f"### {proj_id}\n"
+                f"Name: {p['name']} | Status: {p.get('status', 'active')} | Period: {p.get('time_range', '?')}\n"
+                f"Keywords: {', '.join(p.get('keywords', [])[:8])}\n"
+                f"Team: {proj_member_lines[proj_id]}\n"
+                f"Sample messages:\n{msgs_text}"
+            )
+
+        context = "\n\n".join(project_sections)
+        batch_ids = [p["id"] for p in batch]
+
+        prompt = f"""You are writing project descriptions for an internal company org chart.
+
+For each project below write a "summary" of 2-3 sentences covering:
+1. What the project builds or what problem it solves
+2. The main technical approach or key deliverables
+3. Current status or outcome
+
+Projects:
+{context}
+
+Return ONLY a valid JSON object — no markdown fences, no explanation:
+{{
+  "project_id": {{
+    "summary": "..."
+  }}
+}}
+
+IDs to include: {json.dumps(batch_ids)}"""
+
+        print(f"  Pass 5: Batch {batch_num}/{total} ({', '.join(batch_ids)})...")
+        raw = call_llm(client, prompt, max_tokens=2000)
+        cache_path.write_text(raw)
+
+        result = extract_json_dict(raw)
+        if result:
+            all_results.update(result)
+        else:
+            print(f"    Batch {batch_num} failed to parse — skipping")
+
+    return all_results
+
+
 def compute_project_members(
     person_weights: dict[str, dict[str, float]],
     threshold: float = 0.1,
@@ -655,7 +788,7 @@ def main():
                 entries.append(f"{k}: {v:.2f} ({role})")
             print(f"  {pid}: {', '.join(entries)}")
 
-    # Pass 4: Skills & work summaries
+    # Pass 4: Skills & work summaries (people)
     print("\nComputing collaborator rankings...")
     top_collaborators = compute_top_collaborators(people, messages)
     for pid, collabs in sorted(top_collaborators.items()):
@@ -677,6 +810,21 @@ def main():
         skills_preview = summary.get("skills_summary", "")[:80]
         print(f"  {pid}: {skills_preview}...")
 
+    # Pass 5: Project summaries
+    project_summaries = pass5_project_summaries(
+        client,
+        projects,
+        person_weights,
+        person_roles,
+        messages,
+        all_assignments,
+    )
+
+    print(f"\n  Generated summaries for {len(project_summaries)} projects")
+    for proj_id, summary in sorted(project_summaries.items()):
+        preview = summary.get("summary", "")[:80]
+        print(f"  {proj_id}: {preview}...")
+
     output = {
         "projects": projects,
         "person_weights": person_weights,
@@ -685,6 +833,7 @@ def main():
         "message_assignments": all_assignments,
         "top_collaborators": top_collaborators,
         "person_summaries": person_summaries,
+        "project_summaries": project_summaries,
     }
 
     with open(OUTPUT_PATH, "w") as f:
