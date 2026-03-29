@@ -3,9 +3,11 @@ import { useState } from "react";
 interface SettingsPanelProps {
   minWeight: number;
   setMinWeight: (value: number) => void;
+  showEdges: boolean;
+  setShowEdges: (value: boolean) => void;
 }
 
-export default function SettingsPanel({ minWeight, setMinWeight }: SettingsPanelProps) {
+export default function SettingsPanel({ minWeight, setMinWeight, showEdges, setShowEdges }: SettingsPanelProps) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -41,6 +43,21 @@ export default function SettingsPanel({ minWeight, setMinWeight }: SettingsPanel
               <span>More edges</span>
               <span>Fewer edges</span>
             </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <label className="text-xs text-zinc-400">Show edges</label>
+            <button
+              onClick={() => setShowEdges(!showEdges)}
+              className={`relative w-9 h-5 rounded-full transition-colors cursor-pointer ${
+                showEdges ? "bg-indigo-500" : "bg-zinc-600"
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
+                  showEdges ? "translate-x-4" : ""
+                }`}
+              />
+            </button>
           </div>
         </div>
       )}

@@ -9,6 +9,12 @@ interface UseGraphSimulationOptions {
   setHovered: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
+function seedPosition(id: string, max: number, offset: number): number {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return offset + (Math.abs(h) % max);
+}
+
 export function useGraphSimulation({
   data,
   svgRef,
@@ -29,7 +35,11 @@ export function useGraphSimulation({
     const height = svgRef.current.clientHeight;
     const pad = 40;
 
-    const nodes: Node[] = data.nodes.map((d) => ({ ...d }));
+    const nodes: Node[] = data.nodes.map((d) => ({
+      ...d,
+      x: seedPosition(d.id, width * 0.6, width * 0.2),
+      y: seedPosition(d.id + "_y", height * 0.6, height * 0.2),
+    }));
     nodesRef.current = nodes;
     const allLinks: Link[] = data.links.map((d) => ({ ...d }));
 
@@ -50,8 +60,10 @@ export function useGraphSimulation({
       .force("collision", d3.forceCollide().radius(30))
       .force("bounds", () => {
         for (const d of nodes) {
-          d.x = Math.max(pad, Math.min(width - pad, d.x!));
-          d.y = Math.max(pad, Math.min(height - pad, d.y!));
+          if (d.x! < pad) d.vx! += (pad - d.x!) * 0.1;
+          if (d.x! > width - pad) d.vx! -= (d.x! - (width - pad)) * 0.1;
+          if (d.y! < pad) d.vy! += (pad - d.y!) * 0.1;
+          if (d.y! > height - pad) d.vy! -= (d.y! - (height - pad)) * 0.1;
         }
       });
 

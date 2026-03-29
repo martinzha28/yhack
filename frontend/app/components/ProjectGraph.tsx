@@ -37,7 +37,13 @@ const STATUS_COLORS: Record<string, string> = {
   completed: "#a78bfa",
 };
 
-const DEFAULT_MIN_WEIGHT = 0.1;
+const DEFAULT_MIN_SHARED = 1;
+
+function seedPosition(id: string, max: number, offset: number): number {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return offset + (Math.abs(h) % max);
+}
 
 function nodeId(d: string | ProjectNode): string {
   return typeof d === "string" ? d : d.id;
@@ -51,7 +57,8 @@ export default function ProjectGraph() {
   const svgRef = useRef<SVGSVGElement>(null);
   const [data, setData] = useState<ProjectGraphData | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
-  const [minWeight, setMinWeight] = useState(DEFAULT_MIN_WEIGHT);
+  const [minShared, setMinShared] = useState(DEFAULT_MIN_SHARED);
+  const [showEdges, setShowEdges] = useState(true);
 
   useEffect(() => {
     fetch("/project_graph.json")
@@ -68,14 +75,19 @@ export default function ProjectGraph() {
     const width = svgRef.current.clientWidth;
     const height = svgRef.current.clientHeight;
 
-    const filteredLinks = data.links.filter((l) => l.weight >= minWeight);
+    const filteredLinks = data.links.filter((l) => l.shared_count >= minShared);
 
     const maxMembers = Math.max(...data.nodes.map((n) => n.member_count), 1);
 
-    const nodes: ProjectNode[] = data.nodes.map((d) => ({ ...d }));
+    const nodes: ProjectNode[] = data.nodes.map((d) => ({
+      ...d,
+      x: seedPosition(d.id, width * 0.6, width * 0.2),
+      y: seedPosition(d.id + "_y", height * 0.6, height * 0.2),
+    }));
     const links: ProjectLink[] = filteredLinks.map((d) => ({ ...d }));
 
     const nodeRadius = (d: ProjectNode) => 14 + (d.member_count / maxMembers) * 26;
+    const pad = 80;
 
     const simulation = d3
       .forceSimulation<ProjectNode>(nodes)
@@ -84,14 +96,22 @@ export default function ProjectGraph() {
         d3
           .forceLink<ProjectNode, ProjectLink>(links)
           .id((d) => d.id)
-          .distance((d) => 220 * (1 - d.weight) + 100)
-          .strength((d) => 0.15 + d.weight * 0.5)
+          .distance((d) => 160 * (1 - d.weight) + 80)
+          .strength((d) => 0.2 + d.weight * 0.5)
       )
-      .force("charge", d3.forceManyBody().strength(-1200))
-      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("charge", d3.forceManyBody().strength(-600).distanceMax(400))
+      .force("center", d3.forceCenter(width / 2, height / 2).strength(0.1))
       .force("collision", d3.forceCollide().radius((d) => {
-        return nodeRadius(d as ProjectNode) + 40;
-      }));
+        return nodeRadius(d as ProjectNode) + 30;
+      }))
+      .force("bounds", () => {
+        for (const d of nodes) {
+          if (d.x! < pad) d.vx! += (pad - d.x!) * 0.1;
+          if (d.x! > width - pad) d.vx! -= (d.x! - (width - pad)) * 0.1;
+          if (d.y! < pad) d.vy! += (pad - d.y!) * 0.1;
+          if (d.y! > height - pad) d.vy! -= (d.y! - (height - pad)) * 0.1;
+        }
+      });
 
     const g = svg.append("g");
 
@@ -121,13 +141,14 @@ export default function ProjectGraph() {
       .data(links)
       .join("line")
       .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.4)
+      .attr("stroke-opacity", showEdges ? 0.4 : 0)
       .attr("stroke-width", (d) => Math.max(1.5, d.weight * 8));
 
     // Shared-count labels on edges (pill background for readability)
     const linkLabelGroup = g
       .append("g")
       .attr("class", "link-labels")
+      .style("opacity", showEdges ? 1 : 0)
       .selectAll<SVGGElement, ProjectLink>("g")
       .data(links.filter((l) => l.shared_count > 0))
       .join("g")
@@ -228,7 +249,7 @@ export default function ProjectGraph() {
     return () => {
       simulation.stop();
     };
-  }, [data, minWeight]);
+  }, [data, minShared]);
 
   // Selection highlighting
   useEffect(() => {
@@ -236,7 +257,8 @@ export default function ProjectGraph() {
     const svg = d3.select(svgRef.current);
 
     if (!selected) {
-      svg.selectAll("line").attr("stroke-opacity", 0.4);
+      svg.selectAll("line").attr("stroke-opacity", showEdges ? 0.4 : 0);
+      svg.select(".link-labels").style("opacity", showEdges ? 1 : 0);
       svg.selectAll<SVGGElement, ProjectNode>("g > circle").attr("opacity", 1);
       svg
         .selectAll<SVGGElement, ProjectNode>("g > text")
@@ -248,7 +270,7 @@ export default function ProjectGraph() {
     connected.add(selected);
     data.links.forEach((l) => {
       const { s, t } = linkId(l);
-      if (l.weight >= minWeight) {
+      if (l.shared_count >= minShared) {
         if (s === selected) connected.add(t);
         if (t === selected) connected.add(s);
       }
@@ -257,9 +279,12 @@ export default function ProjectGraph() {
     svg
       .selectAll<SVGLineElement, ProjectLink>("line")
       .attr("stroke-opacity", (d) => {
+        if (!showEdges) return 0;
         const { s, t } = linkId(d);
         return s === selected || t === selected ? 0.8 : 0.05;
       });
+
+    svg.select(".link-labels").style("opacity", showEdges ? 1 : 0);
 
     svg
       .selectAll<SVGGElement, ProjectNode>("g")
@@ -276,7 +301,7 @@ export default function ProjectGraph() {
         const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
         return d ? (connected.has(d.id) ? 1 : 0.1) : 1;
       });
-  }, [selected, data, minWeight]);
+  }, [selected, data, minShared, showEdges]);
 
   const selectedProject = data?.nodes.find((n) => n.id === selected);
 
@@ -285,7 +310,7 @@ export default function ProjectGraph() {
     return data.links
       .filter((l) => {
         const { s, t } = linkId(l);
-        return (s === selected || t === selected) && l.weight >= minWeight;
+        return (s === selected || t === selected) && l.shared_count >= minShared;
       })
       .map((l) => {
         const { s, t } = linkId(l);
@@ -299,8 +324,8 @@ export default function ProjectGraph() {
           shared_people: l.shared_people,
         };
       })
-      .sort((a, b) => b.weight - a.weight);
-  }, [data, selected, minWeight]);
+      .sort((a, b) => b.shared_count - a.shared_count);
+  }, [data, selected, minShared]);
 
   return (
     <div className="relative w-full h-full">
@@ -328,23 +353,40 @@ export default function ProjectGraph() {
       {/* Threshold slider */}
       <div className="absolute bottom-4 left-4 bg-zinc-800/90 rounded-lg px-4 py-3 text-sm text-zinc-300 w-64">
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-xs text-zinc-400">Overlap threshold</label>
+          <label className="text-xs text-zinc-400">
+            Min shared people
+          </label>
           <span className="text-xs text-zinc-500 tabular-nums">
-            {minWeight.toFixed(2)}
+            {minShared}
           </span>
         </div>
         <input
           type="range"
-          min={0}
-          max={0.8}
-          step={0.01}
-          value={minWeight}
-          onChange={(e) => setMinWeight(parseFloat(e.target.value))}
+          min={1}
+          max={5}
+          step={1}
+          value={minShared}
+          onChange={(e) => setMinShared(parseInt(e.target.value))}
           className="w-full accent-zinc-400 h-1.5 cursor-pointer"
         />
         <div className="flex justify-between text-[10px] text-zinc-600 mt-0.5">
-          <span>More connections</span>
-          <span>Fewer</span>
+          <span>All connections</span>
+          <span>Strong only</span>
+        </div>
+        <div className="flex items-center justify-between mt-3">
+          <label className="text-xs text-zinc-400">Show edges</label>
+          <button
+            onClick={() => setShowEdges(!showEdges)}
+            className={`relative w-9 h-5 rounded-full transition-colors cursor-pointer ${
+              showEdges ? "bg-indigo-500" : "bg-zinc-600"
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
+                showEdges ? "translate-x-4" : ""
+              }`}
+            />
+          </button>
         </div>
       </div>
 

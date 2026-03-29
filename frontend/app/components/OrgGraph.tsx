@@ -17,6 +17,7 @@ export default function OrgGraph() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [minWeight, setMinWeight] = useState(DEFAULT_MIN_WEIGHT);
   const [search, setSearch] = useState("");
+  const [showEdges, setShowEdges] = useState(true);
 
   useEffect(() => {
     fetch("/graph.json")
@@ -69,7 +70,7 @@ export default function OrgGraph() {
       .sort((a, b) => b.weight - a.weight);
   }, [data, selected, nodeMap, minWeight]);
 
-  useGraphEffects({ gRef, simRef, data, minWeight, selected, searchMatch });
+  useGraphEffects({ gRef, simRef, data, minWeight, selected, searchMatch, showEdges });
 
   const selectedNode = data?.nodes.find((n) => n.id === selected);
 
@@ -82,7 +83,7 @@ export default function OrgGraph() {
         setSearch={setSearch}
         matchCount={searchMatch ? searchMatch.size : null}
       />
-      <SettingsPanel minWeight={minWeight} setMinWeight={setMinWeight} />
+      <SettingsPanel minWeight={minWeight} setMinWeight={setMinWeight} showEdges={showEdges} setShowEdges={setShowEdges} />
       {selectedNode && (
         <InfoPanel
           node={selectedNode}

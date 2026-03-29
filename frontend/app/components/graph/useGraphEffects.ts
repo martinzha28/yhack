@@ -9,6 +9,7 @@ interface UseGraphEffectsOptions {
   minWeight: number;
   selected: string | null;
   searchMatch: Set<string> | null;
+  showEdges: boolean;
 }
 
 export function useGraphEffects({
@@ -18,6 +19,7 @@ export function useGraphEffects({
   minWeight,
   selected,
   searchMatch,
+  showEdges,
 }: UseGraphEffectsOptions) {
   // Smooth threshold transitions
   useEffect(() => {
@@ -38,7 +40,7 @@ export function useGraphEffects({
       .selectAll<SVGLineElement, Link>("line")
       .transition()
       .duration(TRANSITION_MS)
-      .attr("stroke-opacity", (d) => (d.weight >= minWeight ? 0.4 : 0));
+      .attr("stroke-opacity", (d) => (d.weight >= minWeight && showEdges ? 0.4 : 0));
 
     const degree = new Map<string, number>();
     data.links.forEach((l) => {
@@ -84,7 +86,7 @@ export function useGraphEffects({
         .transition()
         .duration(200)
         .attr("stroke", "#999")
-        .attr("stroke-opacity", (d) => (d.weight >= minWeight ? 0.4 : 0));
+        .attr("stroke-opacity", (d) => (d.weight >= minWeight && showEdges ? 0.4 : 0));
 
       g.select(".nodes")
         .selectAll<SVGGElement, Node>("g")
@@ -127,7 +129,7 @@ export function useGraphEffects({
       .transition()
       .duration(200)
       .attr("stroke-opacity", (d) => {
-        if (d.weight < minWeight) return 0;
+        if (!showEdges || d.weight < minWeight) return 0;
         const { s, t } = linkId(d);
         if (selected && (s === selected || t === selected)) return 0.8;
         if (searchMatch && searchMatch.has(s) && searchMatch.has(t)) return 0.6;
@@ -153,5 +155,5 @@ export function useGraphEffects({
       .transition()
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.08));
-  }, [selected, searchMatch, data, minWeight, gRef]);
+  }, [selected, searchMatch, data, minWeight, showEdges, gRef]);
 }
