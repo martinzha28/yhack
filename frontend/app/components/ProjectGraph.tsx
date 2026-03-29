@@ -53,11 +53,26 @@ function linkId(l: ProjectLink): { s: string; t: string } {
   return { s: nodeId(l.source), t: nodeId(l.target) };
 }
 
-export default function ProjectGraph() {
+interface ProjectGraphProps {
+  chatHighlight?: Set<string> | null;
+  onClearHighlight?: () => void;
+}
+
+export default function ProjectGraph({ chatHighlight, onClearHighlight }: ProjectGraphProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [data, setData] = useState<ProjectGraphData | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [minShared, setMinShared] = useState(DEFAULT_MIN_SHARED);
+  const hadSelection = useRef(false);
+
+  useEffect(() => {
+    if (selected !== null) {
+      hadSelection.current = true;
+    } else if (hadSelection.current) {
+      hadSelection.current = false;
+      onClearHighlight?.();
+    }
+  }, [selected, onClearHighlight]);
   const [showEdges, setShowEdges] = useState(true);
 
   useEffect(() => {
@@ -121,7 +136,7 @@ export default function ProjectGraph() {
       .attr("x", -width)
       .attr("y", -height)
       .attr("fill", "transparent")
-      .on("click", () => setSelected(null));
+      .on("click", () => { setSelected(null); onClearHighlight?.(); });
 
     const margin = 150;
     svg.call(
@@ -251,15 +266,19 @@ export default function ProjectGraph() {
     };
   }, [data, minShared]);
 
-  // Selection highlighting
+  // Selection + chat highlighting
   useEffect(() => {
     if (!svgRef.current || !data) return;
     const svg = d3.select(svgRef.current);
 
-    if (!selected) {
+    const hasHighlight = selected || (chatHighlight && chatHighlight.size > 0);
+
+    if (!hasHighlight) {
       svg.selectAll("line").attr("stroke-opacity", showEdges ? 0.4 : 0);
       svg.select(".link-labels").style("opacity", showEdges ? 1 : 0);
-      svg.selectAll<SVGGElement, ProjectNode>("g > circle").attr("opacity", 1);
+      svg.selectAll<SVGGElement, ProjectNode>("g > circle")
+        .attr("opacity", 1)
+        .attr("stroke-width", 2);
       svg
         .selectAll<SVGGElement, ProjectNode>("g > text")
         .attr("opacity", 1);
@@ -267,21 +286,30 @@ export default function ProjectGraph() {
     }
 
     const connected = new Set<string>();
-    connected.add(selected);
-    data.links.forEach((l) => {
-      const { s, t } = linkId(l);
-      if (l.shared_count >= minShared) {
-        if (s === selected) connected.add(t);
-        if (t === selected) connected.add(s);
-      }
-    });
+    if (selected) {
+      connected.add(selected);
+      data.links.forEach((l) => {
+        const { s, t } = linkId(l);
+        if (l.shared_count >= minShared) {
+          if (s === selected) connected.add(t);
+          if (t === selected) connected.add(s);
+        }
+      });
+    }
+
+    if (chatHighlight) {
+      chatHighlight.forEach((id) => connected.add(id));
+    }
 
     svg
       .selectAll<SVGLineElement, ProjectLink>("line")
       .attr("stroke-opacity", (d) => {
         if (!showEdges) return 0;
         const { s, t } = linkId(d);
-        return s === selected || t === selected ? 0.8 : 0.05;
+        if (selected && (s === selected || t === selected)) return 0.8;
+        if (chatHighlight && chatHighlight.has(s) && chatHighlight.has(t))
+          return 0.7;
+        return 0.05;
       });
 
     svg.select(".link-labels").style("opacity", showEdges ? 1 : 0);
@@ -291,7 +319,15 @@ export default function ProjectGraph() {
       .selectAll<SVGCircleElement, ProjectNode>("circle")
       .attr("opacity", function () {
         const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
-        return d ? (connected.has(d.id) ? 1 : 0.15) : 1;
+        if (!d) return 1;
+        if (chatHighlight && chatHighlight.has(d.id))
+          return 1;
+        return connected.has(d.id) ? 1 : 0.15;
+      })
+      .attr("stroke-width", function () {
+        const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
+        if (d && chatHighlight && chatHighlight.has(d.id)) return 4;
+        return 2;
       });
 
     svg
@@ -299,9 +335,10 @@ export default function ProjectGraph() {
       .selectAll<SVGTextElement, ProjectNode>("text")
       .attr("opacity", function () {
         const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
-        return d ? (connected.has(d.id) ? 1 : 0.1) : 1;
+        if (!d) return 1;
+        return connected.has(d.id) ? 1 : 0.1;
       });
-  }, [selected, data, minShared, showEdges]);
+  }, [selected, chatHighlight, data, minShared, showEdges]);
 
   const selectedProject = data?.nodes.find((n) => n.id === selected);
 
@@ -351,7 +388,7 @@ export default function ProjectGraph() {
       </div>
 
       {/* Threshold slider */}
-      <div className="absolute bottom-4 left-4 bg-zinc-800/90 rounded-lg px-4 py-3 text-sm text-zinc-300 w-64">
+      <div className="absolute bottom-4 right-4 bg-zinc-800/90 rounded-lg px-4 py-3 text-sm text-zinc-300 w-64">
         <div className="flex items-center justify-between mb-1.5">
           <label className="text-xs text-zinc-400">
             Min shared people
