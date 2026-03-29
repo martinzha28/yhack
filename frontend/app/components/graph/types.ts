@@ -1,5 +1,10 @@
 import * as d3 from "d3";
 
+export interface ProjectRole {
+  weight: number;
+  role: string;
+}
+
 export interface Node extends d3.SimulationNodeDatum {
   id: string;
   name: string;
@@ -7,6 +12,9 @@ export interface Node extends d3.SimulationNodeDatum {
   team: string;
   expertise: string[];
   projects: string[];
+  project_roles?: Record<string, ProjectRole>;
+  skills_summary?: string;
+  work_summary?: string;
   community?: number;
 }
 

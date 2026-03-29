@@ -1,9 +1,14 @@
 """
 Discover projects and per-person association weights from Slack messages.
 
-Two-pass approach with caching:
+Multi-pass approach with caching:
   Pass 1: Identify projects from a sample of messages
   Pass 2: Assign each message to a project in batches
+  Pass 3: Semantic per-person project associations (LLM)
+  Pass 4: Per-person skills & work summaries (LLM, batched)
+
+Collaborator pre-computation is done programmatically from message
+interaction counts — no extra LLM calls needed for that step.
 
 Caches raw LLM responses to data/llm_pass*.txt so interrupted runs
 can resume without re-calling the API.
@@ -17,8 +22,8 @@ import json
 import os
 import re
 import sys
-from pathlib import Path
 from collections import defaultdict
+from pathlib import Path
 
 from openai import OpenAI
 
@@ -51,14 +56,16 @@ def load_messages() -> tuple[list[dict], list[dict]]:
     people = data["people"]
     messages = []
     for m in data["messages"]:
-        messages.append({
-            "id": m["id"],
-            "from": m["from"],
-            "to": m["to"],
-            "channel": m.get("channel"),
-            "text": m["text"],
-            "timestamp": m["timestamp"],
-        })
+        messages.append(
+            {
+                "id": m["id"],
+                "from": m["from"],
+                "to": m["to"],
+                "channel": m.get("channel"),
+                "text": m["text"],
+                "timestamp": m["timestamp"],
+            }
+        )
     return people, messages
 
 
@@ -99,7 +106,7 @@ def extract_json_dict(text: str) -> dict | None:
             depth -= 1
             if depth == 0:
                 try:
-                    return json.loads(cleaned[i:last_end + 1])
+                    return json.loads(cleaned[i : last_end + 1])
                 except json.JSONDecodeError:
                     break
     return None
@@ -119,13 +126,15 @@ def extract_json_array(text: str) -> list | None:
             depth -= 1
             if depth == 0:
                 try:
-                    return json.loads(cleaned[i:last_end + 1])
+                    return json.loads(cleaned[i : last_end + 1])
                 except json.JSONDecodeError:
                     break
     return None
 
 
-def pass1_discover_projects(client: OpenAI, people: list[dict], messages: list[dict]) -> list[dict]:
+def pass1_discover_projects(
+    client: OpenAI, people: list[dict], messages: list[dict]
+) -> list[dict]:
     cache_path = CACHE_DIR / "llm_pass1_raw.txt"
 
     if cache_path.exists():
@@ -196,7 +205,9 @@ def pass2_assign_batch(
         if len(raw) > 100:
             result = extract_json_dict(raw)
             if result and len(result) >= len(batch) * 0.8:
-                print(f"  Pass 2: Batch {batch_num}/{total_batches} — cached ({len(result)} assignments)")
+                print(
+                    f"  Pass 2: Batch {batch_num}/{total_batches} — cached ({len(result)} assignments)"
+                )
                 return result
             print(f"  Pass 2: Batch {batch_num} cache invalid, re-calling")
 
@@ -235,7 +246,7 @@ def pass3_person_associations(
     """Ask the LLM to reason about each person's actual project involvement."""
     project_ids = [p["id"] for p in projects]
     project_summary = "\n".join(
-        f"- {p['id']}: {p['name']} ({p.get('status','?')}) — keywords: {', '.join(p.get('keywords', [])[:6])}"
+        f"- {p['id']}: {p['name']} ({p.get('status', '?')}) — keywords: {', '.join(p.get('keywords', [])[:6])}"
         for p in projects
     )
 
@@ -245,7 +256,7 @@ def pass3_person_associations(
         person_msgs[m["from"]].append(m)
 
     all_results = {}
-    batches = [people[i:i + batch_size] for i in range(0, len(people), batch_size)]
+    batches = [people[i : i + batch_size] for i in range(0, len(people), batch_size)]
 
     print(f"\n  Pass 3: Analyzing {len(people)} people in {len(batches)} batches...")
 
@@ -257,7 +268,9 @@ def pass3_person_associations(
             if len(raw) > 100:
                 result = extract_json_dict(raw)
                 if result and len(result) >= len(batch) * 0.8:
-                    print(f"  Pass 3: Batch {batch_num}/{len(batches)} — cached ({len(result)} people)")
+                    print(
+                        f"  Pass 3: Batch {batch_num}/{len(batches)} — cached ({len(result)} people)"
+                    )
                     all_results.update(result)
                     continue
 
@@ -274,13 +287,19 @@ def pass3_person_associations(
             sent_text = "\n".join(sent_lines) if sent_lines else "  (no messages sent)"
 
             # Include messages where they were directly addressed (DMs only)
-            received = [m for m in messages if pid in m["to"] and not m.get("channel") and m["from"] != pid]
+            received = [
+                m
+                for m in messages
+                if pid in m["to"] and not m.get("channel") and m["from"] != pid
+            ]
             recv_lines = []
             for m in received[:20]:
-                recv_lines.append(f"  [{m['timestamp'][:10]}] {m['from']}→them: {m['text']}")
+                recv_lines.append(
+                    f"  [{m['timestamp'][:10]}] {m['from']}→them: {m['text']}"
+                )
             recv_text = "\n".join(recv_lines) if recv_lines else "  (no DMs received)"
 
-            person_sections.append(f"""### {pid} ({p['name']}, {p.get('role', '')})
+            person_sections.append(f"""### {pid} ({p["name"]}, {p.get("role", "")})
 Messages sent ({len(msgs)} total):
 {sent_text}
 
@@ -318,9 +337,11 @@ Format:
   }}
 }}
 
-People to classify: {json.dumps([p['id'] for p in batch])}"""
+People to classify: {json.dumps([p["id"] for p in batch])}"""
 
-        print(f"  Pass 3: Batch {batch_num}/{len(batches)} ({', '.join(p['id'] for p in batch)})...")
+        print(
+            f"  Pass 3: Batch {batch_num}/{len(batches)} ({', '.join(p['id'] for p in batch)})..."
+        )
         raw = call_llm(client, prompt, max_tokens=4000)
         cache_path.write_text(raw)
 
@@ -373,6 +394,185 @@ def build_final_weights(
     return person_weights, person_roles
 
 
+def compute_top_collaborators(
+    people: list[dict],
+    messages: list[dict],
+    top_n: int = 5,
+) -> dict[str, list[dict]]:
+    """Programmatically rank each person's collaborators by interaction strength.
+
+    Scoring (no LLM needed):
+      - Direct mention (@mention): +3 per occurrence
+      - DM or small-group message (no channel, ≤3 recipients): +2 per edge
+      - Channel message: +1 per edge
+    """
+    person_ids = {p["id"] for p in people}
+    pid_to_name = {p["id"]: p["name"] for p in people}
+    interaction: dict[tuple[str, str], float] = defaultdict(float)
+
+    for m in messages:
+        sender = m["from"]
+        if sender not in person_ids:
+            continue
+
+        channel = m.get("channel")
+        recipients = [r for r in m["to"] if r != sender and r in person_ids]
+        mentions = [r for r in m.get("mentions", []) if r != sender and r in person_ids]
+
+        # Weight per edge based on message type
+        if not channel and len(recipients) <= 3:
+            edge_weight = 2.0
+        else:
+            edge_weight = 1.0
+
+        for r in recipients:
+            key = tuple(sorted([sender, r]))
+            interaction[key] += edge_weight
+
+        for mentioned in mentions:
+            key = tuple(sorted([sender, mentioned]))
+            interaction[key] += 3.0
+
+    # Build per-person ranked list
+    from_person: dict[str, list[tuple[str, float]]] = defaultdict(list)
+    for (a, b), score in interaction.items():
+        from_person[a].append((b, score))
+        from_person[b].append((a, score))
+
+    result: dict[str, list[dict]] = {}
+    for p in people:
+        pid = p["id"]
+        ranked = sorted(from_person.get(pid, []), key=lambda x: -x[1])
+        result[pid] = [
+            {"id": cid, "name": pid_to_name.get(cid, cid), "score": round(score, 1)}
+            for cid, score in ranked[:top_n]
+        ]
+    return result
+
+
+def pass4_person_summaries(
+    client: OpenAI,
+    people: list[dict],
+    person_weights: dict[str, dict[str, float]],
+    person_roles: dict[str, dict[str, str]],
+    projects: list[dict],
+    top_collaborators: dict[str, list[dict]],
+    messages: list[dict],
+    batch_size: int = 5,
+) -> dict[str, dict]:
+    """Generate natural-language skills & work summaries for every person.
+
+    Each LLM call handles `batch_size` people at once.  We feed it
+    pre-computed structured context (projects + collaborators) plus a
+    small sample of each person's own messages, keeping token usage low.
+    """
+    project_by_id = {p["id"]: p for p in projects}
+
+    # Index messages by sender once — reused across all batches
+    person_msgs: dict[str, list[dict]] = defaultdict(list)
+    for m in messages:
+        person_msgs[m["from"]].append(m)
+
+    all_results: dict[str, dict] = {}
+    batches = [people[i : i + batch_size] for i in range(0, len(people), batch_size)]
+    total = len(batches)
+
+    print(f"\n  Pass 4: Summarizing {len(people)} people in {total} batches...")
+
+    for batch_num, batch in enumerate(batches, 1):
+        cache_path = CACHE_DIR / f"llm_pass4_batch{batch_num}_raw.txt"
+
+        if cache_path.exists():
+            raw = cache_path.read_text()
+            if len(raw) > 100:
+                result = extract_json_dict(raw)
+                if result and len(result) >= len(batch) * 0.8:
+                    print(
+                        f"  Pass 4: Batch {batch_num}/{total} — cached ({len(result)} people)"
+                    )
+                    all_results.update(result)
+                    continue
+                print(f"  Pass 4: Batch {batch_num} cache invalid, re-calling")
+
+        person_sections: list[str] = []
+        for p in batch:
+            pid = p["id"]
+
+            # ── Projects context ──────────────────────────────────────────
+            proj_lines: list[str] = []
+            for proj_id, weight in person_weights.get(pid, {}).items():
+                role = person_roles.get(pid, {}).get(proj_id, "contributor")
+                pname = project_by_id.get(proj_id, {}).get("name", proj_id)
+                status = project_by_id.get(proj_id, {}).get("status", "active")
+                proj_lines.append(
+                    f"  - {pname} [{status}] weight={weight:.2f} role={role}"
+                )
+            proj_text = "\n".join(proj_lines) if proj_lines else "  - (none identified)"
+
+            # ── Collaborators context ─────────────────────────────────────
+            collabs = top_collaborators.get(pid, [])
+            collab_str = (
+                ", ".join(f"{c['name']} (score={c['score']})" for c in collabs)
+                if collabs
+                else "none"
+            )
+
+            # ── Representative sent messages (up to 25, skip very short ones) ──
+            sent = [m for m in person_msgs.get(pid, []) if len(m["text"]) > 30][:25]
+            msg_lines: list[str] = []
+            for m in sent:
+                dest = m.get("channel") or ", ".join(m["to"][:2])
+                msg_lines.append(
+                    f"  [{m['timestamp'][:10]}] →{dest}: {m['text'][:200]}"
+                )
+            msg_text = (
+                "\n".join(msg_lines) if msg_lines else "  (no substantive messages)"
+            )
+
+            person_sections.append(
+                f"### {pid}\n"
+                f"Name: {p['name']} | Role: {p.get('role', '?')} | Team: {p.get('team', '?')}\n"
+                f"Listed expertise: {', '.join(p.get('expertise', [])) or 'none'}\n"
+                f"Project involvement:\n{proj_text}\n"
+                f"Top collaborators: {collab_str}\n"
+                f"Sample messages:\n{msg_text}"
+            )
+
+        context = "\n\n".join(person_sections)
+        batch_ids = [p["id"] for p in batch]
+
+        prompt = f"""You are writing concise profile summaries for engineers at a software company based on their Slack activity.
+
+For each person below write exactly two fields:
+1. "skills_summary" (2-3 sentences): What this person is skilled at technically or professionally. Be specific — name technologies, patterns, or domain areas and calibrate depth/breadth to their role.
+2. "work_summary" (2-3 sentences): Who they collaborate with most and what projects they contribute to. Reference actual collaborator names and project names from the context.
+
+People to summarize:
+{context}
+
+Return ONLY a valid JSON object — no markdown fences, no explanation:
+{{
+  "person_id": {{
+    "skills_summary": "...",
+    "work_summary": "..."
+  }}
+}}
+
+IDs to include: {json.dumps(batch_ids)}"""
+
+        print(f"  Pass 4: Batch {batch_num}/{total} ({', '.join(batch_ids)})...")
+        raw = call_llm(client, prompt, max_tokens=3000)
+        cache_path.write_text(raw)
+
+        result = extract_json_dict(raw)
+        if result:
+            all_results.update(result)
+        else:
+            print(f"    Batch {batch_num} failed to parse — skipping")
+
+    return all_results
+
+
 def compute_project_members(
     person_weights: dict[str, dict[str, float]],
     threshold: float = 0.1,
@@ -399,7 +599,9 @@ def main():
 
     print("Loading messages...")
     people, messages = load_messages()
-    print(f"  {len(messages)} messages from {len(set(m['from'] for m in messages))} people")
+    print(
+        f"  {len(messages)} messages from {len(set(m['from'] for m in messages))} people"
+    )
 
     # Pass 1: Discover projects
     projects = pass1_discover_projects(client, people, messages)
@@ -410,12 +612,16 @@ def main():
 
     # Pass 2: Assign messages in batches
     all_assignments: dict[str, str | None] = {}
-    batches = [messages[i:i + BATCH_SIZE] for i in range(0, len(messages), BATCH_SIZE)]
+    batches = [
+        messages[i : i + BATCH_SIZE] for i in range(0, len(messages), BATCH_SIZE)
+    ]
 
     print(f"\n  Assigning {len(messages)} messages in {len(batches)} batches...")
     for i, batch in enumerate(batches, 1):
         try:
-            batch_assignments = pass2_assign_batch(client, batch, project_ids, i, len(batches))
+            batch_assignments = pass2_assign_batch(
+                client, batch, project_ids, i, len(batches)
+            )
             all_assignments.update(batch_assignments)
         except Exception as e:
             print(f"    Batch {i} failed: {e}")
@@ -436,7 +642,9 @@ def main():
     llm_associations = pass3_person_associations(client, people, messages, projects)
 
     print("\nBuilding final weights...")
-    person_weights, person_roles = build_final_weights(people, llm_associations, projects)
+    person_weights, person_roles = build_final_weights(
+        people, llm_associations, projects
+    )
     project_members = compute_project_members(person_weights)
 
     for pid, weights in sorted(person_weights.items()):
@@ -447,12 +655,36 @@ def main():
                 entries.append(f"{k}: {v:.2f} ({role})")
             print(f"  {pid}: {', '.join(entries)}")
 
+    # Pass 4: Skills & work summaries
+    print("\nComputing collaborator rankings...")
+    top_collaborators = compute_top_collaborators(people, messages)
+    for pid, collabs in sorted(top_collaborators.items()):
+        names = ", ".join(c["name"] for c in collabs[:3])
+        print(f"  {pid}: {names}")
+
+    person_summaries = pass4_person_summaries(
+        client,
+        people,
+        person_weights,
+        person_roles,
+        projects,
+        top_collaborators,
+        messages,
+    )
+
+    print(f"\n  Generated summaries for {len(person_summaries)} people")
+    for pid, summary in sorted(person_summaries.items()):
+        skills_preview = summary.get("skills_summary", "")[:80]
+        print(f"  {pid}: {skills_preview}...")
+
     output = {
         "projects": projects,
         "person_weights": person_weights,
         "person_roles": person_roles,
         "project_members": dict(project_members),
         "message_assignments": all_assignments,
+        "top_collaborators": top_collaborators,
+        "person_summaries": person_summaries,
     }
 
     with open(OUTPUT_PATH, "w") as f:

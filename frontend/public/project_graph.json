@@ -2,468 +2,466 @@
   "nodes": [
     {
       "id": "billing-v2",
-      "name": "Billing v2",
+      "name": "Billing System Revamp (Billing v2)",
       "status": "completed",
-      "time_range": "Oct 2025",
+      "time_range": "Oct-Nov 2024",
       "keywords": [
-        "billing",
-        "billing-service",
+        "billing-v2",
         "invoice_items",
-        "Stripe",
         "proration",
-        "usage-tracking",
-        "subscription-tiers",
-        "custom-discounts",
-        "billing-api",
-        "revenue-dashboard"
-      ],
-      "member_count": 4,
-      "members": [
-        {
-          "id": "alice_chen",
-          "weight": 1.0,
-          "role": "lead"
-        },
-        {
-          "id": "charlie_ross",
-          "weight": 0.95,
-          "role": "core"
-        },
-        {
-          "id": "dave_patel",
-          "weight": 0.9,
-          "role": "core"
-        },
-        {
-          "id": "quinn_davis",
-          "weight": 0.85,
-          "role": "lead"
-        }
-      ]
-    },
-    {
-      "id": "revenue-dashboard",
-      "name": "Revenue Dashboard",
-      "status": "completed",
-      "time_range": "Oct 2025",
-      "keywords": [
-        "revenue",
-        "dashboard",
-        "MRR",
-        "churn",
-        "expansion-revenue",
-        "usage-revenue",
-        "metrics",
-        "board",
-        "analytics",
-        "funnel"
-      ],
-      "member_count": 3,
-      "members": [
-        {
-          "id": "ryan_nguyen",
-          "weight": 1.0,
-          "role": "core"
-        },
-        {
-          "id": "alice_chen",
-          "weight": 0.6,
-          "role": "core"
-        },
-        {
-          "id": "iris_wang",
-          "weight": 0.25,
-          "role": "contributor"
-        }
-      ]
-    },
-    {
-      "id": "brand-refresh",
-      "name": "Brand Refresh",
-      "status": "completed",
-      "time_range": "Nov 2025",
-      "keywords": [
-        "brand",
-        "brand-identity",
-        "logo",
-        "visual-identity",
-        "marketing-site",
-        "nextjs",
-        "hero-animation",
-        "brand-book",
-        "design-exploration",
-        "launch"
-      ],
-      "member_count": 6,
-      "members": [
-        {
-          "id": "oscar_lee",
-          "weight": 0.95,
-          "role": "lead"
-        },
-        {
-          "id": "iris_wang",
-          "weight": 0.9,
-          "role": "lead"
-        },
-        {
-          "id": "lisa_chen",
-          "weight": 0.88,
-          "role": "lead"
-        },
-        {
-          "id": "frank_li",
-          "weight": 0.85,
-          "role": "core"
-        },
-        {
-          "id": "priya_mehta",
-          "weight": 0.85,
-          "role": "lead"
-        },
-        {
-          "id": "nina_scott",
-          "weight": 0.68,
-          "role": "core"
-        }
-      ]
-    },
-    {
-      "id": "platform-api",
-      "name": "Platform API (OpenAPI & Developer Portal)",
-      "status": "completed",
-      "time_range": "Nov-Dec 2025",
-      "keywords": [
-        "openapi",
-        "api-spec",
-        "developer-portal",
-        "api-key",
-        "rate-limiting",
+        "Stripe",
+        "metered billing",
+        "usage tracking",
+        "subscription tiers",
         "webhook",
-        "subdomain",
-        "interactive-docs",
-        "documentation",
-        "endpoints"
+        "revenue metrics",
+        "billing-service"
       ],
       "member_count": 5,
       "members": [
-        {
-          "id": "mike_torres",
-          "weight": 1.0,
-          "role": "lead"
-        },
-        {
-          "id": "bob_kim",
-          "weight": 0.9,
-          "role": "core"
-        },
-        {
-          "id": "karen_wu",
-          "weight": 0.85,
-          "role": "core"
-        },
-        {
-          "id": "eve_johnson",
-          "weight": 0.85,
-          "role": "core"
-        },
-        {
-          "id": "henry_zhao",
-          "weight": 0.85,
-          "role": "core"
-        }
-      ]
-    },
-    {
-      "id": "auth-refactor",
-      "name": "Auth Refactor (OAuth2, PKCE, Token Rotation)",
-      "status": "active",
-      "time_range": "Jan-Mar 2025",
-      "keywords": [
-        "auth",
-        "OAuth2",
-        "PKCE",
-        "token-rotation",
-        "refresh-token",
-        "session-management",
-        "identity-provider",
-        "security-audit",
-        "client-credentials",
-        "scope-authorization"
-      ],
-      "member_count": 7,
-      "members": [
-        {
-          "id": "mike_torres",
-          "weight": 1.0,
-          "role": "lead"
-        },
-        {
-          "id": "charlie_ross",
-          "weight": 0.95,
-          "role": "core"
-        },
-        {
-          "id": "karen_wu",
-          "weight": 0.85,
-          "role": "core"
-        },
-        {
-          "id": "eve_johnson",
-          "weight": 0.75,
-          "role": "core"
-        },
-        {
-          "id": "bob_kim",
-          "weight": 0.4,
-          "role": "contributor"
-        },
-        {
-          "id": "dave_patel",
-          "weight": 0.35,
-          "role": "contributor"
-        },
         {
           "id": "alice_chen",
-          "weight": 0.3,
-          "role": "contributor"
-        }
-      ]
-    },
-    {
-      "id": "design-system-v2",
-      "name": "Design System v2",
-      "status": "active",
-      "time_range": "Jan-Mar 2025",
-      "keywords": [
-        "design-system",
-        "tokens",
-        "color-palette",
-        "spacing",
-        "typography",
-        "button",
-        "textinput",
-        "select",
-        "checkbox",
-        "dark-mode"
-      ],
-      "member_count": 8,
-      "members": [
-        {
-          "id": "eve_johnson",
           "weight": 1.0,
           "role": "lead"
         },
         {
-          "id": "nina_scott",
-          "weight": 0.92,
-          "role": "core"
-        },
-        {
-          "id": "grace_park",
-          "weight": 0.9,
-          "role": "core"
-        },
-        {
-          "id": "oscar_lee",
-          "weight": 0.9,
-          "role": "lead"
-        },
-        {
-          "id": "iris_wang",
-          "weight": 0.84,
-          "role": "core"
-        },
-        {
-          "id": "lisa_chen",
-          "weight": 0.7,
-          "role": "core"
-        },
-        {
-          "id": "jack_brown",
-          "weight": 0.65,
-          "role": "core"
-        },
-        {
-          "id": "sofia_martinez",
-          "weight": 0.5,
-          "role": "contributor"
-        }
-      ]
-    },
-    {
-      "id": "infra-migration",
-      "name": "Infrastructure Migration (EC2 \u2192 EKS)",
-      "status": "active",
-      "time_range": "Jan-Mar 2025",
-      "keywords": [
-        "infra-migration",
-        "EKS",
-        "kubernetes",
-        "terraform",
-        "helm",
-        "ci-cd",
-        "github-actions",
-        "connection-pool",
-        "node-groups",
-        "rollback"
-      ],
-      "member_count": 4,
-      "members": [
-        {
           "id": "dave_patel",
-          "weight": 0.9,
-          "role": "core"
-        },
-        {
-          "id": "sofia_martinez",
-          "weight": 0.5,
-          "role": "contributor"
-        },
-        {
-          "id": "bob_kim",
-          "weight": 0.4,
-          "role": "contributor"
+          "weight": 1.0,
+          "role": "lead"
         },
         {
           "id": "charlie_ross",
-          "weight": 0.4,
-          "role": "contributor"
-        }
-      ]
-    },
-    {
-      "id": "mobile-app",
-      "name": "Mobile App (iOS & Android)",
-      "status": "active",
-      "time_range": "Feb-Mar 2025",
-      "keywords": [
-        "mobile",
-        "react-native",
-        "bundle-size",
-        "performance",
-        "deep-links",
-        "testflight",
-        "push-notifications",
-        "offline-mode",
-        "dark-theme",
-        "app-store"
-      ],
-      "member_count": 5,
-      "members": [
-        {
-          "id": "priya_mehta",
-          "weight": 1.0,
-          "role": "lead"
-        },
-        {
-          "id": "frank_li",
-          "weight": 0.95,
+          "weight": 0.9,
           "role": "core"
-        },
-        {
-          "id": "henry_zhao",
-          "weight": 0.75,
-          "role": "core"
-        },
-        {
-          "id": "ryan_nguyen",
-          "weight": 0.6,
-          "role": "contributor"
-        },
-        {
-          "id": "eve_johnson",
-          "weight": 0.4,
-          "role": "contributor"
-        }
-      ]
-    },
-    {
-      "id": "onboarding-redesign",
-      "name": "Onboarding Redesign",
-      "status": "active",
-      "time_range": "Mar 2025",
-      "keywords": [
-        "onboarding",
-        "checklist",
-        "wizard",
-        "progress-indicator",
-        "analytics",
-        "drop-off",
-        "progressive-disclosure",
-        "tooltip",
-        "empty-states",
-        "sidebar"
-      ],
-      "member_count": 7,
-      "members": [
-        {
-          "id": "grace_park",
-          "weight": 1.0,
-          "role": "lead"
         },
         {
           "id": "quinn_davis",
-          "weight": 1.0,
+          "weight": 0.85,
           "role": "lead"
         },
         {
-          "id": "sofia_martinez",
-          "weight": 1.0,
-          "role": "lead"
-        },
-        {
-          "id": "jack_brown",
-          "weight": 0.92,
-          "role": "lead"
-        },
-        {
-          "id": "jordan_kim",
-          "weight": 0.8,
-          "role": "contributor"
-        },
-        {
-          "id": "eve_johnson",
-          "weight": 0.45,
-          "role": "contributor"
-        },
-        {
-          "id": "nina_scott",
+          "id": "bob_kim",
           "weight": 0.2,
           "role": "contributor"
         }
       ]
     },
     {
-      "id": "notifications-service",
-      "name": "Notifications Service (Push Notifications)",
-      "status": "active",
-      "time_range": "Mar 2025",
+      "id": "brand-refresh",
+      "name": "Company Brand Refresh",
+      "status": "completed",
+      "time_range": "Oct-Nov 2024",
       "keywords": [
-        "notifications",
-        "push-notifications",
-        "device-token",
-        "registration",
-        "backend",
-        "mobile",
-        "service",
-        "notifications-service"
+        "brand-refresh",
+        "logo",
+        "visual identity",
+        "color palette",
+        "typography",
+        "motion graphics",
+        "brand book",
+        "marketing site",
+        "brand launch",
+        "design exploration"
       ],
-      "member_count": 3,
+      "member_count": 6,
       "members": [
         {
-          "id": "henry_zhao",
+          "id": "iris_wang",
+          "weight": 1.0,
+          "role": "lead"
+        },
+        {
+          "id": "oscar_lee",
+          "weight": 1.0,
+          "role": "lead"
+        },
+        {
+          "id": "priya_mehta",
+          "weight": 0.98,
+          "role": "lead"
+        },
+        {
+          "id": "frank_li",
+          "weight": 0.7,
+          "role": "core"
+        },
+        {
+          "id": "nina_scott",
+          "weight": 0.7,
+          "role": "core"
+        },
+        {
+          "id": "lisa_chen",
           "weight": 0.6,
+          "role": "core"
+        }
+      ]
+    },
+    {
+      "id": "design-system-v2",
+      "name": "Design System Revamp (v2)",
+      "status": "active",
+      "time_range": "Nov 2024 - Mar 2025",
+      "keywords": [
+        "design-system-v2",
+        "design tokens",
+        "color palette",
+        "spacing tokens",
+        "Button",
+        "TextInput",
+        "Select",
+        "Checkbox",
+        "dark mode",
+        "Storybook"
+      ],
+      "member_count": 8,
+      "members": [
+        {
+          "id": "oscar_lee",
+          "weight": 0.95,
+          "role": "lead"
+        },
+        {
+          "id": "grace_park",
+          "weight": 0.9,
+          "role": "core"
+        },
+        {
+          "id": "nina_scott",
+          "weight": 0.85,
+          "role": "core"
+        },
+        {
+          "id": "lisa_chen",
+          "weight": 0.85,
+          "role": "core"
+        },
+        {
+          "id": "iris_wang",
+          "weight": 0.8,
+          "role": "core"
+        },
+        {
+          "id": "eve_johnson",
+          "weight": 0.75,
+          "role": "core"
+        },
+        {
+          "id": "jack_brown",
+          "weight": 0.75,
+          "role": "core"
+        },
+        {
+          "id": "sofia_martinez",
+          "weight": 0.25,
+          "role": "peripheral"
+        }
+      ]
+    },
+    {
+      "id": "auth-refactor",
+      "name": "Auth Service Refactor (OAuth2 PKCE)",
+      "status": "completed",
+      "time_range": "Oct 2024 - Feb 2025",
+      "keywords": [
+        "auth-refactor",
+        "OAuth2",
+        "PKCE",
+        "token rotation",
+        "refresh token",
+        "session revocation",
+        "JWT",
+        "identity providers",
+        "IdP adapters",
+        "session management UI"
+      ],
+      "member_count": 6,
+      "members": [
+        {
+          "id": "bob_kim",
+          "weight": 0.85,
           "role": "core"
         },
         {
           "id": "charlie_ross",
-          "weight": 0.3,
+          "weight": 0.8,
+          "role": "core"
+        },
+        {
+          "id": "alice_chen",
+          "weight": 0.65,
+          "role": "core"
+        },
+        {
+          "id": "karen_wu",
+          "weight": 0.6,
+          "role": "core"
+        },
+        {
+          "id": "eve_johnson",
+          "weight": 0.6,
+          "role": "core"
+        },
+        {
+          "id": "mike_torres",
+          "weight": 0.55,
+          "role": "core"
+        }
+      ]
+    },
+    {
+      "id": "platform-api",
+      "name": "Platform API & Developer Portal",
+      "status": "active",
+      "time_range": "Oct 2024 - Mar 2025",
+      "keywords": [
+        "platform-api",
+        "OpenAPI",
+        "API key management",
+        "rate limiting",
+        "developer portal",
+        "interactive docs",
+        "usage analytics",
+        "authentication model",
+        "subdomain",
+        "docs.api.bsus.com"
+      ],
+      "member_count": 5,
+      "members": [
+        {
+          "id": "bob_kim",
+          "weight": 1.0,
+          "role": "lead"
+        },
+        {
+          "id": "mike_torres",
+          "weight": 0.95,
+          "role": "lead"
+        },
+        {
+          "id": "eve_johnson",
+          "weight": 0.9,
+          "role": "core"
+        },
+        {
+          "id": "henry_zhao",
+          "weight": 0.9,
+          "role": "core"
+        },
+        {
+          "id": "karen_wu",
+          "weight": 0.75,
+          "role": "core"
+        }
+      ]
+    },
+    {
+      "id": "infra-migration",
+      "name": "Infrastructure Migration to AWS EKS",
+      "status": "active",
+      "time_range": "Jan-Mar 2025",
+      "keywords": [
+        "infra-migration",
+        "EKS",
+        "helm charts",
+        "CI/CD migration",
+        "GitHub Actions",
+        "Terraform",
+        "Kubernetes",
+        "RDS",
+        "KMS",
+        "EC2 decommission"
+      ],
+      "member_count": 3,
+      "members": [
+        {
+          "id": "dave_patel",
+          "weight": 1.0,
+          "role": "lead"
+        },
+        {
+          "id": "charlie_ross",
+          "weight": 0.7,
+          "role": "core"
+        },
+        {
+          "id": "bob_kim",
+          "weight": 0.5,
+          "role": "contributor"
+        }
+      ]
+    },
+    {
+      "id": "mobile-app",
+      "name": "Bsus Mobile Application",
+      "status": "active",
+      "time_range": "Nov 2024 - Mar 2025",
+      "keywords": [
+        "mobile-app",
+        "React Native",
+        "TestFlight",
+        "deep links",
+        "push notifications",
+        "offline mode",
+        "dark theme",
+        "bundle size",
+        "performance",
+        "Lottie animation"
+      ],
+      "member_count": 4,
+      "members": [
+        {
+          "id": "frank_li",
+          "weight": 0.9,
+          "role": "core"
+        },
+        {
+          "id": "henry_zhao",
+          "weight": 0.85,
+          "role": "core"
+        },
+        {
+          "id": "priya_mehta",
+          "weight": 0.75,
+          "role": "lead"
+        },
+        {
+          "id": "ryan_nguyen",
+          "weight": 0.75,
+          "role": "core"
+        }
+      ]
+    },
+    {
+      "id": "mobile-ui",
+      "name": "Mobile UI Component Library (React Native)",
+      "status": "active",
+      "time_range": "Jan-Mar 2025",
+      "keywords": [
+        "mobile-ui",
+        "React Native",
+        "Button",
+        "TextInput",
+        "Card",
+        "platform-specific",
+        "component library",
+        "shared components",
+        "Lottie animations",
+        "bundle size"
+      ],
+      "member_count": 1,
+      "members": [
+        {
+          "id": "grace_park",
+          "weight": 0.85,
+          "role": "core"
+        }
+      ]
+    },
+    {
+      "id": "onboarding-redesign",
+      "name": "User Onboarding Redesign",
+      "status": "active",
+      "time_range": "Nov 2024 - Mar 2025",
+      "keywords": [
+        "onboarding-redesign",
+        "checklist",
+        "wizard",
+        "progressive disclosure",
+        "product tour",
+        "tooltips",
+        "empty states",
+        "feature flags",
+        "A/B testing",
+        "analytics"
+      ],
+      "member_count": 5,
+      "members": [
+        {
+          "id": "jack_brown",
+          "weight": 0.95,
+          "role": "lead"
+        },
+        {
+          "id": "quinn_davis",
+          "weight": 0.95,
+          "role": "lead"
+        },
+        {
+          "id": "sofia_martinez",
+          "weight": 0.95,
+          "role": "lead"
+        },
+        {
+          "id": "jordan_kim",
+          "weight": 0.9,
+          "role": "core"
+        },
+        {
+          "id": "grace_park",
+          "weight": 0.5,
+          "role": "contributor"
+        }
+      ]
+    },
+    {
+      "id": "revenue-dashboard",
+      "name": "Revenue & Subscription Metrics Dashboard",
+      "status": "completed",
+      "time_range": "Oct-Nov 2024",
+      "keywords": [
+        "revenue-dashboard",
+        "MRR",
+        "churn",
+        "expansion revenue",
+        "usage revenue",
+        "dashboard",
+        "analytics",
+        "live metrics",
+        "net revenue retention",
+        "Stripe"
+      ],
+      "member_count": 4,
+      "members": [
+        {
+          "id": "ryan_nguyen",
+          "weight": 0.9,
+          "role": "core"
+        },
+        {
+          "id": "quinn_davis",
+          "weight": 0.7,
+          "role": "core"
+        },
+        {
+          "id": "alice_chen",
+          "weight": 0.25,
           "role": "contributor"
         },
         {
-          "id": "dave_patel",
-          "weight": 0.3,
+          "id": "iris_wang",
+          "weight": 0.25,
+          "role": "peripheral"
+        }
+      ]
+    },
+    {
+      "id": "notifications-service",
+      "name": "Push Notification Service",
+      "status": "active",
+      "time_range": "Jan-Mar 2025",
+      "keywords": [
+        "notifications-service",
+        "push notifications",
+        "goes to production",
+        "EKS",
+        "production cutover"
+      ],
+      "member_count": 1,
+      "members": [
+        {
+          "id": "charlie_ross",
+          "weight": 0.35,
           "role": "contributor"
         }
       ]
@@ -478,417 +476,93 @@
       "shared_people": [
         {
           "id": "oscar_lee",
-          "weight_a": 0.95,
+          "weight_a": 1.0,
           "role_a": "lead",
-          "weight_b": 0.9,
+          "weight_b": 0.95,
           "role_b": "lead"
         },
         {
           "id": "iris_wang",
-          "weight_a": 0.9,
+          "weight_a": 1.0,
           "role_a": "lead",
-          "weight_b": 0.84,
-          "role_b": "core"
-        },
-        {
-          "id": "lisa_chen",
-          "weight_a": 0.88,
-          "role_a": "lead",
-          "weight_b": 0.7,
+          "weight_b": 0.8,
           "role_b": "core"
         },
         {
           "id": "nina_scott",
-          "weight_a": 0.68,
-          "role_a": "core",
-          "weight_b": 0.92,
-          "role_b": "core"
-        }
-      ]
-    },
-    {
-      "source": "auth-refactor",
-      "target": "platform-api",
-      "weight": 0.9615,
-      "shared_count": 4,
-      "shared_people": [
-        {
-          "id": "mike_torres",
-          "weight_a": 1.0,
-          "role_a": "lead",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        },
-        {
-          "id": "karen_wu",
-          "weight_a": 0.85,
+          "weight_a": 0.7,
           "role_a": "core",
           "weight_b": 0.85,
           "role_b": "core"
         },
         {
-          "id": "eve_johnson",
-          "weight_a": 0.85,
+          "id": "lisa_chen",
+          "weight_a": 0.6,
           "role_a": "core",
-          "weight_b": 0.75,
-          "role_b": "core"
-        },
-        {
-          "id": "bob_kim",
-          "weight_a": 0.9,
-          "role_a": "core",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "design-system-v2",
-      "target": "onboarding-redesign",
-      "weight": 0.8654,
-      "shared_count": 5,
-      "shared_people": [
-        {
-          "id": "grace_park",
-          "weight_a": 0.9,
-          "role_a": "core",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        },
-        {
-          "id": "jack_brown",
-          "weight_a": 0.65,
-          "role_a": "core",
-          "weight_b": 0.92,
-          "role_b": "lead"
-        },
-        {
-          "id": "sofia_martinez",
-          "weight_a": 0.5,
-          "role_a": "contributor",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        },
-        {
-          "id": "eve_johnson",
-          "weight_a": 1.0,
-          "role_a": "lead",
-          "weight_b": 0.45,
-          "role_b": "contributor"
-        },
-        {
-          "id": "nina_scott",
-          "weight_a": 0.92,
-          "role_a": "core",
-          "weight_b": 0.2,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "brand-refresh",
-      "target": "mobile-app",
-      "weight": 0.5449,
-      "shared_count": 2,
-      "shared_people": [
-        {
-          "id": "priya_mehta",
-          "weight_a": 0.85,
-          "role_a": "lead",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        },
-        {
-          "id": "frank_li",
-          "weight_a": 0.85,
-          "role_a": "core",
-          "weight_b": 0.95,
+          "weight_b": 0.85,
           "role_b": "core"
         }
       ]
     },
     {
       "source": "auth-refactor",
-      "target": "billing-v2",
-      "weight": 0.5128,
-      "shared_count": 3,
-      "shared_people": [
-        {
-          "id": "charlie_ross",
-          "weight_a": 0.95,
-          "role_a": "core",
-          "weight_b": 0.95,
-          "role_b": "core"
-        },
-        {
-          "id": "dave_patel",
-          "weight_a": 0.9,
-          "role_a": "core",
-          "weight_b": 0.35,
-          "role_b": "contributor"
-        },
-        {
-          "id": "alice_chen",
-          "weight_a": 1.0,
-          "role_a": "lead",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "billing-v2",
-      "target": "infra-migration",
-      "weight": 0.4167,
-      "shared_count": 2,
-      "shared_people": [
-        {
-          "id": "dave_patel",
-          "weight_a": 0.9,
-          "role_a": "core",
-          "weight_b": 0.9,
-          "role_b": "core"
-        },
-        {
-          "id": "charlie_ross",
-          "weight_a": 0.95,
-          "role_a": "core",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "mobile-app",
       "target": "platform-api",
-      "weight": 0.3686,
-      "shared_count": 2,
+      "weight": 0.8525,
+      "shared_count": 4,
       "shared_people": [
         {
-          "id": "henry_zhao",
+          "id": "bob_kim",
           "weight_a": 0.85,
+          "role_a": "core",
+          "weight_b": 1.0,
+          "role_b": "lead"
+        },
+        {
+          "id": "karen_wu",
+          "weight_a": 0.6,
           "role_a": "core",
           "weight_b": 0.75,
           "role_b": "core"
         },
         {
           "id": "eve_johnson",
-          "weight_a": 0.85,
+          "weight_a": 0.6,
           "role_a": "core",
-          "weight_b": 0.4,
-          "role_b": "contributor"
+          "weight_b": 0.9,
+          "role_b": "core"
+        },
+        {
+          "id": "mike_torres",
+          "weight_a": 0.55,
+          "role_a": "core",
+          "weight_b": 0.95,
+          "role_b": "lead"
         }
       ]
     },
     {
-      "source": "auth-refactor",
+      "source": "billing-v2",
       "target": "infra-migration",
-      "weight": 0.3686,
+      "weight": 0.623,
       "shared_count": 3,
       "shared_people": [
         {
+          "id": "dave_patel",
+          "weight_a": 1.0,
+          "role_a": "lead",
+          "weight_b": 1.0,
+          "role_b": "lead"
+        },
+        {
+          "id": "charlie_ross",
+          "weight_a": 0.9,
+          "role_a": "core",
+          "weight_b": 0.7,
+          "role_b": "core"
+        },
+        {
           "id": "bob_kim",
-          "weight_a": 0.4,
-          "role_a": "contributor",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        },
-        {
-          "id": "charlie_ross",
-          "weight_a": 0.95,
-          "role_a": "core",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        },
-        {
-          "id": "dave_patel",
-          "weight_a": 0.35,
-          "role_a": "contributor",
-          "weight_b": 0.9,
-          "role_b": "core"
-        }
-      ]
-    },
-    {
-      "source": "billing-v2",
-      "target": "onboarding-redesign",
-      "weight": 0.2724,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "quinn_davis",
-          "weight_a": 0.85,
-          "role_a": "lead",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        }
-      ]
-    },
-    {
-      "source": "design-system-v2",
-      "target": "platform-api",
-      "weight": 0.2724,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "eve_johnson",
-          "weight_a": 0.85,
-          "role_a": "core",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        }
-      ]
-    },
-    {
-      "source": "auth-refactor",
-      "target": "design-system-v2",
-      "weight": 0.2404,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "eve_johnson",
-          "weight_a": 0.75,
-          "role_a": "core",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        }
-      ]
-    },
-    {
-      "source": "billing-v2",
-      "target": "revenue-dashboard",
-      "weight": 0.1923,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "alice_chen",
-          "weight_a": 1.0,
-          "role_a": "lead",
-          "weight_b": 0.6,
-          "role_b": "core"
-        }
-      ]
-    },
-    {
-      "source": "billing-v2",
-      "target": "notifications-service",
-      "weight": 0.1923,
-      "shared_count": 2,
-      "shared_people": [
-        {
-          "id": "dave_patel",
-          "weight_a": 0.9,
-          "role_a": "core",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        },
-        {
-          "id": "charlie_ross",
-          "weight_a": 0.95,
-          "role_a": "core",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "mobile-app",
-      "target": "revenue-dashboard",
-      "weight": 0.1923,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "ryan_nguyen",
-          "weight_a": 1.0,
-          "role_a": "core",
-          "weight_b": 0.6,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "notifications-service",
-      "target": "platform-api",
-      "weight": 0.1923,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "henry_zhao",
-          "weight_a": 0.85,
-          "role_a": "core",
-          "weight_b": 0.6,
-          "role_b": "core"
-        }
-      ]
-    },
-    {
-      "source": "auth-refactor",
-      "target": "notifications-service",
-      "weight": 0.1923,
-      "shared_count": 2,
-      "shared_people": [
-        {
-          "id": "dave_patel",
-          "weight_a": 0.35,
-          "role_a": "contributor",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        },
-        {
-          "id": "charlie_ross",
-          "weight_a": 0.95,
-          "role_a": "core",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "infra-migration",
-      "target": "notifications-service",
-      "weight": 0.1923,
-      "shared_count": 2,
-      "shared_people": [
-        {
-          "id": "dave_patel",
-          "weight_a": 0.9,
-          "role_a": "core",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        },
-        {
-          "id": "charlie_ross",
-          "weight_a": 0.4,
-          "role_a": "contributor",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "mobile-app",
-      "target": "notifications-service",
-      "weight": 0.1923,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "henry_zhao",
-          "weight_a": 0.75,
-          "role_a": "core",
-          "weight_b": 0.6,
-          "role_b": "core"
-        }
-      ]
-    },
-    {
-      "source": "design-system-v2",
-      "target": "infra-migration",
-      "weight": 0.1603,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "sofia_martinez",
-          "weight_a": 0.5,
+          "weight_a": 0.2,
           "role_a": "contributor",
           "weight_b": 0.5,
           "role_b": "contributor"
@@ -896,167 +570,366 @@
       ]
     },
     {
-      "source": "infra-migration",
-      "target": "onboarding-redesign",
-      "weight": 0.1603,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "sofia_martinez",
-          "weight_a": 0.5,
-          "role_a": "contributor",
-          "weight_b": 1.0,
-          "role_b": "lead"
-        }
-      ]
-    },
-    {
-      "source": "onboarding-redesign",
-      "target": "platform-api",
-      "weight": 0.1442,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "eve_johnson",
-          "weight_a": 0.85,
-          "role_a": "core",
-          "weight_b": 0.45,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
       "source": "auth-refactor",
-      "target": "onboarding-redesign",
-      "weight": 0.1442,
-      "shared_count": 1,
+      "target": "billing-v2",
+      "weight": 0.541,
+      "shared_count": 3,
       "shared_people": [
         {
-          "id": "eve_johnson",
-          "weight_a": 0.75,
-          "role_a": "core",
-          "weight_b": 0.45,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "infra-migration",
-      "target": "platform-api",
-      "weight": 0.1282,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "bob_kim",
+          "id": "charlie_ross",
           "weight_a": 0.9,
           "role_a": "core",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "auth-refactor",
-      "target": "mobile-app",
-      "weight": 0.1282,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "eve_johnson",
-          "weight_a": 0.75,
-          "role_a": "core",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "design-system-v2",
-      "target": "mobile-app",
-      "weight": 0.1282,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "eve_johnson",
-          "weight_a": 1.0,
-          "role_a": "lead",
-          "weight_b": 0.4,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "mobile-app",
-      "target": "onboarding-redesign",
-      "weight": 0.1282,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "eve_johnson",
-          "weight_a": 0.4,
-          "role_a": "contributor",
-          "weight_b": 0.45,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "auth-refactor",
-      "target": "revenue-dashboard",
-      "weight": 0.0962,
-      "shared_count": 1,
-      "shared_people": [
+          "weight_b": 0.8,
+          "role_b": "core"
+        },
         {
           "id": "alice_chen",
-          "weight_a": 0.6,
-          "role_a": "core",
-          "weight_b": 0.3,
-          "role_b": "contributor"
-        }
-      ]
-    },
-    {
-      "source": "brand-refresh",
-      "target": "revenue-dashboard",
-      "weight": 0.0801,
-      "shared_count": 1,
-      "shared_people": [
+          "weight_a": 1.0,
+          "role_a": "lead",
+          "weight_b": 0.65,
+          "role_b": "core"
+        },
         {
-          "id": "iris_wang",
-          "weight_a": 0.25,
+          "id": "bob_kim",
+          "weight_a": 0.2,
           "role_a": "contributor",
-          "weight_b": 0.9,
-          "role_b": "lead"
-        }
-      ]
-    },
-    {
-      "source": "design-system-v2",
-      "target": "revenue-dashboard",
-      "weight": 0.0801,
-      "shared_count": 1,
-      "shared_people": [
-        {
-          "id": "iris_wang",
-          "weight_a": 0.25,
-          "role_a": "contributor",
-          "weight_b": 0.84,
+          "weight_b": 0.85,
           "role_b": "core"
         }
       ]
     },
     {
-      "source": "brand-refresh",
+      "source": "design-system-v2",
       "target": "onboarding-redesign",
-      "weight": 0.0641,
+      "weight": 0.4918,
+      "shared_count": 3,
+      "shared_people": [
+        {
+          "id": "jack_brown",
+          "weight_a": 0.75,
+          "role_a": "core",
+          "weight_b": 0.95,
+          "role_b": "lead"
+        },
+        {
+          "id": "grace_park",
+          "weight_a": 0.9,
+          "role_a": "core",
+          "weight_b": 0.5,
+          "role_b": "contributor"
+        },
+        {
+          "id": "sofia_martinez",
+          "weight_a": 0.25,
+          "role_a": "peripheral",
+          "weight_b": 0.95,
+          "role_b": "lead"
+        }
+      ]
+    },
+    {
+      "source": "brand-refresh",
+      "target": "mobile-app",
+      "weight": 0.4754,
+      "shared_count": 2,
+      "shared_people": [
+        {
+          "id": "priya_mehta",
+          "weight_a": 0.98,
+          "role_a": "lead",
+          "weight_b": 0.75,
+          "role_b": "lead"
+        },
+        {
+          "id": "frank_li",
+          "weight_a": 0.7,
+          "role_a": "core",
+          "weight_b": 0.9,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "auth-refactor",
+      "target": "infra-migration",
+      "weight": 0.3934,
+      "shared_count": 2,
+      "shared_people": [
+        {
+          "id": "charlie_ross",
+          "weight_a": 0.8,
+          "role_a": "core",
+          "weight_b": 0.7,
+          "role_b": "core"
+        },
+        {
+          "id": "bob_kim",
+          "weight_a": 0.85,
+          "role_a": "core",
+          "weight_b": 0.5,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "billing-v2",
+      "target": "revenue-dashboard",
+      "weight": 0.3115,
+      "shared_count": 2,
+      "shared_people": [
+        {
+          "id": "quinn_davis",
+          "weight_a": 0.85,
+          "role_a": "lead",
+          "weight_b": 0.7,
+          "role_b": "core"
+        },
+        {
+          "id": "alice_chen",
+          "weight_a": 1.0,
+          "role_a": "lead",
+          "weight_b": 0.25,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "billing-v2",
+      "target": "onboarding-redesign",
+      "weight": 0.2787,
       "shared_count": 1,
       "shared_people": [
         {
-          "id": "nina_scott",
-          "weight_a": 0.68,
+          "id": "quinn_davis",
+          "weight_a": 0.85,
+          "role_a": "lead",
+          "weight_b": 0.95,
+          "role_b": "lead"
+        }
+      ]
+    },
+    {
+      "source": "design-system-v2",
+      "target": "mobile-ui",
+      "weight": 0.2787,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "grace_park",
+          "weight_a": 0.9,
           "role_a": "core",
-          "weight_b": 0.2,
+          "weight_b": 0.85,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "mobile-app",
+      "target": "platform-api",
+      "weight": 0.2787,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "henry_zhao",
+          "weight_a": 0.9,
+          "role_a": "core",
+          "weight_b": 0.85,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "design-system-v2",
+      "target": "platform-api",
+      "weight": 0.2459,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "eve_johnson",
+          "weight_a": 0.75,
+          "role_a": "core",
+          "weight_b": 0.9,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "mobile-app",
+      "target": "revenue-dashboard",
+      "weight": 0.2459,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "ryan_nguyen",
+          "weight_a": 0.75,
+          "role_a": "core",
+          "weight_b": 0.9,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "onboarding-redesign",
+      "target": "revenue-dashboard",
+      "weight": 0.2295,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "quinn_davis",
+          "weight_a": 0.95,
+          "role_a": "lead",
+          "weight_b": 0.7,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "auth-refactor",
+      "target": "design-system-v2",
+      "weight": 0.1967,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "eve_johnson",
+          "weight_a": 0.75,
+          "role_a": "core",
+          "weight_b": 0.6,
+          "role_b": "core"
+        }
+      ]
+    },
+    {
+      "source": "infra-migration",
+      "target": "platform-api",
+      "weight": 0.1639,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "bob_kim",
+          "weight_a": 1.0,
+          "role_a": "lead",
+          "weight_b": 0.5,
           "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "mobile-ui",
+      "target": "onboarding-redesign",
+      "weight": 0.1639,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "grace_park",
+          "weight_a": 0.85,
+          "role_a": "core",
+          "weight_b": 0.5,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "billing-v2",
+      "target": "notifications-service",
+      "weight": 0.1148,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "charlie_ross",
+          "weight_a": 0.9,
+          "role_a": "core",
+          "weight_b": 0.35,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "auth-refactor",
+      "target": "notifications-service",
+      "weight": 0.1148,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "charlie_ross",
+          "weight_a": 0.8,
+          "role_a": "core",
+          "weight_b": 0.35,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "infra-migration",
+      "target": "notifications-service",
+      "weight": 0.1148,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "charlie_ross",
+          "weight_a": 0.7,
+          "role_a": "core",
+          "weight_b": 0.35,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "brand-refresh",
+      "target": "revenue-dashboard",
+      "weight": 0.082,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "iris_wang",
+          "weight_a": 1.0,
+          "role_a": "lead",
+          "weight_b": 0.25,
+          "role_b": "peripheral"
+        }
+      ]
+    },
+    {
+      "source": "design-system-v2",
+      "target": "revenue-dashboard",
+      "weight": 0.082,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "iris_wang",
+          "weight_a": 0.8,
+          "role_a": "core",
+          "weight_b": 0.25,
+          "role_b": "peripheral"
+        }
+      ]
+    },
+    {
+      "source": "auth-refactor",
+      "target": "revenue-dashboard",
+      "weight": 0.082,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "alice_chen",
+          "weight_a": 0.65,
+          "role_a": "core",
+          "weight_b": 0.25,
+          "role_b": "contributor"
+        }
+      ]
+    },
+    {
+      "source": "billing-v2",
+      "target": "platform-api",
+      "weight": 0.0656,
+      "shared_count": 1,
+      "shared_people": [
+        {
+          "id": "bob_kim",
+          "weight_a": 0.2,
+          "role_a": "contributor",
+          "weight_b": 1.0,
+          "role_b": "lead"
         }
       ]
     }
