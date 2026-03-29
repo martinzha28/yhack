@@ -108,7 +108,7 @@ export default function ChatPanel({
               isDark ? "text-zinc-200" : "text-slate-800"
             }`}
           >
-            Org Agent
+            Onboarding Buddy
           </span>
         </div>
         {messages.length > 0 && (
@@ -147,6 +147,18 @@ export default function ChatPanel({
               <p>&ldquo;Who&rsquo;s working on billing-v2?&rdquo;</p>
               <p>&ldquo;Who is an expert in Kubernetes?&rdquo;</p>
               <p>&ldquo;What is the auth-refactor about?&rdquo;</p>
+            </div>
+            <div
+              className={`mt-6 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium tracking-wide ${
+                isDark
+                  ? "bg-indigo-500/15 text-indigo-300 ring-1 ring-indigo-500/25"
+                  : "bg-blue-50 text-blue-600 ring-1 ring-blue-200"
+              }`}
+            >
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              Powered by K2 Think V2
             </div>
           </div>
         )}
