@@ -1,11 +1,8 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
-  output: 'export', // Required for GitHub Pages
-  basePath: '/hoponboard',
-  images: {
-    unoptimized: true, // GitHub Pages doesn't support Next.js Image Optimization
-  },
-}
+const nextConfig: NextConfig = {
+  /* config options here */
+  devIndicators: false, // this should hide the bottom left icon
+};
 
 export default nextConfig;
