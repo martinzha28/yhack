@@ -9,13 +9,29 @@ import SearchBar from "./graph/SearchBar";
 import SettingsPanel from "./graph/SettingsPanel";
 import InfoPanel from "./graph/InfoPanel";
 
-export default function OrgGraph() {
+interface OrgGraphProps {
+  chatHighlight?: Set<string> | null;
+  onRegisterSelect?: (fn: (id: string) => void) => void;
+  onClearHighlight?: () => void;
+}
+
+export default function OrgGraph({ chatHighlight, onRegisterSelect, onClearHighlight }: OrgGraphProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [data, setData] = useState<GraphData | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const [minWeight, setMinWeight] = useState(DEFAULT_MIN_WEIGHT);
+  const hadSelection = useRef(false);
+
+  useEffect(() => {
+    if (selected !== null) {
+      hadSelection.current = true;
+    } else if (hadSelection.current) {
+      hadSelection.current = false;
+      onClearHighlight?.();
+    }
+  }, [selected, onClearHighlight]);
   const [search, setSearch] = useState("");
   const [showEdges, setShowEdges] = useState(true);
   const [clustering, setClustering] = useState(true);
@@ -26,12 +42,17 @@ export default function OrgGraph() {
       .then(setData);
   }, []);
 
+  useEffect(() => {
+    onRegisterSelect?.((id: string) => setSelected(id));
+  }, [onRegisterSelect]);
+
   const { gRef, simRef } = useGraphSimulation({
     data,
     svgRef,
     setSelected,
     setHovered,
     clustering,
+    onBackgroundClick: onClearHighlight,
   });
 
   const nodeMap = useMemo(() => {
@@ -72,7 +93,7 @@ export default function OrgGraph() {
       .sort((a, b) => b.weight - a.weight);
   }, [data, selected, nodeMap, minWeight]);
 
-  useGraphEffects({ gRef, simRef, data, minWeight, selected, searchMatch, showEdges });
+  useGraphEffects({ gRef, simRef, data, minWeight, selected, searchMatch, chatHighlight: chatHighlight ?? null, showEdges });
 
   const selectedNode = data?.nodes.find((n) => n.id === selected);
 
