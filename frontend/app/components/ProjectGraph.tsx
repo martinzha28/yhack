@@ -2,29 +2,25 @@
 
 import { useEffect, useRef, useState, useMemo } from "react";
 import * as d3 from "d3";
+import {
+  ProjectInfo,
+  SharedPerson,
+  ConnectedProject,
+  STATUS_COLORS,
+} from "./graph/types";
+import ProjectInfoPanel from "./graph/ProjectInfoPanel";
 
-interface ProjectNode extends d3.SimulationNodeDatum {
-  id: string;
-  name: string;
-  status: string;
-  time_range: string;
-  keywords: string[];
-  member_count: number;
-  members: { id: string; weight: number; role: string }[];
-}
+// ── Local simulation types ────────────────────────────────────────────────────
+// ProjectInfo holds the plain data shape; ProjectNode adds d3 simulation fields.
+
+interface ProjectNode extends d3.SimulationNodeDatum, ProjectInfo {}
 
 interface ProjectLink extends d3.SimulationLinkDatum<ProjectNode> {
   source: string | ProjectNode;
   target: string | ProjectNode;
   weight: number;
   shared_count: number;
-  shared_people: {
-    id: string;
-    weight_a: number;
-    role_a: string;
-    weight_b: number;
-    role_b: string;
-  }[];
+  shared_people: SharedPerson[];
 }
 
 interface ProjectGraphData {
@@ -32,12 +28,11 @@ interface ProjectGraphData {
   links: ProjectLink[];
 }
 
-const STATUS_COLORS: Record<string, string> = {
-  active: "#22d3ee",
-  completed: "#a78bfa",
-};
+// ── Constants ─────────────────────────────────────────────────────────────────
 
 const DEFAULT_MIN_SHARED = 1;
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function seedPosition(id: string, max: number, offset: number): number {
   let h = 0;
@@ -75,12 +70,14 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
   }, [selected, onClearHighlight]);
   const [showEdges, setShowEdges] = useState(true);
 
+  // ── Data fetch ──────────────────────────────────────────────────────────────
   useEffect(() => {
     fetch("/project_graph.json")
       .then((r) => r.json())
       .then(setData);
   }, []);
 
+  // ── D3 simulation ───────────────────────────────────────────────────────────
   useEffect(() => {
     if (!data || !svgRef.current) return;
 
@@ -89,9 +86,9 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
 
     const width = svgRef.current.clientWidth;
     const height = svgRef.current.clientHeight;
+    const pad = 80;
 
     const filteredLinks = data.links.filter((l) => l.shared_count >= minShared);
-
     const maxMembers = Math.max(...data.nodes.map((n) => n.member_count), 1);
 
     const nodes: ProjectNode[] = data.nodes.map((d) => ({
@@ -101,8 +98,8 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
     }));
     const links: ProjectLink[] = filteredLinks.map((d) => ({ ...d }));
 
-    const nodeRadius = (d: ProjectNode) => 14 + (d.member_count / maxMembers) * 26;
-    const pad = 80;
+    const nodeRadius = (d: ProjectNode) =>
+      14 + (d.member_count / maxMembers) * 26;
 
     const simulation = d3
       .forceSimulation<ProjectNode>(nodes)
@@ -112,13 +109,14 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
           .forceLink<ProjectNode, ProjectLink>(links)
           .id((d) => d.id)
           .distance((d) => 160 * (1 - d.weight) + 80)
-          .strength((d) => 0.2 + d.weight * 0.5)
+          .strength((d) => 0.2 + d.weight * 0.5),
       )
       .force("charge", d3.forceManyBody().strength(-600).distanceMax(400))
       .force("center", d3.forceCenter(width / 2, height / 2).strength(0.1))
-      .force("collision", d3.forceCollide().radius((d) => {
-        return nodeRadius(d as ProjectNode) + 30;
-      }))
+      .force(
+        "collision",
+        d3.forceCollide().radius((d) => nodeRadius(d as ProjectNode) + 30),
+      )
       .force("bounds", () => {
         for (const d of nodes) {
           if (d.x! < pad) d.vx! += (pad - d.x!) * 0.1;
@@ -128,8 +126,10 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
         }
       });
 
+    // ── SVG scaffold ──────────────────────────────────────────────────────────
     const g = svg.append("g");
 
+    // Transparent backdrop to deselect on empty-canvas click
     g.append("rect")
       .attr("width", width * 3)
       .attr("height", height * 3)
@@ -147,9 +147,10 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
           [-margin, -margin],
           [width + margin, height + margin],
         ])
-        .on("zoom", (event) => g.attr("transform", event.transform))
+        .on("zoom", (event) => g.attr("transform", event.transform)),
     );
 
+    // ── Edges ─────────────────────────────────────────────────────────────────
     const link = g
       .append("g")
       .selectAll<SVGLineElement, ProjectLink>("line")
@@ -159,7 +160,7 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .attr("stroke-opacity", showEdges ? 0.4 : 0)
       .attr("stroke-width", (d) => Math.max(1.5, d.weight * 8));
 
-    // Shared-count labels on edges (pill background for readability)
+    // Shared-count pill labels on edges
     const linkLabelGroup = g
       .append("g")
       .attr("class", "link-labels")
@@ -188,6 +189,7 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .attr("font-size", "10px")
       .attr("font-weight", "500");
 
+    // ── Nodes ─────────────────────────────────────────────────────────────────
     const node = g
       .append("g")
       .selectAll<SVGGElement, ProjectNode>("g")
@@ -210,7 +212,7 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
             if (!event.active) simulation.alphaTarget(0);
             d.fx = null;
             d.fy = null;
-          })
+          }),
       );
 
     node
@@ -221,9 +223,10 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .attr("stroke", (d) => STATUS_COLORS[d.status] || "#6b7280")
       .attr("stroke-width", 2);
 
+    // Use display_name (parentheticals already stripped in Python)
     node
       .append("text")
-      .text((d) => d.name.replace(/\s*\(.*\)/, ""))
+      .text((d) => d.display_name)
       .attr("text-anchor", "middle")
       .attr("dy", "0.35em")
       .attr("fill", "#e5e7eb")
@@ -231,10 +234,13 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .attr("font-weight", "500")
       .attr("pointer-events", "none");
 
-    // Member count below name
+    // Member count sub-label
     node
       .append("text")
-      .text((d) => `${d.member_count} people`)
+      .text(
+        (d) =>
+          `${d.member_count} ${d.member_count === 1 ? "person" : "people"}`,
+      )
       .attr("text-anchor", "middle")
       .attr("dy", "1.8em")
       .attr("fill", "#71717a")
@@ -245,6 +251,7 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       setSelected((prev) => (prev === d.id ? null : d.id));
     });
 
+    // ── Tick ──────────────────────────────────────────────────────────────────
     simulation.on("tick", () => {
       link
         .attr("x1", (d) => (d.source as ProjectNode).x!)
@@ -318,7 +325,9 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .selectAll<SVGGElement, ProjectNode>("g")
       .selectAll<SVGCircleElement, ProjectNode>("circle")
       .attr("opacity", function () {
-        const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
+        const d = d3
+          .select(this.parentNode as SVGGElement)
+          .datum() as ProjectNode;
         if (!d) return 1;
         if (chatHighlight && chatHighlight.has(d.id))
           return 1;
@@ -334,20 +343,25 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .selectAll<SVGGElement, ProjectNode>("g")
       .selectAll<SVGTextElement, ProjectNode>("text")
       .attr("opacity", function () {
-        const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
+        const d = d3
+          .select(this.parentNode as SVGGElement)
+          .datum() as ProjectNode;
         if (!d) return 1;
         return connected.has(d.id) ? 1 : 0.1;
       });
   }, [selected, chatHighlight, data, minShared, showEdges]);
 
-  const selectedProject = data?.nodes.find((n) => n.id === selected);
+  // ── Derived state ──────────────────────────────────────────────────────────
+  const selectedProject = data?.nodes.find((n) => n.id === selected) ?? null;
 
-  const connectedProjects = useMemo(() => {
+  const connectedProjects = useMemo<ConnectedProject[]>(() => {
     if (!data || !selected) return [];
     return data.links
       .filter((l) => {
         const { s, t } = linkId(l);
-        return (s === selected || t === selected) && l.shared_count >= minShared;
+        return (
+          (s === selected || t === selected) && l.shared_count >= minShared
+        );
       })
       .map((l) => {
         const { s, t } = linkId(l);
@@ -355,7 +369,8 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
         const other = data.nodes.find((n) => n.id === otherId);
         return {
           id: otherId,
-          name: other?.name.replace(/\s*\(.*\)/, "") || otherId,
+          // display_name is the clean label; fall back gracefully for old data
+          name: other?.display_name ?? other?.name ?? otherId,
           weight: l.weight,
           shared_count: l.shared_count,
           shared_people: l.shared_people,
@@ -364,6 +379,7 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .sort((a, b) => b.shared_count - a.shared_count);
   }, [data, selected, minShared]);
 
+  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="relative w-full h-full">
       <svg ref={svgRef} className="w-full h-full bg-zinc-900" />
@@ -383,16 +399,14 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
           Node size = team size
         </div>
         <div className="text-[10px] text-zinc-500">
-          Edge thickness = shared people
+          Edge label = shared people
         </div>
       </div>
 
       {/* Threshold slider */}
       <div className="absolute bottom-4 right-4 bg-zinc-800/90 rounded-lg px-4 py-3 text-sm text-zinc-300 w-64">
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-xs text-zinc-400">
-            Min shared people
-          </label>
+          <label className="text-xs text-zinc-400">Min shared people</label>
           <span className="text-xs text-zinc-500 tabular-nums">
             {minShared}
           </span>
@@ -413,7 +427,7 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
         <div className="flex items-center justify-between mt-3">
           <label className="text-xs text-zinc-400">Show edges</label>
           <button
-            onClick={() => setShowEdges(!showEdges)}
+            onClick={() => setShowEdges((v) => !v)}
             className={`relative w-9 h-5 rounded-full transition-colors cursor-pointer ${
               showEdges ? "bg-indigo-500" : "bg-zinc-600"
             }`}
@@ -429,108 +443,11 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
 
       {/* Info panel */}
       {selectedProject && (
-        <div className="absolute top-4 right-4 bg-zinc-800/90 rounded-lg px-5 py-4 text-sm text-zinc-200 w-80 max-h-[80vh] overflow-y-auto space-y-3">
-          <div>
-            <div className="font-semibold text-base">
-              {selectedProject.name.replace(/\s*\(.*\)/, "")}
-            </div>
-            <div className="flex items-center gap-2 mt-1">
-              <span
-                className="inline-block w-2.5 h-2.5 rounded-full border-2"
-                style={{
-                  borderColor:
-                    STATUS_COLORS[selectedProject.status] || "#6b7280",
-                  backgroundColor:
-                    (STATUS_COLORS[selectedProject.status] || "#6b7280") + "26",
-                }}
-              />
-              <span className="capitalize text-zinc-400">
-                {selectedProject.status}
-              </span>
-              {selectedProject.time_range && (
-                <span className="text-zinc-500 text-xs">
-                  ({selectedProject.time_range})
-                </span>
-              )}
-            </div>
-          </div>
-
-          {selectedProject.keywords.length > 0 && (
-            <div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide mb-1">
-                Topics
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {selectedProject.keywords.slice(0, 8).map((k) => (
-                  <span
-                    key={k}
-                    className="px-2 py-0.5 bg-zinc-700 rounded text-xs text-zinc-300"
-                  >
-                    {k}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {selectedProject.members.length > 0 && (
-            <div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide mb-1">
-                Team ({selectedProject.member_count})
-              </div>
-              <div className="space-y-1">
-                {selectedProject.members.map((m) => (
-                  <div key={m.id} className="flex items-center gap-2">
-                    <span className="flex-1 truncate">{m.id.replace(/_/g, " ")}</span>
-                    <span className="text-[10px] text-zinc-500 capitalize">
-                      {m.role}
-                    </span>
-                    <span className="text-xs text-zinc-500 tabular-nums w-8 text-right">
-                      {(m.weight * 100).toFixed(0)}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {connectedProjects.length > 0 && (
-            <div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wide mb-1">
-                Connected projects
-              </div>
-              <div className="space-y-2">
-                {connectedProjects.slice(0, 6).map((cp) => (
-                  <div key={cp.id}>
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium text-xs">{cp.name}</span>
-                      <span className="text-xs text-zinc-500 tabular-nums">
-                        {cp.shared_count} shared
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1 mt-0.5">
-                      {cp.shared_people.slice(0, 4).map((sp) => (
-                        <span
-                          key={sp.id}
-                          className="text-[10px] text-zinc-400 bg-zinc-700/50 px-1.5 py-0.5 rounded"
-                        >
-                          {sp.id.replace(/_/g, " ")}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <button
-            onClick={() => setSelected(null)}
-            className="text-xs text-zinc-500 hover:text-zinc-300 cursor-pointer"
-          >
-            Click to deselect
-          </button>
-        </div>
+        <ProjectInfoPanel
+          project={selectedProject}
+          connectedProjects={connectedProjects}
+          onClose={() => setSelected(null)}
+        />
       )}
     </div>
   );
