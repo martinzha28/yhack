@@ -1,0 +1,3 @@
+Change the extraction from slack_data.json process to also extract for each person:
+- summaries of who they are
+-
