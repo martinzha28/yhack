@@ -53,7 +53,10 @@ interface ProjectGraphProps {
   onClearHighlight?: () => void;
 }
 
-export default function ProjectGraph({ chatHighlight, onClearHighlight }: ProjectGraphProps) {
+export default function ProjectGraph({
+  chatHighlight,
+  onClearHighlight,
+}: ProjectGraphProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [data, setData] = useState<ProjectGraphData | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
@@ -136,7 +139,10 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .attr("x", -width)
       .attr("y", -height)
       .attr("fill", "transparent")
-      .on("click", () => { setSelected(null); onClearHighlight?.(); });
+      .on("click", () => {
+        setSelected(null);
+        onClearHighlight?.();
+      });
 
     const margin = 150;
     svg.call(
@@ -156,8 +162,8 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .selectAll<SVGLineElement, ProjectLink>("line")
       .data(links)
       .join("line")
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", showEdges ? 0.4 : 0)
+      .attr("stroke", "#cbd5e1")
+      .attr("stroke-opacity", showEdges ? 0.5 : 0)
       .attr("stroke-width", (d) => Math.max(1.5, d.weight * 8));
 
     // Shared-count pill labels on edges
@@ -178,16 +184,18 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .attr("height", 16)
       .attr("x", -10)
       .attr("y", -10)
-      .attr("fill", "rgba(24,24,27,0.85)");
+      .attr("fill", "rgba(255,255,255,0.95)")
+      .attr("stroke", "rgba(203,213,225,0.8)")
+      .attr("stroke-width", 1);
 
     linkLabelGroup
       .append("text")
       .text((d) => d.shared_count.toString())
       .attr("text-anchor", "middle")
       .attr("dy", "0.3em")
-      .attr("fill", "#a1a1aa")
+      .attr("fill", "#475569")
       .attr("font-size", "10px")
-      .attr("font-weight", "500");
+      .attr("font-weight", "600");
 
     // ── Nodes ─────────────────────────────────────────────────────────────────
     const node = g
@@ -218,10 +226,10 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
     node
       .append("circle")
       .attr("r", (d) => nodeRadius(d))
-      .attr("fill", (d) => STATUS_COLORS[d.status] || "#6b7280")
-      .attr("fill-opacity", 0.15)
-      .attr("stroke", (d) => STATUS_COLORS[d.status] || "#6b7280")
-      .attr("stroke-width", 2);
+      .attr("fill", (d) => STATUS_COLORS[d.status] || "#64748b")
+      .attr("fill-opacity", 0.12)
+      .attr("stroke", (d) => STATUS_COLORS[d.status] || "#64748b")
+      .attr("stroke-width", 2.5);
 
     // Use display_name (parentheticals already stripped in Python)
     node
@@ -229,9 +237,9 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
       .text((d) => d.display_name)
       .attr("text-anchor", "middle")
       .attr("dy", "0.35em")
-      .attr("fill", "#e5e7eb")
+      .attr("fill", "#0f172a")
       .attr("font-size", "11px")
-      .attr("font-weight", "500")
+      .attr("font-weight", "600")
       .attr("pointer-events", "none");
 
     // Member count sub-label
@@ -242,8 +250,8 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
           `${d.member_count} ${d.member_count === 1 ? "person" : "people"}`,
       )
       .attr("text-anchor", "middle")
-      .attr("dy", "1.8em")
-      .attr("fill", "#71717a")
+      .attr("dy", (d) => nodeRadius(d) + 15)
+      .attr("fill", "#64748b")
       .attr("font-size", "9px")
       .attr("pointer-events", "none");
 
@@ -281,14 +289,13 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
     const hasHighlight = selected || (chatHighlight && chatHighlight.size > 0);
 
     if (!hasHighlight) {
-      svg.selectAll("line").attr("stroke-opacity", showEdges ? 0.4 : 0);
+      svg.selectAll("line").attr("stroke-opacity", showEdges ? 0.5 : 0);
       svg.select(".link-labels").style("opacity", showEdges ? 1 : 0);
-      svg.selectAll<SVGGElement, ProjectNode>("g > circle")
+      svg
+        .selectAll<SVGGElement, ProjectNode>("g > circle")
         .attr("opacity", 1)
         .attr("stroke-width", 2);
-      svg
-        .selectAll<SVGGElement, ProjectNode>("g > text")
-        .attr("opacity", 1);
+      svg.selectAll<SVGGElement, ProjectNode>("g > text").attr("opacity", 1);
       return;
     }
 
@@ -329,12 +336,13 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
           .select(this.parentNode as SVGGElement)
           .datum() as ProjectNode;
         if (!d) return 1;
-        if (chatHighlight && chatHighlight.has(d.id))
-          return 1;
+        if (chatHighlight && chatHighlight.has(d.id)) return 1;
         return connected.has(d.id) ? 1 : 0.15;
       })
       .attr("stroke-width", function () {
-        const d = d3.select(this.parentNode as SVGGElement).datum() as ProjectNode;
+        const d = d3
+          .select(this.parentNode as SVGGElement)
+          .datum() as ProjectNode;
         if (d && chatHighlight && chatHighlight.has(d.id)) return 4;
         return 2;
       });
@@ -382,32 +390,34 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="relative w-full h-full">
-      <svg ref={svgRef} className="w-full h-full bg-zinc-900" />
+      <svg ref={svgRef} className="w-full h-full bg-slate-50" />
 
       {/* Status legend */}
-      <div className="absolute top-14 left-4 bg-zinc-800/80 rounded-lg px-4 py-3 text-sm text-zinc-300 space-y-1">
+      <div className="absolute top-14 left-4 bg-white/90 border border-slate-200 shadow-sm rounded-lg px-4 py-3 text-sm text-slate-700 space-y-1.5">
         {Object.entries(STATUS_COLORS).map(([status, color]) => (
           <div key={status} className="flex items-center gap-2">
             <span
               className="inline-block w-3 h-3 rounded-full border-2"
-              style={{ borderColor: color, backgroundColor: color + "26" }}
+              style={{ borderColor: color, backgroundColor: color + "20" }}
             />
             <span className="capitalize">{status}</span>
           </div>
         ))}
-        <div className="text-[10px] text-zinc-500 pt-1">
+        <div className="text-[10px] text-slate-400 pt-1">
           Node size = team size
         </div>
-        <div className="text-[10px] text-zinc-500">
+        <div className="text-[10px] text-slate-400">
           Edge label = shared people
         </div>
       </div>
 
       {/* Threshold slider */}
-      <div className="absolute bottom-4 right-4 bg-zinc-800/90 rounded-lg px-4 py-3 text-sm text-zinc-300 w-64">
-        <div className="flex items-center justify-between mb-1.5">
-          <label className="text-xs text-zinc-400">Min shared people</label>
-          <span className="text-xs text-zinc-500 tabular-nums">
+      <div className="absolute bottom-4 right-4 bg-white border border-slate-200 shadow-md rounded-xl px-4 py-3 text-sm text-slate-700 w-64">
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-xs font-medium text-slate-500">
+            Min shared people
+          </label>
+          <span className="text-xs font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded tabular-nums">
             {minShared}
           </span>
         </div>
@@ -418,23 +428,27 @@ export default function ProjectGraph({ chatHighlight, onClearHighlight }: Projec
           step={1}
           value={minShared}
           onChange={(e) => setMinShared(parseInt(e.target.value))}
-          className="w-full accent-zinc-400 h-1.5 cursor-pointer"
+          className="w-full accent-blue-600 h-1.5 cursor-pointer rounded-full"
         />
-        <div className="flex justify-between text-[10px] text-zinc-600 mt-0.5">
+        <div className="flex justify-between text-[10px] text-slate-300 mt-1">
           <span>All connections</span>
           <span>Strong only</span>
         </div>
-        <div className="flex items-center justify-between mt-3">
-          <label className="text-xs text-zinc-400">Show edges</label>
+        <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
+          <label className="text-xs font-medium text-slate-500">
+            Show edges
+          </label>
           <button
             onClick={() => setShowEdges((v) => !v)}
-            className={`relative w-9 h-5 rounded-full transition-colors cursor-pointer ${
-              showEdges ? "bg-indigo-500" : "bg-zinc-600"
+            className={`relative w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none ${
+              showEdges ? "bg-blue-600" : "bg-slate-200"
             }`}
+            role="switch"
+            aria-checked={showEdges}
           >
             <span
-              className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
-                showEdges ? "translate-x-4" : ""
+              className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${
+                showEdges ? "translate-x-4" : "translate-x-0"
               }`}
             />
           </button>

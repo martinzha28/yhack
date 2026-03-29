@@ -26,6 +26,13 @@ function getHullPath(groupNodes: Node[], pad: number): string {
   return hull ? (hullLine(hull) ?? "") : "";
 }
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  return parts.length >= 2
+    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    : name.slice(0, 2).toUpperCase();
+}
+
 interface UseGraphSimulationOptions {
   data: GraphData | null;
   svgRef: React.RefObject<SVGSVGElement | null>;
@@ -186,7 +193,10 @@ export function useGraphSimulation({
       .attr("x", -width)
       .attr("y", -height)
       .attr("fill", "transparent")
-      .on("click", () => { setSelected(null); onBackgroundClick?.(); });
+      .on("click", () => {
+        setSelected(null);
+        onBackgroundClick?.();
+      });
 
     const margin = 150;
     svg.call(
@@ -221,7 +231,7 @@ export function useGraphSimulation({
       .selectAll<SVGLineElement, Link>("line")
       .data(allLinks, (d) => `${nodeId(d.source)}-${nodeId(d.target)}`)
       .join("line")
-      .attr("stroke", "#999")
+      .attr("stroke", "#cbd5e1")
       .attr("stroke-opacity", (d) => (d.weight >= DEFAULT_MIN_WEIGHT ? 0.4 : 0))
       .attr("stroke-width", (d) => Math.max(1, d.weight * 4));
 
@@ -267,19 +277,37 @@ export function useGraphSimulation({
         const deg = degree.get(d.id) || 1;
         return 6 + (deg / maxDegree) * 14;
       })
-      .attr("fill", (d) => TEAM_COLORS[d.team] || "#6b7280")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1.5);
+      .attr("fill", "#ffffff")
+      .attr("stroke", (d) => TEAM_COLORS[d.team] || "#94a3b8")
+      .attr("stroke-width", 2.5);
 
+    // Initials centred inside each circle
     node
       .append("text")
+      .attr("class", "node-initials")
+      .text((d) => getInitials(d.name))
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("fill", (d) => TEAM_COLORS[d.team] || "#64748b")
+      .attr("font-size", (d) => {
+        const deg = degree.get(d.id) || 1;
+        const r = 6 + (deg / maxDegree) * 14;
+        return `${Math.max(7, Math.floor(r * 0.62))}px`;
+      })
+      .attr("font-weight", "700")
+      .attr("pointer-events", "none");
+
+    // First-name label floating above the circle
+    node
+      .append("text")
+      .attr("class", "node-label")
       .text((d) => d.name.split(" ")[0])
       .attr("dy", (d) => {
         const deg = degree.get(d.id) || 1;
         return -(8 + (deg / maxDegree) * 14);
       })
       .attr("text-anchor", "middle")
-      .attr("fill", "#e5e7eb")
+      .attr("fill", "#334155")
       .attr("font-size", "11px")
       .attr("pointer-events", "none");
 
@@ -294,23 +322,23 @@ export function useGraphSimulation({
       .append("rect")
       .attr("rx", 6)
       .attr("ry", 6)
-      .attr("fill", "rgba(24,24,27,0.92)")
-      .attr("stroke", "rgba(63,63,70,0.5)");
+      .attr("fill", "rgba(255,255,255,0.97)")
+      .attr("stroke", "rgba(203,213,225,0.9)");
 
     const tooltipName = tooltip
       .append("text")
-      .attr("fill", "#e5e7eb")
+      .attr("fill", "#0f172a")
       .attr("font-size", "12px")
       .attr("font-weight", "600");
 
     const tooltipRole = tooltip
       .append("text")
-      .attr("fill", "#a1a1aa")
+      .attr("fill", "#475569")
       .attr("font-size", "11px");
 
     const tooltipTeam = tooltip
       .append("text")
-      .attr("fill", "#71717a")
+      .attr("fill", "#94a3b8")
       .attr("font-size", "10px");
 
     node

@@ -13,7 +13,10 @@ interface ChatPanelProps {
   onSelectNode?: (id: string) => void;
 }
 
-export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps) {
+export default function ChatPanel({
+  onHighlight,
+  onSelectNode,
+}: ChatPanelProps) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
@@ -77,21 +80,19 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
   }
 
   return (
-    <div className="h-full w-80 bg-zinc-850 border-r border-zinc-700/60 flex flex-col flex-shrink-0"
-      style={{ backgroundColor: "#1a1a1f" }}
-    >
+    <div className="h-full w-80 bg-slate-50 border-r border-slate-200 flex flex-col flex-shrink-0">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-700/60">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-white">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-          <span className="text-sm font-medium text-zinc-200">
+          <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+          <span className="text-sm font-semibold text-slate-800 tracking-tight">
             Org Agent
           </span>
         </div>
         {messages.length > 0 && (
           <button
             onClick={clearChat}
-            className="text-zinc-500 hover:text-zinc-300 text-xs px-2 py-1 rounded transition-colors cursor-pointer"
+            className="text-slate-400 hover:text-slate-600 text-xs px-2 py-1 rounded-md hover:bg-slate-100 transition-colors cursor-pointer"
           >
             Clear
           </button>
@@ -99,11 +100,16 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
       </div>
 
       {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0">
+      <div
+        ref={scrollRef}
+        className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0"
+      >
         {messages.length === 0 && !loading && (
-          <div className="text-zinc-500 text-xs text-center py-8 space-y-2">
-            <p className="text-zinc-400 text-sm font-medium">Ask about the org</p>
-            <div className="space-y-1">
+          <div className="text-center py-8 space-y-3">
+            <p className="text-slate-700 text-sm font-medium">
+              Ask about the org
+            </p>
+            <div className="space-y-1.5 text-xs text-slate-400">
               <p>&ldquo;Who&rsquo;s working on billing-v2?&rdquo;</p>
               <p>&ldquo;Who is an expert in Kubernetes?&rdquo;</p>
               <p>&ldquo;What is the auth-refactor about?&rdquo;</p>
@@ -117,11 +123,15 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[85%] rounded-lg px-3 py-2 text-sm leading-relaxed ${
+              className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-zinc-700/70 text-zinc-200 hover:bg-zinc-600/70 transition-colors"
-              } ${msg.role === "assistant" && msg.highlightNodeIds?.length ? "cursor-pointer" : ""}`}
+                  ? "bg-blue-600 text-white rounded-br-sm"
+                  : "bg-white text-slate-800 border border-slate-200 shadow-sm rounded-bl-sm"
+              } ${
+                msg.role === "assistant" && msg.highlightNodeIds?.length
+                  ? "cursor-pointer hover:border-blue-300 transition-colors"
+                  : ""
+              }`}
               onClick={() => {
                 if (msg.role === "assistant" && msg.highlightNodeIds?.length) {
                   onHighlight(new Set(msg.highlightNodeIds));
@@ -130,7 +140,7 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
             >
               {msg.content}
               {msg.highlightNodeIds && msg.highlightNodeIds.length > 0 && (
-                <div className="mt-2 pt-2 border-t border-zinc-600/50 flex flex-wrap gap-1">
+                <div className="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-1">
                   {msg.highlightNodeIds.map((id) => (
                     <button
                       key={id}
@@ -138,7 +148,7 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
                         e.stopPropagation();
                         onSelectNode?.(id);
                       }}
-                      className="text-[10px] bg-indigo-500/30 text-indigo-300 px-1.5 py-0.5 rounded hover:bg-indigo-500/50 transition-colors cursor-pointer"
+                      className="text-[10px] bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded-full hover:bg-blue-100 transition-colors cursor-pointer font-medium"
                     >
                       {id.replace(/_/g, " ")}
                     </button>
@@ -151,11 +161,26 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-zinc-700/70 rounded-lg px-3 py-2 text-sm text-zinc-400">
+            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl rounded-bl-sm px-4 py-3 text-sm text-slate-400">
               <span className="inline-flex gap-1">
-                <span className="animate-bounce" style={{ animationDelay: "0ms" }}>.</span>
-                <span className="animate-bounce" style={{ animationDelay: "150ms" }}>.</span>
-                <span className="animate-bounce" style={{ animationDelay: "300ms" }}>.</span>
+                <span
+                  className="animate-bounce"
+                  style={{ animationDelay: "0ms" }}
+                >
+                  •
+                </span>
+                <span
+                  className="animate-bounce"
+                  style={{ animationDelay: "150ms" }}
+                >
+                  •
+                </span>
+                <span
+                  className="animate-bounce"
+                  style={{ animationDelay: "300ms" }}
+                >
+                  •
+                </span>
               </span>
             </div>
           </div>
@@ -163,7 +188,7 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
       </div>
 
       {/* Input */}
-      <div className="px-3 pb-3 pt-1 border-t border-zinc-700/40">
+      <div className="px-3 pb-3 pt-2 border-t border-slate-200 bg-white">
         <div className="flex gap-2">
           <input
             type="text"
@@ -172,12 +197,12 @@ export default function ChatPanel({ onHighlight, onSelectNode }: ChatPanelProps)
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send()}
             placeholder="Ask a question..."
             disabled={loading}
-            className="flex-1 bg-zinc-700/60 text-zinc-200 text-sm rounded-lg px-3 py-2 placeholder:text-zinc-500 border border-zinc-600/50 focus:outline-none focus:border-indigo-500/50 transition-colors disabled:opacity-50"
+            className="flex-1 bg-slate-50 text-slate-800 text-sm rounded-xl px-3 py-2 placeholder:text-slate-400 border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all disabled:opacity-50"
           />
           <button
             onClick={send}
             disabled={loading || !input.trim()}
-            className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:hover:bg-indigo-600 text-white rounded-lg px-3 py-2 transition-colors cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:opacity-40 disabled:hover:bg-blue-600 text-white rounded-xl px-3 py-2 transition-colors cursor-pointer shadow-sm"
           >
             <svg
               width="16"

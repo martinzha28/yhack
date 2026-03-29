@@ -1,6 +1,13 @@
 import { useEffect } from "react";
 import * as d3 from "d3";
-import { Node, Link, GraphData, TRANSITION_MS, linkId } from "./types";
+import {
+  Node,
+  Link,
+  GraphData,
+  TRANSITION_MS,
+  TEAM_COLORS,
+  linkId,
+} from "./types";
 
 interface UseGraphEffectsOptions {
   gRef: React.RefObject<d3.Selection<
@@ -47,7 +54,9 @@ export function useGraphEffects({
       .selectAll<SVGLineElement, Link>("line")
       .transition()
       .duration(TRANSITION_MS)
-      .attr("stroke-opacity", (d) => (d.weight >= minWeight && showEdges ? 0.4 : 0));
+      .attr("stroke-opacity", (d) =>
+        d.weight >= minWeight && showEdges ? 0.4 : 0,
+      );
 
     const degree = new Map<string, number>();
     data.links.forEach((l) => {
@@ -69,9 +78,22 @@ export function useGraphEffects({
         return 6 + (deg / maxDegree) * 14;
       });
 
+    // Resize initials font to match new circle radius
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
-      .select("text")
+      .select("text.node-initials")
+      .transition()
+      .duration(TRANSITION_MS)
+      .attr("font-size", (d: Node) => {
+        const deg = degree.get(d.id) || 1;
+        const r = 6 + (deg / maxDegree) * 14;
+        return `${Math.max(7, Math.floor(r * 0.62))}px`;
+      });
+
+    // Reposition floating name label
+    g.select(".nodes")
+      .selectAll<SVGGElement, Node>("g")
+      .select("text.node-label")
       .transition()
       .duration(TRANSITION_MS)
       .attr("dy", (d: Node) => {
@@ -95,8 +117,10 @@ export function useGraphEffects({
         .selectAll<SVGLineElement, Link>("line")
         .transition()
         .duration(200)
-        .attr("stroke", "#999")
-        .attr("stroke-opacity", (d) => (d.weight >= minWeight && showEdges ? 0.4 : 0));
+        .attr("stroke", "#cbd5e1")
+        .attr("stroke-opacity", (d) =>
+          d.weight >= minWeight && showEdges ? 0.4 : 0,
+        );
 
       g.select(".nodes")
         .selectAll<SVGGElement, Node>("g")
@@ -104,12 +128,19 @@ export function useGraphEffects({
         .transition()
         .duration(200)
         .attr("opacity", 1)
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1.5);
+        .attr("stroke", (d: Node) => TEAM_COLORS[d.team] || "#94a3b8")
+        .attr("stroke-width", 2.5);
 
       g.select(".nodes")
         .selectAll<SVGGElement, Node>("g")
-        .select("text")
+        .select("text.node-initials")
+        .transition()
+        .duration(200)
+        .attr("opacity", 1);
+
+      g.select(".nodes")
+        .selectAll<SVGGElement, Node>("g")
+        .select("text.node-label")
         .transition()
         .duration(200)
         .attr("opacity", 1);
@@ -160,18 +191,25 @@ export function useGraphEffects({
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12))
       .attr("stroke", (d: Node) => {
         if (chatHighlight && chatHighlight.has(d.id)) return "#818cf8";
-        if (searchMatch && searchMatch.has(d.id)) return "#facc15";
-        return "#fff";
+        if (searchMatch && searchMatch.has(d.id)) return "#f59e0b";
+        return TEAM_COLORS[d.team] || "#94a3b8";
       })
       .attr("stroke-width", (d: Node) => {
-        if (chatHighlight && chatHighlight.has(d.id)) return 3;
-        if (searchMatch && searchMatch.has(d.id)) return 3;
-        return 1.5;
+        if (chatHighlight && chatHighlight.has(d.id)) return 4;
+        if (searchMatch && searchMatch.has(d.id)) return 4;
+        return 2.5;
       });
 
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
-      .select("text")
+      .select("text.node-initials")
+      .transition()
+      .duration(200)
+      .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12));
+
+    g.select(".nodes")
+      .selectAll<SVGGElement, Node>("g")
+      .select("text.node-label")
       .transition()
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.08));
