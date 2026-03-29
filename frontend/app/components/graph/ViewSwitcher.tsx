@@ -1,3 +1,7 @@
+"use client";
+
+import { useTheme } from "../ThemeContext";
+
 export type ViewMode = "people" | "projects";
 
 interface ViewSwitcherProps {
@@ -11,16 +15,27 @@ const VIEWS: { id: ViewMode; label: string; description: string }[] = [
 ];
 
 export default function ViewSwitcher({ active, onChange }: ViewSwitcherProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <div className="absolute top-4 left-4 bg-zinc-800/90 rounded-lg p-1 flex gap-1">
+    <div
+      className={`absolute top-4 left-4 rounded-lg p-1 flex gap-1 ${
+        isDark ? "bg-zinc-800/90" : "bg-white border border-slate-200 shadow-sm"
+      }`}
+    >
       {VIEWS.map((v) => (
         <button
           key={v.id}
           onClick={() => onChange(v.id)}
-          className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
             active === v.id
-              ? "bg-zinc-600 text-zinc-100"
-              : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50"
+              ? isDark
+                ? "bg-zinc-600 text-zinc-100"
+                : "bg-slate-100 text-slate-900 shadow-sm"
+              : isDark
+                ? "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50"
+                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
           }`}
           title={v.description}
         >

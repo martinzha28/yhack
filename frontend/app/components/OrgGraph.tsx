@@ -1,13 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
-import { GraphData, RankedConnection, DEFAULT_MIN_WEIGHT, linkId } from "./graph/types";
+import {
+  GraphData,
+  RankedConnection,
+  DEFAULT_MIN_WEIGHT,
+  linkId,
+} from "./graph/types";
 import { useGraphSimulation } from "./graph/useGraphSimulation";
 import { useGraphEffects } from "./graph/useGraphEffects";
 import Legend from "./graph/Legend";
 import SearchBar from "./graph/SearchBar";
 import SettingsPanel from "./graph/SettingsPanel";
 import InfoPanel from "./graph/InfoPanel";
+import { useTheme } from "./ThemeContext";
 
 interface OrgGraphProps {
   chatHighlight?: Set<string> | null;
@@ -15,7 +21,12 @@ interface OrgGraphProps {
   onClearHighlight?: () => void;
 }
 
-export default function OrgGraph({ chatHighlight, onRegisterSelect, onClearHighlight }: OrgGraphProps) {
+export default function OrgGraph({
+  chatHighlight,
+  onRegisterSelect,
+  onClearHighlight,
+}: OrgGraphProps) {
+  const { theme } = useTheme();
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [data, setData] = useState<GraphData | null>(null);
@@ -52,6 +63,7 @@ export default function OrgGraph({ chatHighlight, onRegisterSelect, onClearHighl
     setSelected,
     setHovered,
     clustering,
+    theme,
     onBackgroundClick: onClearHighlight,
   });
 
@@ -66,7 +78,7 @@ export default function OrgGraph({ chatHighlight, onRegisterSelect, onClearHighl
     const matches = data.nodes
       .filter(
         (n) =>
-          n.name.toLowerCase().includes(q) || n.id.toLowerCase().includes(q)
+          n.name.toLowerCase().includes(q) || n.id.toLowerCase().includes(q),
       )
       .map((n) => n.id);
     return new Set(matches);
@@ -93,20 +105,40 @@ export default function OrgGraph({ chatHighlight, onRegisterSelect, onClearHighl
       .sort((a, b) => b.weight - a.weight);
   }, [data, selected, nodeMap, minWeight]);
 
-  useGraphEffects({ gRef, simRef, data, minWeight, selected, searchMatch, chatHighlight: chatHighlight ?? null, showEdges });
+  useGraphEffects({
+    gRef,
+    simRef,
+    data,
+    minWeight,
+    selected,
+    searchMatch,
+    chatHighlight: chatHighlight ?? null,
+    showEdges,
+    theme,
+  });
 
   const selectedNode = data?.nodes.find((n) => n.id === selected);
 
   return (
     <div className="relative w-full h-full">
-      <svg ref={svgRef} className="w-full h-full bg-zinc-900" />
+      <svg
+        ref={svgRef}
+        className={`w-full h-full ${theme === "dark" ? "bg-zinc-900" : "bg-slate-50"}`}
+      />
       <Legend />
       <SearchBar
         search={search}
         setSearch={setSearch}
         matchCount={searchMatch ? searchMatch.size : null}
       />
-      <SettingsPanel minWeight={minWeight} setMinWeight={setMinWeight} showEdges={showEdges} setShowEdges={setShowEdges} clustering={clustering} setClustering={setClustering} />
+      <SettingsPanel
+        minWeight={minWeight}
+        setMinWeight={setMinWeight}
+        showEdges={showEdges}
+        setShowEdges={setShowEdges}
+        clustering={clustering}
+        setClustering={setClustering}
+      />
       {selectedNode && (
         <InfoPanel
           node={selectedNode}

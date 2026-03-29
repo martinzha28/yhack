@@ -1,4 +1,21 @@
-import { Node, RankedConnection, TEAM_COLORS, roleStyle } from "./types";
+"use client";
+
+import { Node, RankedConnection, TEAM_COLORS } from "./types";
+import { useTheme } from "../ThemeContext";
+
+const ROLE_STYLES_DARK: Record<string, { bg: string; text: string }> = {
+  lead: { bg: "bg-indigo-500/20", text: "text-indigo-300" },
+  core: { bg: "bg-emerald-500/20", text: "text-emerald-300" },
+  contributor: { bg: "bg-zinc-600/50", text: "text-zinc-400" },
+  peripheral: { bg: "bg-zinc-700/50", text: "text-zinc-500" },
+};
+
+const ROLE_STYLES_LIGHT: Record<string, { bg: string; text: string }> = {
+  lead: { bg: "bg-indigo-50", text: "text-indigo-600" },
+  core: { bg: "bg-emerald-50", text: "text-emerald-700" },
+  contributor: { bg: "bg-slate-100", text: "text-slate-600" },
+  peripheral: { bg: "bg-slate-50", text: "text-slate-400" },
+};
 
 interface InfoPanelProps {
   node: Node;
@@ -11,6 +28,15 @@ export default function InfoPanel({
   connections,
   onClose,
 }: InfoPanelProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const ROLE_STYLES = isDark ? ROLE_STYLES_DARK : ROLE_STYLES_LIGHT;
+
+  function roleStyle(role: string) {
+    return ROLE_STYLES[role.toLowerCase()] ?? ROLE_STYLES.contributor;
+  }
+
   const projectRoleEntries = node.project_roles
     ? Object.entries(node.project_roles).sort(
         (a, b) => b[1].weight - a[1].weight,
@@ -20,34 +46,52 @@ export default function InfoPanel({
   const hasProjectRoles = projectRoleEntries.length > 0;
 
   return (
-    <div className="absolute top-4 right-4 bg-zinc-800/90 backdrop-blur-sm rounded-xl px-5 py-4 text-sm text-zinc-200 w-76 max-h-[85vh] overflow-y-auto space-y-4 shadow-xl ring-1 ring-white/5">
+    <div
+      className={`absolute top-4 right-4 rounded-xl px-5 py-4 text-sm w-76 max-h-[85vh] overflow-y-auto space-y-4 ${
+        isDark
+          ? "bg-zinc-800/90 backdrop-blur-sm shadow-xl ring-1 ring-white/5 text-zinc-200"
+          : "bg-white border border-slate-200 shadow-lg text-slate-800"
+      }`}
+    >
       {/* ── Header ───────────────────────────────────────────────── */}
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <div className="font-semibold text-base leading-tight">
+          <div
+            className={`font-semibold text-base leading-tight ${isDark ? "text-zinc-100" : "text-slate-900"}`}
+          >
             {node.name}
           </div>
-          <div className="text-zinc-400 text-xs mt-0.5">{node.role}</div>
+          <div
+            className={`text-xs mt-0.5 ${isDark ? "text-zinc-400" : "text-slate-500"}`}
+          >
+            {node.role}
+          </div>
           <div className="flex items-center gap-1.5 mt-1.5">
             <span
               className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-              style={{ backgroundColor: TEAM_COLORS[node.team] || "#6b7280" }}
+              style={{ backgroundColor: TEAM_COLORS[node.team] || "#94a3b8" }}
             />
-            <span className="capitalize text-xs text-zinc-400">
+            <span
+              className={`capitalize text-xs ${isDark ? "text-zinc-400" : "text-slate-500"}`}
+            >
               {node.team}
             </span>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="text-zinc-600 hover:text-zinc-300 transition-colors flex-shrink-0 mt-0.5 cursor-pointer"
+          className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors flex-shrink-0 mt-0.5 cursor-pointer ${
+            isDark
+              ? "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700"
+              : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+          }`}
           aria-label="Close"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
             <path
               d="M1 1l12 12M13 1L1 13"
               stroke="currentColor"
-              strokeWidth="1.5"
+              strokeWidth="2"
               strokeLinecap="round"
             />
           </svg>
@@ -57,8 +101,10 @@ export default function InfoPanel({
       {/* ── Skills summary ───────────────────────────────────────── */}
       {node.skills_summary && (
         <div>
-          <SectionLabel>Skills</SectionLabel>
-          <p className="text-xs text-zinc-300 leading-relaxed mt-1">
+          <SectionLabel isDark={isDark}>Skills</SectionLabel>
+          <p
+            className={`text-xs leading-relaxed mt-1 ${isDark ? "text-zinc-300" : "text-slate-600"}`}
+          >
             {node.skills_summary}
           </p>
         </div>
@@ -67,12 +113,16 @@ export default function InfoPanel({
       {/* ── Expertise chips ──────────────────────────────────────── */}
       {node.expertise.length > 0 && (
         <div>
-          <SectionLabel>Expertise</SectionLabel>
+          <SectionLabel isDark={isDark}>Expertise</SectionLabel>
           <div className="flex flex-wrap gap-1 mt-1">
             {node.expertise.map((e) => (
               <span
                 key={e}
-                className="px-2 py-0.5 bg-zinc-700 rounded text-xs text-zinc-300"
+                className={`px-2 py-0.5 rounded text-xs ${
+                  isDark
+                    ? "bg-zinc-700 text-zinc-300"
+                    : "bg-slate-100 text-slate-700"
+                }`}
               >
                 {e}
               </span>
@@ -84,7 +134,7 @@ export default function InfoPanel({
       {/* ── Projects ─────────────────────────────────────────────── */}
       {hasProjectRoles ? (
         <div>
-          <SectionLabel>Projects</SectionLabel>
+          <SectionLabel isDark={isDark}>Projects</SectionLabel>
           <div className="space-y-2.5 mt-1">
             {projectRoleEntries.map(([projId, { weight, role }]) => {
               const { bg, text } = roleStyle(role);
@@ -92,7 +142,9 @@ export default function InfoPanel({
               return (
                 <div key={projId}>
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="truncate text-xs text-zinc-200 capitalize">
+                    <span
+                      className={`truncate text-xs capitalize ${isDark ? "text-zinc-200" : "text-slate-700"}`}
+                    >
                       {projId.replace(/-/g, " ")}
                     </span>
                     <span
@@ -102,13 +154,17 @@ export default function InfoPanel({
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1 bg-zinc-700 rounded-full overflow-hidden">
+                    <div
+                      className={`flex-1 h-1 rounded-full overflow-hidden ${isDark ? "bg-zinc-700" : "bg-slate-200"}`}
+                    >
                       <div
-                        className="h-full rounded-full bg-zinc-400 transition-all"
+                        className={`h-full rounded-full transition-all ${isDark ? "bg-zinc-400" : "bg-blue-500"}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-[10px] text-zinc-500 tabular-nums w-7 text-right">
+                    <span
+                      className={`text-[10px] tabular-nums w-7 text-right ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+                    >
                       {pct}%
                     </span>
                   </div>
@@ -119,12 +175,16 @@ export default function InfoPanel({
         </div>
       ) : node.projects.length > 0 ? (
         <div>
-          <SectionLabel>Projects</SectionLabel>
+          <SectionLabel isDark={isDark}>Projects</SectionLabel>
           <div className="flex flex-wrap gap-1 mt-1">
             {node.projects.map((p) => (
               <span
                 key={p}
-                className="px-2 py-0.5 bg-zinc-700/70 rounded text-xs text-zinc-300"
+                className={`px-2 py-0.5 rounded text-xs ${
+                  isDark
+                    ? "bg-zinc-700/70 text-zinc-300"
+                    : "bg-slate-100 text-slate-700"
+                }`}
               >
                 {p}
               </span>
@@ -136,8 +196,10 @@ export default function InfoPanel({
       {/* ── Work summary ─────────────────────────────────────────── */}
       {node.work_summary && (
         <div>
-          <SectionLabel>Working With</SectionLabel>
-          <p className="text-xs text-zinc-300 leading-relaxed mt-1">
+          <SectionLabel isDark={isDark}>Working With</SectionLabel>
+          <p
+            className={`text-xs leading-relaxed mt-1 ${isDark ? "text-zinc-300" : "text-slate-600"}`}
+          >
             {node.work_summary}
           </p>
         </div>
@@ -146,19 +208,27 @@ export default function InfoPanel({
       {/* ── Closest collaborators ────────────────────────────────── */}
       {connections.length > 0 && (
         <div>
-          <SectionLabel>Closest collaborators</SectionLabel>
+          <SectionLabel isDark={isDark}>Closest collaborators</SectionLabel>
           <div className="space-y-1.5 mt-1">
             {connections.slice(0, 8).map((c, i) => (
               <div key={c.id} className="flex items-center gap-2">
-                <span className="text-xs text-zinc-600 w-4 text-right tabular-nums">
+                <span
+                  className={`text-xs w-4 text-right tabular-nums ${isDark ? "text-zinc-600" : "text-slate-300"}`}
+                >
                   {i + 1}.
                 </span>
                 <span
                   className="inline-block w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: TEAM_COLORS[c.team] || "#6b7280" }}
+                  style={{ backgroundColor: TEAM_COLORS[c.team] || "#94a3b8" }}
                 />
-                <span className="flex-1 truncate text-zinc-300">{c.name}</span>
-                <span className="text-xs text-zinc-500 tabular-nums">
+                <span
+                  className={`flex-1 truncate ${isDark ? "text-zinc-300" : "text-slate-700"}`}
+                >
+                  {c.name}
+                </span>
+                <span
+                  className={`text-xs tabular-nums ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+                >
                   {(c.weight * 100).toFixed(0)}%
                 </span>
               </div>
@@ -170,9 +240,17 @@ export default function InfoPanel({
   );
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({
+  children,
+  isDark,
+}: {
+  children: React.ReactNode;
+  isDark: boolean;
+}) {
   return (
-    <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest">
+    <div
+      className={`text-[10px] font-semibold uppercase tracking-widest ${isDark ? "text-zinc-500" : "text-slate-400"}`}
+    >
       {children}
     </div>
   );

@@ -6,6 +6,7 @@ import {
   GraphData,
   DEFAULT_MIN_WEIGHT,
   TEAM_COLORS,
+  TEAM_LIGHT_FILL,
   PROJECT_PALETTE,
   nodeId,
   linkId,
@@ -26,12 +27,20 @@ function getHullPath(groupNodes: Node[], pad: number): string {
   return hull ? (hullLine(hull) ?? "") : "";
 }
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  return parts.length >= 2
+    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    : name.slice(0, 2).toUpperCase();
+}
+
 interface UseGraphSimulationOptions {
   data: GraphData | null;
   svgRef: React.RefObject<SVGSVGElement | null>;
   setSelected: React.Dispatch<React.SetStateAction<string | null>>;
   setHovered: React.Dispatch<React.SetStateAction<string | null>>;
   clustering: boolean;
+  theme: "light" | "dark";
   onBackgroundClick?: () => void;
 }
 
@@ -47,6 +56,7 @@ export function useGraphSimulation({
   setSelected,
   setHovered,
   clustering,
+  theme,
   onBackgroundClick,
 }: UseGraphSimulationOptions) {
   const simRef = useRef<d3.Simulation<Node, Link> | null>(null);
@@ -61,6 +71,8 @@ export function useGraphSimulation({
   useEffect(() => {
     if (!data || !svgRef.current) return;
 
+    const isDark = theme === "dark";
+
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
@@ -68,11 +80,19 @@ export function useGraphSimulation({
     const height = svgRef.current.clientHeight;
     const pad = 40;
 
-    const nodes: Node[] = data.nodes.map((d) => ({
-      ...d,
-      x: seedPosition(d.id, width * 0.6, width * 0.2),
-      y: seedPosition(d.id + "_y", height * 0.6, height * 0.2),
-    }));
+    // Preserve positions across rebuilds (e.g. theme toggle)
+    const prevPositions = new Map(
+      nodesRef.current.map((n) => [n.id, { x: n.x, y: n.y }]),
+    );
+
+    const nodes: Node[] = data.nodes.map((d) => {
+      const prev = prevPositions.get(d.id);
+      return {
+        ...d,
+        x: prev?.x ?? seedPosition(d.id, width * 0.6, width * 0.2),
+        y: prev?.y ?? seedPosition(d.id + "_y", height * 0.6, height * 0.2),
+      };
+    });
     nodesRef.current = nodes;
     const allLinks: Link[] = data.links.map((d) => ({ ...d }));
 
@@ -186,7 +206,10 @@ export function useGraphSimulation({
       .attr("x", -width)
       .attr("y", -height)
       .attr("fill", "transparent")
-      .on("click", () => { setSelected(null); onBackgroundClick?.(); });
+      .on("click", () => {
+        setSelected(null);
+        onBackgroundClick?.();
+      });
 
     const margin = 150;
     svg.call(
@@ -221,7 +244,7 @@ export function useGraphSimulation({
       .selectAll<SVGLineElement, Link>("line")
       .data(allLinks, (d) => `${nodeId(d.source)}-${nodeId(d.target)}`)
       .join("line")
-      .attr("stroke", "#999")
+      .attr("stroke", isDark ? "#999" : "#cbd5e1")
       .attr("stroke-opacity", (d) => (d.weight >= DEFAULT_MIN_WEIGHT ? 0.4 : 0))
       .attr("stroke-width", (d) => Math.max(1, d.weight * 4));
 
@@ -267,19 +290,47 @@ export function useGraphSimulation({
         const deg = degree.get(d.id) || 1;
         return 6 + (deg / maxDegree) * 14;
       })
-      .attr("fill", (d) => TEAM_COLORS[d.team] || "#6b7280")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1.5);
+      .attr(
+        "fill",
+        isDark
+          ? (d) => TEAM_COLORS[d.team] || "#6b7280"
+          : (d) => TEAM_LIGHT_FILL[d.team] || "#f8fafc",
+      )
+      .attr(
+        "stroke",
+        isDark ? "#ffffff" : (d) => TEAM_COLORS[d.team] || "#94a3b8",
+      )
+      .attr("stroke-width", isDark ? 1.5 : 2.5);
 
+    // Initials centred inside each circle — light mode only
+    if (!isDark) {
+      node
+        .append("text")
+        .attr("class", "node-initials")
+        .text((d) => getInitials(d.name))
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .attr("fill", (d) => TEAM_COLORS[d.team] || "#64748b")
+        .attr("font-size", (d) => {
+          const deg = degree.get(d.id) || 1;
+          const r = 6 + (deg / maxDegree) * 14;
+          return `${Math.max(7, Math.floor(r * 0.62))}px`;
+        })
+        .attr("font-weight", "700")
+        .attr("pointer-events", "none");
+    }
+
+    // First-name label floating above the circle
     node
       .append("text")
+      .attr("class", "node-label")
       .text((d) => d.name.split(" ")[0])
       .attr("dy", (d) => {
         const deg = degree.get(d.id) || 1;
         return -(8 + (deg / maxDegree) * 14);
       })
       .attr("text-anchor", "middle")
-      .attr("fill", "#e5e7eb")
+      .attr("fill", isDark ? "#e5e7eb" : "#334155")
       .attr("font-size", "11px")
       .attr("pointer-events", "none");
 
@@ -294,23 +345,23 @@ export function useGraphSimulation({
       .append("rect")
       .attr("rx", 6)
       .attr("ry", 6)
-      .attr("fill", "rgba(24,24,27,0.92)")
-      .attr("stroke", "rgba(63,63,70,0.5)");
+      .attr("fill", isDark ? "rgba(24,24,27,0.92)" : "rgba(255,255,255,0.97)")
+      .attr("stroke", isDark ? "rgba(63,63,70,0.5)" : "rgba(203,213,225,0.9)");
 
     const tooltipName = tooltip
       .append("text")
-      .attr("fill", "#e5e7eb")
+      .attr("fill", isDark ? "#e5e7eb" : "#0f172a")
       .attr("font-size", "12px")
       .attr("font-weight", "600");
 
     const tooltipRole = tooltip
       .append("text")
-      .attr("fill", "#a1a1aa")
+      .attr("fill", isDark ? "#a1a1aa" : "#475569")
       .attr("font-size", "11px");
 
     const tooltipTeam = tooltip
       .append("text")
-      .attr("fill", "#71717a")
+      .attr("fill", isDark ? "#71717a" : "#94a3b8")
       .attr("font-size", "10px");
 
     node
@@ -375,7 +426,7 @@ export function useGraphSimulation({
       simulation.stop();
       simRef.current = null;
     };
-  }, [data, clustering, svgRef, setSelected, setHovered]);
+  }, [data, clustering, theme, svgRef, setSelected, setHovered]);
 
   return { gRef, simRef, nodesRef };
 }
