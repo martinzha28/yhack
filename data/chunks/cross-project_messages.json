@@ -1,0 +1,334 @@
+[
+  {
+    "id": "xproj_001",
+    "from": "mike_torres",
+    "to": [
+      "eve_johnson"
+    ],
+    "channel": null,
+    "text": "eve \u2014 the auth-refactor login page is going to need the new Button component from design-system-v2. is the primary button variant stable enough to use? I don't want to build against something that's going to change",
+    "timestamp": "2025-01-16T10:00:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_002",
+    "from": "eve_johnson",
+    "to": [
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "the primary button is locked and published to npm. you can use @bsus/design-system@2.1.0. the secondary and ghost variants are still in progress for design-system-v2 but primary is safe",
+    "timestamp": "2025-01-16T10:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_003",
+    "from": "henry_zhao",
+    "to": [
+      "alice_chen"
+    ],
+    "channel": null,
+    "text": "hey alice \u2014 for mobile-app we need SSO to work on the native login screen. is the auth-refactor going to ship the new OAuth endpoints before our february release? we're blocked on mobile login",
+    "timestamp": "2025-01-17T11:00:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "xproj_004",
+    "from": "alice_chen",
+    "to": [
+      "henry_zhao"
+    ],
+    "channel": null,
+    "text": "the new OAuth2 PKCE flow should be on staging by jan 31. auth-refactor is prioritizing the token endpoint specifically so mobile-app can integrate. I'll ping you when it's ready to test",
+    "timestamp": "2025-01-17T11:20:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_005",
+    "from": "grace_park",
+    "to": [
+      "nina_scott"
+    ],
+    "channel": null,
+    "text": "nina \u2014 I'm building the onboarding wizard for onboarding-redesign and want to use the new form components from design-system-v2. are the Input and Select components ready? don't want to build my own if yours are close",
+    "timestamp": "2025-01-23T14:00:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "xproj_006",
+    "from": "nina_scott",
+    "to": [
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "Input is ready, Select is about a week out for design-system-v2. I'd say use Input now and I'll fast-track Select for you. want me to add the onboarding-redesign use case to our test matrix?",
+    "timestamp": "2025-01-23T14:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_007",
+    "from": "dave_patel",
+    "to": [
+      "alice_chen"
+    ],
+    "channel": null,
+    "text": "heads up \u2014 infra-migration is moving the CI/CD pipeline to GitHub Actions next week. the auth-refactor deploy scripts will break because they reference the old Jenkins paths. can you update them?",
+    "timestamp": "2025-01-24T09:30:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "xproj_008",
+    "from": "alice_chen",
+    "to": [
+      "dave_patel"
+    ],
+    "channel": null,
+    "text": "thanks for the heads up. I'll update the auth-refactor deploy configs this week. can you share the new GitHub Actions workflow template so I can match the infra-migration conventions?",
+    "timestamp": "2025-01-24T09:45:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_009",
+    "from": "quinn_davis",
+    "to": [
+      "henry_zhao"
+    ],
+    "channel": null,
+    "text": "henry \u2014 for onboarding-redesign we want to deep link new users straight into the app tutorial from the welcome email. does mobile-app support deep links to arbitrary screens yet?",
+    "timestamp": "2025-01-28T10:30:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "xproj_010",
+    "from": "henry_zhao",
+    "to": [
+      "quinn_davis"
+    ],
+    "channel": null,
+    "text": "we just shipped deep link support in mobile-app build 47. you can link to any screen using bsus://screen/{screen_id}. I'll send you the docs. what screens does onboarding-redesign need?",
+    "timestamp": "2025-01-28T10:45:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "xproj_011",
+    "from": "iris_wang",
+    "to": [
+      "oscar_lee"
+    ],
+    "channel": null,
+    "text": "oscar \u2014 I'm pulling some of the brand refresh typography specs into design-system-v2. the heading scale from the brand-refresh is perfect but the body font changed since then. should I use the updated brand guidelines or the old brand-refresh ones?",
+    "timestamp": "2025-01-29T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_012",
+    "from": "oscar_lee",
+    "to": [
+      "iris_wang"
+    ],
+    "channel": null,
+    "text": "use the updated brand guidelines \u2014 the brand-refresh body font was Inter but we switched to Geist for design-system-v2. the heading scale from brand-refresh is still good though, keep that",
+    "timestamp": "2025-01-29T11:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_013",
+    "from": "dave_patel",
+    "to": [
+      "bob_kim",
+      "charlie_ross"
+    ],
+    "channel": null,
+    "text": "infra-migration prod cutover is next tuesday. the auth-refactor services are the first things moving to the new cluster. bob \u2014 make sure the db migration rollback script works against the new RDS instance",
+    "timestamp": "2025-02-07T09:00:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "xproj_014",
+    "from": "bob_kim",
+    "to": [
+      "dave_patel"
+    ],
+    "channel": null,
+    "text": "tested the rollback against the new RDS \u2014 works clean. one thing: the infra-migration secrets manager path changed so auth-refactor's connection string env var needs updating. filing a PR now",
+    "timestamp": "2025-02-07T09:30:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_015",
+    "from": "eve_johnson",
+    "to": [
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "grace \u2014 the Checkbox component just shipped in design-system-v2. I know onboarding-redesign has that checklist pattern \u2014 want me to walk you through the API?",
+    "timestamp": "2025-02-10T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_016",
+    "from": "grace_park",
+    "to": [
+      "eve_johnson"
+    ],
+    "channel": null,
+    "text": "yes please! the onboarding-redesign checklist is the main onboarding widget. I was about to build a custom one so perfect timing. can we pair on it tomorrow?",
+    "timestamp": "2025-02-10T11:15:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "xproj_017",
+    "from": "henry_zhao",
+    "to": [
+      "alice_chen"
+    ],
+    "channel": null,
+    "text": "alice \u2014 the mobile-app is getting 401s from the new auth endpoint on staging. are the auth-refactor PKCE changes deployed there yet? our mobile login is completely broken on the latest TestFlight",
+    "timestamp": "2025-02-12T14:00:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "xproj_018",
+    "from": "alice_chen",
+    "to": [
+      "henry_zhao"
+    ],
+    "channel": null,
+    "text": "just checked \u2014 the auth-refactor staging deploy failed because of the infra-migration CI changes. dave is on it. should be back up within the hour. sorry about that",
+    "timestamp": "2025-02-12T14:15:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_019",
+    "from": "mike_torres",
+    "to": [
+      "nina_scott"
+    ],
+    "channel": null,
+    "text": "nina \u2014 the auth-refactor error states need the new Alert component from design-system-v2. is it in storybook yet? we have error, warning, and info variants needed",
+    "timestamp": "2025-02-14T10:00:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_020",
+    "from": "nina_scott",
+    "to": [
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "Alert shipped in design-system-v2 last week with all three variants. here's the storybook link. also fyi the design-system-v2 Toast component is coming next if auth-refactor needs notifications too",
+    "timestamp": "2025-02-14T10:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_021",
+    "from": "quinn_davis",
+    "to": [
+      "priya_mehta"
+    ],
+    "channel": null,
+    "text": "priya \u2014 onboarding-redesign needs the activation metrics that mobile-app is tracking. can ryan share the event schema? we want to track the same funnel events on web so we can compare",
+    "timestamp": "2025-02-18T10:00:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "xproj_022",
+    "from": "priya_mehta",
+    "to": [
+      "quinn_davis"
+    ],
+    "channel": null,
+    "text": "totally \u2014 the mobile-app event schema is documented in confluence. I'll have ryan send you the link. makes sense to align onboarding-redesign web events with what we already have",
+    "timestamp": "2025-02-18T10:20:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "xproj_023",
+    "from": "jordan_kim",
+    "to": [
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "hey grace \u2014 I'm picking up the tooltips for onboarding-redesign. should I use the Tooltip from design-system-v2 or is there a custom one for this project?",
+    "timestamp": "2025-02-20T10:30:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "xproj_024",
+    "from": "grace_park",
+    "to": [
+      "jordan_kim"
+    ],
+    "channel": null,
+    "text": "use the design-system-v2 Tooltip \u2014 it just shipped and has all the positioning logic built in. way better than rolling our own for onboarding-redesign. I'll send you the import path",
+    "timestamp": "2025-02-20T10:45:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "xproj_025",
+    "from": "charlie_ross",
+    "to": [
+      "dave_patel"
+    ],
+    "channel": null,
+    "text": "dave \u2014 the auth-refactor API gateway config needs to change for the infra-migration. the new k8s ingress uses different path rewriting rules. I updated the config but can you verify it matches the infra-migration spec?",
+    "timestamp": "2025-02-24T09:00:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_026",
+    "from": "dave_patel",
+    "to": [
+      "charlie_ross"
+    ],
+    "channel": null,
+    "text": "verified \u2014 the path rewriting looks correct. one thing: infra-migration added a new rate limiter at the ingress level that auth-refactor should be aware of. 100 req/s per client. I updated the docs",
+    "timestamp": "2025-02-24T09:20:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "xproj_027",
+    "from": "karen_wu",
+    "to": [
+      "mike_torres",
+      "alice_chen"
+    ],
+    "channel": null,
+    "text": "reviewed the auth-refactor token signing changes \u2014 looks solid but one concern: if design-system-v2 ships the SSO login widget before we rotate the signing keys, users could hit a brief auth failure. let's coordinate the rollout",
+    "timestamp": "2025-03-03T11:00:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "xproj_028",
+    "from": "frank_li",
+    "to": [
+      "eve_johnson"
+    ],
+    "channel": null,
+    "text": "eve \u2014 the mobile-app React Native bundle is huge partly because we're vendoring old UI components. any chance design-system-v2 will have a React Native compatible package? would love to share components",
+    "timestamp": "2025-03-05T14:00:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "xproj_029",
+    "from": "eve_johnson",
+    "to": [
+      "frank_li"
+    ],
+    "channel": null,
+    "text": "we've been discussing a React Native layer for design-system-v2 but it's not on the roadmap yet. for now mobile-app should keep using the vendored components. I'll flag it for the design-system-v2 Q2 planning",
+    "timestamp": "2025-03-05T14:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "xproj_030",
+    "from": "jordan_kim",
+    "to": [
+      "quinn_davis"
+    ],
+    "channel": null,
+    "text": "quinn \u2014 I finished the tooltip implementation for onboarding-redesign using the design-system-v2 component. also noticed the mobile-app has a similar onboarding flow \u2014 should we sync with henry to keep them consistent?",
+    "timestamp": "2025-03-10T10:00:00Z",
+    "project": "onboarding-redesign"
+  }
+]

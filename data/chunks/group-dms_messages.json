@@ -1,0 +1,490 @@
+[
+  {
+    "id": "grp_001",
+    "from": "alice_chen",
+    "to": [
+      "bob_kim",
+      "charlie_ross",
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "morning all \u2014 quick standup. I finished the token rotation logic yesterday, PR is up. bob can you take a look when you get a chance?",
+    "timestamp": "2025-01-13T09:15:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_002",
+    "from": "bob_kim",
+    "to": [
+      "alice_chen",
+      "charlie_ross",
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "will review after lunch. on my end, the session_tokens table migration is ready but I'm blocked on charlie's middleware changes \u2014 need to know the new column shape before I finalize",
+    "timestamp": "2025-01-13T09:18:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_003",
+    "from": "charlie_ross",
+    "to": [
+      "alice_chen",
+      "bob_kim",
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "sorry about that, the middleware refactor took longer than expected. I'll push the branch today so you can see the schema. should unblock you by EOD",
+    "timestamp": "2025-01-13T09:22:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_004",
+    "from": "mike_torres",
+    "to": [
+      "alice_chen",
+      "bob_kim",
+      "charlie_ross"
+    ],
+    "channel": null,
+    "text": "sounds good. also heads up \u2014 I talked to eve and the login page frontend is going to need the new auth endpoints by jan 27. let's make sure we're on track for that",
+    "timestamp": "2025-01-13T09:25:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_005",
+    "from": "alice_chen",
+    "to": [
+      "bob_kim",
+      "charlie_ross",
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "standup \u2014 token rotation PR merged. working on refresh token invalidation now. charlie how's the middleware looking?",
+    "timestamp": "2025-01-27T09:12:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_006",
+    "from": "charlie_ross",
+    "to": [
+      "alice_chen",
+      "bob_kim",
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "middleware is done and merged. one thing \u2014 I found a race condition in the session cleanup job. filed a ticket, will fix this sprint",
+    "timestamp": "2025-01-27T09:16:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_007",
+    "from": "mike_torres",
+    "to": [
+      "alice_chen",
+      "bob_kim",
+      "charlie_ross"
+    ],
+    "channel": null,
+    "text": "nice work team. the race condition is P1 \u2014 let's not ship to staging until that's patched. bob where are we on the db migration?",
+    "timestamp": "2025-01-27T09:20:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_008",
+    "from": "bob_kim",
+    "to": [
+      "alice_chen",
+      "charlie_ross",
+      "mike_torres"
+    ],
+    "channel": null,
+    "text": "migration is merged and tested locally. I added a rollback script just in case. ready to run it on staging whenever charlie's fix is in",
+    "timestamp": "2025-01-27T09:24:00Z",
+    "project": "auth-refactor"
+  },
+  {
+    "id": "grp_009",
+    "from": "eve_johnson",
+    "to": [
+      "nina_scott",
+      "iris_wang"
+    ],
+    "channel": null,
+    "text": "hey \u2014 sync on design-system-v2. I updated the button component to use the new semantic color tokens. nina can you check the Figma source of truth matches what I've got in code?",
+    "timestamp": "2025-01-14T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_010",
+    "from": "nina_scott",
+    "to": [
+      "eve_johnson",
+      "iris_wang"
+    ],
+    "channel": null,
+    "text": "yeah I'll cross-reference this afternoon. iris \u2014 did the updated color palette get finalized? I saw some comments on the Figma file from oscar",
+    "timestamp": "2025-01-14T10:05:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_011",
+    "from": "iris_wang",
+    "to": [
+      "eve_johnson",
+      "nina_scott"
+    ],
+    "channel": null,
+    "text": "oscar approved the final palette yesterday. the semantic tokens are locked \u2014 I'll update the Figma library today and tag you both when it's published",
+    "timestamp": "2025-01-14T10:10:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_012",
+    "from": "nina_scott",
+    "to": [
+      "eve_johnson",
+      "iris_wang"
+    ],
+    "channel": null,
+    "text": "update: cross-referenced eve's code tokens against Figma. found 3 mismatches in the neutral scale \u2014 sending a list now. should be quick fixes",
+    "timestamp": "2025-01-22T14:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_013",
+    "from": "eve_johnson",
+    "to": [
+      "nina_scott",
+      "iris_wang"
+    ],
+    "channel": null,
+    "text": "fixed the mismatches and pushed. also added dark mode variants for all button states. nina can you do another pass when you get a sec?",
+    "timestamp": "2025-01-28T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_014",
+    "from": "iris_wang",
+    "to": [
+      "eve_johnson",
+      "nina_scott"
+    ],
+    "channel": null,
+    "text": "the dark mode tokens look great in Figma. one note \u2014 the disabled state contrast ratio might not pass WCAG AA. can we bump the opacity?",
+    "timestamp": "2025-02-04T09:45:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_015",
+    "from": "eve_johnson",
+    "to": [
+      "nina_scott",
+      "iris_wang"
+    ],
+    "channel": null,
+    "text": "good catch \u2014 bumped disabled opacity from 0.3 to 0.45, now passes AA. pushed to storybook, link in the PR. also started on the input component handoff \u2014 iris can you queue up the specs?",
+    "timestamp": "2025-02-10T10:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "grp_016",
+    "from": "henry_zhao",
+    "to": [
+      "frank_li",
+      "priya_mehta"
+    ],
+    "channel": null,
+    "text": "morning standup \u2014 I got the push notification module working on iOS. TestFlight build 47 is up. frank how's the android side?",
+    "timestamp": "2025-01-15T09:30:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_017",
+    "from": "frank_li",
+    "to": [
+      "henry_zhao",
+      "priya_mehta"
+    ],
+    "channel": null,
+    "text": "android push is working but the bundle size increased by 800KB. profiling it now \u2014 think it's the notification library pulling in a huge dependency. might need to swap it",
+    "timestamp": "2025-01-15T09:34:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_018",
+    "from": "priya_mehta",
+    "to": [
+      "henry_zhao",
+      "frank_li"
+    ],
+    "channel": null,
+    "text": "how critical is the bundle size issue? we need to ship the TestFlight to stakeholders by friday. can we punt the optimization to next sprint?",
+    "timestamp": "2025-01-15T09:38:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_019",
+    "from": "frank_li",
+    "to": [
+      "henry_zhao",
+      "priya_mehta"
+    ],
+    "channel": null,
+    "text": "yeah we can ship with it for now. I'll file a ticket. unrelated \u2014 henry, the deep link handler is crashing on cold starts. can you look at it?",
+    "timestamp": "2025-01-15T09:42:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_020",
+    "from": "henry_zhao",
+    "to": [
+      "frank_li",
+      "priya_mehta"
+    ],
+    "channel": null,
+    "text": "TestFlight build 52 is up with deep link fix and the latest onboarding screens from design. priya can you get stakeholder feedback by wednesday?",
+    "timestamp": "2025-02-05T09:30:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_021",
+    "from": "priya_mehta",
+    "to": [
+      "henry_zhao",
+      "frank_li"
+    ],
+    "channel": null,
+    "text": "stakeholders loved the new onboarding screens. one ask: can we add activation metrics tracking to the welcome flow? ryan's setting up the events, just need the hooks in the app",
+    "timestamp": "2025-02-12T10:15:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_022",
+    "from": "henry_zhao",
+    "to": [
+      "frank_li",
+      "priya_mehta"
+    ],
+    "channel": null,
+    "text": "added the event hooks and verified with ryan's dashboard. we're tracking first_open, onboarding_complete, and first_action. build 58 going up now",
+    "timestamp": "2025-02-26T09:30:00Z",
+    "project": "mobile-app"
+  },
+  {
+    "id": "grp_023",
+    "from": "dave_patel",
+    "to": [
+      "charlie_ross",
+      "bob_kim"
+    ],
+    "channel": null,
+    "text": "war room update \u2014 the terraform plan for the new EKS cluster looks clean. charlie can you review the load balancer config before I apply?",
+    "timestamp": "2025-01-20T11:00:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "grp_024",
+    "from": "charlie_ross",
+    "to": [
+      "dave_patel",
+      "bob_kim"
+    ],
+    "channel": null,
+    "text": "reviewed \u2014 looks good but the health check path is wrong for the auth service. should be /healthz not /health. also bob, the RDS instance type might be undersized for prod traffic",
+    "timestamp": "2025-01-20T11:15:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "grp_025",
+    "from": "bob_kim",
+    "to": [
+      "dave_patel",
+      "charlie_ross"
+    ],
+    "channel": null,
+    "text": "good call on the RDS sizing. I ran the numbers \u2014 we need at least db.r6g.xlarge for the connection pool we're planning. I'll update the terraform and re-plan",
+    "timestamp": "2025-01-20T11:25:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "grp_026",
+    "from": "dave_patel",
+    "to": [
+      "charlie_ross",
+      "bob_kim"
+    ],
+    "channel": null,
+    "text": "staging migration went smooth last night. zero downtime, all health checks green. planning prod migration for next tuesday \u2014 bob can you be on call?",
+    "timestamp": "2025-02-06T09:00:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "grp_027",
+    "from": "bob_kim",
+    "to": [
+      "dave_patel",
+      "charlie_ross"
+    ],
+    "channel": null,
+    "text": "I'm on call. one concern \u2014 the secrets rotation isn't automated yet on the new cluster. if something goes wrong we'd need to manually rotate. dave can we get that in before prod?",
+    "timestamp": "2025-02-06T09:10:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "grp_028",
+    "from": "dave_patel",
+    "to": [
+      "charlie_ross",
+      "bob_kim"
+    ],
+    "channel": null,
+    "text": "automated secrets rotation is in. also set up Datadog monitors for pod restarts and memory pressure. we're good for tuesday. let's do a dry run monday afternoon",
+    "timestamp": "2025-02-10T14:00:00Z",
+    "project": "infra-migration"
+  },
+  {
+    "id": "grp_029",
+    "from": "quinn_davis",
+    "to": [
+      "jack_brown",
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "hey team \u2014 let's sync on the onboarding wireframes. jack, how's the updated flow looking after the user research sessions?",
+    "timestamp": "2025-01-21T10:00:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "grp_030",
+    "from": "jack_brown",
+    "to": [
+      "quinn_davis",
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "the wireframes are updated based on the research findings. biggest change: we're adding a progressive disclosure pattern instead of the long form. users were dropping off at step 3",
+    "timestamp": "2025-01-21T10:08:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "grp_031",
+    "from": "grace_park",
+    "to": [
+      "quinn_davis",
+      "jack_brown"
+    ],
+    "channel": null,
+    "text": "I like the progressive disclosure approach. I can start building the wizard component \u2014 jack can you share the final wireframes in Figma so I know the exact steps?",
+    "timestamp": "2025-01-21T10:15:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "grp_032",
+    "from": "quinn_davis",
+    "to": [
+      "jack_brown",
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "also sofia wants us to track drop-off rate at each step of the new wizard. grace can you add analytics hooks? I'll get ryan to set up the dashboard",
+    "timestamp": "2025-02-03T10:00:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "grp_033",
+    "from": "grace_park",
+    "to": [
+      "quinn_davis",
+      "jack_brown"
+    ],
+    "channel": null,
+    "text": "analytics hooks are in. also I noticed the empty state illustrations jack designed are really nice \u2014 can we use them in the mobile app onboarding too?",
+    "timestamp": "2025-02-11T14:20:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "grp_034",
+    "from": "jack_brown",
+    "to": [
+      "quinn_davis",
+      "grace_park"
+    ],
+    "channel": null,
+    "text": "thanks! yeah the illustrations are in a shared Figma library so mobile can use them. I'll let henry know. also \u2014 quinn, jordan asked me about the onboarding spec, should I walk them through it?",
+    "timestamp": "2025-02-11T14:30:00Z",
+    "project": "onboarding-redesign"
+  },
+  {
+    "id": "grp_035",
+    "from": "mike_torres",
+    "to": [
+      "sofia_martinez",
+      "oscar_lee"
+    ],
+    "channel": null,
+    "text": "leadership sync \u2014 wanted to flag a resourcing concern. eve is split between auth-refactor and design-system-v2 and both are hitting crunch time in february. can we get any frontend help?",
+    "timestamp": "2025-01-22T15:00:00Z",
+    "project": null
+  },
+  {
+    "id": "grp_036",
+    "from": "sofia_martinez",
+    "to": [
+      "mike_torres",
+      "oscar_lee"
+    ],
+    "channel": null,
+    "text": "I hear you. grace is split too between design-system and onboarding. oscar, is there any way to offload some of the design-system-v2 work to lisa or jack?",
+    "timestamp": "2025-01-22T15:05:00Z",
+    "project": null
+  },
+  {
+    "id": "grp_037",
+    "from": "oscar_lee",
+    "to": [
+      "mike_torres",
+      "sofia_martinez"
+    ],
+    "channel": null,
+    "text": "lisa can take over the motion specs \u2014 she's been ramping up on the animation tokens. that should free up nina to focus on the Figma-to-code pipeline. would that help eve?",
+    "timestamp": "2025-01-22T15:10:00Z",
+    "project": null
+  },
+  {
+    "id": "grp_038",
+    "from": "mike_torres",
+    "to": [
+      "sofia_martinez",
+      "oscar_lee"
+    ],
+    "channel": null,
+    "text": "that helps a lot. also \u2014 the auth-refactor is going to affect the infra-migration timeline since dave needs the new auth endpoints for the k8s service mesh. we should align on the dependency",
+    "timestamp": "2025-02-05T15:00:00Z",
+    "project": null
+  },
+  {
+    "id": "grp_039",
+    "from": "sofia_martinez",
+    "to": [
+      "mike_torres",
+      "oscar_lee"
+    ],
+    "channel": null,
+    "text": "good call. I'll set up a meeting with dave and alice to map out the dependency chain. oscar \u2014 how's the design-system-v2 timeline looking? on track for march?",
+    "timestamp": "2025-02-05T15:08:00Z",
+    "project": null
+  },
+  {
+    "id": "grp_040",
+    "from": "oscar_lee",
+    "to": [
+      "mike_torres",
+      "sofia_martinez"
+    ],
+    "channel": null,
+    "text": "march is tight but doable. the component library is 70% done, biggest risk is the accessibility audit. I'm pulling iris onto the audit full-time next week. we'll know by end of feb if we're slipping",
+    "timestamp": "2025-02-05T15:15:00Z",
+    "project": null
+  }
+]

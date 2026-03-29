@@ -1,0 +1,452 @@
+[
+  {
+    "id": "brand_001",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "kicking off brand-refresh officially this week. our visual identity hasn't been touched in four years and it shows — the logo feels dated, the color palette is inconsistent across surfaces, and we don't have a real typography system. iris is going to lead the visual identity exploration, lisa will handle motion and animation direction, and I'll be reviewing brand direction at each milestone. priya is coordinating the launch timeline with marketing. let's make this one count.",
+    "timestamp": "2024-10-01T09:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_002",
+    "from": "priya_mehta",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "oscar, I've drafted the brand launch timeline — targeting late November for the full rollout including the marketing site, updated brand assets, and the brand book. does that give you enough runway for the design exploration phase? I was thinking 3 weeks for exploration, 2 weeks for iteration, then 3 weeks for implementation.",
+    "timestamp": "2024-10-01T10:15:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_003",
+    "from": "oscar_lee",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "that's tight but doable. the logo redesign is the critical path — everything else (color palette, typography system, brand book) cascades from the logo direction. if we lock the logo concept by Oct 18 we should be fine. I'll have iris present 3 directions by end of next week.",
+    "timestamp": "2024-10-01T10:32:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_004",
+    "from": "iris_wang",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "started moodboarding for the logo redesign. I'm exploring three directions: 1) geometric/minimal — clean wordmark with a custom ligature, 2) abstract mark + wordmark combo — something ownable as an icon, 3) evolution of the current logo with modernized proportions. I'll have rough concepts in the Figma brand file by Friday. any strong preference?",
+    "timestamp": "2024-10-02T09:45:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_005",
+    "from": "oscar_lee",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "I'd lean toward option 2 — we need something that works as a favicon and app icon, not just a wordmark. but explore all three, I want to see them side by side. make sure you test each at small sizes (16px, 32px, 64px) and in both light and dark contexts.",
+    "timestamp": "2024-10-02T10:05:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_006",
+    "from": "iris_wang",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "lisa, as I'm working on the logo directions I'm already thinking about how each one could animate. direction 2 (abstract mark) has the most potential for motion — the mark could have a reveal animation for loading states, page transitions, etc. can you start thinking about motion principles that would work across all three directions? things like easing curves, duration ranges, entrance patterns.",
+    "timestamp": "2024-10-03T11:20:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_007",
+    "from": "lisa_chen",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "already on it. I'm drafting a motion principles doc — basically the motion chapter of the brand book. thinking: ease-out for entrances (elements arriving), ease-in-out for transitions (state changes), spring physics for interactive feedback. durations between 200-500ms depending on distance traveled. I'll tie the animation curves to the brand personality once we lock the visual direction.",
+    "timestamp": "2024-10-03T14:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_008",
+    "from": "priya_mehta",
+    "to": ["all"],
+    "channel": "general",
+    "text": "quick update on brand-refresh: we're in the exploration phase this month. @oscar_lee and @iris_wang are developing logo and visual identity directions, and we'll be sharing concepts with the wider team mid-October for feedback. the marketing site refresh will follow once the brand direction is locked. target launch is end of November.",
+    "timestamp": "2024-10-04T09:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_009",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "uploaded three logo directions to the Figma brand file — page \"Logo Exploration v1\". direction A is the geometric wordmark, B is the abstract mark + wordmark, C is the evolved current logo. each one is shown at multiple sizes and on light/dark backgrounds. would love everyone's gut reactions before I present to oscar on Monday.",
+    "timestamp": "2024-10-08T16:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_010",
+    "from": "jack_brown",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "looked at the Figma brand file — direction B is the strongest by far. the abstract mark has personality and it scales down cleanly. direction A feels too generic, could be any SaaS company. C is too close to what we have now.",
+    "timestamp": "2024-10-09T09:40:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_011",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "from an implementation perspective, direction B is also my favorite. the abstract mark is simple enough to inline as SVG without a performance hit, and it'll work great as a favicon. direction A's custom ligature would be tricky to render consistently across font rendering engines.",
+    "timestamp": "2024-10-09T10:15:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_012",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "we're going with direction B for the logo — the abstract mark + wordmark. iris nailed the exploration. next step: iris will refine the mark, define the color palette (primary, secondary, neutrals, semantic colors), and build out the typography system. the brand book will document all of this. aiming to lock the full visual identity by Oct 25.",
+    "timestamp": "2024-10-11T10:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_013",
+    "from": "iris_wang",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "starting on the color palette today. proposing a deep navy primary (#0A1628) with a vibrant teal accent (#00C2B2) — it's modern, has great contrast ratios for accessibility, and works on both light and dark backgrounds. I'll build out the full palette with tints, shades, and semantic mappings in the Figma brand file.",
+    "timestamp": "2024-10-14T09:20:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_014",
+    "from": "oscar_lee",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "love the navy + teal direction. make sure we have enough warm neutrals too — pure grays can feel cold. also start thinking about the typography system. we need a heading face, a body face, and a mono face for code blocks. I want something that feels premium but not pretentious.",
+    "timestamp": "2024-10-14T10:05:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_015",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "nina, for the typography system I'm looking at Inter for body (we already use it, and it's excellent at small sizes), plus a display face for headings. considering Satoshi or General Sans — both have nice geometric character without being too cold. do you have any strong opinions from a web performance perspective? I want to keep font file sizes reasonable.",
+    "timestamp": "2024-10-15T11:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_016",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "Inter is great, zero additional cost since most visitors already have it cached. for the display face, Satoshi is ~120KB for regular + bold which is fine if we subset it. General Sans is heavier. I'd go Satoshi. we can use font-display: swap and preload the woff2 files to avoid layout shift — that'll keep our CLS score clean.",
+    "timestamp": "2024-10-15T11:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_017",
+    "from": "lisa_chen",
+    "to": ["oscar_lee", "iris_wang"],
+    "channel": null,
+    "text": "finished the first draft of the hero animation concept. it's the abstract mark assembling itself from geometric fragments — 1.2 second duration, ease-out on the final settle. I think this could be the centerpiece of the marketing site landing page. uploaded the After Effects comp to the Figma brand file as an embedded video.",
+    "timestamp": "2024-10-16T14:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_018",
+    "from": "oscar_lee",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "this is gorgeous. the assembly metaphor is perfect — it tells the story of building something. two notes: 1) can we make the fragments use the new teal accent color before they settle into the final navy? creates a nice color journey. 2) can you also explore a shorter version (400ms) for in-app micro-interactions?",
+    "timestamp": "2024-10-16T15:10:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_019",
+    "from": "lisa_chen",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "great calls, on both. the teal-to-navy color shift will add depth. I'll do a looping 400ms version too.",
+    "timestamp": "2024-10-16T15:25:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_020",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "full visual identity is up in the Figma brand file — color palette (primary, accent, neutrals, semantic), typography system (Satoshi for display, Inter for body, JetBrains Mono for code), logo usage guidelines, and spacing/grid system. please take a look and flag anything before I start compiling the brand book.",
+    "timestamp": "2024-10-22T09:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_021",
+    "from": "priya_mehta",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "the visual identity looks great. I've been working on the tone of voice section for the brand book — our writing should feel confident but approachable, technical but not jargony. I'll send you the draft today. also, marketing wants to know when they can start updating social media templates with the new brand assets.",
+    "timestamp": "2024-10-22T10:45:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_022",
+    "from": "oscar_lee",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "tell marketing they can start prepping templates after Oct 28 — that's when the brand assets will be final. I want one more round of refinement on the color palette tints before we declare it done. and yes, please send the tone of voice draft, that's an important part of the brand book.",
+    "timestamp": "2024-10-22T11:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_023",
+    "from": "nina_scott",
+    "to": ["frank_li"],
+    "channel": null,
+    "text": "frank, the brand identity is almost locked. I'm going to start scaffolding the marketing site rebuild next week using Next.js. I'll need your help with performance optimization once we start adding the hero animation and image-heavy sections. can you take a look at our current lighthouse score as a baseline? I want to make sure we don't regress.",
+    "timestamp": "2024-10-23T09:15:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_024",
+    "from": "frank_li",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "ran lighthouse on the current marketing site — we're at 72 performance, 85 accessibility. biggest issues are unoptimized images and render-blocking CSS. for the rebuild I can set up next/image with automatic WebP conversion, lazy loading below the fold, and critical CSS inlining. should get us to 90+ pretty easily before we even add the new content.",
+    "timestamp": "2024-10-23T10:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_025",
+    "from": "iris_wang",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "brand book first draft is done — 34 pages covering logo usage, color palette, typography system, photography style, iconography, motion principles (lisa's section), tone of voice (priya's section), and example applications. uploaded the PDF to the brand-refresh shared drive. let me know what needs revision.",
+    "timestamp": "2024-10-25T15:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_026",
+    "from": "oscar_lee",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "incredible work. read through the whole thing — only substantive feedback is the logo clear space section needs minimum padding specs in both px and percentage terms. everything else is solid. let's finalize this Monday and start distributing brand assets to the team.",
+    "timestamp": "2024-10-25T16:45:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_027",
+    "from": "priya_mehta",
+    "to": ["all"],
+    "channel": "general",
+    "text": "brand-refresh update: the visual identity is finalized and the brand book is nearly complete. @nina_scott and @frank_li are starting on the marketing site rebuild this week. we're on track for a late November launch. the new brand assets will be shared with everyone by Monday — please start using them in any external-facing materials.",
+    "timestamp": "2024-10-28T09:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_028",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "starting the marketing site implementation today using the new brand identity. I've set up the Next.js project with the Satoshi + Inter font stack, the full color palette as CSS custom properties, and the responsive grid from the brand book. frank is handling image optimization and performance. if anyone on frontend wants to help with the landing page sections, let me know.",
+    "timestamp": "2024-10-28T10:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_029",
+    "from": "nina_scott",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "lisa, I need the hero animation exported as a Lottie file so I can embed it on the landing page. the After Effects comp looks amazing but we can't ship a video — Lottie will give us vector quality at a fraction of the file size and it'll be interactive. can you export it by Wednesday?",
+    "timestamp": "2024-10-29T09:45:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_030",
+    "from": "lisa_chen",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "sure, I'll use the Bodymovin plugin to export to Lottie. one thing — the color transition effect uses some After Effects expressions that don't translate perfectly to Lottie. I might need to simplify the teal-to-navy gradient shift. I'll send you a test export tomorrow so you can check the fidelity.",
+    "timestamp": "2024-10-29T10:20:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_031",
+    "from": "frank_li",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "set up the image pipeline for the marketing site — next/image with sharp for WebP/AVIF generation, blur placeholders for above-the-fold images, and lazy loading for everything below. also added resource hints (preconnect, prefetch) for the font files. current lighthouse score on the empty shell is 98. let's try to stay above 90 as we add content.",
+    "timestamp": "2024-10-30T11:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_032",
+    "from": "nina_scott",
+    "to": ["frank_li"],
+    "channel": null,
+    "text": "98, nice. the hero section is going to be the biggest perf risk — it has the Lottie animation, a large headline in Satoshi, and a full-bleed background. I'm going to lazy-load the Lottie player and use a static SVG as the initial paint so we don't blow up LCP.",
+    "timestamp": "2024-10-30T11:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_033",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "nina, I finalized all the brand assets for the marketing site — hero images, feature illustrations, team photos with the new treatment. everything is in the Figma brand file under \"Marketing Site Assets\" with export specs. let me know if you need anything re-exported at different sizes.",
+    "timestamp": "2024-11-01T09:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_034",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "perfect, grabbed them all. the illustrations are beautiful. quick question — the feature section illustrations are at 2x resolution, should I also generate 1x and 3x variants or is 2x enough for the srcset?",
+    "timestamp": "2024-11-01T10:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_035",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "2x should be enough for the illustrations since they're vector-based and scale cleanly. for the team photos, 1x and 2x variants would be good — those are raster so they'll look soft on retina if you only serve 1x.",
+    "timestamp": "2024-11-01T10:15:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_036",
+    "from": "priya_mehta",
+    "to": ["nina_scott", "frank_li"],
+    "channel": null,
+    "text": "marketing wants to review the landing page copy in context before we go live. can you get the landing page to a state where they can see the new brand identity with real copy by Nov 8? doesn't need to be pixel-perfect, just enough to evaluate the marketing copy against the visual design.",
+    "timestamp": "2024-11-04T09:15:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_037",
+    "from": "nina_scott",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "yeah, we can have the landing page in a reviewable state by then. hero section is already working with the Lottie animation, just need to drop in the final marketing copy and wire up the feature sections. I'll send you a staging link by Thursday.",
+    "timestamp": "2024-11-04T09:40:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_038",
+    "from": "lisa_chen",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "Lottie export is done — the hero animation is 47KB which is great. the teal-to-navy color shift had to be simplified slightly but it still reads well. also made a 400ms looping version of just the mark for loading states. both files are in the shared drive.",
+    "timestamp": "2024-11-05T10:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_039",
+    "from": "nina_scott",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "47KB is perfect. just dropped it into the hero section and it looks incredible — the animation triggers on scroll into viewport and plays once. the loading state version is a nice touch, I'll add that to the page transition component.",
+    "timestamp": "2024-11-05T14:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_040",
+    "from": "frank_li",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "marketing site rebuild is looking good performance-wise. with all the brand-refresh content loaded (hero animation, illustrations, team photos), we're at 94 lighthouse performance. LCP is 1.8s which is well within the \"good\" threshold. main CLS issue was the Satoshi font swap causing a layout shift — fixed it by setting explicit font-size-adjust and using a fallback with matched metrics.",
+    "timestamp": "2024-11-07T14:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_041",
+    "from": "nina_scott",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "staging link is live: staging.bsus.dev/brand-refresh. the landing page has the hero animation, feature sections with the new illustrations, the team section, and the footer with updated brand assets. marketing copy is placeholder in a few spots — can you get the final copy from the marketing team and drop it in the CMS?",
+    "timestamp": "2024-11-08T09:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_042",
+    "from": "priya_mehta",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "this looks amazing, great work. shared the staging link with marketing, they love it. they'll have final copy by Monday. one piece of feedback: can we make the CTA buttons use the teal accent color instead of navy? they feel like they disappear into the dark hero section.",
+    "timestamp": "2024-11-08T15:45:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_043",
+    "from": "nina_scott",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "good catch, swapped the CTAs to teal. much better contrast against the navy hero.",
+    "timestamp": "2024-11-11T09:15:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_044",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "the brand book is finalized — 38 pages, PDF and interactive Figma version. covers logo, color palette, typography system, motion graphics principles, tone of voice, photography, iconography, and example applications. iris, lisa, and priya all contributed sections. this is now the single source of truth for the Bsus visual identity. link in the pinned messages.",
+    "timestamp": "2024-11-13T10:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_045",
+    "from": "mike_torres",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "oscar, the brand book is really well done. quick question — for internal tools and admin dashboards, should we use the full brand palette or is there a simplified internal-use subset? don't want to over-design things that only employees see.",
+    "timestamp": "2024-11-14T11:30:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_046",
+    "from": "oscar_lee",
+    "to": ["mike_torres"],
+    "channel": null,
+    "text": "good question. for internal tools, just use the neutral palette + the primary navy for key actions. no need for the full accent palette or the display typography. the brand book has an \"internal applications\" section on page 34 with guidelines.",
+    "timestamp": "2024-11-14T11:50:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_047",
+    "from": "frank_li",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "final lighthouse scores on the production build: performance 96, accessibility 98, best practices 100, SEO 100. LCP at 1.4s, CLS at 0.01. we're in great shape for launch. the biggest win was the Lottie lazy loading strategy — saved 200ms on initial paint.",
+    "timestamp": "2024-11-20T14:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_048",
+    "from": "nina_scott",
+    "to": ["frank_li"],
+    "channel": null,
+    "text": "those numbers are incredible. nice work on the performance side. let's ship it.",
+    "timestamp": "2024-11-20T14:20:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_049",
+    "from": "priya_mehta",
+    "to": ["all"],
+    "channel": "general",
+    "text": "the new Bsus brand is officially live! the marketing site has been updated with the new visual identity, and the brand book is available for everyone. huge thanks to @iris_wang for the beautiful visual identity, @lisa_chen for the stunning motion graphics, @oscar_lee for guiding the brand direction, @nina_scott and @frank_li for the incredible marketing site rebuild. brand-refresh is done!",
+    "timestamp": "2024-11-25T10:00:00Z",
+    "project": "brand-refresh"
+  },
+  {
+    "id": "brand_050",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "huge shoutout to the entire brand-refresh team. the new visual identity is a massive upgrade — from the logo redesign to the color palette, typography system, motion graphics, and the marketing site. the brand book is our north star going forward. iris, lisa, nina, frank, priya — you all crushed it. this is the foundation everything we build from here will sit on.",
+    "timestamp": "2024-11-26T09:30:00Z",
+    "project": "brand-refresh"
+  }
+]

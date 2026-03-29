@@ -1,0 +1,840 @@
+We need to parse all messages and identify distinct projects or work streams based on clusters of technical vocab. Then assign each message to a project or null.
+
+Projects we can see:
+
+- billing-v2: usage-based billing revamp, new invoice_items table, Stripe integration, usage tracking pipeline, auth service? Not auth but billing. Occurs Sep 2 - Sep 30, then later mentioned? Later mentions billing-service in infra-migration stage? Not directly later after March 28 maybe. There's mention of infra-migration re-deploying billing-service after moving to EKS in Feb. That's part of infra migration, not billing as a feature. However could be considered historical after March 28? The billing feature was shipped Oct 21, so after that it's still active but is that a continuation? But we should treat "billing-v2" as an active project up to its launch Oct 21. Then after that maybe not considered a separate work stream unless new work around billing continues. But there are messages about using Stripe, usage tracking etc that are all part of billing-v2. By March 2025, it's still being used, but no active new work.
+
+- platform-api: a public REST API and developer portal. Kicks off Nov 4, continues with design and deployment, then shipped Dec 18. Still active beyond? In Feb 2025 talk about platform-api at infra-migration: but they are moving it to EKS; it's not a new project but a migration. It remains in service. Could be considered still active as a product feature? But work is done.
+
+- auth-refactor: a work to rebuild authentication flow with PKCE, token rotation, etc. Kicks off Jan 6 through Jan 30. Then March 28 mentions auth-service is live on EKS (part of infra-migration). Auth-refactor is likely completed by Feb 28.
+
+- design-system-v2: a component library and token system for design system (Button, Typography, etc). Kicks off Jan 6, continues with token definitions, component shipments finishing March 17. Possibly remains active (maintenance). Still present, but new work perhaps still happening? The messages after March 17 show they are planning next phase and discussing React Native integration; still active.
+
+- onboarding-redesign: a new first-time user experience redesign, started March 3, active with work on wizard, checklist, tooltip, empty states, rollout March 24. Ongoing?
+
+- infra-migration: moving from EC2 to AWS EKS, includes Terraform, helm, CI/CD changes, secret rotation, deployment strategies. Starts Jan 6 and continues through March 28, fully completed March 28. Likely historical after decommission.
+
+- brand-refresh: visual brand identity redesign, early Oct 1 onward. Completed November 25 with final launch. That's historical (done). There's "brand-refresh" and also "design-system-v2" which uses brand tokens; but brand-refresh is a separate project about the brand.
+
+- mobile-app: building React Native app for Bsus. Kicks off early Feb 2025 (TestFlight), includes deep links, push, performance, UI components for mobile (mobile-ui). That's a project.
+
+- possibly "platform-api" and "mobile-app" are separate.
+
+- "billing-v2" is separate.
+
+- "Auth Service" and "auth-refactor" are separate; but we can treat as auth-refactor.
+
+- "React Native 0.73 New Architecture" maybe a subproject? But all part of mobile-app work.
+
+- There's "onboarding-redesign", "brand-refresh".
+
+- "user activation metrics" not a project but analytics.
+
+- "design-system-v2" includes component building; that's a work stream.
+
+- "API gateway" modifications for infra-migration: part of infra-migration.
+
+- "React Native" may be considered part of mobile-app.
+
+- Possibly "OAuth2 Authorization Code flow with PKCE" is a subpart but under auth-refactor.
+
+- "Stripe integration for usage billing" part of billing-v2.
+
+- "Data-driven checklist" part of onboarding-redesign.
+
+- "React Native share sheet for deep links" part of mobile-app.
+
+- Are there any other distinct clusters? "Event taxonomy" and "activation metrics" are support tasks for mobile app but not separate work stream.
+
+- "React Native UI component library for mobile" can be seen as "mobile-ui". It's part of the mobile-app project.
+
+- Possibly "Billing-service usage pipeline" part of billing-v2.
+
+- "Infra-migration: moving to EKS, Terraform, Helm for platform-api and billing-service and auth-service." That's a large project distinct from feature work. We'll treat as "infra-migration".
+
+- "Design System v2: components" distinct.
+
+- "Brand Refresh" design.
+
+- "Onboarding Redesign" distinct.
+
+- "Platform API" distinct feature.
+
+- "Auth Refactor" distinct feature.
+
+- "Billing v2" distinct feature.
+
+- "Mobile App" distinct project.
+
+- Possibly a "user activation metrics" but it's analytics for onboarding and mobile. Not necessarily a separate work stream.
+
+- There is "React Native 0.73 new architecture" but integrated in mobile.
+
+- Also "React Native offline mode and dark theme v1.1" planning. That's part of mobile.
+
+- Maybe separate "Notifications Service" as part of infra-migration? Not clearly a separate feature project but part of platform-api earlier? Actually notifications-service appears in a message: charlie ross deployed notifications-service to EKS staging on Jan 27. It might be a separate service but not a distinct work stream with clustering? But there are messages about notifications-service regarding infra-migration; not many about its functional purpose. Likely it's part of infra-migration.
+
+- The "React Native bundle size audit" is part of mobile-app.
+
+- "Deep link support" part of mobile.
+
+- "Push notifications" part of mobile.
+
+- "Book club", "Lunch run", "coffee machine", etc are off-topic.
+
+- "User activation metrics and dashboards" is cross-product.
+
+- "Auth endpoints" not a new project but part of auth-refactor.
+
+Thus we probably have 7 distinct active/historical work streams: billing-v2, platform-api, auth-refactor, design-system-v2, brand-refresh, onboarding-redesign, infra-migration, mobile-app. Actually infra-migration and mobile-app may have overlapping timeframe; infra completed March 28.
+
+Now we must assign each Slack message to a project ID or null.
+
+First we must enumerate each message. There are many messages; we must create a mapping from msg_0001, msg_0002... But we need to assign each message in the given list. We must assign an ID per message. The example output uses keys like "msg_0001". We must produce key for each message in the order given? The messages are enumerated with timestamps, but not IDs. We need to assign unique keys for each message. Probably they expect us to name them as "msg_0001", ascending order. So we must assign IDs sequentially starting at 0001 for the first message in the list.
+
+Thus we should go through the list, parse each message, assign to relevant project.
+
+We must produce JSON with two top-level keys: "projects" array and "message_assignments" object mapping to project IDs or null. The format for project objects:
+
+{
+  "id": "example-project",
+  "name": "Example Project",
+  "keywords": ["keyword1", "keyword2"],
+  "status": "active" | "completed",
+  "time_range": "Jan-Mar 2025"
+}
+
+Thus we need to produce for each project:
+
+- id (kebab-case)
+- name (human readable)
+- keywords (list of terms defining project)
+- status: active if ongoing after last message date (or up to now? But we must base on message dates). If project is completed historically, status "completed". For those that recently shipped and still being maintained? Hard to decide. Likely active if there's still ongoing work in messages after earlier dates. Use last message date to decide.
+
+We'll need to track the final messages for each project.
+
+Let's identify each message in chronological order:
+
+I will assign IDs as msg_0001, msg_0002, etc.
+
+Messages:
+
+1. [2024-09-02] quinn_davis → alice_chen, dave_patel, charlie_ross, ryan_nguyen: "hey team, kicking off billing-v2 this week..."
+2. [2024-09-02] alice_chen → quinn_davis: about Stripe usage billing pattern.
+3. [2024-09-02] quinn_davis → alice_chen: about local tracking + Stripe sync.
+4. [2024-09-02] alice_chen → #backend (+14 more): announce billing-v2 start, responsibilities.
+5. [2024-09-02] charlie_ross → alice_chen: question about building billing API separate service vs monolith.
+6. [2024-09-02] alice_chen → charlie_ross, dave_patel: separate service plan.
+7. [2024-09-02] dave_patel → alice_chen: scaffolding language question.
+8. [2024-09-02] alice_chen → dave_patel: Go choice, signature verification.
+9. [2024-09-03] ryan_nguyen → quinn_davis: read pricing model doc, ask about dashboard metrics.
+10. [2024-09-03] quinn_davis → ryan_nguyen: add churn etc.
+11. [2024-09-03] dave_patel → #backend (+14 more): billing-service repo scaffolded PR #bill-001.
+12. [2024-09-03] alice_chen → dave_patel: add dead let queue.
+13. [2024-09-03] dave_patel → alice_chen: add dead letter queue.
+14. [2024-09-04] quinn_davis → #product (+14 more): sharing billing-v2 pricing model.
+15. [2024-09-04] ryan_nguyen → #product (+14 more): pricing model concern.
+16. [2024-09-04] quinn_davis → ryan_nguyen: adjusting tiers.
+17. [2024-09-05] alice_chen → charlie_ross: schema proposal for invoice_items.
+18. [2024-09-05] charlie_ross → alice_chen: suggestions about description, status.
+19. [2024-09-05] alice_chen → charlie_ross: add both, status default draft.
+20. [2024-09-06] charlie_ross → #backend (+14 more): migration PR #bill-008, indexes.
+21. [2024-09-06] bob_kim → charlie_ross: reviewed indexes, suggestion composite.
+22. [2024-09-09] alice_chen → #engineering-general (+14 more): "billing-v2 week 1 update"... mentions usage pipeline.
+23. [2024-09-09] alice_chen → dave_patel: usage tracking pipeline details (Kafka).
+24. [2024-09-09] dave_patel → alice_chen: ask about consumer group.
+25. [2024-09-09] alice_chen → dave_patel: own consumer group.
+26. [2024-09-10] charlie_ross → alice_chen: building billing API endpoints.
+27. [2024-09-10] alice_chen → charlie_ross: add usage endpoint.
+28. [2024-09-11] quinn_davis → alice_chen, charlie_ross: custom discounts request.
+29. [2024-09-11] alice_chen → quinn_davis: add discount_cents column.
+30. [2024-09-12] ryan_nguyen → alice_chen: revenue dashboard logic.
+31. [2024-09-12] alice_chen → ryan_nguyen: handle proration, add is_recurring bool.
+32. [2024-09-12] ryan_nguyen → alice_chen: thanks.
+33. [2024-09-16] dave_patel → #backend (+14 more): usage pipeline deployed to staging, Kafka handling.
+34. [2024-09-16] alice_chen → dave_patel: notice missing invoice status update on payment_failed webhook.
+35. [2024-09-16] dave_patel → alice_chen: fix, add retry_count column.
+36. [2024-09-18] charlie_ross → #backend (+14 more): billing API endpoints live on staging, PR #bill-024.
+37. [2024-09-18] alice_chen → charlie_ross: reviewing proration logic.
+38. [2024-09-20] quinn_davis → #product (+14 more): midpoint check-in, usage pipeline running, revenue dashboard wireframe, risk Stripe integration testing.
+39. [2024-09-20] alice_chen → dave_patel, quinn_davis: Stripe testing risk.
+40. [2024-09-23] ryan_nguyen → iris_wang, quinn_davis: revenue dashboard mock is ready.
+41. [2024-09-23] quinn_davis → ryan_nguyen: request net revenue retention metric NRR.
+42. [2024-09-23] ryan_nguyen → quinn_davis: add NRR.
+43. [2024-09-23] alice_chen → #engineering-general (+14 more): week 3 update, full billing cycle simulation, targeting Oct 14 staging freeze.
+44. [2024-09-25] alice_chen → dave_patel: issue with proration credit not written due to sequence.
+45. [2024-09-25] dave_patel → alice_chen: add invoice.updated handler.
+46. [2024-09-26] charlie_ross → alice_chen: edge case on downgrades usage overage.
+47. [2024-09-26] alice_chen → charlie_ross, quinn_davis: policy downgrades in next cycle.
+48. [2024-09-26] quinn_davis → alice_chen, charlie_ross: confirm policy.
+49. [2024-09-30] dave_patel → #backend (+14 more): fixed proration webhook timing issue, PR #bill-031.
+50. [2024-09-30] alice_chen → dave_patel: verified with Stripe, merging.
+51. [2024-10-01] oscar_lee → design: kicking off brand-refresh.
+52. [2024-10-01] priya_mehta → oscar_lee: brand launch timeline discussion.
+53. [2024-10-01] oscar_lee → priya_mehta: timeline, logo direction.
+54. [2024-10-02] iris_wang → oscar_lee: moodboarding logo directions.
+55. [2024-10-02] ryan_nguyen → #product (+14 more): revenue dashboard functional.
+56. [2024-10-02] oscar_lee → iris_wang: lean toward option 2.
+57. [2024-10-02] iris_wang → lisa_chen: potential animation for logo.
+58. [2024-10-03] lisa_chen → oscar_lee, iris_wang: finished the hero animation concept.
+59. [2024-10-04] priya_mehta → general (+14 more): quick update on brand-refresh exploration.
+60. [2024-10-08] iris_wang → design: uploaded logo directions.
+61. [2024-10-09] jack_brown → iris_wang: feedback on direction B strongest.
+62. [2024-10-09] nina_scott → iris_wang: implementation perspective, direction B also favorite.
+63. [2024-10-11] oscar_lee → design: going with direction B for logo.
+64. [2024-10-14] iris_wang → oscar_lee: starting on color palette, navy + teal.
+65. [2024-10-14] alice_chen → #engineering-general (+14 more): billing-v2 staging freeze today.
+66. [2024-10-14] oscar_lee → iris_wang: love navy + teal, need warm neutrals.
+67. [2024-10-14] charlie_ross → alice_chen: all PRs merged, ready for prod.
+68. [2024-10-14] dave_patel → alice_chen: infra ready.
+69. [2024-10-15] iris_wang → nina_scott: typography system decisions.
+70. [2024-10-15] nina_scott → iris_wang: Inter for body, Satoshi as display.
+71. [2024-10-16] lisa_chen → oscar_lee, iris_wang: hero animation comp uploaded.
+72. [2024-10-16] oscar_lee → lisa_chen: note teal-to-navy color, shorter version.
+73. [2024-10-16] lisa_chen → oscar_lee: will do.
+74. [2024-10-21] alice_chen → #engineering-general (+14 more): billing-v2 live in production.
+75. [2024-10-21] quinn_davis → #general (+14 more): billing-v2 shipped!
+76. [2024-10-22] iris_wang → design: full visual identity ready.
+77. [2024-10-22] dave_patel → #backend (+14 more): 24h post-launch report for billing-v2.
+78. [2024-10-22] priya_mehta → oscar_lee: tone of voice section of brand book.
+79. [2024-10-22] oscar_lee → priya_mehta: marketing templates ready after Oct 28, need refinement.
+80. [2024-10-23] nina_scott → frank_li: brand identity almost locked, scaffolding marketing site rebuild.
+81. [2024-10-23] frank_li → nina_scott: ran lighthouse on current marketing site.
+82. [2024-10-25] iris_wang → oscar_lee: brand book first draft done.
+83. [2024-10-25] oscar_lee → iris_wang: feedback on clear space section.
+84. [2024-10-28] priya_mehta → general (+14 more): brand-refresh update, marketing site rebuild starting.
+85. [2024-10-28] alice_chen → quinn_davis: post-mortem doc for billing v2.
+86. [2024-10-28] nina_scott → frontend: marketing site implementation using new brand identity.
+87. [2024-10-29] nina_scott → lisa_chen: need hero animation exported as Lottie.
+88. [2024-10-29] lisa_chen → nina_scott: using Bodymovin, simplification notes.
+89. [2024-10-30] frank_li → nina_scott: set up image pipeline for marketing site.
+90. [2024-10-30] nina_scott → frank_li: hero section biggest perf risk.
+91. [2024-11-01] iris_wang → nina_scott: finalized brand assets for marketing site.
+92. [2024-11-01] nina_scott → iris_wang: question about 2x vs 1x/3x illustrations.
+93. [2024-11-04] mike_torres → bob_kim, eve_johnson, henry_zhao: kicking off platform-api this week.
+94. [2024-11-04] priya_mehta → nina_scott, frank_li: marketing wants review of landing page copy.
+95. [2024-11-04] nina_scott → priya_mehta: can have staging ready.
+96. [2024-11-04] bob_kim → mike_torres: rate limiting storage discussion.
+97. [2024-11-04] mike_torres → bob_kim, karen_wu: choose Redis for rate limiting, hashing API keys.
+98. [2024-11-04] mike_torres → #engineering-general (+14 more): heads up platform-api project.
+99. [2024-11-04] eve_johnson → mike_torres: developer portal wireframe question.
+100. [2024-11-04] mike_torres → eve_johnson: separate Next.js app, key features.
+101. [2024-11-05] henry_zhao → mike_torres, eve_johnson: outline SDK structure, docs site.
+102. [2024-11-05] mike_torres → henry_zhao: OpenAPI spec as single source of truth.
+103. [2024-11-05] lisa_chen → oscar_lee, iris_wang: Lottie hero animation details.
+104. [2024-11-05] bob_kim → #backend (+14 more): push db schema for platform-api.
+105. [2024-11-05] karen_wu → bob_kim: review api_keys table design, add key_version, hmac_algorithm.
+106. [2024-11-05] bob_kim → karen_wu: add both columns, last_used_at.
+107. [2024-11-05] nina_scott → lisa_chen: 47KB Lottie is perfect.
+108. [2024-11-06] mike_torres → #backend (+14 more): first draft OpenAPI spec for platform-api v1.
+109. [2024-11-06] eve_johnson → mike_torres: need example request/response bodies.
+110. [2024-11-06] mike_torres → eve_johnson: henry will add.
+111. [2024-11-06] henry_zhao → mike_torres, eve_johnson: adding example bodies and RFC7807 error format.
+112. [2024-11-07] frank_li → engineering-general (+6 more): marketing site rebuild performance update.
+113. [2024-11-08] nina_scott → priya_mehta: staging link for landing page.
+114. [2024-11-08] bob_kim → #backend (+14 more): rate limit middleware working, 100 req/min default.
+115. [2024-11-08] mike_torres → bob_kim: add 429 response body with RFC7807.
+116. [2024-11-08] priya_mehta → general (+14 more): brand refresh update.
+117. [2024-11-09] iris_wang → design: published v1 color palette for design-system-v2? Actually that later message is about design system.
+But check: This is the later timeline starting in Jan 2025. We'll go later.
+
+Hold up: The previous messages after 117 are all about design system, onboarding, etc. We need to parse all messages up to possibly March 28. Let's continue.
+
+After 117 (which is earlier?), let's check the chronology.
+
+Actually after 116, we should keep moving: There is a message [2024-12-04] etc.
+
+Let's recount after 116.
+
+We'll keep track of each message and its project.
+
+But we need to map them to project IDs.
+
+Define project IDs:
+
+- billing-v2 -> "billing-refactor" or similar. Use kebab-case like "billing-refactor" or "billing-v2". Provide human readable name: "Billing Revamp (billing-v2)". Keywords: invoice_items, Stripe, usage-based billing, usage tracking, Kafka, webhook, proration. Status: completed? It shipped Oct 21, 2024, and no more development after that. It's still being used but not under active work. So status should be "completed". Time range: Sep 2024 – Oct 2024.
+
+- platform-api -> "platform-api". Name: "Platform API". Keywords: REST API, OAuth client credentials, rate limiting, developer portal, OpenAPI spec, SDK, webhook, HMAC, Redis. Status: completed? It shipped Dec 18, 2024. Likely completed. But later there are messages about infra-migration moving platform-api to EKS (Feb 2025). That's not new feature development. Could be considered maintenance, but still part of platform-api ongoing? Maybe "active"? The instructions: identify both currently active work and completed/historical work streams. Since later (Feb 2025) there are still mentions of platform-api (traffic ramp, cutover). That is still part of platform-api service, but that's part of infra-migration, not platform-api development. But we could treat platform-api as still active (maintained) because there is discussion about endpoint changes, rate limiting etc in Feb: e.g., charlie_ross, dave_patel about platform-api traffic with infra-migration; also in March 22 there might be references? Let's see later messages:
+
+After March 28 message: "dave_patel → #backend... infra-migration final update: billing-service and auth-service are now live on EKS. all production traffic is on the Kubernetes cluster, EC2 fleet is officially decommissioned... huge... infrastructure at Bsus is officially cloud-native". This discusses infra-migration, not platform-api.
+
+There might be messages about platform-api later:
+
+Search for "platform" later.
+
+Later messages in Jan 2025 mention "platform-api".
+
+We see:
+
+- [2025-01-06] mike_torres → #engineering-general (+14 more): auth-refactor update, includes platform-api? Actually not.
+
+- [2025-01-07] charlie_ross → dave_patel: ... "api-gateway helm chart"? That's infra-migration.
+
+- [2025-02-03] dave_patel → #backend (+14 more): "infra-migration... billing-service and auth-service are live on EKS". Might mention platform-api earlier:
+
+Check earlier messages:
+
+- [2024-11-18] mike_torres → #backend (+14 more): "need to finalize the webhook delivery system for platform-api." So platform-api still under development in Nov 2024.
+
+- [2024-11-20] bob_kim → mike_torres: about auth-refactor? No.
+
+- [2024-12-04] henry_zhao → front-end about SDK etc. That was part of platform-api.
+
+- The final platform-api shipping is Dec 18 2024. After that, there are no messages about platform-api being built, but maybe still maintaining (billing-service, auth-service migration). That is infra-migration.
+
+Thus we could label platform-api as "completed". However, there might be ongoing work for platform-api like adding sandbox, improving 429 response (Dec 4) and also 2025? Not after March 28.
+
+Thus status: "completed". Time range: Nov 2024 – Dec 2024.
+
+- auth-refactor: "auth-refactor". Name: "Auth System Refactor". Keywords: PKCE, OAuth2, token rotation, refresh token family revocation, JWT, session_tokens, CSRF, state param, scope enforcement. Status: completed? The final message about auth-refactor is March 28 with infra-migration, but the auth-refactor features were completed in Feb, then March 28 maybe still using them in infra migration (still part of platform?). The status might be "completed". Time range: Jan 2025 – Feb 2025. Actually auth-refactor work started Jan 6 2025 and completed by Feb 28 2025. So completed.
+
+- design-system-v2: "design-system-v2". Name: "Design System v2". Keywords: design tokens, button, typography, text input, select, checkbox, radio, toggle, badge, tooltip, spinner, dark mode, motion tokens, WCAG, storybook. Status: Active? As of March 17 2025 they completed phase 1 and planning phase 2. Likely still active. So status: "active". Time_range: Jan-Mar 2025 (maybe through March 2025). Since the latest messages about design-system-v2 are March 17 (phase 1 complete) and then later messages about onboarding redesign component usage and possible next components (phase 2 planned). So it's still active.
+
+- brand-refresh: "brand-refresh". Name: "Brand Refresh". Keywords: logo redesign, color palette, typography system, motion graphics, brand book, visual identity, design assets. Status: completed (finished Nov 25 2024). Time_range: Oct-Nov 2024.
+
+- onboarding-redesign: "onboarding-redesign". Name: "Onboarding Redesign". Keywords: first-time experience, wizard, checklist, empty states, tooltip, product tour, activation funnel, progressive disclosure. Status: active? Still work in March 2025 (scheduled rollout March 24). It may continue after. As of March 24 there is a stage rollout; no mention beyond that date. Could be still active but approaching launch. But as per message dates up to March 28, there is a rollout planning, still under active development. So status: "active". Time_range: Mar 2025.
+
+- infra-migration: "infra-migration". Name: "Infrastructure Migration (EC2→EKS)". Keywords: EKS, Terraform, Helm, CI/CD pipeline, secrets manager, AWS Load Balancer, rolling rollout, zero downtime, RDS migration, Kubernetes, Datadog, auto scaling. Status: completed (as of March 28). Time_range: Jan-Mar 2025.
+
+- mobile-app: "mobile-app". Name: "BSus Mobile App". Keywords: React Native, TestFlight, App Store, deep links, push notifications, Hermes engine, bundle size, offline mode, dark theme, activation metrics. Status: active? The app was shipped March 12 2025? Wait: The mobile app was submitted March 6 and launched March 12 2025. There were later messages about planning v1.1 roadmap (dark theme, offline mode) and activation metrics. That is after launch and still in development. So status: active. Time_range: Feb-Mar 2025.
+
+Potentially there are other minor items: "billing-service infra" under infra-migration; "auth-service" but part of auth-refactor.
+
+There's "billing-service usage pipeline" that is part of infra-migration later Jan/Feb.
+
+But we might treat those as part of other main projects.
+
+We should also include "billing-service" maybe separate? But it's a component of infra-migration, not distinct. However the instruction says "both currently active work AND completed/historical work streams". So if there is any distinct smaller project like "billing-service migration" could be considered, but likely we treat it under the larger infra-migration.
+
+Similarly, "Stripe integration testing" is part of billing-v2.
+
+Thus we have 7 projects.
+
+Now assign messages.
+
+We need to assign each to a project ID (like "billing-refactor") or null.
+
+Project IDs in kebab-case: We can use "billing-v2", "platform-api", "auth-refactor", "design-system-v2", "brand-refresh", "onboarding-redesign", "infra-migration", "mobile-app". Keep consistent style.
+
+But avoid duplication of "billing-service". Use "billing-v2". For billing, it's a feature.
+
+Platform API: "platform-api".
+
+Auth Refactor: "auth-refactor".
+
+Design System: "design-system-v2".
+
+Brand Refresh: "brand-refresh".
+
+Onboarding redesign: "onboarding-redesign".
+
+Infra migration: "infra-migration".
+
+Mobile app: "mobile-app".
+
+All these IDs should be unique.
+
+Now assign each message.
+
+Let's walk through each message sequentially, assign to project.
+
+Message 1 (2024-09-02) about billing-v2 -> "billing-v2".
+
+Message 2: alice_chen about Stripe usage -> billing-v2.
+
+3: Quinn reply about local tracking -> billing-v2.
+
+4: alice_chen announces billing-v2 kickoff -> billing-v2.
+
+5: charlie_ross question about billing API service structure -> billing-v2.
+
+6: alice_chen reply about separate service -> billing-v2.
+
+7: dave_patel language question for billing-service -> billing-v2.
+
+8: alice_chen about Go and signature -> billing-v2.
+
+9: ryan about pricing model doc, revenue dashboard -> billing-v2 (since part of billing work).
+
+10: quinn about churn, metrics -> billing-v2.
+
+11: dave scaffolding repo for billing-service -> billing-v2.
+
+12: alice wants dead letter queue for webhook -> billing-v2.
+
+13: dave adds dead letter queue -> billing-v2.
+
+14: quinn sharing pricing model -> billing-v2.
+
+15: ryan feedback on pricing tiers -> billing-v2.
+
+16: quinn adjusts tiers -> billing-v2.
+
+17-19: alice_chen and charlie_ross schema design for invoice_items -> billing-v2.
+
+20: charlie migration PR -> billing-v2.
+
+21: bob indexes review -> billing-v2.
+
+22: alice weekly update -> billing-v2.
+
+23: alice usage tracking pipeline design -> billing-v2.
+
+24: dave question about consumer groups -> billing-v2.
+
+25: alice decide own consumer group -> billing-v2.
+
+26: charlie building billing API endpoints -> billing-v2.
+
+27: alice add usage endpoint -> billing-v2.
+
+28: Quinn wants custom discounts -> billing-v2.
+
+29: alice add discount_cents column -> billing-v2.
+
+30: ryan about revenue dashboard -> billing-v2.
+
+31-32: alice and ryan about proration and is_recurring -> billing-v2.
+
+33: dave deployed usage pipeline to staging -> billing-v2.
+
+34: alice noticed missing invoice status handling -> billing-v2.
+
+35: dave adds retry_count -> billing-v2.
+
+36: charlie billing API endpoints live staging -> billing-v2.
+
+37: alice reviewing proration logic -> billing-v2.
+
+38: quinn midpoint check-in includes billing API, usage pipeline, revenue dashboard, stripe test risk -> billing-v2.
+
+39: alice about stripe testing risk -> billing-v2.
+
+40: ryan sending revenue dashboard mock -> billing-v2 (dashboard).
+
+41: quinn asks for NRR metric -> billing-v2.
+
+42: ryan adds NRR -> billing-v2.
+
+43: alice week 3 update includes billing cycle simulation, revenue dashboard backend queries -> billing-v2.
+
+44+45: alice and dave fix proration timing issue -> billing-v2.
+
+46-48: charlie, alice, quinn about downgrades and edge cases -> billing-v2.
+
+49-50: dave fixes webhook timing issue for proration, alice merges -> billing-v2.
+
+51-53 (Oct 1) about brand refresh (logo directions) -> brand-refresh.
+
+54: iris moodboarding for logo -> brand-refresh.
+
+55: ryan about revenue dashboard (but after brand-refresh) Actually ryan message refers to revenue dashboard; but it's separate? But it's a metric component of billing. However the message appears after branding. It's still about billing dashboard. So assign to billing-v2.
+
+56: oscar chooses direction B -> brand-refresh.
+
+57: iris to lisa about logo animation concepts -> brand-refresh.
+
+58: lisa hero animation concept -> brand-refresh.
+
+59: priya update on brand-refresh exploration -> brand-refresh.
+
+60: iris uploaded 3 logo directions -> brand-refresh.
+
+61: jack about direction B strongest -> brand-refresh.
+
+62: nina about implementation and direction B -> brand-refresh.
+
+63: oscar: going with direction B -> brand-refresh.
+
+64: iris start color palette -> brand-refresh (though later will influence design-system). But this is brand-refresh? Actually it's about brand color palette, part of brand-refresh.
+
+65: alice billing-v2 staging freeze -> billing-v2.
+
+66: oscar feedback on color palette -> brand-refresh.
+
+67-68: charlie and dave about ready for production, infra? Actually charlie says all PRs merged and ready for prod (billing service). So charlie_ross to alice about PRs merged and "ready for prod" (billing). That is billing-v2.
+
+69-70: iris and nina about typography system for brand? But iris is "Senior Designer." This is about brand's typography system maybe part of brand-refresh (but also part of design-system later). Wait, check:
+
+[2024-10-15] iris_wang → nina_scott: "for the typography system I'm looking at Inter for body ... can you check if Satoshi is okay for display". This is about brand-refresh typography system, part of visual identity. So assign to brand-refresh.
+
+71-73: lisa and oscar about hero animation Lottie and teal-to-navy color shift, etc. This is brand-refresh.
+
+74: alice billing-v2 live in production -> billing-v2.
+
+75: quinn about billing-v2 shipped (public) -> billing-v2.
+
+76: iris published full visual identity -> brand-refresh.
+
+77: dave post-launch report for billing-service -> billing-v2.
+
+78-79: priya and oscar discuss brand book content, marketing templates timeline -> brand-refresh.
+
+80: nina about scaffolding marketing site rebuild using new brand identity -> brand-refresh (or perhaps infra?) It's about marketing site, but under brand-refresh to apply new brand. So assign to brand-refresh.
+
+81: frank about lighthouse on current marketing site (pre-refresh) > brand-refresh? The marketing site will be refreshed using brand-refresh. The message is about performance before redesign, but it's part of brand-refresh work (the marketing site rebuild). However the earlier message (Oct 23) was about brand-refresh. This is about performance metrics for current site. But the later steps (Oct 30) talk about hero animation performance. That's part of brand-refresh. So include.
+
+But we need to treat messages that are off-topic like "happy new year" or casual chat. We'll assign null.
+
+Thus keep assigning.
+
+Let's continue.
+
+82-83: brand book drafts.
+
+84: priya brand-refresh update again.
+
+85: alice writing post-mortem doc for billing-v2 -> billing-v2.
+
+86: nina marketing site implementation using new brand identity -> brand-refresh.
+
+87-88: nina requests Lottie hero animation; lisa responds -> brand-refresh.
+
+89-90: frank about image pipeline for marketing site -> brand-refresh.
+
+91-92: iris and nina about marketing site assets and illustration sizes -> brand-refresh.
+
+93: mike_torres kicking off platform-api. -> platform-api.
+
+94: priya about marketing landing page copy review -> brand-refresh (the landing page copy is for marketing site which uses brand-refresh). Assign to brand-refresh.
+
+95: nina says can have staging ready -> brand-refresh.
+
+96: bob_kim about rate limiting storage for platform-api -> platform-api.
+
+97: mike_torres about Redis for rate limiting -> platform-api.
+
+98: mike_torres heads up platform-api overall -> platform-api.
+
+99: eve_johnson developer portal question -> platform-api.
+
+100: mike_torres answer about next.js app -> platform-api.
+
+101: henry_zhao about SDK outline -> platform-api.
+
+102: mike_torres about OpenAPI as source of truth -> platform-api.
+
+103: lisa_chen about Lottie hero animation (again for brand?). Actually it's about hero animation for marketing site, so brand-refresh.
+
+But this message appears on Nov 5, and it's "lisa_chen → oscar_lee, iris_wang: finished the hero animation concept". That's brand-refresh.
+
+Thus assign to brand-refresh.
+
+104: bob_kim pushes api_keys schema for platform-api -> platform-api.
+
+105: karen_wu review -> platform-api.
+
+106: bob_kim adds columns -> platform-api.
+
+107: nina_scoot about Lottie hero -> brand-refresh.
+
+108: mike_torres first draft OpenAPI spec for platform-api -> platform-api.
+
+109: eve_johnson requesting example request/response bodies -> platform-api.
+
+110: mike_torres delegate to henry -> platform-api.
+
+111: henry adds examples and RFC7807 error format -> platform-api.
+
+112: frank about marketing site performance with brand assets? Actually it's about marketing site rebuild performance update (Feb?), but let's keep reading: This is a later message. I'm reading ahead. The message list after 112 jumps to later. Let's get all.
+
+We have to go forward.
+
+After message 111, next is [2025-01-06] messages. Actually check: after message 111 in the original list, there is:
+
+[2025-01-06] dave_patel → #backend (+14 more): "infra-migration kickoff..."
+
+Wait we need to parse from where we left off: after message 111 (Nov 6), we have [2025-01-06] messages earlier? Let's revisit.
+
+Original messages after 111:
+
+- [2025-01-06] mike_torres → bob_kim, eve_johnson, henry_zhao: kicking off platform-api this week (Message 93 earlier was also platform?). Actually there are two platform-api kickoffs: one on Nov 4 (2024), and another on Jan 6 2025? Wait, the initial platform api messages were from Nov 4 2024. Then after that they continued. Then later there is a repeat of similar but maybe a new iteration? Let's re-examine raw messages after Nov 6 to see the whole timeline. Might contain other projects like auth-refactor (Jan 6 2025 onward) and design system etc.
+
+I saw earlier that after message 111, there is a message [2025-01-02] about new year etc. That message was after many messages from Dec and early Jan, but we haven't yet processed those. Let's examine the original message list sequentially after Dec dates.
+
+Actually the original message list after "henry_zhao → #frontend (+14 more): Platform API v1 is shipping today! ..." there is:
+
+[2024-12-18] mike_torres → #engineering-general (+14 more): platform-api v1 is shipping today! ... (Msg #... we haven't reached, but earlier we counted message up to 112? Let's recount.
+
+We processed messages up to [2024-11-06] (msg 111). Then after that, the next messages in the original list are [2025-01-02] about New Year, [2025-01-03] coffee place, etc. Wait, the order in the original list is weird: It seems to have a large gap between Nov 8 and Dec 4. Actually after [2024-11-08] bob_kim about rate limit middleware, we have [2024-11-08] priya_mehta about brand-refresh update, then [2024-11-09] iris_wang about v1 color palette posted, then messages go into onboarding redesign etc. Wait let's look at the remaining chunk carefully.
+
+We need to parse entire list after [2024-11-08] to ensure we capture onboarding redesign, design system, infra-migration, auth-refactor, mobile-app.
+
+Let's retrieve the raw messages beyond our current count. The user-provided messages list continues after [2024-11-08] priya_mehta.
+
+The text after that:
+
+[2024-11-09] iris_wang → design: published the v1 color palette in Figma for design-system-v2. the semantic color tokens are organized as: text (primary, secondary, tertiary, disabled, inverse), surface (default, raised, sunken, overlay), border (default, subtle, strong), and interactive states. @nina_scott these should match what's in tokens.json — let me know if anything's off.
+
+[2024-11-09] charlie_ross → #backend (+14 more): billing API endpoints are live on staging... (We already processed charlie earlier? Actually we processed charlie_ross #backend about billing API endpoints live staging on 2024-09-18. But here on Nov 9 charlie_ross says "billing API endpoints are live on staging"? Wait this maybe a different message. Actually check: the message after [2025-01-06] appears. There's confusion because the list seems to be repeated? Let's verify the original message list again.
+
+The user provided a long list of messages covering Sep 2024, Oct 2024, Nov 2024, Dec 2024, Jan 2025, Feb 2025, Mar 2025.
+
+We have processed many of the early messages (Sep, Oct). After the brand-refresh and billing v2 shipping period, there were messages about "platform-api" starting Nov 4, continuing through Dec 18 (shipping). Then after that there were messages about "auth-refactor" starting Jan 6. Then there were messages about "design-system-v2" starting Jan 6. There's also "infra-migration" starting Jan 6 with moving services to EKS. "Mobile-app" work appears starting Feb 3 2025. "Onboarding redesign" starts Mar 3 2025.
+
+Thus our earlier mapping missed many messages after Dec.
+
+We need to go through the entire list, assign each message to the correct project (or null). Let's reorganize by month/year.
+
+Data from the provided messages:
+
+Start: Sep 2024 - Billing v2.
+
+Oct 2024 - Brand Refresh.
+
+Nov 2024 - Platform API.
+
+Later in Oct there are brand refresh and billing v2 updates.
+
+Then Dec 2024 - Platform API final release (Dec 18) and then maybe some more messages about platform? Actually after Dec 4 about SDK improvements, there is a message on Dec 6 about SDK v1.1, Dec 18 about platform API shipping. After that there might be only a few messages in Dec.
+
+Then Jan 2025 - Auth Refactor, Design System v2, Infra-migration.
+
+Specifically:
+
+- 2025-01-02: happy new year messages (off-topic).
+
+- 2025-01-03: alice and bob about ramen place (off-topic).
+
+- 2025-01-06: multiple messages launching new projects:
+
+   - dave_patel → charlie_ross, bob_kim: "kicking off infra-migration this week..."
+
+   - oscar_lee → design: "kicking off design-system-v2 this week..."
+
+   - alice_chen → mike_torres: "started scoping out the OAuth2 auth-service" (this is auth-refactor)
+
+   - charlie_ross → dave_patel: "started converting api-gateway deploy config to helm chart"
+
+   - mike_torres → alice_chen, karen_wu: about PKCE integration (auth)
+
+   - dave_patel → #backend: "heads up — I'm adding a DB migration step..." etc (about infra-migration)
+
+   - alice_chen → #backend: "starting on identity provider adapter interface for auth-service" (auth-refactor)
+
+   ... Many messages about auth-refactor.
+
+   - 2025-01-06 bob_kim to alice about session_tokens schema (auth-refactor).
+
+   - 2025-01-06 charlie_ross to alice about refactoring login endpoint to support OAuth2 (auth-refractor)
+
+   - etc.
+
+   - 2025-01-06 nina_scott and iris about design-system v2 tokens.
+
+   - 2025-01-06 charlie to dave about helm charts for infra.
+
+   - 2025-01-06 alice to #backend about auth-refactor goals.
+
+   - 2025-01-06 bob to dave about DB migration step.
+
+   So these messages belong to:
+
+     - infra-migration
+
+     - auth-refactor
+
+     - design-system-v2
+
+   Additional messages later in Jan 2025 continue with these.
+
+Thus we need to process all messages after Dec 2024.
+
+Let's continue counting from where we left off.
+
+We processed up to message 92? Let's reconstruct list with IDs.
+
+We'll go through chronologically using the provided list (dates). We need to assign each to a project.
+
+First, list all messages with approximate IDs.
+
+Will go through entire message list line by line as provided, assign ID and project.
+
+I'll create a systematic enumeration.
+
+Provided messages (copy them out with IDs):
+
+[2024-09-02] quinn_davis → alice_chen, dave_patel, charlie_ross, ryan_nguyen
+[2024-09-02] alice_chen → quinn_davis
+[2024-09-02] quinn_davis → alice_chen
+[2024-09-02] alice_chen → #backend (+14 more)
+[2024-09-02] charlie_ross → alice_chen
+[2024-09-02] alice_chen → charlie_ross, dave_patel
+[2024-09-02] dave_patel → alice_chen
+[2024-09-02] alice_chen → dave_patel
+[2024-09-03] ryan_nguyen → quinn_davis
+[2024-09-03] quinn_davis → ryan_nguyen
+[2024-09-03] dave_patel → #backend (+14 more)
+[2024-09-03] alice_chen → dave_patel
+[2024-09-03] dave_patel → alice_chen
+[2024-09-04] quinn_davis → #product (+14 more)
+[2024-09-04] ryan_nguyen → #product (+14 more)
+[2024-09-04] quinn_davis → ryan_nguyen
+[2024-09-05] alice_chen → charlie_ross
+[2024-09-05] charlie_ross → alice_chen
+[2024-09-05] alice_chen → charlie_ross
+[2024-09-06] charlie_ross → #backend (+14 more)
+[2024-09-06] bob_kim → charlie_ross
+[2024-09-09] alice_chen → #engineering-general (+14 more)
+[2024-09-09] alice_chen → dave_patel
+[2024-09-09] dave_patel → alice_chen
+[2024-09-09] alice_chen → dave_patel
+[2024-09-10] charlie_ross → alice_chen
+[2024-09-10] alice_chen → charlie_ross
+[2024-09-11] quinn_davis → alice_chen, charlie_ross
+[2024-09-11] alice_chen → quinn_davis
+[2024-09-12] ryan_nguyen → alice_chen
+[2024-09-12] alice_chen → ryan_nguyen
+[2024-09-12] ryan_nguyen → alice_chen
+[2024-09-16] dave_patel → #backend (+14 more)
+[2024-09-16] alice_chen → dave_patel
+[2024-09-16] dave_patel → alice_chen
+[2024-09-18] charlie_ross → #backend (+14 more)
+[2024-09-18] alice_chen → charlie_ross
+[2024-09-20] quinn_davis → #product (+14 more)
+[2024-09-20] alice_chen → dave_patel, quinn_davis
+[2024-09-23] ryan_nguyen → iris_wang, quinn_davis
+[2024-09-23] quinn_davis → ryan_nguyen
+[2024-09-23] ryan_nguyen → quinn_davis
+[2024-09-23] alice_chen → #engineering-general (+14 more)
+[2024-09-25] alice_chen → dave_patel
+[2024-09-25] dave_patel → alice_chen
+[2024-09-26] charlie_ross → alice_chen
+[2024-09-26] alice_chen → charlie_ross, quinn_davis
+[2024-09-26] quinn_davis → alice_chen, charlie_ross
+[2024-09-30] dave_patel → #backend (+14 more)
+[2024-09-30] alice_chen → dave_patel
+[2024-10-01] oscar_lee → design
+[2024-10-01] priya_mehta → oscar_lee
+[2024-10-01] oscar_lee → priya_mehta
+[2024-10-02] iris_wang → oscar_lee
+[2024-10-02] ryan_nguyen → #product (+14 more)
+[2024-10-02] oscar_lee → iris_wang
+[2024-10-02] iris_wang → lisa_chen
+[2024-10-03] lisa_chen → oscar_lee, iris_wang
+[2024-10-04] priya_mehta → general (+14 more)
+[2024-10-08] iris_wang → design
+[2024-10-09] jack_brown → iris_wang
+[2024-10-09] nina_scott → iris_wang
+[2024-10-11] oscar_lee → design
+[2024-10-14] iris_wang → oscar_lee
+[2024-10-14] alice_chen → #engineering-general (+14 more)
+[2024-10-14] oscar_lee → iris_wang
+[2024-10-14] charlie_ross → alice_chen
+[2024-10-14] dave_patel → alice_chen
+[2024-10-15] iris_wang → nina_scott
+[2024-10-15] nina_scott → iris_wang
+[2024-10-16] lisa_chen → oscar_lee, iris_wang
+[2024-10-16] oscar_lee → lisa_chen
+[2024-10-16] lisa_chen → oscar_lee
+[2024-10-21] alice_chen → #engineering-general (+14 more)
+[2024-10-21] quinn_davis → #general (+14 more)
+[2024-10-22] iris_wang → design
+[2024-10-22] dave_patel → #backend (+14 more)
+[2024-10-22] priya_mehta → oscar_lee
+[2024-10-22] oscar_lee → priya_mehta
+[2024-10-23] nina_scott → frank_li
+[2024-10-23] frank_li → nina_scott
+[2024-10-25] iris_wang → oscar_lee
+[2024-10-25] oscar_lee → iris_wang
+[2024-10-28] priya_mehta → general (+14 more)
+[2024-10-28] alice_chen → quinn_davis
+[2024-10-28] nina_scott → frontend
+[2024-10-29] nina_scott → lisa_chen
+[2024-10-29] lisa_chen → nina_scott
+[2024-10-30] frank_li → nina_scott
+[2024-10-30] nina_scott → frank_li
+[2024-11-01] iris_wang → nina_scott
+[2024-11-01] nina_scott → iris_wang
+[2024-11-04] mike_torres → bob_kim, eve_johnson, henry_zhao
+[2024-11-04] priya_mehta → nina_scott, frank_li
+[2024-11-04] nina_scott → priya_mehta
+[2024-11-04] bob_kim → mike_torres
+[2024-11-04] mike_torres → bob_kim, karen_wu
+[2024-11-04] mike_torres → #engineering-general (+14 more)
+[2024-11-04] eve_johnson → mike_torres
+[2024-11-05] henry_zhao → mike_torres, eve_johnson
+[2024-11-05] mike_torres → henry_zhao
+[2024-11-05] lisa_chen → oscar_lee, iris_wang
+[2024-11-05] bob_kim → #backend (+14 more)
+[2024-11-05] karen_wu → bob_kim
+[2024-11-05] bob_kim → karen_wu
+[2024-11-05] nina_scott → lisa_chen
+[2024-11-06] mike_torres → #backend (+14 more)
+[2024-11-06] eve_johnson → mike_torres
+[2024-11-06] mike_torres → eve_johnson
+[2024-11-06] henry_zhao → mike_torres, eve_johnson
+[2024-11-07] frank_li → engineering-general (+6 more)
+[2024-11-08] nina_scott → priya_mehta
+[2024-11-08] bob_kim → #backend (+14 more)
+[2024-11-08] mike_torres → bob_kim
+[2024-11-08] priya_mehta → general (+14 more)
+[2024-11-09] iris_wang → design
+[2025-01-02] mike_torres → general (+14 more)
+[2025-01-02] sofia_martinez → general (+14 more)
+[2025-01-02] frank_li → henry_zhao
+[2025-01-02] henry_zhao → frank_li
+[2025-01-02] grace_park → general (+14 more)
+[2025-01-02] dave_patel → general (+14 more)
+[2025-01-02] priya_mehta → quinn_davis
+[2025-01-02] quinn_davis → priya_mehta
+[2025-01-03] alice_chen → bob_kim
+[2025-01-03] bob_kim → alice_chen
+[2025-01-03] alice_chen → bob_kim
+[2025-01-06] dave_patel → charlie_ross, bob_kim
+[2025-01-06] oscar_lee → design
+[2025-01-06] alice_chen → mike_torres
+[2025-01-06] charlie_ross → dave_patel
+[2025-01-06] mike_torres → alice_chen, karen_wu
+[2025-01-06] dave_patel → bob_kim
+[2025-01-06] alice_chen → #backend (+14 more)
+[2025-01-06] charlie_ross → #backend (+14 more)
+[2025-01-06] alice_chen → charlie_ross, karen_wu
+[2025-01-06] dave_patel → alice_chen
+[2025-01-06] mike_torres → eve_johnson, iris_wang
+[2025-01-06] eve_johnson → mike_torres, nina_scott
+[2025-01-06] eve_johnson → frontend
+[2025-01-06] iris_wang → lisa_chen
+[2025-01-06] lisa_chen → iris_wang
+[2025-01-06] bob_kim → #backend (+14 more)
+[2025-01-06] alice_chen → bob_kim, karen_wu
+[2025-01-06] henry_zhao → #general (+14 more)
+[2025-01-06] grace_park → frontend
+[2025-01-06] priya_mehta → general (+14 more)
+[2025-01-06] jordan_kim → grace_park
+[2025-01-06] frank_li → henry_zhao
+[2025-01-06] henry_zhao → frank_li
+[2025-01-07] charlie_ross → #backend (+14 more)
+[2025-01-07] grace_park → eve_johnson
+[2025-01-07] charlie_ross → alice_chen
+[2025-01-07] eve_johnson → #frontend (+14 more)
+[2025-01-07] mike_torres → #engineering-general (+14 more)
+[2025-01-07] charlie_ross → #backend (+14 more)
+[2025-01-07] grace_park → frontend
+[2025-01-08] alice_chen → #backend (+14 more)
+[2025-01-08] nina_scott → frontend
+[2025-01-08] charlie_ross → alice_chen
+[2025-01-08] dave_patel → charlie_ross, bob_kim
+[2025-01-08] charlie_ross → dave_patel, bob_kim
+[2025-01-08] alice_chen → charlie_ross, karen_wu
+[2025-01-08] dave_patel → bob_kim, charlie_ross
+[2025-01-08] mike_torres → #backend (+14 more)
+[2025-01-08] eve_johnson → #frontend (+14 more)
+[2025-01-08] mike_torres → #frontend (+14 more)
+[2025-01-08] charlie_ross → #backend (+14 more)
+[2025-01-08] bob_kim → #backend (+14 more)
+[2025-01-08] alice_chen → bob_kim, charlie_ross, mike_torres
+[2025-01-09] charlie_ross → #backend (+14 more)
+[2025-01-09] dave_patel → #backend (+14 more)
+[2025-01-09] iris_wang → design
+[2025-01-09] charlie_ross → dave_patel
+[2025-01-09] alice_chen → charlie_ross
+[2025-01-09] nina_scott → iris_wang
+[2025-01-09] charlie_ross → dave_patel
+[2025-01-09] iris_wang → design
+[2025-01-09] charlie_ross → dave_patel, bob_kim
+[2024-12-?? wait? Need to capture messages after Dec? Let's finish earlier list.
+
+Hold on. The original message list after Dec continues with:
+
+[202

@@ -1,0 +1,542 @@
+[
+  {
+    "id": "bill_001",
+    "from": "quinn_davis",
+    "to": ["alice_chen", "dave_patel", "charlie_ross", "ryan_nguyen"],
+    "channel": null,
+    "text": "hey team, kicking off billing-v2 this week. the goal is rewriting our billing system to support usage-based pricing — the current flat-rate subscription model isn't cutting it for enterprise customers. I've drafted a pricing model doc that covers the new subscription tiers and how we'll calculate usage per billing cycle. sharing the link in a sec, let's sync Wednesday to go through it",
+    "timestamp": "2024-09-02T09:15:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_002",
+    "from": "alice_chen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "sounds good quinn. I've been looking at how Stripe handles usage-based billing — we can use their metered billing API with usage records. the big question is whether we track usage on our side and sync to Stripe or let Stripe be the source of truth. I'm leaning toward tracking locally in an invoice_items table and syncing aggregate usage at billing cycle end",
+    "timestamp": "2024-09-02T09:40:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_003",
+    "from": "quinn_davis",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "local tracking + Stripe sync makes sense. we need the granular usage data for the revenue dashboard anyway, and relying on Stripe as the only source makes debugging billing disputes way harder. let's own the data",
+    "timestamp": "2024-09-02T09:52:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_004",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "heads up — billing-v2 is kicking off. we're rewriting the billing system to support usage-based pricing on top of subscription tiers. main pieces: 1) new invoice_items table to track per-customer usage 2) Stripe integration for metered billing and invoicing 3) proration logic for mid-cycle plan changes 4) billing API endpoints for the frontend. @charlie_ross you'll own the API layer, @dave_patel I need you on billing-service infra and deployment pipeline",
+    "timestamp": "2024-09-02T10:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_005",
+    "from": "charlie_ross",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "on it. quick question — are we building the billing API as a separate service or adding endpoints to the existing monolith? separate service would be cleaner for isolation but adds deployment overhead",
+    "timestamp": "2024-09-02T10:45:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_006",
+    "from": "alice_chen",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "separate service. billing-service will own all Stripe interactions, invoice generation, and usage aggregation. the existing API gateway will proxy billing routes to it. @dave_patel is setting up the repo and k8s config this week",
+    "timestamp": "2024-09-02T11:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_007",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "I'll scaffold billing-service today — Node.js or Go? I'm leaning Go since we'll be processing webhook events at volume and the Stripe webhook handler needs to be fast",
+    "timestamp": "2024-09-02T13:10:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_008",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "Go works. the Stripe Go SDK is solid and we already have Go service templates from the auth work. just make sure we have proper signature verification on the webhook endpoint from day one — I don't want to retrofit that later",
+    "timestamp": "2024-09-02T13:25:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_009",
+    "from": "ryan_nguyen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "quinn, I read through the pricing model doc. for the revenue dashboard, I'll need to track MRR broken down by subscription tier, plus usage revenue on top. should I also build churn rate tracking into this? we don't have that anywhere right now",
+    "timestamp": "2024-09-03T09:20:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_010",
+    "from": "quinn_davis",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "yes absolutely, churn rate is a must. we need MRR, churn, and expansion revenue (upgrades + usage overage). the board has been asking for these metrics for months. can you mock up the dashboard layout this week so I can get stakeholder buy-in?",
+    "timestamp": "2024-09-03T09:35:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_011",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "billing-service repo is scaffolded. Go service with chi router, structured logging, and Stripe SDK pinned. the Stripe webhook handler endpoint is at /webhooks/stripe with signature verification already wired up. PR #bill-001 is up for review — @alice_chen can you take a look at the project structure?",
+    "timestamp": "2024-09-03T14:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_012",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "looks clean. one thing — can you add a dead letter queue for failed webhook events? if billing-service is down when Stripe sends an invoice.paid event, we need to retry processing it. Stripe does retry but I want our own safety net",
+    "timestamp": "2024-09-03T14:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_013",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "good idea, I'll add an SQS dead letter queue. failed webhook payloads go there and we process them with a retry worker on a 5min interval",
+    "timestamp": "2024-09-03T14:45:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_014",
+    "from": "quinn_davis",
+    "to": ["all"],
+    "channel": "#product",
+    "text": "sharing the billing-v2 pricing model for review. we're moving to three subscription tiers: Starter ($29/mo, 1k API calls), Pro ($99/mo, 10k calls), and Enterprise (custom). usage beyond the tier limit is billed at $0.005/call. mid-cycle upgrades are prorated, downgrades take effect at next billing cycle. feedback welcome — @sofia_martinez wanted to see this too for the customer comms plan",
+    "timestamp": "2024-09-04T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_015",
+    "from": "ryan_nguyen",
+    "to": ["all"],
+    "channel": "#product",
+    "text": "one concern with the pricing model — the jump from 1k to 10k calls between Starter and Pro is huge. we might see customers stuck on Starter burning through overage charges instead of upgrading. could we add a mid tier or lower the Pro threshold to 5k?",
+    "timestamp": "2024-09-04T10:20:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_016",
+    "from": "quinn_davis",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "fair point. let me run the numbers — if we drop Pro to 5k calls at $79/mo it might actually drive more upgrades. I'll update the pricing model doc and reshare",
+    "timestamp": "2024-09-04T10:35:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_017",
+    "from": "alice_chen",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "charlie, here's the schema I'm thinking for the invoice_items table: id (uuid), customer_id (FK), subscription_id (FK to Stripe sub), item_type (enum: 'subscription', 'usage', 'proration'), amount_cents (int), quantity (int), period_start, period_end, stripe_invoice_item_id (nullable), created_at. the stripe_invoice_item_id links back to Stripe for reconciliation. thoughts?",
+    "timestamp": "2024-09-05T09:15:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_018",
+    "from": "charlie_ross",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "looks solid. I'd add a description text field too — for the billing API, the frontend will want a human-readable line item like \"API usage: 3,241 calls\" on the invoice detail page. also should we add a status column? draft / finalized / voided?",
+    "timestamp": "2024-09-05T09:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_019",
+    "from": "alice_chen",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "yeah add both. status should default to 'draft' — invoice_items are draft until the billing cycle closes and we finalize the invoice with Stripe. once Stripe confirms, we flip to 'finalized'",
+    "timestamp": "2024-09-05T09:45:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_020",
+    "from": "charlie_ross",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "migration for the invoice_items table is up in PR #bill-008. adds the core billing data model — tracks subscription charges, usage line items, and proration credits per customer per billing cycle. each row links back to Stripe via stripe_invoice_item_id for reconciliation. @alice_chen approved the schema, requesting a second review from @bob_kim for the indexing strategy",
+    "timestamp": "2024-09-06T11:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_021",
+    "from": "bob_kim",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "reviewed — the indexes look fine for now. I'd add a composite on (customer_id, period_start, period_end) so the billing API can efficiently pull all line items for a given billing cycle. approved with that suggestion",
+    "timestamp": "2024-09-06T11:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_022",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "billing-v2 week 1 update: billing-service is scaffolded (Go), Stripe webhook handler is live with signature verification, invoice_items table migration is merged, and the pricing model has been finalized with product. this week we're building the usage tracking pipeline and starting on the billing API endpoints. on track for mid-October ship",
+    "timestamp": "2024-09-09T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_023",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "dave, for the usage tracking pipeline — I want billing-service to consume usage events from a Kafka topic, aggregate them per customer per hour, and write to invoice_items. the aggregation avoids creating millions of rows for high-volume customers. can you set up the Kafka consumer and the aggregation worker?",
+    "timestamp": "2024-09-09T10:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_024",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "makes sense. I'll batch events into hourly windows and flush to invoice_items with item_type='usage'. for the Kafka consumer — should billing-service manage its own consumer group or share with the existing analytics pipeline?",
+    "timestamp": "2024-09-09T11:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_025",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "own consumer group. billing data can't share offsets with analytics — if the analytics consumer falls behind it shouldn't affect billing accuracy",
+    "timestamp": "2024-09-09T11:10:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_026",
+    "from": "charlie_ross",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "started on the billing API. here's what I'm building: GET /api/billing/invoices (list invoices for a customer), GET /api/billing/invoices/:id (invoice detail with line items), POST /api/billing/subscriptions (create/upgrade subscription), PATCH /api/billing/subscriptions/:id (change plan). the subscription endpoints will talk to Stripe and write to invoice_items for proration credits. sound right?",
+    "timestamp": "2024-09-10T09:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_027",
+    "from": "alice_chen",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "yep, add GET /api/billing/usage/:customerId too — the frontend needs current-cycle usage for the dashboard widget. pull from invoice_items where period includes the current billing cycle and item_type='usage'",
+    "timestamp": "2024-09-10T09:45:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_028",
+    "from": "quinn_davis",
+    "to": ["alice_chen", "charlie_ross"],
+    "channel": null,
+    "text": "quick heads up — sales wants the ability to apply custom discounts to Enterprise invoices. can the billing API support a discount_cents field on invoice_items? doesn't need to be in v1 but I want to make sure the schema can handle it",
+    "timestamp": "2024-09-11T14:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_029",
+    "from": "alice_chen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "we can add it — I'll put a discount_cents nullable column on invoice_items. for v1 it stays null, and we wire it up for Enterprise in a follow-up. low effort to add now and avoids a migration later",
+    "timestamp": "2024-09-11T14:15:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_030",
+    "from": "ryan_nguyen",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "alice, for the revenue dashboard — I'm pulling MRR from the invoice_items table by summing all 'subscription' type items for the current period. for usage revenue I sum the 'usage' items. does that logic hold or are there edge cases with proration I should handle?",
+    "timestamp": "2024-09-12T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_031",
+    "from": "alice_chen",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "yes handle proration — when someone upgrades mid-cycle, we create a negative proration credit and a positive charge for the new plan. for MRR, you want to use the subscription amount_cents and ignore proration items. proration is a one-time adjustment, not recurring revenue. I'll add an is_recurring boolean to invoice_items to make this easier to query",
+    "timestamp": "2024-09-12T10:20:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_032",
+    "from": "ryan_nguyen",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "that helps a lot, thanks",
+    "timestamp": "2024-09-12T10:25:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_033",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "billing-service usage pipeline is deployed to staging. Kafka consumer is processing usage events, aggregating hourly, and writing to invoice_items. tested with 50k synthetic events — latency is under 200ms per batch. the Stripe webhook handler is also processing invoice.paid and invoice.payment_failed events correctly in staging. @alice_chen ready for your review",
+    "timestamp": "2024-09-16T14:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_034",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "nice work. testing it now — one thing I noticed: when Stripe sends a payment_failed webhook, we're logging the error but not updating the invoice status in invoice_items. we need to flip the status to 'failed' so the frontend can show a payment failure banner",
+    "timestamp": "2024-09-16T15:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_035",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "good catch, fixing now. I'll also add a retry_count to track how many payment attempts Stripe has made — that way the frontend can show 'payment failed, retrying' vs 'payment failed, action required'",
+    "timestamp": "2024-09-16T15:15:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_036",
+    "from": "charlie_ross",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "billing API endpoints are live on staging. you can now list invoices, get invoice detail with line items, check current usage, and manage subscriptions. proration is calculated via Stripe's proration preview API and we store the credits in invoice_items. PR #bill-024 — @alice_chen @dave_patel review please",
+    "timestamp": "2024-09-18T11:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_037",
+    "from": "alice_chen",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "reviewing now. the proration logic looks correct — I like that you're using Stripe's upcoming_invoice preview to show the customer what they'll owe before confirming the upgrade. approved with minor nits on error handling",
+    "timestamp": "2024-09-18T14:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_038",
+    "from": "quinn_davis",
+    "to": ["all"],
+    "channel": "#product",
+    "text": "billing-v2 midpoint check-in: pricing model is locked (Starter $29, Pro $79, Enterprise custom), billing API is on staging, usage pipeline is running, and the revenue dashboard wireframe is with design. we're in good shape for an end-of-October launch. main risk is the Stripe integration testing — we need to run a full billing cycle simulation before go-live",
+    "timestamp": "2024-09-20T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_039",
+    "from": "alice_chen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "agreed on the Stripe testing risk. I'll set up a Stripe test mode environment this week and simulate a full cycle: subscription creation → usage accumulation → invoice generation → payment → proration on upgrade. @dave_patel can help with automating the test scenarios",
+    "timestamp": "2024-09-20T10:20:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_040",
+    "from": "ryan_nguyen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "revenue dashboard mock is ready — has MRR by tier, usage revenue trend, churn rate over time, and expansion revenue from upgrades. sending the Figma link now. @iris_wang helped me polish the layout",
+    "timestamp": "2024-09-23T09:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_041",
+    "from": "quinn_davis",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "this looks great, exactly what the board needs. love the MRR breakdown by tier. one request — can you add a net revenue retention metric? it's MRR from existing customers including expansion minus churn. that's the number investors care about most",
+    "timestamp": "2024-09-23T09:50:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_042",
+    "from": "ryan_nguyen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "yep, adding it. I can compute NRR from the invoice_items data — just need to compare a cohort's MRR at period start vs end including usage revenue",
+    "timestamp": "2024-09-23T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_043",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "billing-v2 week 3 update: all core billing API endpoints are on staging, usage pipeline is processing events end-to-end, and Stripe webhook handler covers invoice.paid, payment_failed, and subscription.updated events. this week: full billing cycle simulation in Stripe test mode, proration edge cases, and starting the revenue dashboard backend queries. targeting Oct 14 for staging freeze",
+    "timestamp": "2024-09-23T11:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_044",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "dave, I ran the full billing cycle simulation in Stripe test mode. subscription creation and invoicing work perfectly. but there's an issue — when a customer upgrades mid-cycle, the proration credit isn't being written to invoice_items because the subscription.updated webhook fires before we've processed the proration preview. we need to handle the sequence: listen for invoice.updated after the subscription change to catch the proration line items",
+    "timestamp": "2024-09-25T09:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_045",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "ah yeah that's a timing issue. I'll add the invoice.updated handler and make it idempotent — if we already have the proration items from the preview API, we update them with the confirmed amounts from Stripe. if not, we create them. fixing today",
+    "timestamp": "2024-09-25T09:50:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_046",
+    "from": "charlie_ross",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "found another edge case — if a customer downgrades and their usage is already above the new tier's limit for the current cycle, what do we charge? the overage rate of the old tier or the new tier?",
+    "timestamp": "2024-09-26T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_047",
+    "from": "alice_chen",
+    "to": ["charlie_ross", "quinn_davis"],
+    "channel": null,
+    "text": "good question. @quinn_davis what's the product call here? my suggestion: downgrades take effect at next billing cycle (per the pricing model doc), so current-cycle usage still charges at the old tier's overage rate. usage in the new cycle charges at the new tier's rate",
+    "timestamp": "2024-09-26T10:15:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_048",
+    "from": "quinn_davis",
+    "to": ["alice_chen", "charlie_ross"],
+    "channel": null,
+    "text": "correct — downgrades are deferred to next cycle. the customer keeps their current plan through the end of the billing period. simpler for us and less confusing for customers",
+    "timestamp": "2024-09-26T10:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_049",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "fixed the proration webhook timing issue. billing-service now handles invoice.updated events and reconciles proration line items in invoice_items. ran the full upgrade simulation again — subscription → usage → upgrade → proration credit → new invoice, all correctly reflected in the database and confirmed against Stripe. PR #bill-031",
+    "timestamp": "2024-09-30T14:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_050",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "beautiful. I verified against Stripe dashboard — numbers match to the cent. merging",
+    "timestamp": "2024-09-30T14:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_051",
+    "from": "ryan_nguyen",
+    "to": ["all"],
+    "channel": "#product",
+    "text": "revenue dashboard is functional on staging. pulling live data from invoice_items — MRR by tier, usage revenue, churn rate, expansion revenue, and net revenue retention. all metrics update in real-time as billing events come in. @quinn_davis take a look when you get a chance",
+    "timestamp": "2024-10-02T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_052",
+    "from": "quinn_davis",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "just checked it out — this is exactly what we needed. the NRR chart is going to make the board happy. can you add a date range filter? right now it shows all time but I want to slice by month",
+    "timestamp": "2024-10-02T10:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_053",
+    "from": "ryan_nguyen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "easy, adding it today",
+    "timestamp": "2024-10-02T10:35:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_054",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "billing-v2 staging freeze is today. all billing API endpoints, usage pipeline, Stripe webhook handlers, and proration logic are tested and stable. @charlie_ross @dave_patel @ryan_nguyen — please do a final pass on your PRs. we're cutting the release branch tomorrow for production deploy next week",
+    "timestamp": "2024-10-14T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_055",
+    "from": "charlie_ross",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "all my PRs are merged and staging looks good. billing API response times are under 100ms p99. ready for prod",
+    "timestamp": "2024-10-14T11:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_056",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "infra is ready. billing-service has health checks, autoscaling configured for webhook spikes, and I've set up PagerDuty alerts for payment_failed webhook errors. deploy pipeline is green",
+    "timestamp": "2024-10-14T11:30:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_057",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "billing-v2 is live in production. billing-service is healthy, Stripe webhooks are flowing, and the first real usage events are being processed. monitoring closely for the next 24 hours. huge thanks to @charlie_ross @dave_patel @quinn_davis @ryan_nguyen — this was a clean ship",
+    "timestamp": "2024-10-21T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_058",
+    "from": "quinn_davis",
+    "to": ["all"],
+    "channel": "#general",
+    "text": "billing-v2 shipped! we now support usage-based pricing across all subscription tiers, with real-time invoicing, proration on plan changes, and a revenue dashboard with MRR, churn, and NRR metrics. massive effort from the team — @alice_chen @charlie_ross @dave_patel @ryan_nguyen you all crushed it",
+    "timestamp": "2024-10-21T14:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_059",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "24 hours post-launch report: billing-service processed 12k usage events, generated 340 invoices via Stripe, zero webhook failures, p99 latency at 45ms. the dead letter queue is empty. I'd call that a clean launch",
+    "timestamp": "2024-10-22T10:00:00-04:00",
+    "project": "billing-v2"
+  },
+  {
+    "id": "bill_060",
+    "from": "alice_chen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "quinn, now that billing-v2 is stable, I'm writing a post-mortem doc covering the Stripe integration patterns we used — webhook idempotency, proration reconciliation, and the usage aggregation pipeline. it'll be useful for anyone touching billing-service in the future. I'll also document the invoice_items schema decisions for the next engineer who inherits this",
+    "timestamp": "2024-10-28T09:30:00-04:00",
+    "project": "billing-v2"
+  }
+]

@@ -1,0 +1,722 @@
+[
+  {
+    "id": "noise_001",
+    "from": "mike_torres",
+    "to": ["all"],
+    "channel": "general",
+    "text": "happy new year everyone! hope you all had a restful break. excited to kick off 2025 together 🎉",
+    "timestamp": "2025-01-02T09:12:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_002",
+    "from": "sofia_martinez",
+    "to": ["all"],
+    "channel": "general",
+    "text": "welcome back team! quick reminder — the office fridge got cleaned out over the break so label your stuff. also we have bagels in the kitchen to celebrate the new year.",
+    "timestamp": "2025-01-02T09:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_003",
+    "from": "frank_li",
+    "to": ["henry_zhao"],
+    "channel": null,
+    "text": "dude did you watch the playoff game last night? that fourth quarter comeback was insane",
+    "timestamp": "2025-01-02T10:05:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_004",
+    "from": "henry_zhao",
+    "to": ["frank_li"],
+    "channel": null,
+    "text": "yes!! I was screaming at my TV lol. we should grab beers and watch the next one",
+    "timestamp": "2025-01-02T10:08:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_005",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "general",
+    "text": "does anyone know the wifi password for the small conf room on the 3rd floor? I keep getting kicked off",
+    "timestamp": "2025-01-02T10:45:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_006",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "general",
+    "text": "it's BsusGuest2024 — they haven't rotated it yet. should be on the whiteboard in there too",
+    "timestamp": "2025-01-02T10:48:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_007",
+    "from": "priya_mehta",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "hey quinn, can we push our 2pm sync to 3pm today? I have a dentist appointment that's running late",
+    "timestamp": "2025-01-02T13:20:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_008",
+    "from": "quinn_davis",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "no worries, 3pm works. hope the dentist isn't too painful 😬",
+    "timestamp": "2025-01-02T13:24:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_009",
+    "from": "alice_chen",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "bob have you tried that new ramen place on 5th? I went over the break and it was incredible",
+    "timestamp": "2025-01-03T11:15:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_010",
+    "from": "bob_kim",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "no but I've been meaning to! want to go for lunch today? I'm craving something warm, it's freezing out",
+    "timestamp": "2025-01-03T11:18:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_011",
+    "from": "alice_chen",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "yes let's do it. 12:30?",
+    "timestamp": "2025-01-03T11:20:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_012",
+    "from": "iris_wang",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "lisa did you see that new motion design reel on dribbble? the micro-interactions are so smooth. sending you the link",
+    "timestamp": "2025-01-06T14:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_013",
+    "from": "lisa_chen",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "omg yes that was gorgeous. the easing curves on the card transitions are exactly what I want to learn. thanks for sharing!",
+    "timestamp": "2025-01-06T14:35:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_014",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "heads up — Config 2025 early bird tickets go on sale tomorrow. if anyone wants to go, let me know and I'll get approval for the team budget",
+    "timestamp": "2025-01-07T09:45:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_015",
+    "from": "charlie_ross",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "anyone want to grab coffee? I'm doing a starbucks run in 10 min",
+    "timestamp": "2025-01-08T14:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_016",
+    "from": "eve_johnson",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "oat milk latte please! I'll venmo you",
+    "timestamp": "2025-01-08T14:02:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_017",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "same for me please, medium drip. thanks charlie!",
+    "timestamp": "2025-01-08T14:03:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_018",
+    "from": "ryan_nguyen",
+    "to": ["sofia_martinez"],
+    "channel": null,
+    "text": "sofia do you have the zoom link for the all-hands tomorrow? I can't find the calendar invite",
+    "timestamp": "2025-01-09T16:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_019",
+    "from": "sofia_martinez",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "just forwarded it to you. it's the same recurring link we always use — I'll pin it in #general too",
+    "timestamp": "2025-01-09T16:33:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_020",
+    "from": "jack_brown",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "grace have you ever tried that korean bbq place near the office? a bunch of us are going friday after work",
+    "timestamp": "2025-01-13T11:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_021",
+    "from": "grace_park",
+    "to": ["jack_brown"],
+    "channel": null,
+    "text": "oh I love that place! count me in. who else is going?",
+    "timestamp": "2025-01-13T11:04:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_022",
+    "from": "jack_brown",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "so far it's me, lisa, oscar, and frank. the more the merrier though — invite whoever",
+    "timestamp": "2025-01-13T11:07:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_023",
+    "from": "mike_torres",
+    "to": ["all"],
+    "channel": "general",
+    "text": "shout out to the eng team for crushing it on the year-end deploy. zero incidents over the holiday break. that's how it's done 🙌",
+    "timestamp": "2025-01-14T09:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_024",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "charlie do you have a good recommendation for a mechanical keyboard? mine is dying and I need a new one",
+    "timestamp": "2025-01-15T15:10:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_025",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "keychron Q1 pro, hands down. I've been using it for 6 months and it's amazing. brown switches if you're in the office so you don't annoy everyone lol",
+    "timestamp": "2025-01-15T15:14:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_026",
+    "from": "priya_mehta",
+    "to": ["all"],
+    "channel": "general",
+    "text": "happy birthday lisa!! 🎂🎉 there's cake in the kitchen if anyone wants some",
+    "timestamp": "2025-01-21T10:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_027",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "general",
+    "text": "happy birthday @lisa_chen! hope it's a great one 🥳",
+    "timestamp": "2025-01-21T10:05:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_028",
+    "from": "lisa_chen",
+    "to": ["all"],
+    "channel": "general",
+    "text": "aw thanks everyone!! you guys are the best. the cake is delicious btw, who made it??",
+    "timestamp": "2025-01-21T10:15:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_029",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "ugh my commute was an hour and a half today. there was some kind of accident on the bridge. I should just WFH on mondays honestly",
+    "timestamp": "2025-01-27T09:50:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_030",
+    "from": "nina_scott",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "that's brutal. I switched to taking the train last month and it's been way more consistent. highly recommend if you're near a station",
+    "timestamp": "2025-01-27T09:55:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_031",
+    "from": "bob_kim",
+    "to": ["all"],
+    "channel": "backend",
+    "text": "heads up I'm WFH today, the snow is pretty bad on my side of town. ping me on slack if you need anything",
+    "timestamp": "2025-01-29T09:10:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_032",
+    "from": "jordan_kim",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "hey grace, quick question — where do I submit my expense reports? I couldn't find the link on the intranet",
+    "timestamp": "2025-01-30T14:20:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_033",
+    "from": "grace_park",
+    "to": ["jordan_kim"],
+    "channel": null,
+    "text": "it's under People > Expenses in workday. it's kind of buried. I'll send you the direct link — I had the same issue when I started lol",
+    "timestamp": "2025-01-30T14:25:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_034",
+    "from": "frank_li",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "PSA: the espresso machine in the 2nd floor kitchen is broken again. someone left it on over the weekend and it overheated. IT said they're getting it fixed tomorrow",
+    "timestamp": "2025-02-03T09:20:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_035",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "nooo that espresso machine is the only thing keeping me alive this week 😭",
+    "timestamp": "2025-02-03T09:25:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_036",
+    "from": "ryan_nguyen",
+    "to": ["priya_mehta"],
+    "channel": null,
+    "text": "priya have you watched severance season 2? I just binged it this weekend and I can't stop thinking about it",
+    "timestamp": "2025-02-04T12:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_037",
+    "from": "priya_mehta",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "YES. the finale was unreal. I literally gasped. no spoilers in #general though, quinn hasn't started it yet and he'll kill us",
+    "timestamp": "2025-02-04T12:05:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_038",
+    "from": "quinn_davis",
+    "to": ["all"],
+    "channel": "product",
+    "text": "reminder: product team lunch is this thursday at 12:30. we're doing that new mediterranean place. please RSVP on the calendar invite so I can make a reservation",
+    "timestamp": "2025-02-05T10:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_039",
+    "from": "henry_zhao",
+    "to": ["frank_li"],
+    "channel": null,
+    "text": "yo frank you still down for the gym after work? I found a good chest/back split I want to try",
+    "timestamp": "2025-02-06T16:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_040",
+    "from": "frank_li",
+    "to": ["henry_zhao"],
+    "channel": null,
+    "text": "let's go. I'll meet you in the lobby at 6:15. also I finally got a PR on bench press last week 💪",
+    "timestamp": "2025-02-06T16:04:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_041",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "general",
+    "text": "anyone interested in starting a book club? I've been reading a lot of non-fiction lately and it'd be fun to discuss with people. thinking once a month",
+    "timestamp": "2025-02-10T11:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_042",
+    "from": "sofia_martinez",
+    "to": ["all"],
+    "channel": "general",
+    "text": "I'm in! I've been meaning to read more this year. great idea iris",
+    "timestamp": "2025-02-10T11:40:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_043",
+    "from": "eve_johnson",
+    "to": ["all"],
+    "channel": "general",
+    "text": "count me in too! I just finished \"the staff engineer's path\" and need something new",
+    "timestamp": "2025-02-10T11:45:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_044",
+    "from": "mike_torres",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "dave did you end up getting that keychron? I saw one on your desk today",
+    "timestamp": "2025-02-11T14:15:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_045",
+    "from": "dave_patel",
+    "to": ["mike_torres"],
+    "channel": null,
+    "text": "yeah charlie convinced me. it's really nice actually, the build quality is solid. only downside is I keep bottoming out on the keys because my old keyboard had way heavier switches",
+    "timestamp": "2025-02-11T14:20:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_046",
+    "from": "karen_wu",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "FYI the VPN will be down for maintenance this saturday 6am-10am ET. plan accordingly if you were going to work over the weekend",
+    "timestamp": "2025-02-12T16:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_047",
+    "from": "oscar_lee",
+    "to": ["jack_brown"],
+    "channel": null,
+    "text": "jack nice work on the user research presentation yesterday. the stakeholders were really impressed, priya told me after",
+    "timestamp": "2025-02-13T09:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_048",
+    "from": "jack_brown",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "thanks oscar, that means a lot. I was nervous about presenting to the execs but I think the data spoke for itself. glad it landed well",
+    "timestamp": "2025-02-13T09:35:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_049",
+    "from": "charlie_ross",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "alice I'm going to be about 10 min late to standup, my morning meeting is running over. can you cover for me if anything comes up?",
+    "timestamp": "2025-02-18T09:45:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_050",
+    "from": "alice_chen",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "got you, no worries. I'll let the team know",
+    "timestamp": "2025-02-18T09:47:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_051",
+    "from": "quinn_davis",
+    "to": ["all"],
+    "channel": "general",
+    "text": "who left a bag of chips in the microwave? it's been in there since yesterday and the kitchen smells like a movie theater 😂",
+    "timestamp": "2025-02-19T09:15:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_052",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "dave you're into camping right? any recs for a good 2-person tent? my girlfriend and I are planning a trip to joshua tree next month",
+    "timestamp": "2025-02-20T12:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_053",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "nice! big agnes copper spur is the gold standard. a bit pricey but totally worth it. also make sure you bring layers — the desert gets cold at night. I can send you my packing list if you want",
+    "timestamp": "2025-02-20T12:38:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_054",
+    "from": "lisa_chen",
+    "to": ["all"],
+    "channel": "design",
+    "text": "found an amazing talk from the latest RISD conference about designing with constraints. highly recommend watching if you have 20 min: https://example.com/risd-talk",
+    "timestamp": "2025-02-24T10:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_055",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "eve have you tried that new boba place that opened up next to the subway station? I went yesterday and it's SO good",
+    "timestamp": "2025-02-25T15:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_056",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "no omg we need to go!! I've been craving boba all week. tomorrow afternoon?",
+    "timestamp": "2025-02-25T15:05:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_057",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "anyone else having issues with npm install being super slow today? it's been hanging for like 5 minutes",
+    "timestamp": "2025-02-26T10:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_058",
+    "from": "henry_zhao",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "yeah it's not just you. npmjs.org status page says they're having registry issues. should clear up soon hopefully",
+    "timestamp": "2025-02-26T10:35:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_059",
+    "from": "sofia_martinez",
+    "to": ["all"],
+    "channel": "general",
+    "text": "reminder: company all-hands is tomorrow at 2pm ET. agenda includes Q1 OKR review and a few exciting announcements. please try to attend live if you can!",
+    "timestamp": "2025-02-26T16:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_060",
+    "from": "mike_torres",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "great all-hands today. nice to see the company growing. also whoever asked that question about unlimited PTO — you're brave 😄",
+    "timestamp": "2025-02-27T15:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_061",
+    "from": "ryan_nguyen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "quinn I'm going to work from the coffee shop downtown this afternoon. I'll be online on slack but might be slow to respond if the wifi is spotty",
+    "timestamp": "2025-03-03T12:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_062",
+    "from": "alice_chen",
+    "to": ["all"],
+    "channel": "general",
+    "text": "anyone want to do a lunch run to the thai place on elm street? I'm ordering in 15 min",
+    "timestamp": "2025-03-04T11:45:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_063",
+    "from": "charlie_ross",
+    "to": ["all"],
+    "channel": "general",
+    "text": "pad see ew for me please! large. venmo incoming",
+    "timestamp": "2025-03-04T11:48:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_064",
+    "from": "jack_brown",
+    "to": ["all"],
+    "channel": "general",
+    "text": "green curry with tofu please. thanks alice!",
+    "timestamp": "2025-03-04T11:50:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_065",
+    "from": "bob_kim",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "alice the joshua tree trip was amazing. thanks for the restaurant rec near palm springs too — that brunch spot was incredible",
+    "timestamp": "2025-03-05T10:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_066",
+    "from": "priya_mehta",
+    "to": ["all"],
+    "channel": "general",
+    "text": "PSA: daylight saving time this weekend! don't forget to spring forward or you'll miss monday standup 😅",
+    "timestamp": "2025-03-07T16:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_067",
+    "from": "karen_wu",
+    "to": ["mike_torres"],
+    "channel": null,
+    "text": "mike can you send me the link to the eng retro doc? I want to add a few notes before tomorrow's meeting",
+    "timestamp": "2025-03-10T15:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_068",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "just saw that the office is getting new standing desks next week. finally! my back has been killing me",
+    "timestamp": "2025-03-11T09:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_069",
+    "from": "frank_li",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "anyone else's IDE been crashing every 30 minutes since the latest update? might need to roll back",
+    "timestamp": "2025-03-12T14:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_070",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "yeah I had the same issue. downgrading to the previous version fixed it for me. they pushed a patch this morning though so try updating again",
+    "timestamp": "2025-03-12T14:10:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_071",
+    "from": "iris_wang",
+    "to": ["jack_brown"],
+    "channel": null,
+    "text": "jack have you seen the cherry blossoms by the waterfront yet? they're starting to bloom and they're gorgeous this year. perfect for a walk at lunch",
+    "timestamp": "2025-03-14T11:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_072",
+    "from": "jordan_kim",
+    "to": ["henry_zhao"],
+    "channel": null,
+    "text": "hey henry, thanks for the onboarding help last week. really appreciate you taking the time to walk me through the codebase. the team has been super welcoming",
+    "timestamp": "2025-03-17T09:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_073",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "heads up I'm going to be OOO next friday for a friend's wedding. I'll make sure everything is handed off before then",
+    "timestamp": "2025-03-18T10:15:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_074",
+    "from": "charlie_ross",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "bob did you fix the coffee machine on the 2nd floor? it's magically working again and I need to thank whoever did it",
+    "timestamp": "2025-03-19T09:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_075",
+    "from": "bob_kim",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "lol yeah I watched a youtube video and figured it out. the water line was just clogged. you're welcome 😄",
+    "timestamp": "2025-03-19T09:05:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_076",
+    "from": "lisa_chen",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "iris omg I just finished the book club pick — \"creative confidence\" by the kelley brothers. SO good. can't wait to discuss it next week",
+    "timestamp": "2025-03-20T16:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_077",
+    "from": "quinn_davis",
+    "to": ["ryan_nguyen"],
+    "channel": null,
+    "text": "ryan are you going to the happy hour tonight? I heard they're doing it at that rooftop bar downtown",
+    "timestamp": "2025-03-24T15:30:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_078",
+    "from": "ryan_nguyen",
+    "to": ["quinn_davis"],
+    "channel": null,
+    "text": "yeah I'll be there! should be a good time. I think priya and sofia are coming too",
+    "timestamp": "2025-03-24T15:35:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_079",
+    "from": "nina_scott",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "grace how was the wedding? I saw your photos on instagram — that venue was stunning!",
+    "timestamp": "2025-03-25T10:00:00Z",
+    "project": null
+  },
+  {
+    "id": "noise_080",
+    "from": "mike_torres",
+    "to": ["all"],
+    "channel": "general",
+    "text": "wrapping up Q1 next week! let's finish strong everyone. really proud of what this team has accomplished these past few months. beers on me friday 🍻",
+    "timestamp": "2025-03-28T09:30:00Z",
+    "project": null
+  }
+]

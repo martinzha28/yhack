@@ -1,0 +1,857 @@
+[
+  {
+    "id": "ds_001",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "alright team, kicking off design-system-v2 this week. iris and I have been auditing the existing component library and there's a lot of inconsistency — we need a single source of truth for design tokens, starting with the color palette and spacing scale. iris will own the Figma side, nina will bridge to implementation. let's get aligned in tomorrow's sync.",
+    "timestamp": "2025-01-06T09:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_002",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "hey nina, I started restructuring the Figma file for design-system-v2. I'm setting up a dedicated page for semantic colors — brand, surface, text, border tokens. do you have a preference for how we name them in tokens.json? I want to make sure the Figma variable names map 1:1 to what you use in code.",
+    "timestamp": "2025-01-06T10:42:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_003",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "great question — I've been using a flat namespace like color.text.primary, color.surface.default, color.border.subtle in tokens.json. if you can mirror that hierarchy in the Figma variables, the export to code will be seamless. I'll set up the Style Dictionary config to auto-generate CSS custom properties and JS constants from tokens.json.",
+    "timestamp": "2025-01-06T10:58:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_004",
+    "from": "eve_johnson",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "heads up — I'm restructuring the storybook setup for design-system-v2. going to organize stories by atomic design levels: atoms (Button, Icon, Badge), molecules (FormField, Card), organisms (Navbar, Sidebar). each story will document accessibility props and WCAG compliance status.",
+    "timestamp": "2025-01-06T14:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_005",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "eve, should I start on the Button component first? I saw iris has some variants spec'd out in Figma — primary, secondary, ghost, and destructive. want to make sure I'm building against the right specs before I write the React code.",
+    "timestamp": "2025-01-07T09:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_006",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "yes, button is the highest priority. nina is syncing with iris on the final token values today. hold off until tokens.json has the semantic color definitions landed — you'll want to reference those directly instead of hardcoding hex values. the whole point of the design token layer is that components consume tokens, not raw colors.",
+    "timestamp": "2025-01-07T09:35:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_007",
+    "from": "jack_brown",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "oscar, I've been mapping out the UX states for all button variants — default, hover, pressed, focused, disabled. for the focused state, WCAG 2.4.7 requires a visible focus indicator. I'm proposing a 2px offset ring using the color.focus.ring token. want me to add this to the Figma component specs?",
+    "timestamp": "2025-01-07T11:10:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_008",
+    "from": "oscar_lee",
+    "to": ["jack_brown"],
+    "channel": null,
+    "text": "yes please. also make sure the focus ring has enough contrast against all surface colors — we need WCAG AA minimum (3:1 for non-text elements). iris can validate the token values in Figma.",
+    "timestamp": "2025-01-07T11:25:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_009",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "just pushed the initial tokens.json to the design-system-v2 branch — it has the base color palette (primitives) and the first set of semantic aliases for text, surface, and border tokens. the Figma variables iris set up map directly to these. next step is wiring these into the Button and Typography components in storybook.",
+    "timestamp": "2025-01-08T09:45:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_010",
+    "from": "lisa_chen",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "oscar, when should I start on the motion tokens? I want to define standard easing curves and durations for the component library — things like transition.duration.fast (150ms), transition.duration.normal (250ms), and the easing functions. I can also start prototyping Lottie animations for loading states.",
+    "timestamp": "2025-01-08T10:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_011",
+    "from": "oscar_lee",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "let's get the color and spacing tokens stabilized first, then you can layer in motion. probably week 3. but go ahead and start documenting the motion token spec in Figma — durations, easing curves, which component states get transitions. that way we're ready to implement when the time comes.",
+    "timestamp": "2025-01-08T10:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_012",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "published the v1 color palette in Figma for design-system-v2. the semantic color tokens are organized as: text (primary, secondary, tertiary, disabled, inverse), surface (default, raised, sunken, overlay), border (default, subtle, strong), and interactive states. @nina_scott these should match what's in tokens.json — let me know if anything's off.",
+    "timestamp": "2025-01-09T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_013",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "just cross-checked — the Figma variables line up with tokens.json perfectly. one thing: can you add color.interactive.primary-hover and color.interactive.primary-pressed? I need those for the Button component's hover and active states. grace is blocked on the React implementation until those exist.",
+    "timestamp": "2025-01-09T10:05:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_014",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "on it — I'll derive them from the primary base. -hover will be 8% darker, -pressed will be 12% darker. I'll update the Figma variables and you can pull into tokens.json.",
+    "timestamp": "2025-01-09T10:18:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_015",
+    "from": "grace_park",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "nina, do we have the spacing scale locked down yet? I'm building the Button component and need to know the internal padding. is it the 4px base scale? so 4, 8, 12, 16, 24, 32, 48?",
+    "timestamp": "2025-01-09T14:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_016",
+    "from": "nina_scott",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "yep, 4px base. it's in tokens.json under spacing.* — spacing.xs is 4px, spacing.sm is 8px, spacing.md is 16px, spacing.lg is 24px, spacing.xl is 32px. button padding should be spacing.sm horizontal and spacing.xs vertical for size=small, spacing.md/spacing.sm for medium.",
+    "timestamp": "2025-01-09T14:12:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_017",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "opened a PR for the Button component — supports primary, secondary, ghost, and destructive variants with three sizes. all consuming design tokens from tokens.json. storybook stories included. @eve_johnson can you review when you get a chance? I want to make sure the accessibility props and aria attributes look right.",
+    "timestamp": "2025-01-13T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_018",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "looking at the PR now. the button variants look great, but I noticed the disabled state doesn't have aria-disabled — you're using the HTML disabled attribute which removes the button from tab order. for accessibility, we should keep it focusable but non-interactive. also the contrast ratio on the secondary ghost variant is only 3.8:1 against surface.default, which fails WCAG AA (needs 4.5:1 for text).",
+    "timestamp": "2025-01-13T11:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_019",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "good catches — I'll switch to aria-disabled and intercept click events. for the contrast issue, should I flag it to iris to adjust the ghost variant token or bump it on our side?",
+    "timestamp": "2025-01-13T11:45:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_020",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "flag it to iris — the token values need to be correct at the source. we shouldn't override design tokens in component code. that defeats the whole purpose of the token system.",
+    "timestamp": "2025-01-13T11:52:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_021",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "iris, eve flagged a WCAG contrast issue — the ghost button's text color (color.interactive.secondary) against surface.default is only 3.8:1. we need 4.5:1 minimum for AA compliance. can you darken color.interactive.secondary in the Figma palette? I'll update tokens.json once you've verified it passes contrast checks.",
+    "timestamp": "2025-01-13T13:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_022",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "ugh, good catch. I ran it through the Figma contrast plugin and you're right. bumping from #6B7280 to #4B5563 gets us to 5.2:1 which clears AA. updating the variable now.",
+    "timestamp": "2025-01-13T13:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_023",
+    "from": "nina_scott",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "iris just updated color.interactive.secondary in Figma — I've ported the new value to tokens.json. contrast ratio is now 5.2:1 against surface.default, clears WCAG AA. you can pull latest and the ghost button variant should be good.",
+    "timestamp": "2025-01-13T14:05:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_024",
+    "from": "grace_park",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "pulled and verified. looks great, merging the Button PR now. 🎉",
+    "timestamp": "2025-01-13T14:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_025",
+    "from": "jack_brown",
+    "to": ["all"],
+    "channel": "design",
+    "text": "I've uploaded the typography scale spec to the design-system-v2 Figma file. heading-xl through body-sm, with line-height and letter-spacing tokens for each. @iris_wang can you verify the font weights map to our brand font's available weights? I want to avoid faux-bold rendering issues.",
+    "timestamp": "2025-01-14T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_026",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "checked — we have 400, 500, 600, and 700 weights available. your spec uses 350 for body text which doesn't exist. suggest bumping to 400 (regular). everything else maps cleanly.",
+    "timestamp": "2025-01-14T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_027",
+    "from": "jack_brown",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "ah, my mistake. updated to 400. thanks!",
+    "timestamp": "2025-01-14T10:10:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_028",
+    "from": "nina_scott",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "eve, I added the full typography token set to tokens.json — font-size, line-height, letter-spacing, and font-weight for each of the 7 type scale levels. matches jack's Figma spec exactly. should I also create the Typography React component or is grace taking that?",
+    "timestamp": "2025-01-15T09:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_029",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "you take it — you understand the token mapping better than anyone. make sure storybook shows all variants with dark mode previews too. I want to start testing dark mode token resolution early.",
+    "timestamp": "2025-01-15T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_030",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "pushed the Typography component to the design-system-v2 branch — renders heading-xl through body-sm with full semantic token support. the storybook stories include a dark mode toggle so you can preview how the text colors resolve against both light and dark surface tokens. @eve_johnson ready for review.",
+    "timestamp": "2025-01-16T15:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_031",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "reviewed — looks solid. one suggestion: add a prop for as (polymorphic element) so consumers can render heading tokens as any HTML element. sometimes you need a visually smaller heading that's semantically an h2. approved with that minor.",
+    "timestamp": "2025-01-16T16:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_032",
+    "from": "nina_scott",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "done, added the as prop. merged!",
+    "timestamp": "2025-01-16T16:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_033",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "team update on design-system-v2: color palette and spacing tokens are locked. typography scale is locked. button component is shipped. this week we're focusing on form inputs — TextInput, Select, Checkbox, Radio. @jack_brown can you get the UX states spec'd in Figma by Wednesday? @iris_wang will you handle the visual design and token definitions?",
+    "timestamp": "2025-01-20T09:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_034",
+    "from": "jack_brown",
+    "to": ["all"],
+    "channel": "design",
+    "text": "on it. I'll cover all states: empty, filled, focused, error, disabled, and read-only. plus I want to document the error message pattern — inline vs tooltip vs below-field. we should pick one and be consistent across the component library.",
+    "timestamp": "2025-01-20T09:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_035",
+    "from": "oscar_lee",
+    "to": ["jack_brown"],
+    "channel": null,
+    "text": "inline below the field is the standard pattern. let's go with that. make sure the error state uses color.feedback.error for the border and message text — keep it accessible.",
+    "timestamp": "2025-01-20T09:35:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_036",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "published the form input tokens in the design-system-v2 Figma file — border-radius, border-width, and the color tokens for each state (default, hover, focus, error, disabled). the focus ring reuses the same color.focus.ring token from Button. @nina_scott tokens are ready for you to port to tokens.json.",
+    "timestamp": "2025-01-22T10:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_037",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "perfect, pulling them in now. quick question — for the input border on focus, are we doing a box-shadow ring or a border-width change? the Figma spec shows a 2px ring but I want to confirm the implementation approach since it affects the token structure.",
+    "timestamp": "2025-01-22T10:50:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_038",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "box-shadow ring — same as Button. keeps the layout stable since it doesn't affect element dimensions. the token is focus.ring.width (2px) and focus.ring.offset (2px).",
+    "timestamp": "2025-01-22T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_039",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "starting on the TextInput component. I'm using the same compound component pattern as Button — TextInput, TextInput.Label, TextInput.Error, TextInput.HelpText. each piece consumes the right tokens. is this the pattern you want for all form components?",
+    "timestamp": "2025-01-22T14:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_040",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "yes, compound components are the way to go for forms. make sure TextInput.Label is associated via htmlFor and the input has aria-describedby pointing to the error/help text. we need storybook stories showing all states, including the error state with screen reader announcements.",
+    "timestamp": "2025-01-22T14:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_041",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "got it. also adding aria-invalid and aria-errormessage for the error state. will have the PR up tomorrow.",
+    "timestamp": "2025-01-22T14:35:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_042",
+    "from": "lisa_chen",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "nina, I finished the motion token spec in Figma. here's what I've got: transition.duration.instant (100ms), transition.duration.fast (150ms), transition.duration.normal (250ms), transition.duration.slow (400ms). easing: ease.default (cubic-bezier(0.4, 0, 0.2, 1)), ease.enter (cubic-bezier(0, 0, 0.2, 1)), ease.exit (cubic-bezier(0.4, 0, 1, 1)). can you add these to tokens.json?",
+    "timestamp": "2025-01-23T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_043",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "this is super clean, love it. I'll add them under motion.duration.* and motion.easing.* in tokens.json. these will be great for the form input focus transitions and the button hover states. I'll also set up the CSS custom property output so grace can use them directly.",
+    "timestamp": "2025-01-23T10:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_044",
+    "from": "lisa_chen",
+    "to": ["oscar_lee"],
+    "channel": null,
+    "text": "oscar, I also started on some Lottie animations for loading spinners and skeleton states. thinking we can ship these as part of the component library — a Spinner component and a Skeleton component. the Lottie files are small (under 5kb each) and they look way better than CSS-only spinners.",
+    "timestamp": "2025-01-23T11:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_045",
+    "from": "oscar_lee",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "love the Lottie approach. make sure the loading animation respects prefers-reduced-motion — we should have a static fallback. add it to the accessibility requirements in the Figma spec.",
+    "timestamp": "2025-01-23T11:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_046",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "TextInput PR is up for design-system-v2. compound component pattern with full WCAG support — labels, error messages, help text, aria attributes. storybook stories cover all 6 states. @eve_johnson @nina_scott ready for review.",
+    "timestamp": "2025-01-24T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_047",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "approved — really clean implementation. the aria-describedby chaining for error + help text is exactly right. nice work.",
+    "timestamp": "2025-01-24T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_048",
+    "from": "nina_scott",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "LGTM! verified the token consumption is correct — all colors resolve from tokens.json, no hardcoded values. merged.",
+    "timestamp": "2025-01-24T11:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_049",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "design-system-v2 checkpoint: we've shipped Button, Typography, and TextInput. next up: Select, Checkbox, Radio, then we tackle dark mode. the light mode tokens are stable. @iris_wang how's the dark mode color palette coming in Figma?",
+    "timestamp": "2025-01-27T09:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_050",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "dark mode palette is about 80% done. the tricky part is getting the elevated surface colors right — in dark mode, elevation should increase lightness instead of adding shadow. I'm defining surface.raised-dark, surface.overlay-dark etc. should be ready by end of week.",
+    "timestamp": "2025-01-27T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_051",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "iris, for the dark mode tokens — are you defining them as separate variables in Figma or using modes on the same variables? on the code side I'm planning to use tokens.json with a theme key so we can do tokens.light.color.surface.default vs tokens.dark.color.surface.default. just want to keep the Figma structure aligned.",
+    "timestamp": "2025-01-27T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_052",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "using Figma variable modes — so the same variable name resolves to different values per mode. that maps perfectly to your theme key approach. same semantic name, different resolved value. super clean.",
+    "timestamp": "2025-01-27T11:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_053",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "nina, for dark mode in storybook — I think we should add a toolbar toggle that switches the theme context. that way every component story automatically previews in both modes. I'll set up the storybook decorator if you handle the token resolution logic.",
+    "timestamp": "2025-01-28T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_054",
+    "from": "nina_scott",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "perfect split. I'll create a ThemeProvider that reads from tokens.json and injects the right CSS custom properties based on the active theme. the storybook decorator just needs to wrap stories in <ThemeProvider theme=\"dark\">. should have it ready by EOD.",
+    "timestamp": "2025-01-28T09:45:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_055",
+    "from": "grace_park",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "should I wait for the dark mode ThemeProvider before building Select and Checkbox? or can I build them with light mode tokens and they'll just work once you flip the theme?",
+    "timestamp": "2025-01-28T10:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_056",
+    "from": "nina_scott",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "build them now — as long as you're consuming semantic tokens from tokens.json (not primitive hex values), they'll automatically resolve to dark mode values when the ThemeProvider switches. that's the whole beauty of design tokens.",
+    "timestamp": "2025-01-28T10:40:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_057",
+    "from": "jack_brown",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "grace, for the Checkbox component — I spec'd a custom checkbox design in Figma instead of styling the native one. the checked state uses a checkmark icon from our icon set with color.interactive.on-primary for the fill. UX states: unchecked, checked, indeterminate, disabled, error. make sure the hit target is at least 24x24px for touch accessibility.",
+    "timestamp": "2025-01-29T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_058",
+    "from": "grace_park",
+    "to": ["jack_brown"],
+    "channel": null,
+    "text": "got it. I'll use a visually hidden native checkbox for accessibility (so it works with screen readers and form submission) with the custom visual overlay. the Figma spec looks great, thanks for the detailed states.",
+    "timestamp": "2025-01-29T10:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_059",
+    "from": "lisa_chen",
+    "to": ["all"],
+    "channel": "design",
+    "text": "the Lottie loading spinner is done — designed to loop seamlessly and respects prefers-reduced-motion with a static fallback. exported as JSON at 3.2kb. @nina_scott can you wire it into a Spinner React component for the design-system-v2 component library?",
+    "timestamp": "2025-01-30T14:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_060",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "love it! I'll create the Spinner component with lottie-react and hook up the reduced-motion media query to swap in the static SVG fallback. the motion tokens you defined (transition.duration.normal for the spin cycle) will drive the playback speed.",
+    "timestamp": "2025-01-30T14:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_061",
+    "from": "eve_johnson",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "PSA for anyone consuming components from design-system-v2: we're switching from hardcoded CSS to token-based custom properties. if you're importing Button or Typography directly, wrap your app in the new ThemeProvider from @bsus/design-tokens. otherwise colors won't resolve. @grace_park wrote migration docs in storybook.",
+    "timestamp": "2025-02-03T09:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_062",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "Select and Checkbox PRs are up for design-system-v2. both use compound component patterns, consume semantic tokens, and have full storybook coverage including dark mode previews. @eve_johnson @nina_scott please review when you can.",
+    "timestamp": "2025-02-04T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_063",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "Select looks good. one issue with Checkbox: the indeterminate state isn't being announced to screen readers. you need aria-checked=\"mixed\" when indeterminate is true. also add a brief note in the storybook docs about when to use indeterminate (parent checkbox with partial children selected).",
+    "timestamp": "2025-02-04T11:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_064",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "fixed! aria-checked=\"mixed\" is set when indeterminate prop is true, and I added the usage guidance to storybook. thanks for catching that.",
+    "timestamp": "2025-02-04T13:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_065",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "dark mode color palette is complete in Figma for design-system-v2! all semantic color tokens have light and dark mode values defined via Figma variable modes. @nina_scott you're clear to pull the dark theme values into tokens.json. @oscar_lee want to review before I mark it as ready?",
+    "timestamp": "2025-02-05T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_066",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "just went through every screen — it's beautiful. the elevated surface handling in dark mode is really well done. approved. 🙌",
+    "timestamp": "2025-02-05T10:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_067",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "just pushed the complete dark mode token set to tokens.json — all semantic color tokens now have light and dark values. the ThemeProvider reads from tokens.json and injects the correct CSS custom properties based on the active theme. every component in storybook now has a working dark mode toggle. iris did an incredible job on the dark palette in Figma. 🌙",
+    "timestamp": "2025-02-06T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_068",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "this is great work nina. I tested the dark mode toggle in storybook across all components — Button, Typography, TextInput, Select, Checkbox. everything resolves correctly. the token system is paying off big time.",
+    "timestamp": "2025-02-06T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_069",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "huge milestone for design-system-v2: dark mode is live in storybook across all shipped components. massive thanks to @iris_wang for the Figma work and @nina_scott for the implementation. next phase: Radio, Toggle, Badge, Tooltip. and @lisa_chen — we're ready for motion tokens to be integrated into components.",
+    "timestamp": "2025-02-07T09:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_070",
+    "from": "lisa_chen",
+    "to": ["all"],
+    "channel": "design",
+    "text": "let's go! I'll work with grace to add the motion tokens to existing components first — button hover/press transitions, input focus transitions — then build the Spinner and Skeleton components with the Lottie animations.",
+    "timestamp": "2025-02-07T09:20:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_071",
+    "from": "lisa_chen",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "grace, I'd love to pair on adding motion tokens to the Button component. right now the hover transition is hardcoded to 200ms ease. we should switch it to transition.duration.fast with ease.default from tokens.json. same for focus ring appearance — transition.duration.instant with ease.enter. can we sync tomorrow morning?",
+    "timestamp": "2025-02-10T15:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_072",
+    "from": "grace_park",
+    "to": ["lisa_chen"],
+    "channel": null,
+    "text": "tomorrow morning works. I'll also swap out the hardcoded transitions on TextInput and Select while we're at it. let's do a batch update across all components.",
+    "timestamp": "2025-02-10T15:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_073",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "opened PR to integrate motion tokens across all design-system-v2 components — Button, TextInput, Select, Checkbox. all transition durations and easing curves now come from tokens.json instead of hardcoded values. @lisa_chen can you verify the timing feels right in storybook? @eve_johnson code review when ready.",
+    "timestamp": "2025-02-11T14:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_074",
+    "from": "lisa_chen",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "just went through every interaction in storybook — the timing feels perfect. the button hover at 150ms is snappy and the input focus ring at 100ms is instant enough to feel responsive. approved from the motion side! ✨",
+    "timestamp": "2025-02-11T15:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_075",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "approved. also confirmed that the motion tokens respect prefers-reduced-motion — when the OS setting is on, transitions are set to 0ms via the ThemeProvider. nice touch nina.",
+    "timestamp": "2025-02-11T16:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_076",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "merged! the whole token pipeline is so satisfying — design in Figma, tokens in tokens.json, consumed in React, previewed in storybook. feels like a real system now.",
+    "timestamp": "2025-02-11T16:15:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_077",
+    "from": "nina_scott",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "eve, I want to start building the Radio and Toggle components. for Toggle, jack spec'd a switch-style control in Figma with an animated thumb that slides. I'm thinking we use the motion.duration.fast token for the slide and lisa's Lottie approach for the on/off state icon morph. thoughts?",
+    "timestamp": "2025-02-13T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_078",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "sounds good. for the Toggle, make sure the underlying implementation is a checkbox with role=\"switch\" and aria-checked. the Lottie morph is nice to have but make sure it degrades gracefully — if the animation fails to load, the toggle should still work with a simple CSS transform.",
+    "timestamp": "2025-02-13T09:50:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_079",
+    "from": "jack_brown",
+    "to": ["all"],
+    "channel": "design",
+    "text": "uploaded the Badge and Tooltip specs to the design-system-v2 Figma file. Badge has 5 variants: default, info, success, warning, error — all using the color.feedback.* semantic tokens. Tooltip uses surface.overlay with 8px border-radius and the typography.body-sm token. @iris_wang can you add the shadow token for tooltip? we don't have elevation tokens defined yet.",
+    "timestamp": "2025-02-17T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_080",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "good call — I'll add elevation tokens to Figma: elevation.sm, elevation.md, elevation.lg. tooltip will use elevation.sm. I'll define them as box-shadow values with the right opacity for both light and dark mode. @nina_scott heads up, new token category incoming for tokens.json.",
+    "timestamp": "2025-02-17T10:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_081",
+    "from": "nina_scott",
+    "to": ["iris_wang"],
+    "channel": null,
+    "text": "noted! I'll add elevation.* to tokens.json as soon as you publish the Figma variables. in dark mode, should elevation use lighter shadows or a subtle border instead? lighter shadows tend to disappear against dark backgrounds.",
+    "timestamp": "2025-02-17T10:45:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_082",
+    "from": "iris_wang",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "great question. for dark mode I'm going with a combination — a very subtle 1px border using color.border.subtle-dark plus a reduced-opacity shadow. it creates depth without the shadow looking weird. I'll spec both values in the Figma variable modes.",
+    "timestamp": "2025-02-17T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_083",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "quick update on design-system-v2 for anyone building features: we now have Button, Typography, TextInput, Select, Checkbox all shipped with full dark mode support. Radio, Toggle, Badge, Tooltip, Spinner are in progress. if your team needs a component that's not on this list, drop a request in #design and we'll prioritize. cc @sofia_martinez for the product roadmap.",
+    "timestamp": "2025-02-19T09:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_084",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "pushed Radio and Toggle components to design-system-v2. Radio uses fieldset/legend for accessible grouping. Toggle uses role=\"switch\" with aria-checked and the Lottie thumb animation from lisa. both consume semantic tokens and work in dark mode. storybook stories are up. @eve_johnson review please!",
+    "timestamp": "2025-02-24T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_085",
+    "from": "eve_johnson",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "both look great. the Toggle's Lottie fallback for reduced-motion works perfectly — tested with VoiceOver too and the state announcements are correct. approved and merged.",
+    "timestamp": "2025-02-24T11:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_086",
+    "from": "grace_park",
+    "to": ["nina_scott"],
+    "channel": null,
+    "text": "nina, I'm working on the Badge component — quick question. the error badge and the destructive button both use color.feedback.error as their background. is that intentional? feels like they might need differentiation, like the badge could be a lighter tint.",
+    "timestamp": "2025-02-25T09:30:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_087",
+    "from": "nina_scott",
+    "to": ["grace_park", "iris_wang"],
+    "channel": null,
+    "text": "good observation. @iris_wang what do you think — should badges use a tinted background (like color.feedback.error-subtle) with the strong color for text? that's the pattern I've seen in most design systems. it would mean adding -subtle variants to the feedback tokens in Figma and tokens.json.",
+    "timestamp": "2025-02-25T09:50:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_088",
+    "from": "iris_wang",
+    "to": ["all"],
+    "channel": "design",
+    "text": "agreed — badge backgrounds should be subtle tints. I'll add color.feedback.error-subtle, color.feedback.success-subtle, color.feedback.warning-subtle, and color.feedback.info-subtle to the Figma variables. light mode will be 10% opacity of the base, dark mode will be 15% for better visibility.",
+    "timestamp": "2025-02-25T10:10:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_089",
+    "from": "grace_park",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "Badge and Tooltip PRs are ready for design-system-v2. Badge uses the new feedback-subtle tokens for backgrounds. Tooltip uses the new elevation tokens and handles positioning with floating-ui. both support dark mode. @eve_johnson @nina_scott please review.",
+    "timestamp": "2025-03-03T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_090",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "Tooltip: make sure it has role=\"tooltip\" and the trigger has aria-describedby. also check that it dismisses on Escape key — that's a WCAG 1.4.13 requirement for hover content. Badge looks perfect, no notes.",
+    "timestamp": "2025-03-03T11:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_091",
+    "from": "grace_park",
+    "to": ["eve_johnson"],
+    "channel": null,
+    "text": "good call on Escape dismiss — added it. also hooked up the aria-describedby. updated and ready for re-review.",
+    "timestamp": "2025-03-03T13:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_092",
+    "from": "eve_johnson",
+    "to": ["grace_park"],
+    "channel": null,
+    "text": "LGTM. merged both! 🎉",
+    "timestamp": "2025-03-03T14:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_093",
+    "from": "nina_scott",
+    "to": ["all"],
+    "channel": "frontend",
+    "text": "the Spinner component is live in storybook — uses lisa's Lottie animation with the motion tokens for playback speed. respects prefers-reduced-motion with a static SVG fallback. three sizes: sm, md, lg. consumes color.interactive.primary for the spinner color. last component for design-system-v2 phase 1!",
+    "timestamp": "2025-03-10T10:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_094",
+    "from": "oscar_lee",
+    "to": ["all"],
+    "channel": "design",
+    "text": "design-system-v2 phase 1 is COMPLETE. 🎉 shipped components: Button, Typography, TextInput, Select, Checkbox, Radio, Toggle, Badge, Tooltip, Spinner. all with full dark mode support, WCAG AA accessibility, motion tokens, and storybook documentation. massive effort from the whole team — @eve_johnson @grace_park @nina_scott @iris_wang @jack_brown @lisa_chen. phase 2 planning starts next week: Modal, Drawer, Toast, DataTable.",
+    "timestamp": "2025-03-17T09:00:00Z",
+    "project": "design-system-v2"
+  },
+  {
+    "id": "ds_095",
+    "from": "eve_johnson",
+    "to": ["all"],
+    "channel": "engineering-general",
+    "text": "design-system-v2 phase 1 is shipped and the storybook is live at design.bsus.dev. 10 components, full dark mode, WCAG AA compliance across the board, and a complete design token pipeline from Figma to tokens.json to CSS custom properties. if you're building any new UI, please use these components — they're the standard going forward. docs and migration guides are in storybook. huge thanks to the design team for the incredible Figma work.",
+    "timestamp": "2025-03-17T10:30:00Z",
+    "project": "design-system-v2"
+  }
+]

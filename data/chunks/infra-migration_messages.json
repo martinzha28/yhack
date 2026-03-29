@@ -1,0 +1,542 @@
+[
+  {
+    "id": "inf_001",
+    "from": "dave_patel",
+    "to": ["charlie_ross", "bob_kim"],
+    "channel": null,
+    "text": "hey team, kicking off infra-migration this week. high-level plan: move everything off the legacy EC2 fleet onto AWS EKS. I've been drafting the Terraform configs for the new cluster — 3 node groups, one for stateless services, one for the DB proxy layer, one for batch jobs. @charlie_ross I need you to start converting our deploy scripts into helm charts, and @bob_kim we need to figure out the DB migration step in the CI/CD pipeline so the schema changes run before the new pods come up.",
+    "timestamp": "2025-01-06T09:10:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_002",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "sounds good — I'll start by converting the api-gateway deploy config into a helm chart this week. question: are we doing one helm chart per service or a monorepo umbrella chart? I'm leaning toward per-service so each team can own their own values.yaml and we don't get merge conflicts on every deploy",
+    "timestamp": "2025-01-06T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_003",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "per-service helm charts 100%. each service gets its own chart with a values.yaml for staging and production overrides. I'll set up the base chart template with the standard k8s configs — Deployment, Service, Ingress, HPA. you can extend from there for the api-gateway specifics like the load balancer annotations",
+    "timestamp": "2025-01-06T09:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_004",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "for the DB migration step — I'm thinking we run it as a Kubernetes Job that executes before the main deployment rolls out. basically an init container pattern: the migration job runs, verifies schema is at the expected version, then the pods start. that way we don't get the app trying to read columns that don't exist yet",
+    "timestamp": "2025-01-06T10:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_005",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "exactly what I was thinking. use a pre-install/pre-upgrade helm hook for the migration job. the tricky part is rollback — if the migration fails, we need the job to exit non-zero so helm aborts the release. can you prototype this in the staging environment first? I'll get the EKS cluster provisioned via terraform this week so you have something to deploy to",
+    "timestamp": "2025-01-06T10:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_006",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "infra-migration kickoff: we're moving off EC2 onto AWS EKS. I'm standing up the Kubernetes cluster with Terraform this week — 3 node groups, managed node pools with auto-scaling. @charlie_ross is converting deploy configs to helm charts, @bob_kim is building the DB migration step into the CI/CD pipeline as a k8s Job. targeting staging environment by end of Jan. will share the terraform plan output once the EKS module is ready for review",
+    "timestamp": "2025-01-06T11:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_007",
+    "from": "alice_chen",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "saw the infra-migration announcement — how are you handling secrets management in the new EKS cluster? we have a bunch of DB credentials and API keys that are currently in env vars on the EC2 boxes. want to make sure the auth-service secrets are properly rotated during the migration",
+    "timestamp": "2025-01-06T11:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_008",
+    "from": "dave_patel",
+    "to": ["alice_chen"],
+    "channel": null,
+    "text": "good question — I'm setting up AWS Secrets Manager with the Kubernetes External Secrets Operator. secrets get synced into k8s Secret resources automatically and the pods mount them as env vars. rotation happens in Secrets Manager and the operator picks up the new values without a redeploy. I'll make sure the auth-service secrets are in there — can you send me the list of keys it needs?",
+    "timestamp": "2025-01-06T11:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_009",
+    "from": "charlie_ross",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "first helm chart draft is up for the api-gateway: includes the Deployment with readiness/liveness probes, a Service of type ClusterIP, and an Ingress resource with ALB annotations for the load balancer. @dave_patel can you review the ingress config? not sure if I have the right annotations for the AWS ALB controller vs the nginx ingress controller we discussed",
+    "timestamp": "2025-01-07T09:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_010",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "reviewing now. we're using the AWS Load Balancer Controller, so the ingress annotations need to be alb.ingress.kubernetes.io/* not the nginx ones. I'll push a fix to the helm chart — also need to add the HPA config, we want the api-gateway to scale from 2 to 10 pods based on CPU utilization at 70%",
+    "timestamp": "2025-01-07T09:40:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_011",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "got it, swapping the annotations now. for the HPA — should we also add a memory-based scaling metric? the api-gateway can be memory-heavy when it's caching response payloads. I've seen the pods OOMKill at 512Mi under load",
+    "timestamp": "2025-01-07T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_012",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "yes add memory too — set requests at 256Mi and limits at 768Mi, with HPA targeting 75% memory utilization as a secondary metric. we'll tune these once we have the Datadog metrics flowing in staging",
+    "timestamp": "2025-01-07T10:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_013",
+    "from": "bob_kim",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "heads up — I'm adding a DB migration step to the infra-migration CI/CD pipeline. it runs as a Kubernetes Job via a helm pre-upgrade hook before the main deployment. if you have services that depend on specific schema versions, let me know and I'll add the migration ordering to the pipeline. @alice_chen this will affect the session_tokens migration from auth-refactor too",
+    "timestamp": "2025-01-07T14:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_014",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "the terraform plan for the EKS cluster is done — 3 managed node groups, t3.large for stateless, r5.large for the DB proxy, t3.medium for batch. VPC is shared with the existing infra so the RDS instances stay reachable during migration. going to run terraform apply on the staging environment tonight after hours. PR is up for review",
+    "timestamp": "2025-01-08T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_015",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "looked at the terraform plan output — the VPC peering config looks solid. one question: the security group for the DB proxy nodes only allows ingress from the stateless node group CIDR. do we also need to allow the batch node group? some of the batch jobs run direct DB queries for data backfills",
+    "timestamp": "2025-01-08T10:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_016",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "good catch — I'll add the batch node group CIDR to the security group ingress rules. updating the terraform config now",
+    "timestamp": "2025-01-08T10:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_017",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "EKS cluster is live on staging. 3 node groups, all healthy. kubectl access is configured through aws-auth ConfigMap — @charlie_ross @bob_kim I've added your IAM roles, you should be able to kubectl get pods now. next step: deploy the api-gateway helm chart and the DB migration job to staging and see if the whole pipeline works end to end",
+    "timestamp": "2025-01-09T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_018",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "confirmed, I can see the nodes. deploying the api-gateway helm chart to the staging namespace now",
+    "timestamp": "2025-01-09T09:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_019",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "api-gateway pods are up but the ingress isn't getting an external IP. the ALB isn't provisioning — I think the AWS Load Balancer Controller isn't installed on the cluster yet. can you check if the helm release for it is deployed in kube-system?",
+    "timestamp": "2025-01-09T10:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_020",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "ah yeah I forgot to include the AWS LB Controller in the terraform module — adding it now as a helm release in the EKS add-ons. should be up in 10 min after I run terraform apply",
+    "timestamp": "2025-01-09T10:25:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_021",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "LB controller is deployed. try again",
+    "timestamp": "2025-01-09T10:50:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_022",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "ALB is up and the ingress has an external DNS now. I can hit the api-gateway health endpoint through the load balancer. staging is looking good",
+    "timestamp": "2025-01-09T11:05:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_023",
+    "from": "bob_kim",
+    "to": ["dave_patel", "charlie_ross"],
+    "channel": null,
+    "text": "the DB migration job ran successfully on staging — schema is at version 47 which matches what we need for the current api-gateway release. the helm pre-upgrade hook pattern works: the job runs, exits 0, then the deployment rolls out. tested a failing migration too and helm correctly aborted the release",
+    "timestamp": "2025-01-10T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_024",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "nice work. how long does the migration job take to run? I want to make sure it doesn't time out in the CI/CD pipeline — GitHub Actions has a 6-hour limit but our deploy timeout is set to 10 minutes",
+    "timestamp": "2025-01-10T09:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_025",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "currently takes about 45 seconds on staging. the slow part is the connection pool warming up against RDS — I've tuned the pool size to 5 and the migration runs faster now. worst case for a big schema change is maybe 2 minutes. well within the 10-minute timeout",
+    "timestamp": "2025-01-10T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_026",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "infra-migration staging update: EKS cluster is running, api-gateway is deployed via helm chart with ALB ingress, DB migration job runs as a pre-upgrade hook, and the full CI/CD pipeline works end to end through GitHub Actions. next up: setting up Datadog monitoring for the k8s cluster — I want pod-level metrics, node health, and APM traces before we start migrating production traffic",
+    "timestamp": "2025-01-13T09:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_027",
+    "from": "mike_torres",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "great progress on infra-migration. question — for the production cutover, are we planning a blue/green deployment or a rolling migration? I want to make sure the auth-service endpoints stay available during the transition, zero-downtime is non-negotiable for login flows",
+    "timestamp": "2025-01-13T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_028",
+    "from": "dave_patel",
+    "to": ["mike_torres"],
+    "channel": null,
+    "text": "zero-downtime deployment is the plan — we're going to run both the old EC2 fleet and the new EKS cluster behind the same load balancer with weighted routing. start at 10% traffic to EKS, monitor the Datadog dashboard for error rates and latency, then ramp up gradually. if anything goes wrong we shift 100% back to EC2 instantly. the auth-service will be one of the last services we migrate since it's highest risk",
+    "timestamp": "2025-01-13T10:20:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_029",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "I've got the GitHub Actions workflow for the helm chart deploys working. on merge to main it builds the Docker image, pushes to ECR, updates the image tag in values.yaml, and runs helm upgrade on the staging cluster. want me to add a manual approval gate before it hits production?",
+    "timestamp": "2025-01-14T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_030",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "yes, definitely need the manual approval gate for production deploys. also add a terraform plan step that runs on PRs so we can see infra changes before they're applied. the GitHub Actions workflow should output the terraform plan diff as a PR comment",
+    "timestamp": "2025-01-14T09:50:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_031",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "on it",
+    "timestamp": "2025-01-14T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_032",
+    "from": "dave_patel",
+    "to": ["bob_kim", "charlie_ross"],
+    "channel": null,
+    "text": "the Datadog agent is running on all nodes in the EKS cluster now. I've set up dashboards for pod CPU/memory, node health, ingress request rates, and error rates. also configured APM tracing — the api-gateway is sending traces to Datadog. @bob_kim can you add the Datadog tracing library to the DB migration job too? I want to see the migration duration as a span in the deploy traces",
+    "timestamp": "2025-01-16T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_033",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "sure, I'll add the dd-trace library to the migration runner. while I'm at it, should I also instrument the connection pool metrics? would be nice to see pool usage in the Datadog dashboard alongside pod metrics",
+    "timestamp": "2025-01-16T09:50:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_034",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "yes please — connection pool utilization is one of the key metrics I want on the Datadog dashboard before we start the production cutover. we need to catch pool exhaustion before it causes timeouts",
+    "timestamp": "2025-01-16T10:05:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_035",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "infra-migration progress update for the wider team: the staging environment on EKS is fully operational with CI/CD through GitHub Actions, Datadog monitoring, and helm-based deployments. we're starting to migrate non-critical services next week to validate the zero-downtime deployment strategy. if your service has custom deploy configs on EC2, reach out to @charlie_ross so we can convert them to helm charts before the production cutover",
+    "timestamp": "2025-01-21T09:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_036",
+    "from": "karen_wu",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "re: infra-migration secrets management — are the k8s secrets encrypted at rest in etcd? I want to make sure we're not storing plaintext DB creds in the cluster. also, is there audit logging on secret access? compliance needs a trail",
+    "timestamp": "2025-01-22T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_037",
+    "from": "dave_patel",
+    "to": ["karen_wu"],
+    "channel": null,
+    "text": "yes — EKS encrypts etcd at rest with a KMS key by default. the External Secrets Operator syncs from AWS Secrets Manager, so the source of truth is in Secrets Manager (encrypted, audited via CloudTrail). I'll also enable the k8s audit log and ship it to Datadog so you can see who accessed what. I'll send you the CloudTrail policy for review",
+    "timestamp": "2025-01-22T10:20:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_038",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "I just deployed the notifications-service to the EKS staging cluster — first non-api-gateway service on k8s. helm install went clean, pods are healthy, the ingress is routing correctly through the ALB. Datadog is picking up traces. looks like the base chart template you set up is working well as a starting point",
+    "timestamp": "2025-01-27T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_039",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "great. how does the HPA behave under load? I want to see the notifications-service scale up when we push traffic to it on staging",
+    "timestamp": "2025-01-27T09:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_040",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "ran a quick load test — HPA kicked in at 70% CPU and scaled from 2 to 5 pods in about 90 seconds. scale-down took a bit longer which is expected with the default cooldown. looks healthy",
+    "timestamp": "2025-01-27T11:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_041",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "the DB migration step in the CI pipeline is timing out on staging for the new billing-service schema change — it's a big ALTER TABLE that adds 3 columns and a GIN index. the k8s Job hits the 5-minute timeout. can we bump the job deadline or should I split the migration into smaller steps?",
+    "timestamp": "2025-02-03T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_042",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "split it into smaller migrations — a single long-running ALTER TABLE is risky for zero-downtime deployments anyway. add the columns in one migration, backfill data in another, then add the index with CREATE INDEX CONCURRENTLY in a third. that way none of them hold locks for too long and the k8s Job stays well within the timeout",
+    "timestamp": "2025-02-03T10:20:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_043",
+    "from": "bob_kim",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "makes sense, splitting it now",
+    "timestamp": "2025-02-03T10:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_044",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "we're starting the production cutover for infra-migration this week. plan: route 10% of traffic to the EKS cluster via weighted DNS, monitor the Datadog dashboard for 24 hours, then ramp to 25%, 50%, 75%, 100%. @charlie_ross has the rollback procedure documented — if p99 latency exceeds 500ms or error rate goes above 0.5% we shift traffic back to EC2 immediately. first service up: api-gateway",
+    "timestamp": "2025-02-10T09:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_045",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "10% traffic is live on EKS. Datadog dashboard looks clean — p50 is 45ms, p99 is 180ms, error rate is 0.02%. the ALB health checks are all passing. pods are stable at 3 replicas",
+    "timestamp": "2025-02-10T14:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_046",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "looks clean. bumping to 25% now",
+    "timestamp": "2025-02-11T09:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_047",
+    "from": "charlie_ross",
+    "to": ["dave_patel", "bob_kim"],
+    "channel": null,
+    "text": "heads up — at 25% traffic I'm seeing a spike in p99 latency to 420ms on the EKS cluster. looks like it's correlated with the DB migration job running at the same time as a traffic ramp. the migration job is eating connection pool slots. @bob_kim can you check the connection pool settings on the api-gateway pods? might need to increase the pool size or isolate the migration job's DB connections",
+    "timestamp": "2025-02-11T11:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_048",
+    "from": "bob_kim",
+    "to": ["charlie_ross", "dave_patel"],
+    "channel": null,
+    "text": "found it — the migration job and the api-gateway pods share the same RDS connection pool. the migration was holding 5 connections during the schema update, leaving fewer for API requests. I've isolated the migration job to use a separate connection string with its own pool. deploying the fix to staging now for validation",
+    "timestamp": "2025-02-11T12:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_049",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "good find. let's validate on staging then resume the traffic ramp tomorrow",
+    "timestamp": "2025-02-11T12:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_050",
+    "from": "bob_kim",
+    "to": ["dave_patel", "charlie_ross"],
+    "channel": null,
+    "text": "staging validation passed — ran the migration with simulated load and the api-gateway p99 stayed under 200ms. the isolated connection pool fix is working. safe to continue the production ramp",
+    "timestamp": "2025-02-12T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_051",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "api-gateway is now at 50% traffic on EKS. Datadog metrics are looking solid — p99 back down to 190ms after @bob_kim's connection pool isolation fix. continuing the ramp. should be at 100% by end of week",
+    "timestamp": "2025-02-12T14:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_052",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "100% traffic on EKS for api-gateway. been running for 48 hours with no issues. Datadog dashboard is green across the board. ready to decommission the EC2 instances for this service?",
+    "timestamp": "2025-02-14T15:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_053",
+    "from": "dave_patel",
+    "to": ["charlie_ross"],
+    "channel": null,
+    "text": "let's keep the EC2 instances warm for one more week as a rollback safety net, then decommission. I'll update the terraform configs to mark them for destruction in the next plan. moving on to the next service — notifications-service is next for production cutover, same weighted routing strategy",
+    "timestamp": "2025-02-14T15:20:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_054",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#engineering-general",
+    "text": "infra-migration milestone: api-gateway is fully running on EKS in production with zero-downtime cutover. p99 latency improved by 15% compared to the old EC2 setup thanks to better pod auto-scaling via HPA. next up: notifications-service and billing-service. @charlie_ross and @bob_kim are already prepping the helm charts and migration jobs. targeting full EC2 decommission by end of March",
+    "timestamp": "2025-02-18T09:15:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_055",
+    "from": "sofia_martinez",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "great work on the infra-migration production cutover. the latency improvement on the api-gateway is already showing up in our user-facing metrics. when do you expect all services to be on EKS? product leadership is asking for a timeline for the EC2 cost savings",
+    "timestamp": "2025-02-19T10:00:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_056",
+    "from": "dave_patel",
+    "to": ["sofia_martinez"],
+    "channel": null,
+    "text": "targeting end of March for all services on EKS and full EC2 decommission. notifications-service goes to production this week, billing-service and auth-service follow in early March. the auth-service is last because @alice_chen wants extra validation cycles given how critical login flows are. once EC2 is fully off, we should see ~40% reduction in compute costs between the auto-scaling and right-sized node groups",
+    "timestamp": "2025-02-19T10:20:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_057",
+    "from": "charlie_ross",
+    "to": ["dave_patel"],
+    "channel": null,
+    "text": "notifications-service is at 100% on EKS. clean cutover, no issues. Datadog shows all traces flowing, HPA is scaling correctly. moving on to billing-service helm chart now",
+    "timestamp": "2025-02-25T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_058",
+    "from": "bob_kim",
+    "to": ["dave_patel", "charlie_ross"],
+    "channel": null,
+    "text": "the billing-service DB migration is trickier — there's a 2M row table that needs a new column with a default value. if we do ALTER TABLE ADD COLUMN ... DEFAULT on Postgres 11+ it's instant (metadata only change) but I want to double-check our RDS version. if we're on Postgres 10 this will rewrite the entire table and we need a different strategy",
+    "timestamp": "2025-03-03T09:30:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_059",
+    "from": "dave_patel",
+    "to": ["bob_kim"],
+    "channel": null,
+    "text": "we're on Postgres 14 — you're good, the ADD COLUMN with DEFAULT is a metadata-only change. go ahead and run it in the k8s migration job. I verified the RDS engine version in the terraform state file",
+    "timestamp": "2025-03-03T09:45:00-05:00",
+    "project": "infra-migration"
+  },
+  {
+    "id": "inf_060",
+    "from": "dave_patel",
+    "to": ["all"],
+    "channel": "#backend",
+    "text": "infra-migration final update: billing-service and auth-service are now live on EKS. all production traffic is on the Kubernetes cluster, EC2 fleet is officially decommissioned as of today. the Terraform configs for the old instances have been destroyed. total migration: 4 services, zero-downtime across the board, ~40% compute cost reduction. the Datadog dashboard for the EKS cluster is our single pane of glass going forward. huge thanks to @charlie_ross for the helm charts and CI/CD pipeline and @bob_kim for the DB migration framework. infrastructure at Bsus is officially cloud-native",
+    "timestamp": "2025-03-28T09:00:00-05:00",
+    "project": "infra-migration"
+  }
+]
