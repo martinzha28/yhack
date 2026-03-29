@@ -24,7 +24,7 @@ export default function SearchBar({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search people..."
-          className={`text-sm rounded-lg pl-9 pr-8 py-2 w-64 focus:outline-none transition-all ${
+          className={`text-sm rounded-lg pl-9 py-2 w-64 focus:outline-none transition-all ${search ? "pr-16" : "pr-3"} ${
             isDark
               ? "bg-zinc-800/90 text-zinc-200 placeholder:text-zinc-500 border border-zinc-700/50 focus:border-zinc-500"
               : "bg-white text-slate-800 placeholder:text-slate-400 border border-slate-300 shadow-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
@@ -42,6 +42,15 @@ export default function SearchBar({
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" strokeLinecap="round" />
         </svg>
+        {matchCount !== null && search && (
+          <span
+            className={`absolute right-8 top-1/2 -translate-y-1/2 text-[10px] tabular-nums pointer-events-none ${
+              isDark ? "text-zinc-500" : "text-slate-400"
+            }`}
+          >
+            {matchCount}
+          </span>
+        )}
         {search && (
           <button
             onClick={() => setSearch("")}
@@ -63,15 +72,6 @@ export default function SearchBar({
           </button>
         )}
       </div>
-      {matchCount !== null && search && (
-        <div
-          className={`text-center text-xs mt-1 ${
-            isDark ? "text-zinc-500" : "text-slate-400"
-          }`}
-        >
-          {matchCount} {matchCount === 1 ? "match" : "matches"}
-        </div>
-      )}
     </div>
   );
 }
