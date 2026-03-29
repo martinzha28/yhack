@@ -290,7 +290,7 @@
       "design-system-v2": 0.6,
       "infra-migration": 0.35
     },
-    "jordan_kim": {
+    "chris_long": {
       "onboarding-redesign": 1.0
     }
   },
@@ -385,7 +385,7 @@
       "infra-migration": "contributor",
       "onboarding-redesign": "lead"
     },
-    "jordan_kim": {
+    "chris_long": {
       "onboarding-redesign": "core"
     }
   },
@@ -600,7 +600,7 @@
         "weight": 1.0
       },
       {
-        "id": "jordan_kim",
+        "id": "chris_long",
         "weight": 1.0
       },
       {
@@ -1597,8 +1597,8 @@
         "score": 42.0
       },
       {
-        "id": "jordan_kim",
-        "name": "Jordan Kim",
+        "id": "chris_long",
+        "name": "Chris Long",
         "score": 42.0
       }
     ],
@@ -1872,7 +1872,7 @@
         "score": 16.0
       }
     ],
-    "jordan_kim": [
+    "chris_long": [
       {
         "id": "grace_park",
         "name": "Grace Park",
@@ -1935,7 +1935,7 @@
     },
     "grace_park": {
       "skills_summary": "Grace builds high\u2011quality React components, leveraging design tokens for styling, compound component patterns, and accessible markup, while integrating platform\u2011specific animations and motion tokens. She is a core author of Design System V2, delivering Button, TextInput, Select, and Checkbox components with full Storybook and dark\u2011mode support. She also leads the Onboarding Redesign, implementing wizard flows, checklists, and analytics\u2011driven tooltips.",
-      "work_summary": "Grace has taken the lead on Design System V2, collaborating with Eve Johnson on the Button component accessibility, with Nina Scott on spacing and token alignment, and with Henry Zhao on React Native variants. She is also spearheading the Onboarding Redesign wizard, pairing with Quinn Davis on flow structure and Jordan Kim on analytics integration. Both initiatives involve frequent sync with the broader front\u2011end team to ensure consistent token usage and smooth motion across platforms."
+      "work_summary": "Grace has taken the lead on Design System V2, collaborating with Eve Johnson on the Button component accessibility, with Nina Scott on spacing and token alignment, and with Henry Zhao on React Native variants. She is also spearheading the Onboarding Redesign wizard, pairing with Quinn Davis on flow structure and Chris Long on analytics integration. Both initiatives involve frequent sync with the broader front\u2011end team to ensure consistent token usage and smooth motion across platforms."
     },
     "henry_zhao": {
       "skills_summary": "Henry excels at turning OpenAPI specifications into typed client SDKs, implementing RFC\u20117807 error handling, and publishing JavaScript and Python packages for internal and external developers. He brings deep mobile expertise with React Native, Hermes, and platform\u2011specific push\u2011notification implementations, as well as performance profiling and bundle\u2011size optimization for iOS and Android. He also integrates backend endpoints for mobile features and collaborates on cross\u2011platform component adaptations.",
@@ -1975,11 +1975,11 @@
     },
     "sofia_martinez": {
       "skills_summary": "Sofia drives product strategy by aligning multi\u2011team roadmaps with executive OKRs and managing stakeholder expectations from engineering to design and data. She is adept at leading large\u2011scale initiatives\u2014such as onboarding redesign, design\u2011system evolution, and infrastructure migration\u2014while ensuring cross\u2011functional buy\u2011in and clear communication of priorities.",
-      "work_summary": "She heads the Onboarding Redesign project, working with Quinn Davis, Grace Park, Jack Brown, and Jordan Kim to overhaul the welcome wizard, persistent checklist, and tooltip analytics. As a core contributor to Design System V2, Sofia collaborates with Mike Torres and Oscar Lee on token and component updates, and she also assists with the EC2\u2011to\u2011EKS migration effort alongside Dave Patel and Ryan Nguyen."
+      "work_summary": "She heads the Onboarding Redesign project, working with Quinn Davis, Grace Park, Jack Brown, and Chris Long to overhaul the welcome wizard, persistent checklist, and tooltip analytics. As a core contributor to Design System V2, Sofia collaborates with Mike Torres and Oscar Lee on token and component updates, and she also assists with the EC2\u2011to\u2011EKS migration effort alongside Dave Patel and Ryan Nguyen."
     },
-    "jordan_kim": {
-      "skills_summary": "Jordan is a frontend engineer quickly mastering React/TypeScript and the company\u2019s Design System to build reusable UI components. He has delivered a tooltip component and empty\u2011state screens for the Onboarding Redesign, following design specifications and integrating with existing state management patterns.",
-      "work_summary": "He is a core contributor to the Onboarding Redesign, implementing tooltips with Grace Park, creating empty\u2011state UI from Jack Brown\u2019s wireframes, and syncing with Mike Torres on design\u2011system usage. Jordan also coordinates with Quinn Davis and Priya Mehta to align web onboarding flows with the mobile activation funnel, ensuring consistent metrics across platforms."
+    "chris_long": {
+      "skills_summary": "chris is a frontend engineer quickly mastering React/TypeScript and the company\u2019s Design System to build reusable UI components. He has delivered a tooltip component and empty\u2011state screens for the Onboarding Redesign, following design specifications and integrating with existing state management patterns.",
+      "work_summary": "He is a core contributor to the Onboarding Redesign, implementing tooltips with Grace Park, creating empty\u2011state UI from Jack Brown\u2019s wireframes, and syncing with Mike Torres on design\u2011system usage. chris also coordinates with Quinn Davis and Priya Mehta to align web onboarding flows with the mobile activation funnel, ensuring consistent metrics across platforms."
     }
   },
   "project_summaries": {

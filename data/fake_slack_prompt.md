@@ -17,7 +17,7 @@ This is a generative spec for producing a realistic synthetic Slack dataset for 
 **Frontend Team (6)**
 - `eve_johnson` — Senior Engineer, owns the design system implementation and storybook. Very close with `mike_torres` (shared history on platform-api + current overlap on auth-refactor and design-system-v2). Works tightly with `grace_park` on design-system-v2.
 - `frank_li` — Engineer, performance optimization. Inseparable working pair with `henry_zhao` on mobile-app — they DM constantly about builds, perf, and React Native. Previously worked with `iris_wang` and `lisa_chen` on brand-refresh (fading connection).
-- `grace_park` — Engineer, builds React components. A connector — works on design-system-v2 + onboarding-redesign, so she touches many people. She's `jordan_kim`'s closest collaborator and de facto mentor on the onboarding-redesign project.
+- `grace_park` — Engineer, builds React components. A connector — works on design-system-v2 + onboarding-redesign, so she touches many people. She's `chris_long`'s closest collaborator and de facto mentor on the onboarding-redesign project.
 - `henry_zhao` — Engineer, leads mobile (React Native). Tightest pair is with `frank_li`. Has fading legacy connections to `bob_kim`, `mike_torres`, and `karen_wu` from platform-api.
 - `nina_scott` — Design Engineer. **BRIDGE NODE**: sits between Frontend and Design. Her messages mix component implementation vocabulary with Figma/design token vocabulary. Previously worked with `priya_mehta` on brand-refresh.
 
@@ -34,7 +34,7 @@ This is a generative spec for producing a realistic synthetic Slack dataset for 
 - `sofia_martinez` — Head of Product. Participates in leadership sync group DM. Less frequent communicator for her seniority.
 
 **New Employee (1)**
-- `jordan_kim` — New Engineer, 2 weeks in. Sends very few messages (max ~14). Connected mainly to `grace_park` (closest collaborator on onboarding-redesign), `mike_torres` (onboarding buddy), and `sofia_martinez`. Messages show someone learning the ropes — asking where to find docs, confirming understanding, small contributions.
+- `chris_long` — New Engineer, 2 weeks in. Sends very few messages (max ~14). Connected mainly to `grace_park` (closest collaborator on onboarding-redesign), `mike_torres` (onboarding buddy), and `sofia_martinez`. Messages show someone learning the ropes — asking where to find docs, confirming understanding, small contributions.
 
 ---
 
@@ -52,7 +52,7 @@ These describe the relationship dynamics the messages should create. The graph i
 
 ### Bonds Strengthened by History
 - **Eve Johnson ↔ Mike Torres** — Strong current bond AND shared platform-api history. They already trusted each other before auth-refactor started. Should feel like two people who've worked together for a long time.
-- **Grace Park ↔ Jordan Kim** — Grace is Jordan's go-to person on onboarding-redesign. Jordan asks Grace questions, Grace reviews Jordan's PRs. Should be Jordan's strongest connection by far.
+- **Grace Park ↔ Chris Long** — Grace is chris's go-to person on onboarding-redesign. chris asks Grace questions, Grace reviews chris's PRs. Should be chris's strongest connection by far.
 
 ### Legacy Bonds (Faded but Visible)
 These pairs collaborated on a completed historical project but share NO current project. They should still DM occasionally — referencing old work, checking in — but far less than active collaborators.
@@ -67,7 +67,7 @@ These pairs collaborated on a completed historical project but share NO current 
 ### People Who Should NOT Be Close
 - `karen_wu` ↔ anyone in Design — no shared project ever, no reason to DM
 - `ryan_nguyen` ↔ anyone in Design — no overlap
-- `jordan_kim` ↔ most of Backend — jordan is new and only works on onboarding-redesign
+- `chris_long` ↔ most of Backend — chris is new and only works on onboarding-redesign
 - `dave_patel` ↔ anyone in Design — infra engineer, no design touchpoints
 
 ---
@@ -81,7 +81,7 @@ These pairs collaborated on a completed historical project but share NO current 
 | **auth-refactor** | Backend + Frontend | alice_chen, bob_kim, charlie_ross, karen_wu, eve_johnson, mike_torres | Jan–Mar 2025 |
 | **design-system-v2** | Frontend + Design | eve_johnson, grace_park, nina_scott, iris_wang, jack_brown, oscar_lee, lisa_chen | Jan–Mar 2025 |
 | **mobile-app** | Frontend + Product | henry_zhao, frank_li, priya_mehta, ryan_nguyen, grace_park | Feb–Mar 2025 |
-| **onboarding-redesign** | Product + Design + New | quinn_davis, sofia_martinez, jack_brown, grace_park, jordan_kim | Mar 2025 |
+| **onboarding-redesign** | Product + Design + New | quinn_davis, sofia_martinez, jack_brown, grace_park, chris_long | Mar 2025 |
 | **infra-migration** | Backend | dave_patel, charlie_ross, bob_kim | Jan–Mar 2025 |
 
 auth-refactor and design-system-v2 should have the most messages. infra-migration the fewest (small team).
@@ -119,7 +119,7 @@ Each project uses distinctive vocabulary so messages are identifiable by content
 - `frontend` — frontend team only (6 people)
 - `design` — design team only (4 people)
 - `product` — product team only (4 people)
-- `onboarding` — jordan_kim, mike_torres, sofia_martinez (3 people)
+- `onboarding` — chris_long, mike_torres, sofia_martinez (3 people)
 - DMs between any two people: `"channel": null`
 
 Channel messages should set `"to"` to the channel's member list (not `["all"]`), so edges are scoped correctly.
@@ -182,7 +182,7 @@ Messages NOT related to any project (`"project": null`). Realistic workplace Sla
 
 ### Volume Constraints
 - `karen_wu`: max ~13 sent messages, but @mentioned in 20+ others with specific technical context
-- `jordan_kim`: max ~14 sent messages (new and quiet)
+- `chris_long`: max ~14 sent messages (new and quiet)
 - `lisa_chen`, `sofia_martinez`: low volume (~15-20 each)
 - `alice_chen`, `mike_torres`, `eve_johnson`, `grace_park`: high volume (~50-65 each) — these are the most active communicators
 - Volume should be **skewed**: a few people send a lot, most send a moderate amount, a few are quiet

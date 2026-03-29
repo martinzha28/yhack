@@ -161,10 +161,10 @@ def compute_graph(input_path=None, output_path=None):
         t = people_by_id[l["target"]]["name"]
         print(f"  {s} <-> {t}  weight={l['weight']}")
 
-    jordan_links = [l for l in links if "jordan_kim" in (l["source"], l["target"])]
-    print(f"\nJordan Kim connections: {len(jordan_links)}")
-    for l in jordan_links[:5]:
-        other = l["target"] if l["source"] == "jordan_kim" else l["source"]
+    chris_links = [l for l in links if "chris_long" in (l["source"], l["target"])]
+    print(f"\nChris Long connections: {len(chris_links)}")
+    for l in chris_links[:5]:
+        other = l["target"] if l["source"] == "chris_long" else l["source"]
         print(f"  {people_by_id[other]['name']}  weight={l['weight']}")
 
     return graph
