@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SLACK_DATA_PATH = ROOT / "data" / "slack_data.json"
 EXTRACTED_PATH = ROOT / "data" / "extracted_projects.json"
 OUTPUT_PATH = ROOT / "frontend" / "public" / "graph.json"
+AVATARS_DIR = ROOT / "frontend" / "public" / "avatars"
 
 LAMBDA = 0.01
 DM_MULTIPLIER = 1.0
@@ -117,21 +118,24 @@ def compute_graph(input_path=None, output_path=None):
                 "role": person_roles.get(pid, {}).get(proj_id, "contributor"),
             }
 
-        nodes.append(
-            {
+        node_data: dict = {
                 "id": pid,
                 "name": person["name"],
                 "role": person.get("role", ""),
                 "team": person.get("team", ""),
                 "expertise": person.get("expertise", []),
-                # Keep static project list for backward-compat; project_roles is richer
                 "projects": person.get("projects", []),
                 "project_roles": proj_roles,
                 "skills_summary": summary.get("skills_summary", ""),
                 "work_summary": summary.get("work_summary", ""),
                 "community": community_map.get(pid),
-            }
-        )
+        }
+
+        avatar_path = AVATARS_DIR / f"{pid}.png"
+        if avatar_path.exists():
+            node_data["avatar"] = f"/avatars/{pid}.png"
+
+        nodes.append(node_data)
 
     links = []
     for (a, b), raw_w in raw_weights.items():

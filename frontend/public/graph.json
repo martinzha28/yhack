@@ -35,7 +35,8 @@
       },
       "skills_summary": "Alice excels at designing secure authentication flows, having led the OAuth2 and PKCE refactor with JWT handling, session token revocation, and comprehensive security audits. She built a high\u2011throughput Go micro\u2011service for Billing V2, integrating Stripe webhook processing, Kafka\u2011based usage aggregation, a dead\u2011letter queue, and autoscaling. Her expertise also covers database schema design, indexing strategies, and cloud\u2011native middleware.",
       "work_summary": "Alice led the Billing V2 revamp, partnering with Charlie Ross on schema design and with Dave Patel on usage pipelines and Stripe webhook handling. She also serves as a core contributor on the Revenue Dashboard and the Auth Refactor, collaborating closely with Bob Kim, Mike Torres, and the broader backend team.",
-      "community": 0
+      "community": 0,
+      "avatar": "/avatars/alice_chen.png"
     },
     {
       "id": "bob_kim",
@@ -73,7 +74,8 @@
       },
       "skills_summary": "Bob specializes in building robust relational data models, creating migrations and composite indexes to support high\u2011query workloads for the Platform API and Auth Refactor services. He applies performance\u2011tuning techniques, such as Redis\u2011based sliding window counters and PostgreSQL token buckets, to enforce rate limiting and secure OAuth flows. His expertise extends to JSONB\u2011backed scopes, HMAC\u2011verified webhook delivery, and managing token hashing at the database level.",
       "work_summary": "Bob led the Platform API\u2019s OpenAPI spec and rate\u2011limiting implementation, working with Mike Torres on Redis counters and with Eve Johnson on the developer portal data model. As a core contributor to the Auth Refactor, he partners with Dave Patel on migration jobs and with Charlie Ross on PKCE and token\u2011family designs. He also supports the Infrastructure Migration by drafting Terraform\u2011backed DB migration hooks and reviewing CI/CD pipelines with Alice Chen and Dave Patel.",
-      "community": 0
+      "community": 0,
+      "avatar": "/avatars/bob_kim.png"
     },
     {
       "id": "charlie_ross",
@@ -240,7 +242,8 @@
       },
       "skills_summary": "Eve excels at building design\u2011system components with strong accessibility, using Storybook for documentation and visual testing. She also bridges frontend and backend by implementing OAuth2/PKCE auth flows in React, creating auth context providers, and integrating OpenAPI specs into interactive developer portals. She is fluent in React, Next.js, TypeScript, and modern web accessibility patterns.",
       "work_summary": "Eve was a core contributor to the Platform API developer portal, working alongside Mike Torres on OpenAPI spec integration and Henry Zhao on SDK documentation. She is now leading the Auth Refactor frontend changes, pairing with Mike and Charlie Ross to implement the PKCE authorize \u2192 token exchange flow and to build an accessible auth context provider. Additionally, she drives Design System V2 adoption, collaborating with Grace Park on Button component accessibility and with Nina Scott on token mapping and Storybook organization.",
-      "community": 1
+      "community": 1,
+      "avatar": "/avatars/eve_johnson.png"
     },
     {
       "id": "frank_li",
@@ -325,7 +328,8 @@
       },
       "skills_summary": "Henry excels at turning OpenAPI specifications into typed client SDKs, implementing RFC\u20117807 error handling, and publishing JavaScript and Python packages for internal and external developers. He brings deep mobile expertise with React Native, Hermes, and platform\u2011specific push\u2011notification implementations, as well as performance profiling and bundle\u2011size optimization for iOS and Android. He also integrates backend endpoints for mobile features and collaborates on cross\u2011platform component adaptations.",
       "work_summary": "Henry co\u2011led the Platform API effort, working with Mike Torres on the OpenAPI spec, example payloads, and the Redocly\u2011powered developer portal, and with Eve Johnson on SDK scaffolding and documentation. He is now a core engineer on the BSus Mobile App, partnering with Frank Li on deep\u2011link handling, push\u2011notification setup, and bundle\u2011size optimizations across iOS and Android. He also assists Grace Park with React Native component adaptations and collaborates with Priya Mehta and Alice Chen on auth\u2011refactor mobile login integration.",
-      "community": 1
+      "community": 1,
+      "avatar": "/avatars/henry_zhao.png"
     },
     {
       "id": "nina_scott",
@@ -387,7 +391,8 @@
       },
       "skills_summary": "Iris specializes in brand and visual design, delivering logos, color systems, typography scales, and motion guidelines that satisfy WCAG accessibility. As a core member of Design System V2, she authors semantic token definitions, dark-mode palettes, and form-input UI patterns using Figma variable modes and syncs them with engineering.",
       "work_summary": "As lead of the Brand Refresh, Iris partnered with Oscar Lee, Nina Scott, and Lisa Chen to produce a refreshed visual identity, including a new logo, a navy-teal palette, Satoshi/Inter typography, and Lottie-based motion assets for the marketing site. In Design System V2 she continuously works with Nina, Oscar, and Jack Brown on token alignment, dark-mode color definitions, and accessibility reviews for form components, while also providing visual updates for the Revenue Dashboard.",
-      "community": 3
+      "community": 3,
+      "avatar": "/avatars/iris_wang.png"
     },
     {
       "id": "jack_brown",
@@ -539,7 +544,8 @@
       },
       "skills_summary": "Quinn specializes in platform strategy and developer experience, having designed a usage\u2011based pricing model and built end\u2011to\u2011end onboarding flows for both web and mobile. He is comfortable implementing deep\u2011link routing, integrating analytics SDKs, and translating product concepts into technical roadmaps that align engineering feasibility with growth targets.",
       "work_summary": "He leads the Billing V2 initiative, working with Alice Chen and Charlie Ross to rewrite the billing system for usage\u2011based pricing, real\u2011time invoicing, and revenue dashboard integration. For the Onboarding Redesign, Quinn partners with Jack Brown, Grace Park, and Henry Zhao to create a wizard\u2011based welcome screen, persistent checklist, and tooltip system, ensuring each step is instrumented with Ryan Nguyen\u2019s analytics. He also contributed core metrics to the Revenue Dashboard alongside Ryan Nguyen and coordinates with Priya Mehta on mobile activation requirements.",
-      "community": 2
+      "community": 2,
+      "avatar": "/avatars/quinn_davis.png"
     },
     {
       "id": "ryan_nguyen",
