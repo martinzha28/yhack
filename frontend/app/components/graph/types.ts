@@ -1,5 +1,7 @@
 import * as d3 from "d3";
 
+// ── People graph ─────────────────────────────────────────────────────────────
+
 export interface ProjectRole {
   weight: number;
   role: string;
@@ -36,11 +38,66 @@ export interface RankedConnection {
   weight: number;
 }
 
+// ── Project graph ─────────────────────────────────────────────────────────────
+
+export interface ProjectMember {
+  id: string;
+  name: string;
+  team: string;
+  weight: number;
+  role: string;
+}
+
+export interface SharedPerson {
+  id: string;
+  name: string;
+  team: string;
+  weight_a: number;
+  role_a: string;
+  weight_b: number;
+  role_b: string;
+}
+
+export interface ProjectInfo {
+  id: string;
+  /** Full LLM-generated name, e.g. "Auth Service Refactor (OAuth2 PKCE)" */
+  name: string;
+  /** Clean display name with parentheticals stripped, e.g. "Auth Service Refactor" */
+  display_name: string;
+  status: string;
+  time_range: string;
+  keywords: string[];
+  member_count: number;
+  members: ProjectMember[];
+}
+
+export interface ConnectedProject {
+  id: string;
+  name: string;
+  weight: number;
+  shared_count: number;
+  shared_people: SharedPerson[];
+}
+
+// ── Shared style constants ────────────────────────────────────────────────────
+
 export const TEAM_COLORS: Record<string, string> = {
   backend: "#3b82f6",
   frontend: "#10b981",
   design: "#f59e0b",
   product: "#ef4444",
+};
+
+export const STATUS_COLORS: Record<string, string> = {
+  active: "#22d3ee",
+  completed: "#a78bfa",
+};
+
+export const ROLE_STYLES: Record<string, { bg: string; text: string }> = {
+  lead: { bg: "bg-indigo-500/20", text: "text-indigo-300" },
+  core: { bg: "bg-emerald-500/20", text: "text-emerald-300" },
+  contributor: { bg: "bg-zinc-600/50", text: "text-zinc-400" },
+  peripheral: { bg: "bg-zinc-700/50", text: "text-zinc-500" },
 };
 
 export const PROJECT_PALETTE = [
@@ -57,10 +114,16 @@ export const PROJECT_PALETTE = [
 export const DEFAULT_MIN_WEIGHT = 0.35;
 export const TRANSITION_MS = 400;
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
 export function nodeId(d: string | Node): string {
   return typeof d === "string" ? d : d.id;
 }
 
 export function linkId(l: Link): { s: string; t: string } {
   return { s: nodeId(l.source), t: nodeId(l.target) };
+}
+
+export function roleStyle(role: string): { bg: string; text: string } {
+  return ROLE_STYLES[role.toLowerCase()] ?? ROLE_STYLES.contributor;
 }

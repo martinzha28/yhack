@@ -3,6 +3,7 @@
     {
       "id": "billing-v2",
       "name": "Billing System Revamp (Billing v2)",
+      "display_name": "Billing System Revamp",
       "status": "completed",
       "time_range": "Oct-Nov 2024",
       "keywords": [
@@ -21,26 +22,36 @@
       "members": [
         {
           "id": "alice_chen",
+          "name": "Alice Chen",
+          "team": "backend",
           "weight": 1.0,
           "role": "lead"
         },
         {
           "id": "dave_patel",
+          "name": "Dave Patel",
+          "team": "backend",
           "weight": 1.0,
           "role": "lead"
         },
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "quinn_davis",
+          "name": "Quinn Davis",
+          "team": "product",
           "weight": 0.85,
           "role": "lead"
         },
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight": 0.2,
           "role": "contributor"
         }
@@ -49,6 +60,7 @@
     {
       "id": "brand-refresh",
       "name": "Company Brand Refresh",
+      "display_name": "Company Brand Refresh",
       "status": "completed",
       "time_range": "Oct-Nov 2024",
       "keywords": [
@@ -67,31 +79,43 @@
       "members": [
         {
           "id": "iris_wang",
+          "name": "Iris Wang",
+          "team": "design",
           "weight": 1.0,
           "role": "lead"
         },
         {
           "id": "oscar_lee",
+          "name": "Oscar Lee",
+          "team": "design",
           "weight": 1.0,
           "role": "lead"
         },
         {
           "id": "priya_mehta",
+          "name": "Priya Mehta",
+          "team": "product",
           "weight": 0.98,
           "role": "lead"
         },
         {
           "id": "frank_li",
+          "name": "Frank Li",
+          "team": "frontend",
           "weight": 0.7,
           "role": "core"
         },
         {
           "id": "nina_scott",
+          "name": "Nina Scott",
+          "team": "frontend",
           "weight": 0.7,
           "role": "core"
         },
         {
           "id": "lisa_chen",
+          "name": "Lisa Chen",
+          "team": "design",
           "weight": 0.6,
           "role": "core"
         }
@@ -100,6 +124,7 @@
     {
       "id": "design-system-v2",
       "name": "Design System Revamp (v2)",
+      "display_name": "Design System Revamp",
       "status": "active",
       "time_range": "Nov 2024 - Mar 2025",
       "keywords": [
@@ -118,41 +143,57 @@
       "members": [
         {
           "id": "oscar_lee",
+          "name": "Oscar Lee",
+          "team": "design",
           "weight": 0.95,
           "role": "lead"
         },
         {
           "id": "grace_park",
+          "name": "Grace Park",
+          "team": "frontend",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "nina_scott",
+          "name": "Nina Scott",
+          "team": "frontend",
           "weight": 0.85,
           "role": "core"
         },
         {
           "id": "lisa_chen",
+          "name": "Lisa Chen",
+          "team": "design",
           "weight": 0.85,
           "role": "core"
         },
         {
           "id": "iris_wang",
+          "name": "Iris Wang",
+          "team": "design",
           "weight": 0.8,
           "role": "core"
         },
         {
           "id": "eve_johnson",
+          "name": "Eve Johnson",
+          "team": "frontend",
           "weight": 0.75,
           "role": "core"
         },
         {
           "id": "jack_brown",
+          "name": "Jack Brown",
+          "team": "design",
           "weight": 0.75,
           "role": "core"
         },
         {
           "id": "sofia_martinez",
+          "name": "Sofia Martinez",
+          "team": "product",
           "weight": 0.25,
           "role": "peripheral"
         }
@@ -161,6 +202,7 @@
     {
       "id": "auth-refactor",
       "name": "Auth Service Refactor (OAuth2 PKCE)",
+      "display_name": "Auth Service Refactor",
       "status": "completed",
       "time_range": "Oct 2024 - Feb 2025",
       "keywords": [
@@ -179,31 +221,43 @@
       "members": [
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight": 0.85,
           "role": "core"
         },
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight": 0.8,
           "role": "core"
         },
         {
           "id": "alice_chen",
+          "name": "Alice Chen",
+          "team": "backend",
           "weight": 0.65,
           "role": "core"
         },
         {
           "id": "karen_wu",
+          "name": "Karen Wu",
+          "team": "backend",
           "weight": 0.6,
           "role": "core"
         },
         {
           "id": "eve_johnson",
+          "name": "Eve Johnson",
+          "team": "frontend",
           "weight": 0.6,
           "role": "core"
         },
         {
           "id": "mike_torres",
+          "name": "Mike Torres",
+          "team": "backend",
           "weight": 0.55,
           "role": "core"
         }
@@ -212,6 +266,7 @@
     {
       "id": "platform-api",
       "name": "Platform API & Developer Portal",
+      "display_name": "Platform API & Developer Portal",
       "status": "active",
       "time_range": "Oct 2024 - Mar 2025",
       "keywords": [
@@ -230,26 +285,36 @@
       "members": [
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight": 1.0,
           "role": "lead"
         },
         {
           "id": "mike_torres",
+          "name": "Mike Torres",
+          "team": "backend",
           "weight": 0.95,
           "role": "lead"
         },
         {
           "id": "eve_johnson",
+          "name": "Eve Johnson",
+          "team": "frontend",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "henry_zhao",
+          "name": "Henry Zhao",
+          "team": "frontend",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "karen_wu",
+          "name": "Karen Wu",
+          "team": "backend",
           "weight": 0.75,
           "role": "core"
         }
@@ -258,6 +323,7 @@
     {
       "id": "infra-migration",
       "name": "Infrastructure Migration to AWS EKS",
+      "display_name": "Infrastructure Migration to AWS EKS",
       "status": "active",
       "time_range": "Jan-Mar 2025",
       "keywords": [
@@ -276,16 +342,22 @@
       "members": [
         {
           "id": "dave_patel",
+          "name": "Dave Patel",
+          "team": "backend",
           "weight": 1.0,
           "role": "lead"
         },
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight": 0.7,
           "role": "core"
         },
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight": 0.5,
           "role": "contributor"
         }
@@ -294,6 +366,7 @@
     {
       "id": "mobile-app",
       "name": "Bsus Mobile Application",
+      "display_name": "Bsus Mobile Application",
       "status": "active",
       "time_range": "Nov 2024 - Mar 2025",
       "keywords": [
@@ -312,21 +385,29 @@
       "members": [
         {
           "id": "frank_li",
+          "name": "Frank Li",
+          "team": "frontend",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "henry_zhao",
+          "name": "Henry Zhao",
+          "team": "frontend",
           "weight": 0.85,
           "role": "core"
         },
         {
           "id": "priya_mehta",
+          "name": "Priya Mehta",
+          "team": "product",
           "weight": 0.75,
           "role": "lead"
         },
         {
           "id": "ryan_nguyen",
+          "name": "Ryan Nguyen",
+          "team": "product",
           "weight": 0.75,
           "role": "core"
         }
@@ -335,6 +416,7 @@
     {
       "id": "mobile-ui",
       "name": "Mobile UI Component Library (React Native)",
+      "display_name": "Mobile UI Component Library",
       "status": "active",
       "time_range": "Jan-Mar 2025",
       "keywords": [
@@ -353,6 +435,8 @@
       "members": [
         {
           "id": "grace_park",
+          "name": "Grace Park",
+          "team": "frontend",
           "weight": 0.85,
           "role": "core"
         }
@@ -361,6 +445,7 @@
     {
       "id": "onboarding-redesign",
       "name": "User Onboarding Redesign",
+      "display_name": "User Onboarding Redesign",
       "status": "active",
       "time_range": "Nov 2024 - Mar 2025",
       "keywords": [
@@ -379,26 +464,36 @@
       "members": [
         {
           "id": "jack_brown",
+          "name": "Jack Brown",
+          "team": "design",
           "weight": 0.95,
           "role": "lead"
         },
         {
           "id": "quinn_davis",
+          "name": "Quinn Davis",
+          "team": "product",
           "weight": 0.95,
           "role": "lead"
         },
         {
           "id": "sofia_martinez",
+          "name": "Sofia Martinez",
+          "team": "product",
           "weight": 0.95,
           "role": "lead"
         },
         {
           "id": "jordan_kim",
+          "name": "Jordan Kim",
+          "team": "frontend",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "grace_park",
+          "name": "Grace Park",
+          "team": "frontend",
           "weight": 0.5,
           "role": "contributor"
         }
@@ -407,6 +502,7 @@
     {
       "id": "revenue-dashboard",
       "name": "Revenue & Subscription Metrics Dashboard",
+      "display_name": "Revenue & Subscription Metrics Dashboard",
       "status": "completed",
       "time_range": "Oct-Nov 2024",
       "keywords": [
@@ -425,21 +521,29 @@
       "members": [
         {
           "id": "ryan_nguyen",
+          "name": "Ryan Nguyen",
+          "team": "product",
           "weight": 0.9,
           "role": "core"
         },
         {
           "id": "quinn_davis",
+          "name": "Quinn Davis",
+          "team": "product",
           "weight": 0.7,
           "role": "core"
         },
         {
           "id": "alice_chen",
+          "name": "Alice Chen",
+          "team": "backend",
           "weight": 0.25,
           "role": "contributor"
         },
         {
           "id": "iris_wang",
+          "name": "Iris Wang",
+          "team": "design",
           "weight": 0.25,
           "role": "peripheral"
         }
@@ -448,6 +552,7 @@
     {
       "id": "notifications-service",
       "name": "Push Notification Service",
+      "display_name": "Push Notification Service",
       "status": "active",
       "time_range": "Jan-Mar 2025",
       "keywords": [
@@ -461,6 +566,8 @@
       "members": [
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight": 0.35,
           "role": "contributor"
         }
@@ -476,6 +583,8 @@
       "shared_people": [
         {
           "id": "oscar_lee",
+          "name": "Oscar Lee",
+          "team": "design",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 0.95,
@@ -483,6 +592,8 @@
         },
         {
           "id": "iris_wang",
+          "name": "Iris Wang",
+          "team": "design",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 0.8,
@@ -490,6 +601,8 @@
         },
         {
           "id": "nina_scott",
+          "name": "Nina Scott",
+          "team": "frontend",
           "weight_a": 0.7,
           "role_a": "core",
           "weight_b": 0.85,
@@ -497,6 +610,8 @@
         },
         {
           "id": "lisa_chen",
+          "name": "Lisa Chen",
+          "team": "design",
           "weight_a": 0.6,
           "role_a": "core",
           "weight_b": 0.85,
@@ -512,6 +627,8 @@
       "shared_people": [
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight_a": 0.85,
           "role_a": "core",
           "weight_b": 1.0,
@@ -519,6 +636,8 @@
         },
         {
           "id": "karen_wu",
+          "name": "Karen Wu",
+          "team": "backend",
           "weight_a": 0.6,
           "role_a": "core",
           "weight_b": 0.75,
@@ -526,6 +645,8 @@
         },
         {
           "id": "eve_johnson",
+          "name": "Eve Johnson",
+          "team": "frontend",
           "weight_a": 0.6,
           "role_a": "core",
           "weight_b": 0.9,
@@ -533,6 +654,8 @@
         },
         {
           "id": "mike_torres",
+          "name": "Mike Torres",
+          "team": "backend",
           "weight_a": 0.55,
           "role_a": "core",
           "weight_b": 0.95,
@@ -548,6 +671,8 @@
       "shared_people": [
         {
           "id": "dave_patel",
+          "name": "Dave Patel",
+          "team": "backend",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 1.0,
@@ -555,6 +680,8 @@
         },
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight_a": 0.9,
           "role_a": "core",
           "weight_b": 0.7,
@@ -562,6 +689,8 @@
         },
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight_a": 0.2,
           "role_a": "contributor",
           "weight_b": 0.5,
@@ -577,6 +706,8 @@
       "shared_people": [
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight_a": 0.9,
           "role_a": "core",
           "weight_b": 0.8,
@@ -584,6 +715,8 @@
         },
         {
           "id": "alice_chen",
+          "name": "Alice Chen",
+          "team": "backend",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 0.65,
@@ -591,6 +724,8 @@
         },
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight_a": 0.2,
           "role_a": "contributor",
           "weight_b": 0.85,
@@ -606,6 +741,8 @@
       "shared_people": [
         {
           "id": "jack_brown",
+          "name": "Jack Brown",
+          "team": "design",
           "weight_a": 0.75,
           "role_a": "core",
           "weight_b": 0.95,
@@ -613,6 +750,8 @@
         },
         {
           "id": "grace_park",
+          "name": "Grace Park",
+          "team": "frontend",
           "weight_a": 0.9,
           "role_a": "core",
           "weight_b": 0.5,
@@ -620,6 +759,8 @@
         },
         {
           "id": "sofia_martinez",
+          "name": "Sofia Martinez",
+          "team": "product",
           "weight_a": 0.25,
           "role_a": "peripheral",
           "weight_b": 0.95,
@@ -635,6 +776,8 @@
       "shared_people": [
         {
           "id": "priya_mehta",
+          "name": "Priya Mehta",
+          "team": "product",
           "weight_a": 0.98,
           "role_a": "lead",
           "weight_b": 0.75,
@@ -642,6 +785,8 @@
         },
         {
           "id": "frank_li",
+          "name": "Frank Li",
+          "team": "frontend",
           "weight_a": 0.7,
           "role_a": "core",
           "weight_b": 0.9,
@@ -657,6 +802,8 @@
       "shared_people": [
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight_a": 0.8,
           "role_a": "core",
           "weight_b": 0.7,
@@ -664,6 +811,8 @@
         },
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight_a": 0.85,
           "role_a": "core",
           "weight_b": 0.5,
@@ -679,6 +828,8 @@
       "shared_people": [
         {
           "id": "quinn_davis",
+          "name": "Quinn Davis",
+          "team": "product",
           "weight_a": 0.85,
           "role_a": "lead",
           "weight_b": 0.7,
@@ -686,6 +837,8 @@
         },
         {
           "id": "alice_chen",
+          "name": "Alice Chen",
+          "team": "backend",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 0.25,
@@ -701,6 +854,8 @@
       "shared_people": [
         {
           "id": "quinn_davis",
+          "name": "Quinn Davis",
+          "team": "product",
           "weight_a": 0.85,
           "role_a": "lead",
           "weight_b": 0.95,
@@ -716,6 +871,8 @@
       "shared_people": [
         {
           "id": "grace_park",
+          "name": "Grace Park",
+          "team": "frontend",
           "weight_a": 0.9,
           "role_a": "core",
           "weight_b": 0.85,
@@ -731,6 +888,8 @@
       "shared_people": [
         {
           "id": "henry_zhao",
+          "name": "Henry Zhao",
+          "team": "frontend",
           "weight_a": 0.9,
           "role_a": "core",
           "weight_b": 0.85,
@@ -746,6 +905,8 @@
       "shared_people": [
         {
           "id": "eve_johnson",
+          "name": "Eve Johnson",
+          "team": "frontend",
           "weight_a": 0.75,
           "role_a": "core",
           "weight_b": 0.9,
@@ -761,6 +922,8 @@
       "shared_people": [
         {
           "id": "ryan_nguyen",
+          "name": "Ryan Nguyen",
+          "team": "product",
           "weight_a": 0.75,
           "role_a": "core",
           "weight_b": 0.9,
@@ -776,6 +939,8 @@
       "shared_people": [
         {
           "id": "quinn_davis",
+          "name": "Quinn Davis",
+          "team": "product",
           "weight_a": 0.95,
           "role_a": "lead",
           "weight_b": 0.7,
@@ -791,6 +956,8 @@
       "shared_people": [
         {
           "id": "eve_johnson",
+          "name": "Eve Johnson",
+          "team": "frontend",
           "weight_a": 0.75,
           "role_a": "core",
           "weight_b": 0.6,
@@ -806,6 +973,8 @@
       "shared_people": [
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 0.5,
@@ -821,6 +990,8 @@
       "shared_people": [
         {
           "id": "grace_park",
+          "name": "Grace Park",
+          "team": "frontend",
           "weight_a": 0.85,
           "role_a": "core",
           "weight_b": 0.5,
@@ -836,6 +1007,8 @@
       "shared_people": [
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight_a": 0.9,
           "role_a": "core",
           "weight_b": 0.35,
@@ -851,6 +1024,8 @@
       "shared_people": [
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight_a": 0.8,
           "role_a": "core",
           "weight_b": 0.35,
@@ -866,6 +1041,8 @@
       "shared_people": [
         {
           "id": "charlie_ross",
+          "name": "Charlie Ross",
+          "team": "backend",
           "weight_a": 0.7,
           "role_a": "core",
           "weight_b": 0.35,
@@ -881,6 +1058,8 @@
       "shared_people": [
         {
           "id": "iris_wang",
+          "name": "Iris Wang",
+          "team": "design",
           "weight_a": 1.0,
           "role_a": "lead",
           "weight_b": 0.25,
@@ -896,6 +1075,8 @@
       "shared_people": [
         {
           "id": "iris_wang",
+          "name": "Iris Wang",
+          "team": "design",
           "weight_a": 0.8,
           "role_a": "core",
           "weight_b": 0.25,
@@ -911,6 +1092,8 @@
       "shared_people": [
         {
           "id": "alice_chen",
+          "name": "Alice Chen",
+          "team": "backend",
           "weight_a": 0.65,
           "role_a": "core",
           "weight_b": 0.25,
@@ -926,6 +1109,8 @@
       "shared_people": [
         {
           "id": "bob_kim",
+          "name": "Bob Kim",
+          "team": "backend",
           "weight_a": 0.2,
           "role_a": "contributor",
           "weight_b": 1.0,

@@ -1,15 +1,4 @@
-import { Node, RankedConnection, TEAM_COLORS } from "./types";
-
-const ROLE_STYLES: Record<string, { bg: string; text: string }> = {
-  lead: { bg: "bg-indigo-500/20", text: "text-indigo-300" },
-  core: { bg: "bg-emerald-500/20", text: "text-emerald-300" },
-  contributor: { bg: "bg-zinc-600/50", text: "text-zinc-400" },
-  peripheral: { bg: "bg-zinc-700/50", text: "text-zinc-500" },
-};
-
-function roleStyle(role: string) {
-  return ROLE_STYLES[role.toLowerCase()] ?? ROLE_STYLES.contributor;
-}
+import { Node, RankedConnection, TEAM_COLORS, roleStyle } from "./types";
 
 interface InfoPanelProps {
   node: Node;
