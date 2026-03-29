@@ -121,7 +121,7 @@ export const PROJECT_PALETTE = [
   "#fbbf24",
 ];
 
-export const DEFAULT_MIN_WEIGHT = 0.35;
+export const DEFAULT_MIN_WEIGHT = 0.4;
 export const TRANSITION_MS = 400;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
