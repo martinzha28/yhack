@@ -290,35 +290,25 @@ export function useGraphSimulation({
         const deg = degree.get(d.id) || 1;
         return 6 + (deg / maxDegree) * 14;
       })
-      .attr(
-        "fill",
-        isDark
-          ? (d) => TEAM_COLORS[d.team] || "#6b7280"
-          : (d) => TEAM_LIGHT_FILL[d.team] || "#f8fafc",
-      )
-      .attr(
-        "stroke",
-        isDark ? "#ffffff" : (d) => TEAM_COLORS[d.team] || "#94a3b8",
-      )
-      .attr("stroke-width", isDark ? 1.5 : 2.5);
+      .attr("fill", (d) => TEAM_LIGHT_FILL[d.team] || "#f8fafc")
+      .attr("stroke", (d) => TEAM_COLORS[d.team] || "#94a3b8")
+      .attr("stroke-width", 2.5);
 
-    // Initials centred inside each circle — light mode only
-    if (!isDark) {
-      node
-        .append("text")
-        .attr("class", "node-initials")
-        .text((d) => getInitials(d.name))
-        .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "central")
-        .attr("fill", (d) => TEAM_COLORS[d.team] || "#64748b")
-        .attr("font-size", (d) => {
-          const deg = degree.get(d.id) || 1;
-          const r = 6 + (deg / maxDegree) * 14;
-          return `${Math.max(7, Math.floor(r * 0.62))}px`;
-        })
-        .attr("font-weight", "700")
-        .attr("pointer-events", "none");
-    }
+    // Initials centred inside each circle — shown in both light and dark mode
+    node
+      .append("text")
+      .attr("class", "node-initials")
+      .text((d) => getInitials(d.name))
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("fill", (d) => TEAM_COLORS[d.team] || "#64748b")
+      .attr("font-size", (d) => {
+        const deg = degree.get(d.id) || 1;
+        const r = 6 + (deg / maxDegree) * 14;
+        return `${Math.max(7, Math.floor(r * 0.62))}px`;
+      })
+      .attr("font-weight", "700")
+      .attr("pointer-events", "none");
 
     // First-name label floating above the circle
     node

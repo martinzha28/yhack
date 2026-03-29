@@ -244,16 +244,44 @@ export default function ProjectGraph({
       .attr("stroke", (d) => STATUS_COLORS[d.status] || "#64748b")
       .attr("stroke-width", 2.5);
 
-    // Use display_name (parentheticals already stripped in Python)
-    node
-      .append("text")
-      .text((d) => d.display_name)
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.35em")
-      .attr("fill", isDark ? "#e5e7eb" : "#0f172a")
-      .attr("font-size", "11px")
-      .attr("font-weight", "600")
-      .attr("pointer-events", "none");
+    // Project name — word-wrapped: ≤20 chars per line, minimum 2 words per line
+    const LINE_H = 14;
+    node.each(function (d) {
+      const words = d.display_name.split(/\s+/);
+      const lines: string[] = [];
+      let current: string[] = [];
+      for (const word of words) {
+        const candidate = [...current, word].join(" ");
+        if (
+          current.length === 0 ||
+          candidate.length <= 20 ||
+          current.length < 2
+        ) {
+          current.push(word);
+        } else {
+          lines.push(current.join(" "));
+          current = [word];
+        }
+      }
+      if (current.length > 0) lines.push(current.join(" "));
+      // Centre the multi-line block vertically on the node
+      const halfH = ((lines.length - 1) * LINE_H) / 2;
+      const textEl = d3
+        .select(this)
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("fill", isDark ? "#e5e7eb" : "#0f172a")
+        .attr("font-size", "11px")
+        .attr("font-weight", "600")
+        .attr("pointer-events", "none");
+      lines.forEach((line, i) => {
+        textEl
+          .append("tspan")
+          .attr("x", 0)
+          .attr("dy", i === 0 ? 4 - halfH : LINE_H)
+          .text(line);
+      });
+    });
 
     // Member count sub-label
     node

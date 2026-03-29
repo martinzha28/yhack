@@ -81,7 +81,7 @@ export function useGraphEffects({
         return 6 + (deg / maxDegree) * 14;
       });
 
-    // Resize initials font to match new circle radius (light mode only)
+    // Resize initials font to match new circle radius
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("text.node-initials")
@@ -217,7 +217,7 @@ export function useGraphEffects({
         return defaultStrokeWidth;
       });
 
-    // ── Initials (light mode only — empty selection in dark mode is a no-op)
+    // ── Initials ──────────────────────────────────────────────────────────────
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("text.node-initials")
