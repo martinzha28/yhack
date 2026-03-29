@@ -18,6 +18,7 @@ export interface Node extends d3.SimulationNodeDatum {
   skills_summary?: string;
   work_summary?: string;
   community?: number;
+  avatar?: string;
 }
 
 export interface Link extends d3.SimulationLinkDatum<Node> {

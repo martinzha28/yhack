@@ -3,18 +3,11 @@
     {
       "id": "alice_chen",
       "name": "Alice Chen",
+      "avatar": "/avatars/alice_chen.png",
       "role": "Senior Engineer",
       "team": "backend",
-      "expertise": [
-        "authentication",
-        "security",
-        "oauth",
-        "middleware"
-      ],
-      "projects": [
-        "auth-refactor",
-        "billing-v2"
-      ],
+      "expertise": ["authentication", "security", "oauth", "middleware"],
+      "projects": ["auth-refactor", "billing-v2"],
       "project_roles": {
         "billing-v2": {
           "weight": 1.0,
@@ -36,19 +29,11 @@
     {
       "id": "bob_kim",
       "name": "Bob Kim",
+      "avatar": "/avatars/bob_kim.png",
       "role": "Engineer",
       "team": "backend",
-      "expertise": [
-        "databases",
-        "sql",
-        "migrations",
-        "indexing"
-      ],
-      "projects": [
-        "auth-refactor",
-        "infra-migration",
-        "platform-api"
-      ],
+      "expertise": ["databases", "sql", "migrations", "indexing"],
+      "projects": ["auth-refactor", "infra-migration", "platform-api"],
       "project_roles": {
         "platform-api": {
           "weight": 1.0,
@@ -76,16 +61,8 @@
       "name": "Charlie Ross",
       "role": "Engineer",
       "team": "backend",
-      "expertise": [
-        "APIs",
-        "REST",
-        "GraphQL"
-      ],
-      "projects": [
-        "auth-refactor",
-        "infra-migration",
-        "billing-v2"
-      ],
+      "expertise": ["APIs", "REST", "GraphQL"],
+      "projects": ["auth-refactor", "infra-migration", "billing-v2"],
       "project_roles": {
         "billing-v2": {
           "weight": 0.9,
@@ -113,16 +90,8 @@
       "name": "Dave Patel",
       "role": "Engineer",
       "team": "backend",
-      "expertise": [
-        "infrastructure",
-        "kubernetes",
-        "terraform",
-        "AWS"
-      ],
-      "projects": [
-        "infra-migration",
-        "billing-v2"
-      ],
+      "expertise": ["infrastructure", "kubernetes", "terraform", "AWS"],
+      "projects": ["infra-migration", "billing-v2"],
       "project_roles": {
         "billing-v2": {
           "weight": 1.0,
@@ -142,16 +111,8 @@
       "name": "Karen Wu",
       "role": "Staff Engineer",
       "team": "backend",
-      "expertise": [
-        "security",
-        "cryptography",
-        "oauth",
-        "identity"
-      ],
-      "projects": [
-        "auth-refactor",
-        "platform-api"
-      ],
+      "expertise": ["security", "cryptography", "oauth", "identity"],
+      "projects": ["auth-refactor", "platform-api"],
       "project_roles": {
         "platform-api": {
           "weight": 0.75,
@@ -171,17 +132,8 @@
       "name": "Mike Torres",
       "role": "Tech Lead",
       "team": "backend",
-      "expertise": [
-        "architecture",
-        "auth",
-        "design systems",
-        "APIs"
-      ],
-      "projects": [
-        "auth-refactor",
-        "design-system-v2",
-        "platform-api"
-      ],
+      "expertise": ["architecture", "auth", "design systems", "APIs"],
+      "projects": ["auth-refactor", "design-system-v2", "platform-api"],
       "project_roles": {
         "platform-api": {
           "weight": 0.95,
@@ -199,6 +151,7 @@
     {
       "id": "eve_johnson",
       "name": "Eve Johnson",
+      "avatar": "/avatars/eve_johnson.png",
       "role": "Senior Engineer",
       "team": "frontend",
       "expertise": [
@@ -207,11 +160,7 @@
         "accessibility",
         "storybook"
       ],
-      "projects": [
-        "auth-refactor",
-        "design-system-v2",
-        "platform-api"
-      ],
+      "projects": ["auth-refactor", "design-system-v2", "platform-api"],
       "project_roles": {
         "platform-api": {
           "weight": 0.9,
@@ -235,15 +184,8 @@
       "name": "Frank Li",
       "role": "Engineer",
       "team": "frontend",
-      "expertise": [
-        "performance",
-        "bundle optimization",
-        "profiling"
-      ],
-      "projects": [
-        "mobile-app",
-        "brand-refresh"
-      ],
+      "expertise": ["performance", "bundle optimization", "profiling"],
+      "projects": ["mobile-app", "brand-refresh"],
       "project_roles": {
         "mobile-app": {
           "weight": 0.9,
@@ -263,15 +205,8 @@
       "name": "Grace Park",
       "role": "Engineer",
       "team": "frontend",
-      "expertise": [
-        "components",
-        "React",
-        "animations"
-      ],
-      "projects": [
-        "design-system-v2",
-        "onboarding-redesign"
-      ],
+      "expertise": ["components", "React", "animations"],
+      "projects": ["design-system-v2", "onboarding-redesign"],
       "project_roles": {
         "design-system-v2": {
           "weight": 0.9,
@@ -293,18 +228,11 @@
     {
       "id": "henry_zhao",
       "name": "Henry Zhao",
+      "avatar": "/avatars/henry_zhao.png",
       "role": "Engineer",
       "team": "frontend",
-      "expertise": [
-        "React Native",
-        "iOS",
-        "Android",
-        "mobile"
-      ],
-      "projects": [
-        "mobile-app",
-        "platform-api"
-      ],
+      "expertise": ["React Native", "iOS", "Android", "mobile"],
+      "projects": ["mobile-app", "platform-api"],
       "project_roles": {
         "platform-api": {
           "weight": 0.9,
@@ -324,16 +252,8 @@
       "name": "Nina Scott",
       "role": "Design Engineer",
       "team": "frontend",
-      "expertise": [
-        "design systems",
-        "Figma",
-        "components",
-        "tokens"
-      ],
-      "projects": [
-        "design-system-v2",
-        "brand-refresh"
-      ],
+      "expertise": ["design systems", "Figma", "components", "tokens"],
+      "projects": ["design-system-v2", "brand-refresh"],
       "project_roles": {
         "design-system-v2": {
           "weight": 0.85,
@@ -351,18 +271,11 @@
     {
       "id": "iris_wang",
       "name": "Iris Wang",
+      "avatar": "/avatars/iris_wang.png",
       "role": "Senior Designer",
       "team": "design",
-      "expertise": [
-        "brand",
-        "visual design",
-        "Figma",
-        "design systems"
-      ],
-      "projects": [
-        "design-system-v2",
-        "brand-refresh"
-      ],
+      "expertise": ["brand", "visual design", "Figma", "design systems"],
+      "projects": ["design-system-v2", "brand-refresh"],
       "project_roles": {
         "brand-refresh": {
           "weight": 1.0,
@@ -386,16 +299,8 @@
       "name": "Jack Brown",
       "role": "Designer",
       "team": "design",
-      "expertise": [
-        "UX",
-        "user research",
-        "wireframes",
-        "onboarding flows"
-      ],
-      "projects": [
-        "design-system-v2",
-        "onboarding-redesign"
-      ],
+      "expertise": ["UX", "user research", "wireframes", "onboarding flows"],
+      "projects": ["design-system-v2", "onboarding-redesign"],
       "project_roles": {
         "onboarding-redesign": {
           "weight": 0.95,
@@ -419,16 +324,8 @@
       "name": "Lisa Chen",
       "role": "Designer",
       "team": "design",
-      "expertise": [
-        "motion design",
-        "animations",
-        "Lottie",
-        "After Effects"
-      ],
-      "projects": [
-        "design-system-v2",
-        "brand-refresh"
-      ],
+      "expertise": ["motion design", "animations", "Lottie", "After Effects"],
+      "projects": ["design-system-v2", "brand-refresh"],
       "project_roles": {
         "design-system-v2": {
           "weight": 0.85,
@@ -448,15 +345,8 @@
       "name": "Oscar Lee",
       "role": "Design Lead",
       "team": "design",
-      "expertise": [
-        "design leadership",
-        "design systems",
-        "brand strategy"
-      ],
-      "projects": [
-        "design-system-v2",
-        "brand-refresh"
-      ],
+      "expertise": ["design leadership", "design systems", "brand strategy"],
+      "projects": ["design-system-v2", "brand-refresh"],
       "project_roles": {
         "brand-refresh": {
           "weight": 1.0,
@@ -476,17 +366,8 @@
       "name": "Priya Mehta",
       "role": "Product Manager",
       "team": "product",
-      "expertise": [
-        "growth",
-        "activation metrics",
-        "user funnels",
-        "mobile"
-      ],
-      "projects": [
-        "mobile-app",
-        "onboarding-redesign",
-        "brand-refresh"
-      ],
+      "expertise": ["growth", "activation metrics", "user funnels", "mobile"],
+      "projects": ["mobile-app", "onboarding-redesign", "brand-refresh"],
       "project_roles": {
         "brand-refresh": {
           "weight": 0.98,
@@ -504,17 +385,11 @@
     {
       "id": "quinn_davis",
       "name": "Quinn Davis",
+      "avatar": "/avatars/quinn_davis.png",
       "role": "Product Manager",
       "team": "product",
-      "expertise": [
-        "platform",
-        "developer experience",
-        "onboarding"
-      ],
-      "projects": [
-        "onboarding-redesign",
-        "billing-v2"
-      ],
+      "expertise": ["platform", "developer experience", "onboarding"],
+      "projects": ["onboarding-redesign", "billing-v2"],
       "project_roles": {
         "onboarding-redesign": {
           "weight": 0.95,
@@ -538,16 +413,8 @@
       "name": "Ryan Nguyen",
       "role": "Product Analyst",
       "team": "product",
-      "expertise": [
-        "analytics",
-        "SQL",
-        "dashboards",
-        "metrics"
-      ],
-      "projects": [
-        "mobile-app",
-        "billing-v2"
-      ],
+      "expertise": ["analytics", "SQL", "dashboards", "metrics"],
+      "projects": ["mobile-app", "billing-v2"],
       "project_roles": {
         "revenue-dashboard": {
           "weight": 0.9,
@@ -567,14 +434,8 @@
       "name": "Sofia Martinez",
       "role": "Head of Product",
       "team": "product",
-      "expertise": [
-        "product strategy",
-        "roadmap",
-        "stakeholder management"
-      ],
-      "projects": [
-        "onboarding-redesign"
-      ],
+      "expertise": ["product strategy", "roadmap", "stakeholder management"],
+      "projects": ["onboarding-redesign"],
       "project_roles": {
         "onboarding-redesign": {
           "weight": 0.95,
@@ -595,9 +456,7 @@
       "role": "Engineer (New)",
       "team": "frontend",
       "expertise": [],
-      "projects": [
-        "onboarding-redesign"
-      ],
+      "projects": ["onboarding-redesign"],
       "project_roles": {
         "onboarding-redesign": {
           "weight": 0.9,

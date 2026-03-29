@@ -156,6 +156,13 @@ export function useGraphEffects({
 
       g.select(".nodes")
         .selectAll<SVGGElement, Node>("g")
+        .select("image.node-avatar")
+        .transition()
+        .duration(200)
+        .attr("opacity", 1);
+
+      g.select(".nodes")
+        .selectAll<SVGGElement, Node>("g")
         .select("text.node-label")
         .transition()
         .duration(200)
@@ -221,6 +228,14 @@ export function useGraphEffects({
     g.select(".nodes")
       .selectAll<SVGGElement, Node>("g")
       .select("text.node-initials")
+      .transition()
+      .duration(200)
+      .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12));
+
+    // ── Avatar images ──────────────────────────────────────────────────────
+    g.select(".nodes")
+      .selectAll<SVGGElement, Node>("g")
+      .select("image.node-avatar")
       .transition()
       .duration(200)
       .attr("opacity", (d: Node) => (highlightedIds.has(d.id) ? 1 : 0.12));

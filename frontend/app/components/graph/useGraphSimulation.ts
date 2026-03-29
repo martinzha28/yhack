@@ -258,6 +258,9 @@ export function useGraphSimulation({
     });
     const maxDegree = Math.max(...(degree.size ? degree.values() : [1]), 1);
 
+    // defs block for avatar clip paths (one per avatar node)
+    const defs = svg.append("defs");
+
     const node = g
       .append("g")
       .attr("class", "nodes")
@@ -284,31 +287,62 @@ export function useGraphSimulation({
           }),
       );
 
-    node
-      .append("circle")
-      .attr("r", (d) => {
-        const deg = degree.get(d.id) || 1;
-        return 6 + (deg / maxDegree) * 14;
-      })
-      .attr("fill", (d) => TEAM_LIGHT_FILL[d.team] || "#f8fafc")
-      .attr("stroke", (d) => TEAM_COLORS[d.team] || "#94a3b8")
-      .attr("stroke-width", 2.5);
+    // Per-node: avatar photo (clipped circle) or light-fill circle + initials
+    node.each(function (d) {
+      const sel = d3.select(this);
+      const deg = degree.get(d.id) || 1;
+      const r = 6 + (deg / maxDegree) * 14;
 
-    // Initials centred inside each circle — shown in both light and dark mode
-    node
-      .append("text")
-      .attr("class", "node-initials")
-      .text((d) => getInitials(d.name))
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "central")
-      .attr("fill", (d) => TEAM_COLORS[d.team] || "#64748b")
-      .attr("font-size", (d) => {
-        const deg = degree.get(d.id) || 1;
-        const r = 6 + (deg / maxDegree) * 14;
-        return `${Math.max(7, Math.floor(r * 0.62))}px`;
-      })
-      .attr("font-weight", "700")
-      .attr("pointer-events", "none");
+      if (d.avatar) {
+        // Define a circular clip path unique to this node
+        defs
+          .append("clipPath")
+          .attr("id", `avatar-clip-${d.id}`)
+          .append("circle")
+          .attr("r", r);
+
+        // Stroke-only circle keeps the team-colour ring and participates in
+        // highlight effects (useGraphEffects selects "circle")
+        sel
+          .append("circle")
+          .attr("r", r)
+          .attr("fill", "#ffffff")
+          .attr("stroke", TEAM_COLORS[d.team] || "#94a3b8")
+          .attr("stroke-width", 2.5);
+
+        // Avatar image clipped to the circle
+        sel
+          .append("image")
+          .attr("class", "node-avatar")
+          .attr("href", d.avatar)
+          .attr("x", -r)
+          .attr("y", -r)
+          .attr("width", r * 2)
+          .attr("height", r * 2)
+          .attr("clip-path", `url(#avatar-clip-${d.id})`)
+          .attr("preserveAspectRatio", "xMidYMid slice")
+          .attr("pointer-events", "none");
+      } else {
+        // Light-fill circle + initials (existing behaviour)
+        sel
+          .append("circle")
+          .attr("r", r)
+          .attr("fill", TEAM_LIGHT_FILL[d.team] || "#f8fafc")
+          .attr("stroke", TEAM_COLORS[d.team] || "#94a3b8")
+          .attr("stroke-width", 2.5);
+
+        sel
+          .append("text")
+          .attr("class", "node-initials")
+          .text(getInitials(d.name))
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "central")
+          .attr("fill", TEAM_COLORS[d.team] || "#64748b")
+          .attr("font-size", `${Math.max(7, Math.floor(r * 0.62))}px`)
+          .attr("font-weight", "700")
+          .attr("pointer-events", "none");
+      }
+    });
 
     // First-name label floating above the circle
     node
